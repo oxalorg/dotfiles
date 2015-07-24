@@ -11,3 +11,9 @@ of extra stuff which I don't require.
 # Included configs:
 
 * xfce4
+
+# Notes
+
+Please edit the following files if you are cloning/forking this repository:
+
+* .gitconfig [user.name and user.email]
