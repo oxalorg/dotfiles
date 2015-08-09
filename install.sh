@@ -19,3 +19,6 @@ echo "\nDownloading fasd"
 git clone https://github.com/clvv/fasd  || exit_if_failed
 echo "\nFasd downloaded. Installing.." || exit_if_failed
 make install
+
+echo "\nSoft linking global .gitconfig.."
+ln --symbolic ~/dotfiles/.gitconfig ~/.gitconfig

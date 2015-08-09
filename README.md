@@ -3,14 +3,23 @@
 My repository for all my personal tweaks and settings.
 
 I've seen a lot of people recommending forking dotfile repos from
-others which is totally a cool idea but they usually contain a lot
-of extra stuff which I don't require.
+others which according to me defeats the whole purpose of 'peronsalization'.
 
 ---
+
+# Installation
+
+```
+cd ~ && git clone https://github.com/MiteshNinja/dotfiles
+sh install.sh
+```
 
 # Included configs:
 
 * xfce4
+* zsh
+* global .gitconfig
+* vim/vimrc
 
 # Notes
 
