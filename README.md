@@ -10,7 +10,8 @@ others which according to me defeats the whole purpose of 'peronsalization'.
 # Installation
 
 ```
-cd ~ && git clone https://github.com/MiteshNinja/dotfiles
+cd ~ || cd $HOME
+git clone https://github.com/MiteshNinja/dotfiles && cd dotfiles
 sh install.sh
 ```
 
