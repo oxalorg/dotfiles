@@ -1,5 +1,5 @@
 favorites=exo-web-browser.desktop,exo-mail-reader.desktop,exo-file-manager.desktop,abiword.desktop,gnumeric.desktop,pidgin.desktop,gmusicbrowser.desktop,ubuntu-software-center.desktop,exo-terminal-emulator.desktop,xfhelp4.desktop
-recent=xfce-keyboard-settings.desktop,xfce-wm-settings.desktop,im-config.desktop,exo-web-browser.desktop,xfce-display-settings.desktop,exo-mail-reader.desktop,xfce-ui-settings.desktop
+recent=xfce4-power-manager-settings.desktop,xfce-keyboard-settings.desktop,keepassx.desktop,dropbox.desktop,firefox.desktop,xfce4-taskmanager.desktop,xfce-wm-settings.desktop,im-config.desktop,exo-web-browser.desktop,xfce-display-settings.desktop
 button-title=Applications Menu
 button-icon=xubuntu-logo-menu
 show-button-title=false
