@@ -10,6 +10,8 @@ else
 	exit
 fi
 
+git clone --recursive https://github.com/changs/slimzsh.git ~/.slimzsh || { echo "Failed" ; exit 1 }
+
 echo "Soft linking .zshrc to ~/.zshrc"
 ln --symbolic ~/dotfiles/zsh/.zshrc ~/.zshrc
 
