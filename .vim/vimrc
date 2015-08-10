@@ -1,2 +1,3 @@
-nmap <CR> O<esc>j
-nmap <S-Enter> o<esc>k
+nmap <CR> i<CR><esc>
+nmap <BS> i<BS><esc>
+nmap <Space> i<Space><esc>

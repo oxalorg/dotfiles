@@ -10,5 +10,6 @@
     <property name="lid-action-on-battery" type="uint" value="1"/>
     <property name="critical-power-action" type="uint" value="3"/>
     <property name="inactivity-on-battery" type="uint" value="15"/>
+    <property name="brightness-on-battery" type="uint" value="9"/>
   </property>
 </channel>
