@@ -201,7 +201,6 @@
       <property name="&lt;Control&gt;&lt;Shift&gt;&lt;Alt&gt;Up" type="string" value="move_window_up_key"/>
       <property name="&lt;Alt&gt;F9" type="string" value="hide_window_key"/>
       <property name="&lt;Primary&gt;&lt;Shift&gt;&lt;Alt&gt;Up" type="string" value="move_window_up_key"/>
-      <property name="&lt;Alt&gt;F10" type="string" value="maximize_window_key"/>
       <property name="Escape" type="string" value="cancel_key"/>
       <property name="&lt;Alt&gt;F12" type="string" value="above_key"/>
       <property name="&lt;Primary&gt;F12" type="string" value="workspace_12_key"/>
@@ -239,8 +238,9 @@
       <property name="&lt;Super&gt;Down" type="string" value="tile_down_key"/>
       <property name="&lt;Super&gt;Left" type="string" value="tile_left_key"/>
       <property name="&lt;Super&gt;Right" type="string" value="tile_right_key"/>
-      <property name="&lt;Super&gt;backslash" type="string" value="maximize_window_key"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;2" type="string" value="move_window_workspace_2_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;1" type="string" value="move_window_workspace_1_key"/>
+      <property name="&lt;Super&gt;backslash" type="string" value="maximize_window_key"/>
     </property>
   </property>
   <property name="providers" type="array">
