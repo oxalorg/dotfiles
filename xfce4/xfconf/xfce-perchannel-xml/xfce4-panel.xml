@@ -47,6 +47,7 @@
       <property name="size-max" type="uint" value="22"/>
       <property name="names-visible" type="array">
         <value type="string" value="vlc"/>
+        <value type="string" value="networkmanager applet"/>
         <value type="string" value="task manager"/>
         <value type="string" value="blueman-applet"/>
         <value type="string" value="qbittorrent"/>

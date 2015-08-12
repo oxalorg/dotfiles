@@ -75,5 +75,6 @@
     <property name="unredirect_overlays" type="bool" value="true"/>
     <property name="wrap_cycle" type="bool" value="true"/>
     <property name="wrap_layout" type="bool" value="true"/>
+    <property name="margin_top" type="int" value="0"/>
   </property>
 </channel>
