@@ -4,7 +4,7 @@
   <property name="xfce4-power-manager" type="empty">
     <property name="power-button-action" type="empty"/>
     <property name="show-tray-icon" type="empty"/>
-    <property name="logind-handle-lid-switch" type="bool" value="true"/>
+    <property name="logind-handle-lid-switch" type="bool" value="false"/>
     <property name="inactivity-on-ac" type="uint" value="18"/>
     <property name="lid-action-on-ac" type="uint" value="1"/>
     <property name="lid-action-on-battery" type="uint" value="1"/>
@@ -19,5 +19,6 @@
     <property name="dpms-on-ac-sleep" type="uint" value="15"/>
     <property name="sleep-button-action" type="uint" value="3"/>
     <property name="hibernate-button-action" type="uint" value="3"/>
+    <property name="dpms-sleep-mode" type="string" value="standby"/>
   </property>
 </channel>

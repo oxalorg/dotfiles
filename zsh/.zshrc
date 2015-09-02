@@ -1,2 +1,2 @@
 alias cls=clear
-source "$HOME/.slimzsh/slim.zsh"
+source "$HOME/dotfiles/zsh/aliases.zsh"
