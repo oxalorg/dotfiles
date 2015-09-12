@@ -2,7 +2,7 @@
 
 <channel name="keyboard-layout" version="1.0">
   <property name="Default" type="empty">
-    <property name="XkbDisable" type="bool" value="true"/>
+    <property name="XkbDisable" type="bool" value="false"/>
     <property name="XkbModel" type="string" value="pc105"/>
   </property>
 </channel>

@@ -15,6 +15,7 @@
         <value type="int" value="12"/>
         <value type="int" value="14"/>
         <value type="int" value="4"/>
+        <value type="int" value="8"/>
         <value type="int" value="5"/>
         <value type="int" value="7"/>
         <value type="int" value="6"/>
@@ -82,6 +83,11 @@
     </property>
     <property name="plugin-6" type="string" value="pager">
       <property name="rows" type="uint" value="2"/>
+    </property>
+    <property name="plugin-8" type="string" value="launcher">
+      <property name="items" type="array">
+        <value type="string" value="14412539011.desktop"/>
+      </property>
     </property>
   </property>
   <property name="configver" type="int" value="2"/>
