@@ -2,7 +2,9 @@
 
 <channel name="keyboard-layout" version="1.0">
   <property name="Default" type="empty">
-    <property name="XkbDisable" type="bool" value="false"/>
-    <property name="XkbModel" type="string" value="pc105"/>
+    <property name="XkbDisable" type="bool" value="true"/>
+    <property name="XkbModel" type="string" value="inspiron"/>
+    <property name="XkbLayout" type="string" value="us"/>
+    <property name="XkbVariant" type="string" value=""/>
   </property>
 </channel>
