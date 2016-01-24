@@ -40,4 +40,6 @@ nnoremap gV `[v`]
 " Overrides tmux buffer scroll in panes.
 set mouse=a
 
-
+" Load vim-plug
+" Change ~/.vim/vim-plugins file to edit plugins
+source ~/.vim/vim-plugins
