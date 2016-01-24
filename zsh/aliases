@@ -1,0 +1,13 @@
+# Make these utils more verbose
+for c in cp rm chmod chown rename; do
+    alias $c="$c -v"
+done
+
+# Force tmux to support 256 colors
+alias tmux="tmux -2"
+
+# List commands
+alias ls="ls --color=auto"
+alias ll="ls -l --color=auto"
+alias lt="ls -lt"
+alias la="ls -a"
