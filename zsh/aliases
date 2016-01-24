@@ -3,11 +3,20 @@ for c in cp rm chmod chown rename; do
     alias $c="$c -v"
 done
 
-# Force tmux to support 256 colors
-alias tmux="tmux -2"
+# Force tmux to support 256 colors and UTF-8
+alias tmux="tmux -2u"
 
 # List commands
 alias ls="ls --color=auto"
 alias ll="ls -l --color=auto"
 alias lt="ls -lt"
 alias la="ls -a"
+
+# Git
+alias gst='git status -sb'
+alias ga='git add'
+## Git log
+alias gl='git log --graph --color --decorate --all --stat -p'
+## Git log summary
+alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+

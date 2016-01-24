@@ -5,7 +5,7 @@ export LS_COLORS
 
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=* r:|=*' '' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active %l: current selection at %p%s
 zstyle :compinstall filename '/home/mitesh/.zshrc'
@@ -57,7 +57,7 @@ source "${HOME}/.config/zsh/functions/go"
 ###########################
 #### Load other scripts.
 ###########################
-. /usr/local/bin/z.sh
+[ -f /usr/local/bin/z.sh ] && . /usr/local/bin/z.sh
 
 
 ###############################

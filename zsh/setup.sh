@@ -1,5 +1,5 @@
 #!/bin/sh
-DOTFILESDIR=~/.dotfiles
+DOTFILESDIR=~/Dropbox/Projects/dotfiles
 
 echo "# Checking if zsh is installed"
 
@@ -11,9 +11,26 @@ else
 	exit
 fi
 
+if [ -f ~/.zshrc ]; then
+        echo "Backing up existing .zshrc."
+        mv ~/.zshrc ~/.zshrc.$(date +%F-%R).bak
+fi
+
+if [ -d ~/.config/zsh ]; then
+        echo "Backing up zsh folder"
+        mv ~/.config/zsh ~/.config/zsh.$(date +%F-%R).bak
+fi
+
+
 echo "Soft linking zsh to ~/.config/zsh"
-ln --symbolic ${DOTFILESDIR}/zsh ${HOME}/.config/
+ln --symbolic -v ${DOTFILESDIR}/zsh ${HOME}/.config/
 
 echo "Soft linking .zshrc to ~/.zshrc"
-ln --symbolic ${HOME}/.config/zsh/.zshrc ${HOME}/
+ln --symbolic -v ${HOME}/.config/zsh/.zshrc ${HOME}/
 
+if ! [ -f ~/zgen/zgen.zsh ]; then
+	cd ~
+	git clone https://github.com/tarjoilija/zgen
+fi
+
+echo "Now run 'source ~/.zshrc' to activate your settings."
