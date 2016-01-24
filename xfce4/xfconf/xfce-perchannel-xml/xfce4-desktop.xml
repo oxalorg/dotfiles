@@ -13,7 +13,7 @@
   <property name="backdrop" type="empty">
     <property name="screen0" type="empty">
       <property name="monitor0" type="empty">
-        <property name="image-path" type="string" value="/home/mitesh/Dropbox/Wallpapers/21407_anime_scenery.jpg"/>
+        <property name="image-path" type="string" value="/home/mitesh/Dropbox/Photos/Wallpapers/502742.jpg"/>
         <property name="image-style" type="int" value="0"/>
         <property name="image-show" type="empty"/>
         <property name="workspace0" type="empty">
@@ -58,7 +58,7 @@
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="3"/>
-          <property name="last-image" type="string" value="/home/mitesh/Dropbox/Wallpapers/xt6dV.jpg"/>
+          <property name="last-image" type="string" value="/home/mitesh/Dropbox/Photos/Wallpapers/502742.jpg"/>
         </property>
         <property name="workspace1" type="empty">
           <property name="color-style" type="int" value="0"/>
@@ -82,5 +82,9 @@
         </property>
       </property>
     </property>
+  </property>
+  <property name="last" type="empty">
+    <property name="window-width" type="int" value="609"/>
+    <property name="window-height" type="int" value="531"/>
   </property>
 </channel>

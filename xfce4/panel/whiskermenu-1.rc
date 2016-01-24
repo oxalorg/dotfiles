@@ -1,5 +1,5 @@
 favorites=exo-web-browser.desktop,exo-mail-reader.desktop,exo-file-manager.desktop,abiword.desktop,gnumeric.desktop,pidgin.desktop,gmusicbrowser.desktop,ubuntu-software-center.desktop,exo-terminal-emulator.desktop,xfhelp4.desktop,chrome-app-list.desktop
-recent=xfce-keyboard-settings.desktop,vlc.desktop,exo-web-browser.desktop,system-config-printer.desktop,xfce4-screenshooter.desktop,qBittorrent.desktop,xchat.desktop,pidgin.desktop,nm-connection-editor.desktop,network.desktop
+recent=steam.desktop,ubuntu-software-center.desktop,dosbox.desktop,sublime-text.desktop,xfce-wm-settings.desktop,xfce-display-settings.desktop,xfce-backdrop-settings.desktop,exo-mail-reader.desktop,xfce4-screenshooter.desktop,focuswriter.desktop
 button-title=Applications Menu
 button-icon=xubuntu-logo-menu
 show-button-title=false

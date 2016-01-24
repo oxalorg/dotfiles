@@ -5,7 +5,7 @@
     <property name="frame_opacity" type="empty"/>
     <property name="show_frame_shadow" type="empty"/>
     <property name="show_popup_shadow" type="empty"/>
-    <property name="theme" type="string" value="Daloa"/>
+    <property name="theme" type="string" value="Numix"/>
     <property name="use_compositing" type="empty"/>
     <property name="workspace_count" type="int" value="4"/>
     <property name="workspace_names" type="array">
@@ -18,7 +18,7 @@
     <property name="activate_action" type="string" value="switch"/>
     <property name="box_move" type="empty"/>
     <property name="box_resize" type="empty"/>
-    <property name="button_layout" type="string" value="OHMC|"/>
+    <property name="button_layout" type="string" value="OHMCTS|"/>
     <property name="button_offset" type="empty"/>
     <property name="button_spacing" type="empty"/>
     <property name="click_to_focus" type="empty"/>
@@ -44,7 +44,7 @@
     <property name="snap_to_border" type="empty"/>
     <property name="snap_to_windows" type="empty"/>
     <property name="snap_width" type="empty"/>
-    <property name="title_alignment" type="empty"/>
+    <property name="title_alignment" type="string" value="left"/>
     <property name="title_font" type="empty"/>
     <property name="title_horizontal_offset" type="empty"/>
     <property name="title_shadow_active" type="empty"/>
