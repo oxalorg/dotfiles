@@ -11,16 +11,15 @@ else
 	exit
 fi
 
-if [ -f ~/.zshrc ]; then
+if [ -e ~/.zshrc -o -L ~/.zshrc ]; then
         echo "Backing up existing .zshrc."
         mv ~/.zshrc ~/.zshrc.$(date +%F-%R).bak
 fi
 
-if [ -d ~/.config/zsh ]; then
+if [ -d ~/.config/zsh -o -L ~/.config/zsh ]; then
         echo "Backing up zsh folder"
         mv ~/.config/zsh ~/.config/zsh.$(date +%F-%R).bak
 fi
-
 
 echo "Soft linking zsh to ~/.config/zsh"
 ln --symbolic -v ${DOTFILESDIR}/zsh ${HOME}/.config/
@@ -28,7 +27,7 @@ ln --symbolic -v ${DOTFILESDIR}/zsh ${HOME}/.config/
 echo "Soft linking .zshrc to ~/.zshrc"
 ln --symbolic -v ${HOME}/.config/zsh/.zshrc ${HOME}/
 
-if ! [ -f ~/zgen/zgen.zsh ]; then
+if ! [ -e ~/zgen/zgen.zsh -o -L ~/zgen/zgen.zsh ]; then
 	cd ~
 	git clone https://github.com/tarjoilija/zgen
 fi
