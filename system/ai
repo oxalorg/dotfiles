@@ -1,0 +1,23 @@
+#!/bin/sh
+# ai - apt-info
+# Get info about a particular package name
+# Author: @MiteshNinja
+
+echo "Searching.."
+echo "-----------------------"
+if [ -z "$(apt-cache search $1)" ]; then
+	echo "No such package found."
+else
+	apt-cache -n search $1
+	echo "-----------------------"
+	if ! [ -z "$(apt-cache policy $1)" ]; then
+		apt-cache policy $1
+		echo "-----------------------"
+		awkprog='if ($1 == "Package:" || $1 == "Installed-Size:" || $1 == "Depends:" || $1 == "Recommends:" || $1 == "Suggests:" || $1 == "Description-en:"){
+				 printf "\033[;1m" $1 " \033[0m"; $1=""; print
+			}'
+		apt-cache show $1 | awk "{${awkprog}}"
+		echo "-----------------------"
+		apt-cache madison $1
+	fi
+fi
