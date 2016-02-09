@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+import os
+import random
+
+cow = [ 
+    "Yo whaddup homie?",
+    "GANGSTA in da house!",
+    "Moo Moo muhrer fuhrer!",
+    "Dam it feels good to be a gangsta!",
+    "Drop it like it's MOOOOO!",
+    "Is it too late now to say I'm MOOORY!?!",
+    "Do or do not. There is no MOO!",
+    "Necessity is the MOO of Invention.",
+    "Moo is path to the dark side.\n\
+     Moo leads to anger, anger leads to hate\n\
+    hate leads to sufferings.",
+    "If stupid you are\n\
+    Moo you should not"
+]
+
+r = random.randint(0, len(cow)-1)
+cowcmd = "cowsay \"{}\" | lolcat".format(cow[r])
+os.system(cowcmd)
+
