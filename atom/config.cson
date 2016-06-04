@@ -1,0 +1,32 @@
+"*":
+  "autocomplete-python":
+    pythonPaths: "$HOME/Envs/$PROJECT_NAME/bin/python3"
+  core:
+    disabledPackages: [
+      "atom-terminal-panel"
+    ]
+    ignoredNames: [
+      ".git"
+      ".hg"
+      ".svn"
+      ".DS_Store"
+      "._*"
+      "Thumbs.db"
+      "__pycache__"
+      ".idea"
+    ]
+    projectHome: "/home/ox/Dropbox/Projects"
+  editor:
+    backUpBeforeSaving: true
+    scrollPastEnd: true
+    showIndentGuide: true
+    showInvisibles: true
+    softWrap: true
+    tabLength: 4
+  "exception-reporting":
+    userId: "3c960ecf-079d-3789-54f6-d4fb3d391f16"
+  "python-yapf":
+    formatOnSave: true
+    yapfPath: "/home/ox/.local/bin/yapf"
+  welcome:
+    showOnStartup: false
