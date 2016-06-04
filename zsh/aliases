@@ -20,3 +20,7 @@ alias gl='git log --graph --color --decorate --all --stat -p'
 ## Git log summary
 alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
+# Colorize commands
+#
+alias grep='grep --color'
+alias nyancat='pygmentize -g -O style=colorful'

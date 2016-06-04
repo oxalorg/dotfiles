@@ -1,0 +1,7 @@
+export EDITOR=nvim
+# virtualenvwrapper
+export WORKON_HOME=~/Envs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source ~/.local/bin/virtualenvwrapper.sh
+
+export PATH="/home/ox/.local/bin:$PATH"

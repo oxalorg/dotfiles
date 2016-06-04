@@ -21,6 +21,17 @@ compinit
 export EDITOR=vim
 autoload -U colors && colors
 setopt autocd extendedglob
+# virtualenvwrapper
+export WORKON_HOME=~/evns
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
+
+# report command time if > 'x' seconds
+REPORTTIME=2
+
+# moo gangsta
+moo
+
 
 ######################
 #### History Settings.
