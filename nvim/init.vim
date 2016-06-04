@@ -19,6 +19,8 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('zchee/deoplete-jedi')
 call dein#add('mtth/scratch.vim')
+call dein#add('scrooloose/nerdtree')
+call dein#add('jmcantrell/vim-virtualenv')
 
 " Tpope in my vimrc
 call dein#add('tpope/vim-commentary')
@@ -47,8 +49,12 @@ endif
 call deoplete#enable()
 colo seoul256
 
+" Plugin customization
+map <C-\> :NERDTreeToggle<CR>
+
+
 " Python
-let g:python_host_prog = '/usr/bin/python'
+"let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
 autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
 
@@ -56,3 +62,8 @@ autocmd FileType python nnoremap <leader>y :0,$!yapf<Cr>
 set relativenumber number
 autocmd CompleteDone * pclose
 
+set tabstop=4		" number of visual spaces interpreted for each tab
+set softtabstop=4	" number of spaces inserted when using tab
+set expandtab		" expand tabs to spaces
+set shiftwidth=4        " When indenting with > / <
+set smartindent
