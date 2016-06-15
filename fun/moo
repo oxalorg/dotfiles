@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import random
+import sys
 
 cow = [ 
     "Yo whaddup homie?",
@@ -18,7 +19,11 @@ cow = [
     Moo you should not"
 ]
 
-r = random.randint(0, len(cow)-1)
-cowcmd = "cowsay \"{}\" | lolcat".format(cow[r])
+if len(sys.argv) == 1:
+    r = random.randint(0, len(cow)-1)
+    cowcmd = "cowsay \"{}\" | lolcat".format(cow[r])
+else:
+   cowcmd = "cowsay \"{}\" | lolcat".format(sys.argv[1])
+
 os.system(cowcmd)
 
