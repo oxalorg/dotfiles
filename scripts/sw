@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+# @MiteshNinja
+# 15th June 2016
+# Simple script to SetWallpapers
+if [ "$1" = "--help" -o "$1" = "" ]; then
+	echo "sw sets your wallpaper with an online image"
+	echo "sw <web link to image>"
+	return 0;
+fi
+
+# Saves image in ~/.sw folder
+if [ -d "$HOME/.sw" -o -L "$HOME/.sw" ]
+then
+	:
+else
+	# Make the directory
+	mkdir "$HOME/.sw"
+fi
+
+url=$1
+filename=$(basename "$url")
+# Download image
+wget -O $HOME/.sw/$filename "$url"
+# Set wallpaper (sw)
+gsettings set org.gnome.desktop.background picture-uri file://$HOME/.sw/$filename
