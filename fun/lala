@@ -2,16 +2,21 @@
 """Script to fetch lyrics"""
 import urllib.request
 import urllib.parse
+import sys
 
 def get_lyrics(title, artist):
     lyr_endpt = 'http://makeitpersonal.co/lyrics'
     query = urllib.parse.urlencode([('artist', artist), ('title', title)])
     lyr_url = lyr_endpt + '?' + query
-    print(lyr_url)
+    # print(lyr_url)
     f = urllib.request.urlopen(lyr_url)
     print(f.read().decode('utf-8'))
 
 if __name__ == '__main__':
-    title = input('Song: ')
-    artist = input('Creator: ')
+    if len(sys.argv) < 2:
+        title = input('Song: ')
+        artist = input('Creator: ')
+    else:
+        title = sys.argv[1]
+        artist = sys.argv[2]
     get_lyrics(title, artist)
