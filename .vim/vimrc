@@ -46,6 +46,12 @@ autocmd CompleteDone * pclose
 " Overrides tmux buffer scroll in panes.
 set mouse=a
 
+" Remap esc key
+inoremap kj <ESC>
+
+" Remap semicolon
+:nmap ; :
+
 " Load vim-plug
 " Change ~/.vim/vim-plugins file to edit plugins
 source ~/.vim/vim-plugins

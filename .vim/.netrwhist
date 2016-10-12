@@ -1,4 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/home/mitesh/.vim'
 let g:netrw_dirhist_2='/home/mitesh/projects/log-ninja/.git'
+let g:netrw_dirhist_3='/home/ox/Dropbox/Projects/ghPublish/ghPublish'
+let g:netrw_dirhist_4='/home/ox/Dropbox/Projects/PyUrbanDict/PyUrbanDict'
