@@ -1,7 +1,16 @@
 "*":
+  "atom-beautify":
+    general:
+      _analyticsUserId: "2eee9718-e81e-4997-bbb7-13be44aeb082"
   "autocomplete-python":
-    pythonPaths: "$HOME/Envs/$PROJECT_NAME/bin/python3"
+    extraPaths: "/Users/ox/.venv/$PROJECT_NAME/lib/python3.5/site-packages"
+    pythonPaths: "/Users/ox/.venv/$PROJECT_NAME/bin/python;$PROJECT/venv/bin/python3;/usr/bin/python"
   core:
+    customFileTypes:
+      "source.js.jsx": [
+        "jsx"
+        "jsx.js"
+      ]
     disabledPackages: [
       "atom-terminal-panel"
     ]
@@ -16,11 +25,14 @@
       ".idea"
     ]
     projectHome: "/home/ox/Dropbox/Projects"
+    themes: [
+      "one-dark-ui"
+      "atom-dark-syntax"
+    ]
   editor:
     backUpBeforeSaving: true
+    fontSize: 19
     scrollPastEnd: true
-    showIndentGuide: true
-    showInvisibles: true
     softWrap: true
     tabLength: 4
   "exception-reporting":
@@ -28,5 +40,8 @@
   "python-yapf":
     formatOnSave: true
     yapfPath: "/home/ox/.local/bin/yapf"
+    yapfStyle: "{COLUMN_LIMIT: 120}"
+  "tree-view":
+    hideVcsIgnoredFiles: true
   welcome:
     showOnStartup: false
