@@ -21,16 +21,12 @@ compinit
 export EDITOR=vim
 autoload -U colors && colors
 setopt autocd extendedglob
-# virtualenvwrapper
-export WORKON_HOME=~/evns
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
 
 # report command time if > 'x' seconds
 REPORTTIME=2
 
 # moo gangsta
-moo
+#moo
 
 
 ######################
@@ -52,24 +48,39 @@ setopt hist_verify
 setopt inc_append_history
 setopt share_history # share command history data
 
+######################
+#### Load custom paths
+######################
+
+source ${HOME}/.config/zsh/paths
+
 ###########################
 #### Load custom aliases.
 ###########################
 
-source "${HOME}/.config/zsh/aliases"
+for file in ${HOME}/.config/zsh/aliases/*; do
+   	source "$file";
+done
 
 ###########################
 #### Load custom functions.
 ###########################
 
-source "${HOME}/.config/zsh/functions/spectrum"
-source "${HOME}/.config/zsh/functions/go"
+for file in ${HOME}/.config/zsh/functions/*; do
+   	source "$file";
+done
 
 ###########################
 #### Load other scripts.
 ###########################
 [ -f /usr/local/bin/z.sh ] && . /usr/local/bin/z.sh
 
+### fzf - fuzzy finder
+### https://github.com/junegunn/fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#### virtualenvwrapper
+source ~/.config/zsh/customrc
 
 ###############################
 #### Load 3rd party extentions.
@@ -77,16 +88,20 @@ source "${HOME}/.config/zsh/functions/go"
 
 ### zgen
 ## https://github.com/tarjoilija/zgen
-source "${HOME}/zgen/zgen.zsh"
+source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
 	echo "Creating a zgen save"
-	
-	zgen oh-my-zsh themes/nicoulaj.zsh-theme 
-	
+	#zgen oh-my-zsh
+	#zgen oh-my-zsh themes/arrow
+	#zgen load BakeRolls/frisk-arrow
+	zgen load oldratlee/hacker-quotes
+	zgen load yous/lime
+
+	zgen load andrewferrier/fzf-z
+	zgen load supercrabtree/k
+	zgen load zsh-users/zsh-syntax-highlighting
+	zgen load zsh-users/zsh-autosuggestions
 	zgen save
 fi
 
-### fzf - fuzzy finder
-## https://github.com/junegunn/fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

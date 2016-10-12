@@ -11,6 +11,10 @@ else
 	exit
 fi
 
+#############################
+# Check for existing configs
+#############################
+
 if [ -e ~/.zshrc -o -L ~/.zshrc ]; then
         echo "Backing up existing .zshrc."
         mv ~/.zshrc ~/.zshrc.$(date +%F-%R).bak
@@ -21,15 +25,23 @@ if [ -d ~/.config/zsh -o -L ~/.config/zsh ]; then
         mv ~/.config/zsh ~/.config/zsh.$(date +%F-%R).bak
 fi
 
+################################
+# Symlink .config/zsh and .zshrc
+################################
+
 echo "Soft linking zsh to ~/.config/zsh"
-ln --symbolic -v ${DOTFILESDIR}/zsh ${HOME}/.config/
+ln -s -v ${DOTFILESDIR}/zsh ${HOME}/.config/
 
 echo "Soft linking .zshrc to ~/.zshrc"
-ln --symbolic -v ${HOME}/.config/zsh/.zshrc ${HOME}/
+ln -s -v ${HOME}/.config/zsh/.zshrc ${HOME}/
 
-if ! [ -e ~/zgen/zgen.zsh -o -L ~/zgen/zgen.zsh ]; then
+###############
+# Install zgen
+###############
+
+if ! [ -e ~/.zgen -o -L ~/.zgen ]; then
 	cd ~
-	git clone https://github.com/tarjoilija/zgen
+	git clone https://github.com/tarjoilija/zgen .zgen
 fi
 
 echo "Now run 'source ~/.zshrc' to activate your settings."

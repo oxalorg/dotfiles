@@ -7,8 +7,8 @@ done
 alias tmux="tmux -2u"
 
 # List commands
-alias ls="ls --color=auto"
-alias ll="ls -l --color=auto"
+alias ls="ls"
+alias ll="ls -l"
 alias lt="ls -lt"
 alias la="ls -a"
 
