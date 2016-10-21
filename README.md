@@ -3,7 +3,7 @@
 My repository for all my personal tweaks and settings.
 
 I've seen a lot of people recommending forking dotfile repos from
-others which according to me defeats the whole purpose of 'peronsalization'.
+others, which according to me defeats the whole purpose of 'peronsalization'.
 
 ---
 
@@ -15,12 +15,17 @@ git clone https://github.com/MiteshNinja/dotfiles && cd dotfiles
 sh install.sh
 ```
 
-# Included configs:
+# Configurations currently in-use:
 
-* xfce4
+* ~~xfce4~~
 * zsh
 * global .gitconfig
-* vim/vimrc
+* ~~vim/vimrc~~
+* nvim/init.vim
+* csgo
+* atom
+* logkeys
+* ~~tmux~~
 
 # Notes
 
