@@ -18,7 +18,10 @@ compinit
 #### Global variables and loaders.
 ##################################
 
-export EDITOR=vim
+# first things first
+# set the default binding to vi style dammit
+bindkey -v
+export EDITOR=nvim
 autoload -U colors && colors
 setopt autocd extendedglob
 
@@ -28,6 +31,8 @@ REPORTTIME=2
 # moo gangsta
 #moo
 
+# neovim cursor support
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 ######################
 #### History Settings.
@@ -52,15 +57,58 @@ setopt share_history # share command history data
 #### Load custom paths
 ######################
 
-source ${HOME}/.config/zsh/paths
+# source ${HOME}/.config/zsh/paths
+
+PYTHONPATH=$PYTHONPATH:/usr/local/Cellar/python/2.7.12_2/bin/python
+export PATH="/Users/ox/anaconda3/bin:$PATH:/Users/ox/Library/Python/3.5/bin:/Users/ox/.mybin"
+
+# virtualenvwrapper
+export WORKON_HOME=~/.venv
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+source ~/Library/Python/3.5/bin/virtualenvwrapper.sh
 
 ###########################
 #### Load custom aliases.
 ###########################
 
-for file in ${HOME}/.config/zsh/aliases/*; do
-   	source "$file";
-done
+#for file in ${HOME}/.config/zsh/aliases/*; do
+#   	source "$file";
+#done
+
+# Needs to be DONE
+alias v=$EDITOR
+
+# List commands
+alias ls="ls -GpF"
+alias ll="ls -lGpF"
+alias lt="ls -ltGpF"
+alias la="ls -aGpF"
+
+# Git
+alias gst='git status -sb'
+alias ga='git add'
+alias gcm='git commit -m'
+## Git log
+alias gl='git log --graph --color --decorate --all --stat -p'
+## Git log summary
+alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# Colorize commands
+alias grep='grep --color'
+alias nyancat='pygmentize -g -O style=colorful'
+
+# Custom directories
+alias doc='cd /doc'
+alias nt='cd /notes'
+
+# quickedits
+alias nvrc='nvim $HOME/.config/nvim/init.vim'
+alias zshrc='nvim $HOME/.config/zsh/.zshrc'
+
+# Note search
+alias ns='nvim --cmd "cd /notes" "$(fzf)"'
+# Note create
+alias nc='cd /notes/$(find -L /notes -type d ! -path \*.git\* | sed "s|^/notes||" | fzf) && nvim '
 
 ###########################
 #### Load custom functions.
@@ -78,11 +126,13 @@ done
 ### fzf - fuzzy finder
 ### https://github.com/junegunn/fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Setting ag as the default source for fzf
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_COMPLETION_TRIGGER='~~'
 
-#### virtualenvwrapper
-source ~/.config/zsh/customrc
 
-###############################
+##############################
 #### Load 3rd party extentions.
 ###############################
 
@@ -105,3 +155,20 @@ if ! zgen saved; then
 	zgen save
 fi
 
+# export locales
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+
+# Make these utils more verbose
+for c in cp rm chmod chown rename ln; do
+    alias $c="$c -v"
+done
+
+# Force tmux to support 256 colors and UTF-8
+alias tmux="tmux -2u"
+
+# Custom command completions
+fpath=($HOME/.config/zsh/custompletions $fpath)
+
+compdef _fzf_file_completion v

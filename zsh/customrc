@@ -1,4 +1,0 @@
-# virtualenvwrapper
-export WORKON_HOME=~/.venv
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-source ~/Library/Python/3.5/bin/virtualenvwrapper.sh
