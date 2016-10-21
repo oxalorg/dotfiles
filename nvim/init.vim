@@ -30,6 +30,12 @@ call dein#add('tpope/vim-commentary')
 call dein#add('tpope/vim-surround')
 " Pretty theme
 call dein#add('junegunn/seoul256.vim')
+" Writing
+call dein#add('reedes/vim-pencil')
+call dein#add('junegunn/limelight.vim')
+call dein#add('junegunn/goyo.vim')
+" Pasting
+call dein#add('ConradIrwin/vim-bracketed-paste')
 
 "------------------------------------------
 " You can specify revision/branch/tag.
@@ -95,3 +101,39 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
       \ "\<Plug>(neosnippet_jump_or_expand)" : "\<CR>"
 smap <silent><CR> <Plug>(neosnippet_jump_or_expand)
+
+" show tabs, and trailing spaces
+set listchars=tab:>~,nbsp:_,trail:.
+set list
+
+" easy command mode
+nnoremap ; :
+
+" Vim for writing - Markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd Filetype markdown call SetMarkdownOptions()
+function SetMarkdownOptions()
+    " Enable spellcheck.
+    set spell spelllang=en_us
+    highlight CursorLine ctermbg=NONE
+    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+    " Lastly, invoke Goyo plugin.
+    if !exists('#goyo')
+        Goyo
+    endif
+endfunction
+" Configure vim pencil
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
+" Limelight on/off based on Goyo
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" Autoreload vimrc
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
