@@ -117,9 +117,17 @@ alias nvrc='nvim $HOME/.config/nvim/init.vim'
 alias zshrc='nvim $HOME/.config/zsh/.zshrc'
 
 # Note search
-alias ns='nvim --cmd "cd /notes" "$(fzf)"'
+ns() {
+    local query=$@
+    nvim --cmd 'cd /notes' $(fzf -q1 "$query")
+}
 # Note create
-alias nc='cd /notes/$(find -L /notes -type d ! -path \*.git\* | sed "s|^/notes||" | fzf) && nvim '
+nc() {
+    local p=$(find -L /notes -type d ! -path \*.git\* | sed "s|^/notes||" | fzf -1 -q "$@")
+    cd /notes/$p
+    nvim
+}
+
 # Edit scratch pad note
 alias npad='nvim --cmd "cd /notes" /notes/scratch-pad.md'
 alias cpad='cat /notes/scratch-pad.md'
