@@ -56,7 +56,8 @@ endif
 "End dein Scripts-------------------------
 
 " Enable plugins
-call deoplete#enable()
+let g:deoplete#enable_at_startup=1
+autocmd FileType markdown let g:deoplete#enable_at_startup=0
 colo seoul256
 
 set relativenumber number
