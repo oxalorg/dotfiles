@@ -31,7 +31,7 @@ call dein#add('tpope/vim-surround')
 " Pretty theme
 call dein#add('junegunn/seoul256.vim')
 " Writing
-call dein#add('reedes/vim-pencil')
+" call dein#add('reedes/vim-pencil')
 call dein#add('junegunn/limelight.vim')
 call dein#add('junegunn/goyo.vim')
 " Pasting
@@ -113,8 +113,13 @@ nnoremap ; :
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd Filetype markdown call SetMarkdownOptions()
 function SetMarkdownOptions()
+    " Auto hard wrap text
+    set textwidth=64
+    " Godsend par formatter
+    set formatprg=par\ -w62
+    set formatoptions+=t
     " Enable spellcheck.
-    set spell spelllang=en_us
+    " set spell spelllang=en_us
     highlight CursorLine ctermbg=NONE
     let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
     " Lastly, invoke Goyo plugin.
@@ -122,12 +127,12 @@ function SetMarkdownOptions()
         Goyo
     endif
 endfunction
-" Configure vim pencil
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType text         call pencil#init()
-augroup END
+" " Configure vim pencil
+" augroup pencil
+"   autocmd!
+"   autocmd FileType markdown,mkd call pencil#init()
+"   autocmd FileType text         call pencil#init()
+" augroup END
 " Limelight on/off based on Goyo
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -137,3 +142,16 @@ augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
+
+" Support for tabs in Makefile
+autocmd FileType make setlocal noexpandtab
+
+" Better defaults
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+
