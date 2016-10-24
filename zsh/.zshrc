@@ -22,7 +22,7 @@ compinit
 # set the default binding to vi style dammit
 bindkey -v
 export EDITOR=nvim
-autoload -U colors && colors
+autoload -Uz colors && colors
 setopt autocd extendedglob
 
 # report command time if > 'x' seconds
@@ -100,6 +100,7 @@ alias nyancat='pygmentize -g -O style=colorful'
 # Custom directories
 alias doc='cd /doc'
 alias nt='cd /notes'
+alias proj='cd /projects'
 
 # quickedits
 alias nvrc='nvim $HOME/.config/nvim/init.vim'
@@ -142,18 +143,15 @@ source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
 	echo "Creating a zgen save"
-	#zgen oh-my-zsh
-	#zgen oh-my-zsh themes/arrow
-	#zgen load BakeRolls/frisk-arrow
-	zgen load oldratlee/hacker-quotes
-	zgen load yous/lime
-
 	zgen load andrewferrier/fzf-z
 	zgen load supercrabtree/k
 	zgen load zsh-users/zsh-syntax-highlighting
 	zgen load zsh-users/zsh-autosuggestions
 	zgen save
 fi
+
+# My custom ninja theme
+source "${HOME}/.config/zsh/ninja.zsh-theme"
 
 # export locales
 export LC_ALL=en_US.UTF-8
@@ -170,5 +168,3 @@ alias tmux="tmux -2u"
 
 # Custom command completions
 fpath=($HOME/.config/zsh/custompletions $fpath)
-
-compdef _fzf_file_completion v
