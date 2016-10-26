@@ -14,7 +14,7 @@ fi
 
 # zstyle ':completion:*' completer _expand _complete _ignored _approximate
 # zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-# zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 
 # zstyle ':completion:*' menu select=1
 # zstyle ':completion:*' select-prompt %SScrolling active %l: current selection at %p%s
 # zstyle :compinstall filename '/home/mitesh/.zshrc'
@@ -30,6 +30,7 @@ fi
 # first things first
 # set the default binding to vi style dammit
 bindkey -v
+bindkey -v '^?' backward-delete-char
 export EDITOR=nvim
 autoload -Uz colors && colors
 setopt autocd extendedglob
@@ -98,6 +99,7 @@ alias la="ls -aGpF"
 alias gst='git status -sb'
 alias ga='git add'
 alias gcm='git commit -m'
+alias gp='git push'
 ## Git log
 alias gl='git log --graph --color --decorate --all --stat -p'
 ## Git log summary
@@ -109,17 +111,22 @@ alias nyancat='pygmentize -g -O style=colorful'
 
 # Custom directories
 alias doc='cd /doc'
-alias nt='cd /notes'
 alias proj='cd /projects'
 
 # quickedits
 alias nvrc='nvim $HOME/.config/nvim/init.vim'
 alias zshrc='nvim $HOME/.config/zsh/.zshrc'
 
+########################
+# Personal note taking #
+########################
+
+alias nt='cd /notes'
 # Note search
 ns() {
     local query=$@
-    nvim --cmd 'cd /notes' $(fzf -q1 "$query")
+    cd /notes
+    nvim "$(fzf -1 -q $query)"
 }
 # Note create
 nc() {
@@ -127,10 +134,19 @@ nc() {
     cd /notes/$p
     nvim
 }
+# Create snippet
+# TODO: Add linux (xclip) support
+nsnip() {
+    local content=pbpaste
+    local genname=`pbpaste | head -c 25 | sed 's|\ |-|g' | sed 's|[-]*$||'`
+    local filename=${@:-$genname}
+    $content >> /notes/snips/$(date +%F)-$filename
+}
 
 # Edit scratch pad note
 alias npad='nvim --cmd "cd /notes" /notes/scratch-pad.md'
 alias cpad='cat /notes/scratch-pad.md'
+alias ppad='/notes/scratch-pad.md'
 
 ###########################
 #### Load custom functions.
@@ -164,12 +180,20 @@ source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
 	echo "Creating a zgen save"
+    zgen oh-my-zsh plugins/vi-mode
 	zgen load andrewferrier/fzf-z
 	zgen load supercrabtree/k
 	zgen load zsh-users/zsh-syntax-highlighting
 	zgen load zsh-users/zsh-autosuggestions
+    zgen load Vifon/deer
 	zgen save
 fi
+
+## Plugin settings
+autoload -U deer
+zle -N deer
+bindkey '\ek' deer
+zstyle ':deer:' height 35
 
 # My custom ninja theme
 source "${HOME}/.config/zsh/ninja.zsh-theme"
