@@ -35,7 +35,7 @@ ICOLOR="red"
 
 setopt prompt_subst
 PROMPT_ICON=`echo '\u27b4'`
-PROMPT='%{$fg_bold[$NCOLOR]%}%c %{$fg_bold[$ICOLOR]%}%{$PROMPT_ICON%} %{$reset_color%}'
+PROMPT='%{$fg_bold[$NCOLOR]%}%2~ %{$fg_bold[$ICOLOR]%}%{$PROMPT_ICON%} %{$reset_color%}'
 RPROMPT='%{$fg[$NCOLOR]%}%p $(git_prompt_info)%{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX=""
