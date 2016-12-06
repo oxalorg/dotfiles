@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp $1 "$1-og"
+convert -strip -quality 85% -resize $2% $1 $1

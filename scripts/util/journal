@@ -1,0 +1,37 @@
+#!/bin/bash
+
+title=$1
+clean_title=`echo "$title" | sed 's|[ )(]|_|g'`
+
+LIFEDIR=/www/home/ox/life
+year=$(date +%Y)
+month_short=$(date +%b)
+month_num=$(date +%m)
+day=$(date +%d)
+
+currdir=$LIFEDIR/${year}/${month_num}-${month_short}
+
+mkdir -p $currdir
+cd $currdir
+
+# Find number of days since my birthday
+day_no=$(python3 -c "\
+import datetime;\
+birthday = datetime.date(1996, 4, 2);\
+today = datetime.date.today();\
+day_no = (today - birthday).days + 1;\
+print('{:05}'.format(day_no));\
+")
+
+# Now create file for today
+fname="Day_${day_no}_${clean_title}"
+
+cat << EOF > $fname
+---
+title: "Day {$day_no} - ${title}"
+date: $(date +"%Y-%m-%dT%H:%M:%S")
+---
+
+EOF
+
+nvim "$fname"
