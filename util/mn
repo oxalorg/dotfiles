@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+import json
+import re
+import sys
+import os
+import smtplib
+import argparse
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+
+def email_type(addr):
+    pattern = re.compile(r'.*@.*')
+    if pattern.match(addr):
+        return addr
+    else:
+        err = 'Are you sure that "' + addr + '" is an email address? ¯\_(ツ)_/¯'
+        raise argparse.ArgumentTypeError(err)
+
+
+def parser():
+    parser = argparse.ArgumentParser(description='Send mail using SMTP from the command line',
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    
+    # parser.add_argument('-f', '--from', dest='sender')
+    parser.add_argument('-t', '--to', dest='to', nargs='+', type=email_type, required=True)
+    parser.add_argument('-s','--subject', dest='subject', default='')
+    parser.add_argument('-m', '--message', dest='message', default='')
+    parser.add_argument('-a', '--attachments', dest='attachments', nargs='+', default=[])
+     
+    args = parser.parse_args()
+    return args
+
+def main(sender, pwd, recipients=[], subject='', message='', attachments=[]):
+    letter = MIMEMultipart()
+    letter['Subject'] = subject
+    letter['To'] = ', '.join(recipients)
+    letter['From'] = sender
+    letter.preamble = 'You will not see this in a MIME-aware mail reader.\n'
+    print(message)
+    letter.attach(MIMEText(message))
+
+    for file in attachments:
+        try:
+            with open(file, 'rb') as fp:
+                msg = MIMEBase('application', "octet-stream")
+                msg.set_payload(fp.read())
+            encoders.encode_base64(msg)
+            msg.add_header('Content-Disposition', 'attachment', filename=os.path.basename(file))
+            letter.attach(msg)
+        except:
+            print('Unable to open ' + file + 'Error: ', sys.exc_info()[0])
+            return 1
+
+    envelope = letter.as_string()
+    print(envelope)
+    # temporarily save the sent RAW email
+    with open('/tmp/sent-mail.txt', 'w') as f:
+        f.write(envelope)
+
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as s:
+            s.ehlo()
+            s.starttls()
+            s.login(sender, pwd)
+            s.sendmail(sender, recipients, envelope)
+            s.close()
+        return 0
+    except:
+        print("Unable to send the email. Error: ", sys.exc_info()[0])
+        return 1
+
+if __name__ == '__main__':
+    args = parser()
+    fc = json.load(open(os.path.expanduser('~/.mnrc')))
+    sender, pwd = fc['sender'], fc['pwd']
+    main(sender=sender, pwd=pwd, recipients=args.to, message=args.message, subject=args.subject, attachments=args.attachments)

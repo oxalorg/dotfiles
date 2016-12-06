@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+import sys
+import os
+import urllib.request
+
+POST_URL = 'https://oxal.org/antisocial/post'
+PASSWORD = open(os.path.expanduser('~/.oxalorg')).read().strip()
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        message = sys.stdin.read()
+    else:
+        message = sys.argv[1:]
+        message = ' '.join(message)
+    values = {'body': message,
+              'password': PASSWORD}
+    data = urllib.parse.urlencode(values)
+    data = data.encode('ascii')
+    req = urllib.request.Request(POST_URL, data)
+    try:
+        with urllib.request.urlopen(req) as response:
+            page = response.read()
+    except urllib.error.HTTPError as e:
+        raise SystemExit(e.code)
+    except urllib.error.URLError as e:
+        raise SystemExit('URLError')
+    else:
+        pass
