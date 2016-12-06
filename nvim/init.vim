@@ -1,4 +1,3 @@
-let g:python3_host_prog = '/usr/local/bin/python3'
 
 "dein Scripts-----------------------------
 if &compatible
@@ -9,9 +8,11 @@ let s:uname = system("uname")
 if s:uname == "Darwin\n"
     set runtimepath+=/Users/ox/.random/repos/github.com/Shougo/dein.vim
     call dein#begin('/Users/ox/.random')
+    let g:python3_host_prog = '/usr/local/bin/python3'
 else
     set runtimepath+=/home/ox/.random/repos/github.com/Shougo/dein.vim
     call dein#begin('/home/ox/.random')
+    let g:python3_host_prog = '/usr/bin/python3'
 endif
 
 " Let dein manage dein
@@ -36,6 +37,8 @@ call dein#add('junegunn/limelight.vim')
 call dein#add('junegunn/goyo.vim')
 " Pasting
 call dein#add('ConradIrwin/vim-bracketed-paste')
+" Git
+call dein#add('airblade/vim-gitgutter')
 
 "------------------------------------------
 " You can specify revision/branch/tag.
@@ -59,6 +62,7 @@ endif
 let g:deoplete#enable_at_startup=1
 autocmd FileType markdown let g:deoplete#enable_at_startup=0
 colo seoul256
+set updatetime=250 "for vim gitgutter
 
 set relativenumber number
 autocmd CompleteDone * pclose
