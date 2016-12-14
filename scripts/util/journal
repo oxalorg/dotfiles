@@ -3,7 +3,7 @@
 title=$1
 clean_title=`echo "$title" | sed 's|[ )(]|_|g'`
 
-LIFEDIR=/www/home/ox/life
+LIFEDIR=/notes/life
 year=$(date +%Y)
 month_short=$(date +%b)
 month_num=$(date +%m)
@@ -24,14 +24,29 @@ print('{:05}'.format(day_no));\
 ")
 
 # Now create file for today
-fname="Day_${day_no}_${clean_title}"
+fname_start="Day_${day_no}"
 
-cat << EOF > $fname
----
-title: "Day {$day_no} - ${title}"
-date: $(date +"%Y-%m-%dT%H:%M:%S")
----
+for f in ${fname_start}*; do
+    # Check if a journal entry has been made today
+    if [ -f "$f" ]; then 
+        # If it has, open it directly
+        nvim "$f"
+    else
+        # If No entry has been made today then
+        # create a new entry
+        # TODO: If title is empty, ask for a title here
+        fname="${fname_start}_${clean_title}.md"
 
-EOF
+        cat << EOF > $fname
+        ---
+        title: "Day ${day_no} - ${title}"
+        date: $(date +"%Y-%m-%dT%H:%M:%S")
+        ---
 
-nvim "$fname"
+        EOF
+
+        nvim "$fname"
+    fi
+    break
+done
+
