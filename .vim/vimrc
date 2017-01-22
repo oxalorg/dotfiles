@@ -1,56 +1,133 @@
-"" Syntax and tabs
+set nocompatible  " Be iMproved
 filetype plugin indent on
 syntax enable
-set tabstop=4		" number of visual spaces interpreted for each tab
-set softtabstop=4	" number of spaces inserted when using tab
-set expandtab		" expand tabs to spaces
-set shiftwidth=4    " When indenting with > / <
-set smartindent
 
+let s:uname = system("uname")
+if s:uname == "Darwin\n"
+else
+endif
+
+"" Custom
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd CompleteDone * pclose
+inoremap qp <Esc> " map ESC to something senible
+let mapleader=","
+noremap : ;
+noremap ; :
+
+"" Movement
+" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+
+"" Sane defaults
+set backspace=indent,eol,start  "Allow backspace in insert mode
+set history=1000                "Store lots of :cmdline history
+set undolevels=1000             " use many muchos levels of undo
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set title                       " change the terminal's title
+set visualbell                  " don't beep
+set noerrorbells                " don't beep
+set path+=**                    " Search down into subfolders
+set autoread                    " Reload files changed outside vim
+set hidden                      " Allows dirty buffers to be hidden
+
+"" Spacing and Indent
+set tabstop=4  		" number of visual spaces interpreted for each tab
+set softtabstop=4   " number of spaces inserted when using tab
+set expandtab       " expand tabs to spaces
+set shiftwidth=4    " When indenting with > / <
+set autoindent
+set smartindent
+nnoremap p p=`]<C-o> " Auto indent pasted text
+nnoremap P P=`]<C-o>
 
 "" UI
-set number		" show line number
-set showcmd		" show last cmd in bottom right
-set cursorline		" highlight current line
-filetype indent on      " load filetype-specific indent files
-set wildmenu            " visual autocomplete for command menu
+set relativenumber number
+set wildmenu            " Display all matching files when we tab complete
+set showcmd             " Display commands at bottom corner
 set lazyredraw          " redraw only when we need to.
 set showmatch           " highlight matching [{()}]
+" show tabs, and trailing spaces
+set listchars=tab:>~,nbsp:_,trail:.
+set list
+
+"" Scrolling 
+set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
 
 
 "" Searching
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
-" turn off search highlight
-"nnoremap <leader><space> :nohlsearch<CR>
+set ignorecase
+set smartcase
+set incsearch
+set nohlsearch
 
 
 "" Folding
 set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
-" space open/closes folds
-nnoremap <space> za
+nnoremap <space> za     " space open/closes folds
 set foldmethod=indent   " fold based on indent level
 
 
-"" Other custom bindings
-" highlight last inserted text
-nnoremap gV `[v`]
-
-" autoclose sratch in YOU COMPLETE VIM
-autocmd CompleteDone * pclose
+"" Status line
+set laststatus=2    " Always show the status line
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 
-" Enable mouse scroll in all modes.
-" Overrides tmux buffer scroll in panes.
-set mouse=a
+"============================
+" Vim for writing - Markdown
+"==============================
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd Filetype markdown call SetMarkdownOptions()
+function SetMarkdownOptions()
+    set textwidth=64
+    set formatprg=par\ -w62
+    set formatoptions+=t
+    " Enable spellcheck.
+    highlight CursorLine ctermbg=NONE
+    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+endfunction
 
-" Remap esc key
-inoremap kj <ESC>
+" Autoreload vimrc
+"augroup reload_vimrc " {
+"    autocmd!
+"    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"augroup END " }
 
-" Remap semicolon
-:nmap ; :
+" Support for tabs in Makefile
+autocmd FileType make setlocal noexpandtab
+
+" Better defaults
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+" Integrating 'fzy'
+function! FzyCommand(choice_command, vim_command)
+    try
+        let output = system(a:choice_command . " | fzy ")
+    catch /Vim:Interrupt/
+        " Swallow errors from ^C, allow redraw! below
+    endtry
+    redraw!
+    if v:shell_error == 0 && !empty(output)
+        exec a:vim_command . ' ' . output
+    endif
+endfunction
+
+" nnoremap <leader>e :call FzyCommand("ag . -l -g ''", ":e")<cr>
+" nnoremap <leader>v :call FzyCommand("ag . -l -g ''", ":vs")<cr>
+" nnoremap <leader>s :call FzyCommand("ag . -l -g ''", ":sp")<cr>
 
 " Load vim-plug
 " Change ~/.vim/vim-plugins file to edit plugins
