@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rofi \
+    -show "combi" \
+    -modi "combi,ssh" \
+    -combi-modi "window,drun,run"

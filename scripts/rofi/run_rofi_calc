@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+rofi \
+    -show "calc" \
+    -modi "calc:qalc +u8"
