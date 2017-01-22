@@ -71,7 +71,7 @@ setopt share_history # share command history data
 
 # PYTHONPATH=$PYTHONPATH:/usr/local/Cellar/python/2.7.12_2/bin/python
 # export PATH="/Users/ox/Library/Python/3.5/bin:/Users/ox/anaconda3/bin:/Users/ox/.mybin:$PATH"
-export PATH="/Users/ox/Library/Python/3.5/bin:/Users/ox/.mybin:$PATH"
+export PATH="/Users/ox/Library/Python/3.5/bin:/Users/ox/.mybin:~/.local/bin:$PATH"
 
 # virtualenvwrapper
 export WORKON_HOME=~/.venv
@@ -128,6 +128,7 @@ alias cpsakura='cat /projects/sakura.css/normalize.css /projects/sakura.css/saku
 
 # Utils
 alias dude='du -hcd 1 | gsort -hr'
+alias t='tree'
 
 # Custom sed
 alias sedmdimg="sed 's/\(.*\)/![\1]\(\1\)/g'"

@@ -32,7 +32,7 @@
     ]
   editor:
     backUpBeforeSaving: true
-    fontSize: 19
+    fontSize: 16
     scrollPastEnd: true
     softWrap: true
     tabLength: 4

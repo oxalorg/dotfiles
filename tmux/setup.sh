@@ -6,4 +6,4 @@ if [ -f ~/.tmux.conf ]; then
 fi
 
 echo "Soft linking .tmux.conf to ${HOME} directory."
-ln --symbolic -v ${DOTFILESDIR}/tmux/.tmux.conf ${HOME}/
+ln -s -v ${DOTFILESDIR}/tmux/.tmux.conf ${HOME}/

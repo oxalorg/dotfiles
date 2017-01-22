@@ -10,6 +10,7 @@ month_num=$(date +%m)
 day=$(date +%d)
 
 currdir=$LIFEDIR/${year}/${month_num}-${month_short}
+echo $currdir
 
 mkdir -p $currdir
 cd $currdir
@@ -25,6 +26,8 @@ print('{:05}'.format(day_no));\
 
 # Now create file for today
 fname_start="Day_${day_no}"
+
+echo $fname_start
 
 for f in ${fname_start}*; do
     # Check if a journal entry has been made today
@@ -43,7 +46,7 @@ for f in ${fname_start}*; do
         date: $(date +"%Y-%m-%dT%H:%M:%S")
         ---
 
-        EOF
+EOF
 
         nvim "$fname"
     fi
