@@ -1,34 +1,31 @@
-# Welcome home.
+# Welcome to oxalorgs home base - ark.
 
-My repository for all my personal tweaks and settings.
-
-I've seen a lot of people recommending forking dotfile repos from
-others, which according to me defeats the whole purpose of 'peronsalization'.
+Less is more.
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
 
 ---
 
-# Installation
+## Installation
 
-```
-cd ~ || cd $HOME
-git clone https://github.com/MiteshNinja/dotfiles && cd dotfiles
-sh install.sh
-```
+You can either run `install.sh` which will run `setup.sh` from every folder,
+or you can manually run setup of the folders you want to install.
 
-# Configurations currently in-use:
+## Configurations currently in-use:
 
-* ~~xfce4~~
-* zsh
-* global .gitconfig
-* ~~vim/vimrc~~
-* nvim/init.vim
+* zsh - make it more lean
+* vim - Started using vim again (jan 2017)
+* nvim
 * csgo
-* atom
 * logkeys
-* ~~tmux~~
+* git
+* ~~xfce4~~ I've switched back to Unity (dec 2016)
+* ~~atom~~ - Don't use it anymore, too slow
+* ~~tmux~~ - Don't use it anymore, too complex
 
-# Notes
+## Notes
 
 Please edit the following files if you are cloning/forking this repository:
 
-* .gitconfig [user.name and user.email]
+* git/.gitconfig [user.name and user.email]
