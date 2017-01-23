@@ -160,6 +160,18 @@ alias ddystic='/projects/dystic/venv/bin/dystic'
 # Personal note taking #
 ########################
 
+anti() {
+    cd ~/Dropbox/cabinet/journal/antisocial
+    local last=$(ls *.txt | sort -r | head -n 1 | cut -b 1-5)
+    echo $last
+    echo
+    local post=$((last+1))
+    local maxId=$(printf "%05d" $post)
+    echo $(date -u +"%Y-%m-%dT%H:%M:%SZ") >> ${maxId}.txt
+    echo "\n" >> ${maxId}.txt
+    vim ${maxId}.txt
+}
+
 alias nt='cd /notes'
 # Note search
 ns() {
