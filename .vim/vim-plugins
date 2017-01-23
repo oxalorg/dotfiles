@@ -1,13 +1,14 @@
 " Custom vim-plugin file
 " Used by the vim-plug minimal plugin manager
 " Sourced in vimrc
-" Author @MiteshNinja
+" Author @oxalorg
 
 call plug#begin('~/.vim/plugged')
 
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'vimwiki/vimwiki'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --tern-completer' }
 
 

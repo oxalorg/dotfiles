@@ -1,4 +1,10 @@
 " vim:fdm=marker
+" oxalorgs vimrc
+"{{{ 
+" Latest version: https://github.com/oxalorg/dotfiles
+" * Customized for personal use.
+" * Minimal with a very low footprint.
+"}}}
 set nocompatible  " Be iMproved
 let mapleader = "\<Space>"
 filetype plugin indent on
@@ -17,15 +23,42 @@ inoremap qp <Esc> " map ESC to something senible
 noremap : ;
 noremap ; :
 cmap w!! w !sudo tee % >/dev/null           " save with sudo
+colo ronox
 "}}}
 
 
 " Leader
 "{{{
-nnoremap <leader>o :FZF<CR>
 nnoremap <silent> <Leader>ev :e $MYVIMRC<CR>    " edit vimrc
 nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>   " source vimrc
-nnoremap <Leader>w :w<CR>
+nnoremap <silent> <Leader>dd :bd<CR>
+"}}}
+
+
+"{{{ Integrating 'fzy'
+function! FzyCommand(choice_command, vim_command)
+    try
+        let output = system(a:choice_command . " | fzy ")
+    catch /Vim:Interrupt/
+        " Swallow errors from ^C, allow redraw! below
+    endtry
+    redraw!
+    if v:shell_error == 0 && !empty(output)
+        "exec a:vim_command . ' ' . output
+        exec a:vim_command . ' ' . escape(output, ' ')
+    endif
+endfunction
+
+nnoremap <leader>oo :call FzyCommand("ag . -l -g ''", ":e")<cr>
+nnoremap <leader>ov :call FzyCommand("ag . -l -g ''", ":vs")<cr>
+nnoremap <leader>os :call FzyCommand("ag . -l -g ''", ":sp")<cr>
+"}}}
+
+"" Notes
+"{{{
+nnoremap <leader>ns :call FzyCommand("ag ~/Dropbox/cabinet/notes -l -g ''", ":e")<cr>
+"nnoremap <leader>ns :call FzyCommand("ag ~/Dropbox/cabinet/notes -l -g ''", ":e")<cr>
+
 "}}}
 
 
@@ -98,8 +131,8 @@ set sidescroll=1
 set ignorecase
 set smartcase
 set incsearch
-set hlsearch
-nmap <silent> <Leader>/ :nohlsearch<CR>    " clears the hl search
+set nohlsearch
+nnoremap <silent> <Leader>/ :nohlsearch<CR>    " clears the hl search
 "}}}
 
 
@@ -144,6 +177,10 @@ autocmd FileType make setlocal noexpandtab
 " Load vim-plug
 " Change ~/.vim/vim-plugins file to edit plugins
 source ~/.vim/vim-plugins
+
+" Vimwiki
+let g:vimwiki_list = [{'path': '~/Dropbox/cabinet/wiki/',
+                       \ 'syntax': 'markdown', 'ext': '.md'}]
 "}}}
 
 
@@ -157,22 +194,6 @@ let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-" Integrating 'fzy'
-function! FzyCommand(choice_command, vim_command)
-    try
-        let output = system(a:choice_command . " | fzy ")
-    catch /Vim:Interrupt/
-        " Swallow errors from ^C, allow redraw! below
-    endtry
-    redraw!
-    if v:shell_error == 0 && !empty(output)
-        exec a:vim_command . ' ' . output
-    endif
-endfunction
-
-" nnoremap <leader>e :call FzyCommand("ag . -l -g ''", ":e")<cr>
-" nnoremap <leader>v :call FzyCommand("ag . -l -g ''", ":vs")<cr>
-" nnoremap <leader>s :call FzyCommand("ag . -l -g ''", ":sp")<cr>
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
@@ -186,16 +207,10 @@ endif
 " ================ Completion =======================
 
 set wildmode=list:longest
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*vim/backups*
-set wildignore+=*sass-cache*
+set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
+set wildignore=*.pyc
 set wildignore+=*DS_Store*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
-set wildignore+=*.gem
-set wildignore+=log/**
-set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 
 " Auto indent pasted text
@@ -206,8 +221,7 @@ set nostartofline
 set cmdheight=2
 set lazyredraw          " redraw only when we need to.
 set cursorline          " highlight current line
-" highlight last inserted text
-nnoremap gV `[v`]
+nnoremap gV `[v`]       " highlight last inserted text
 "}}}
 
 
