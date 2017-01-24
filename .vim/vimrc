@@ -26,6 +26,11 @@ cmap w!! w !sudo tee % >/dev/null           " save with sudo
 colo ronox
 "}}}
 
+"" Functions
+"{{{
+command -nargs=1 E execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> e <args>
+"}}}
+
 
 " Leader
 "{{{
@@ -38,16 +43,16 @@ nnoremap <silent> <Leader>dd :bd<CR>
 
 "{{{ Integrating 'fzy'
 function! FzyCommand(choice_command, vim_command)
-    try
-        let output = system(a:choice_command . " | fzy ")
-    catch /Vim:Interrupt/
-        " Swallow errors from ^C, allow redraw! below
-    endtry
-    redraw!
-    if v:shell_error == 0 && !empty(output)
-        "exec a:vim_command . ' ' . output
-        exec a:vim_command . ' ' . escape(output, ' ')
-    endif
+try
+    let output = system(a:choice_command . " | fzy ")
+catch /Vim:Interrupt/
+    " Swallow errors from ^C, allow redraw! below
+endtry
+redraw!
+if v:shell_error == 0 && !empty(output)
+    "exec a:vim_command . ' ' . output
+    exec a:vim_command . ' ' . escape(output, ' ')
+endif
 endfunction
 
 nnoremap <leader>oo :call FzyCommand("ag . -l -g ''", ":e")<cr>
@@ -59,6 +64,25 @@ nnoremap <leader>os :call FzyCommand("ag . -l -g ''", ":sp")<cr>
 "{{{
 nnoremap <leader>ns :call FzyCommand("ag ~/Dropbox/cabinet/notes -l -g ''", ":e")<cr>
 "nnoremap <leader>ns :call FzyCommand("ag ~/Dropbox/cabinet/notes -l -g ''", ":e")<cr>
+"}}}
+
+"" Journal
+"{{{
+" Logs
+fun! OpenLog()
+    let fname = strftime("%Y-%m-%d")
+    exe ":e ~/Dropbox/cabinet/journal/logs/daily/" . fname . ".txt"
+endfun
+nnoremap <silent> <leader>jl :call OpenLog()<CR>
+
+" Todos
+fun! OpenTodo()
+    let fname = strftime("%Y/%m")
+    exe ":E ~/Dropbox/cabinet/journal/todos/" . fname . ".txt"
+endfun
+
+nnoremap <silent> <leader>jt :call OpenTodo() <CR>
+
 
 "}}}
 
@@ -70,6 +94,14 @@ nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nnoremap <up> <nop>     " No arrows keys
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 "}}}
@@ -165,11 +197,11 @@ set laststatus=2    " Always show the status line
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd Filetype markdown call SetMarkdownOptions()
 function! SetMarkdownOptions()
-    set textwidth=64
-    set formatprg=par\ -w62
-    set formatoptions+=t
-    highlight CursorLine ctermbg=NONE
-    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+set textwidth=64
+set formatprg=par\ -w62
+set formatoptions+=t
+highlight CursorLine ctermbg=NONE
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 endfunction
 
 " Makefile
@@ -185,7 +217,7 @@ source ~/.vim/vim-plugins
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/cabinet/wiki/',
-                       \ 'syntax': 'markdown', 'ext': '.md'}]
+                   \ 'syntax': 'markdown', 'ext': '.md'}]
 "}}}
 
 
@@ -200,15 +232,38 @@ let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
+" Smooth Scrolling
+function! SmoothScroll(up)
+if a:up
+    let scrollaction=""
+else
+    let scrollaction=""
+endif
+exec "normal " . scrollaction
+redraw
+let counter=1
+while counter<&scroll
+    let counter+=1
+    sleep 5m
+    redraw
+    exec "normal " . scrollaction
+endwhile
+endfunction
+
+nnoremap <C-U> :call SmoothScroll(1)<Enter>
+nnoremap <C-D> :call SmoothScroll(0)<Enter>
+inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
+inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
+
 
 " ================ Persistent Undo ==================
 " Check for conflics with swap files
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
 if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
-    silent !mkdir ~/.vim/backups > /dev/null 2>&1
-    set undodir=~/.vim/backups
-    set undofile
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undofile
 endif
 
 " ================ Completion =======================
@@ -226,17 +281,19 @@ nnoremap gV `[v`]       " highlight last inserted text
 set grepprg=ag\ --nogroup\ --nocolor\ --column
 
 augroup quickfix
-    autocmd!
+autocmd!
 
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
-    autocmd VimEnter        *     cwindow
+autocmd QuickFixCmdPost [^l]* cwindow
+autocmd QuickFixCmdPost l*    lwindow
+autocmd VimEnter        *     cwindow
 augroup END
 
 "To have a space (ASCII 32) considered as a valid character for a file name, add the following to your vimrc:
 set isfname+=32
 
+
 set pastetoggle=<F2>
+
 "}}}
 
 
