@@ -71,7 +71,6 @@ endif
 " Enable plugins
 let g:deoplete#enable_at_startup=1
 autocmd FileType markdown let g:deoplete#enable_at_startup=0
-colo seoul256
 set updatetime=250 "for vim gitgutter
 
 set relativenumber number
@@ -154,11 +153,6 @@ endfunction
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
-" Autoreload vimrc
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
 
 " Support for tabs in Makefile
 autocmd FileType make setlocal noexpandtab
