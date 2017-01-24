@@ -30,6 +30,7 @@ colo ronox
 " Leader
 "{{{
 nnoremap <silent> <Leader>ev :e $MYVIMRC<CR>    " edit vimrc
+nnoremap <silent> <Leader>ez :e ~/.zshrc<CR>    " edit zshrc
 nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>   " source vimrc
 nnoremap <silent> <Leader>dd :bd<CR>
 "}}}
@@ -79,14 +80,18 @@ nnoremap k gk
 set backspace=indent,eol,start  "Allow backspace in insert mode
 set history=1000                "Store lots of :cmdline history
 set undolevels=1000             " use many muchos levels of undo
-set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildmode=list:longest
+set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
+set wildignore+=*.swp,*.bak,*.pyc,*.class
+set wildignore+=*DS_Store*
+set wildignore+=*.png,*.jpg,*.gif
 set title                       " change the terminal's title
 set visualbell                  " don't beep
 set noerrorbells                " don't beep
 set path+=**                    " Search down into subfolders
 set autoread                    " Reload files changed outside vim
 set hidden                      " Allows dirty buffers to be hidden
-set pastetoggle=<F2>
 set timeoutlen=1000 ttimeoutlen=0
 set mouse=a
 "}}}
@@ -159,7 +164,7 @@ set laststatus=2    " Always show the status line
 " Markdown
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd Filetype markdown call SetMarkdownOptions()
-function SetMarkdownOptions()
+function! SetMarkdownOptions()
     set textwidth=64
     set formatprg=par\ -w62
     set formatoptions+=t
@@ -186,6 +191,7 @@ let g:vimwiki_list = [{'path': '~/Dropbox/cabinet/wiki/',
 
 "" Experimental
 "{{{
+" Testing out these settings
 " Better defaults
 let g:netrw_banner=0        " disable annoying banner
 let g:netrw_browse_split=4  " open in prior window
@@ -196,6 +202,7 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 
 " ================ Persistent Undo ==================
+" Check for conflics with swap files
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
 if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
@@ -206,13 +213,6 @@ endif
 
 " ================ Completion =======================
 
-set wildmode=list:longest
-set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
-set wildignore=*.pyc
-set wildignore+=*DS_Store*
-set wildignore+=*.png,*.jpg,*.gif
-
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
 nnoremap P P=`]<C-o>
@@ -222,6 +222,21 @@ set cmdheight=2
 set lazyredraw          " redraw only when we need to.
 set cursorline          " highlight current line
 nnoremap gV `[v`]       " highlight last inserted text
+
+set grepprg=ag\ --nogroup\ --nocolor\ --column
+
+augroup quickfix
+    autocmd!
+
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+    autocmd VimEnter        *     cwindow
+augroup END
+
+"To have a space (ASCII 32) considered as a valid character for a file name, add the following to your vimrc:
+set isfname+=32
+
+set pastetoggle=<F2>
 "}}}
 
 
