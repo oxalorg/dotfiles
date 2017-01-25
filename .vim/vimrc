@@ -42,9 +42,10 @@ nnoremap <silent> <Leader>dd :bd<CR>
 
 
 "{{{ Integrating 'fzy'
+set rtp+=~/.fzf
 function! FzyCommand(choice_command, vim_command)
 try
-    let output = system(a:choice_command . " | fzy ")
+    let output = system(a:choice_command . " | fzf ")
 catch /Vim:Interrupt/
     " Swallow errors from ^C, allow redraw! below
 endtry
@@ -68,33 +69,20 @@ nnoremap <leader>ns :call FzyCommand("ag ~/Dropbox/cabinet/notes -l -g ''", ":e"
 
 "" Journal
 "{{{
-" Logs
-fun! OpenLog()
-    let fname = strftime("%Y-%m-%d")
-    exe ":e ~/Dropbox/cabinet/journal/logs/daily/" . fname . ".txt"
-endfun
-nnoremap <silent> <leader>jl :call OpenLog()<CR>
-
-" Todos
-fun! OpenTodo()
-    let fname = strftime("%Y/%m")
-    exe ":E ~/Dropbox/cabinet/journal/todos/" . fname . ".txt"
+fun! OpenDateFile(location, suffix)
+    " location must have a trailing slash
+    " suffix must include the dot
+    let cdate = strftime("%Y-%m-%d")
+    exe ":e " . a:location . cdate . a:suffix
 endfun
 
 nnoremap <silent> <leader>jt :call OpenTodo() <CR>
-
-
 "}}}
 
 
 "" Movement
 "{{{
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-nnoremap <up> <nop>     " No arrows keys
+nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
