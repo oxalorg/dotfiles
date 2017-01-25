@@ -1,5 +1,7 @@
 # zsh configuration
 
+** CHECK ../shell **
+
 I avoid using frameworks for zsh since most of them are bloated, i.e. contain a lot of excessive functions and options.
 
 I have a custom zsh cofiguration picked and parceled from several sources, and I use [zgen](https://github.com/tarjoilija/zgen) plugin manager for minimal overhead. 
