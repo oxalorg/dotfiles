@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+import os
+import datetime
+import argparse
+import sys
+
+EDITOR = 'vim'
+LIFEDIR = os.path.abspath(os.path.expanduser('~/Dropbox/cabinet/notes/life'))
+DIARY_TEMPLATE = """\
+---
+title: "Day {day_no} - {title}"
+date: $(date +"%Y-%m-%dT%H:%M:%S")
+---
+
+"""
+
+def dear_diary(title):
+    clean_title = title.replace(' ', '_')
+
+    today = datetime.datetime.now()
+    year = today.strftime('%Y')
+    month_short = today.strftime('%b') 
+    month_num = today.strftime('%m')
+    day = today.strftime('%d')
+
+    curr_dir = os.path.join(LIFEDIR, year, '{}-{}'.format(month_num, month_short))
+
+    os.makedirs(curr_dir, exist_ok=True)
+
+    # Now create file for today
+    fname_start = "Day_{}".format(day_no_str)
+
+    for f in os.listdir(curr_dir):
+        # Check if a journal entry has been made today
+        fpath = os.path.join(curr_dir, f)
+        if os.path.isfile(fpath) and f.startswith(fname_start):
+            # If it has, open it directly
+            os.execlp(EDITOR, 'deardiary', fpath)
+            break
+    else:
+        # If No entry has been made today then
+        # create a new entry
+        # TODO: If title is empty, ask for a title here
+        fname = "{}_{}.md".format(fname_start, clean_title)
+        diary_file = os.path.join(curr_dir, fname)
+        with open(diary_file, 'w') as fp:
+            fp.write(DIARY_TEMPLATE.format(day_no=day_no_str, title=clean_title))
+        os.execlp(EDITOR, 'deardiary', diary_file)
+
+
+if __name__ == '__main__':
+    args = argparse.ArgumentParser()
+    if len(sys.argv) >= 2:
+        title = sys.argv[1]
+    else:
+        title = ''
+
+    dear_diary(title)
+

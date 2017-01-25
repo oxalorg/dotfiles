@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# DEPRECATED -- check DOTFILES/shell/zshrc
+
+FILENAME=$(date +%s)
+
+URL="rogue.oxal.org"$FILENAME.png
+FILENAME=$HOME/Pictures/Screenshots/$FILENAME.png
+
+gnome-screenshot $1 -f $FILENAME
+
+scp $FILENAME chuu:$HOME/screenshots
+
+echo $URL | xclip -selection c
+
+notify-send "URL copied to clipboard"

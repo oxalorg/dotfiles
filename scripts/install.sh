@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dest=$HOME/.mybin
+dest=$HOME/.local/bin
 
 for f in */*
 do
