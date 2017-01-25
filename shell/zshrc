@@ -1,9 +1,10 @@
-4 @oxalorg
+# @oxalorg
 # Common shell rc
 
 autoload -U edit-command-line   # Allows C-x-e to edit command in editor
 CABINET=~/Dropbox/cabinet
 NOTES=$CABINET/notes
+
 # Imports
 [ -f ~/.aliases ] && source ~/.aliases  # Import common aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
