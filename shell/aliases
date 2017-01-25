@@ -1,0 +1,60 @@
+# Needs to be DONE
+export EDITOR=vim
+export VISUAL=vim
+alias v=$EDITOR
+
+# MPC MPD Aliases
+alias mpn='mpc next'
+alias mpt='mpc toggle'
+alias mpp='mpc prev'
+alias mppl='mpc playlist'
+alias mpa='mpc add'
+
+# List commands
+alias ls="ls -GpF"
+alias ll="ls -lGpF"
+alias lt="ls -ltGpF"
+alias la="ls -aGpF"
+
+# Git
+alias gst='git status -sb'
+alias ga='git add'
+alias gu='git add -u'
+alias gcm='git commit -m'
+alias gp='git push'
+alias gc='git checkout'
+alias gb='git branch'
+## Git log
+alias gl='git log --graph --color --decorate --all --stat -p'
+alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# Stylize commands
+alias grep='grep --color'
+alias nyancat='pygmentize -g -O style=colorful'
+alias cpsakura='cat /projects/sakura.css/normalize.css /projects/sakura.css/sakura-light.css | pbcopy'
+
+# Utils
+alias dude='du -hcd 1 | gsort -hr'
+alias t='tree'
+
+# Custom sed
+alias sedmdimg="sed 's/\(.*\)/![\1]\(\1\)/g'"
+
+# Custom directories
+alias doc='cd /doc'
+alias proj='cd /projects'
+ccd() {
+    cd $OLDPWD
+}
+
+# quickedits
+alias nvrc='$EDITOR $HOME/.config/nvim/init.vim'
+alias zshrc='$EDITOR $HOME/.config/zsh/.zshrc'
+
+# Super useful shortcuts
+alias agg='ag -g'
+alias agga='ag -g ""'
+alias agd='find . -type d | ag'
+alias -g AG='| ag'
+alias -g G='| grep'
+alias ftd='find . -type d'

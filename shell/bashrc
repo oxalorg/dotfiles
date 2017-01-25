@@ -102,3 +102,5 @@ man() {
 bind -x '"\C-x": fg'
 
 echo "Done"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
