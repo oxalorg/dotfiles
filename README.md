@@ -1,9 +1,9 @@
 # Welcome to oxalorgs home base - ark.
 
-Less is more. 
-Beautiful is better than ugly. 
-Explicit is better than implicit. 
-Simple is better than complex. 
+Less is more.  
+Beautiful is better than ugly.  
+Explicit is better than implicit.  
+Simple is better than complex.  
 
 ---
 
