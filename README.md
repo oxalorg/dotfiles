@@ -50,6 +50,7 @@ Please edit the following files if you are cloning/forking this repository:
 
 ## Changelogs
 
+* 2017-01-27 Started using vscode for larger projects
 * 2017-01-26 Removed atom and zsh folders. Fixed shell folder.
 * 2017-01-25 Switched from custom zsh config to
   [Prezto](https://github.com/sorin-ionescu/prezto)
