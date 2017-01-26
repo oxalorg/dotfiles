@@ -20,7 +20,7 @@ fi
 
 
 echo "Linking .vim folder"
-ln -s -v ${DOTFILESDIR}/.vim ~/
+ln -s -v ${DOTFILESDIR}/vim ~/.vim
 
 
 while true; do
