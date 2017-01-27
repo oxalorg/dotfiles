@@ -8,7 +8,8 @@ for f in $(find . -mindepth 2 -type f -not -name README.md -not -path "*archived
 do
     temp=`echo $f | cut --complement -c 1,2`
     src=`pwd`/$temp
-    [ ! -e "$src" ] && ln -sv $src $dest/`basename $f` && chmod u+x $dest/`basename $f`
+    link=$dest/`basename $f`
+    [ ! -e "$link" ] && ln -sv $src $link && chmod u+x $link
 done
 
 # clean bin directory
