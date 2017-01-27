@@ -18,19 +18,33 @@ oxantisocial () {
     $EDITOR $CABINET/journal/antisocial/$(date +%FT%H:%M).md
 }
 
+oxfind () {
+    # searches for a term, shows a list of all files with that term
+    # shows a preview of each file
+    local tempd=`pwd`
+    cd $CABINET/journal
+    local query=${@-""}
+    $EDITOR "$(ag -G '(md|txt)$' -l $query | fzf --preview='pygmentize {}' --color light --margin 5,20)"
+}
+
+oxsearch () {
+    ag -G '(md|txt)$' "$@" $CABINET/journal
+}
+
 oxtags () {
+    # searches for ALL tags like #yolo #wow #ethan #great #moves #such doge
+    # Specific tag search can simply be done by oxsearch()
+    ag -G '(md|txt)$' '#[a-zA-Z\-_0-9!]+' $CABINET/journal
     # TODO: take an argument and do a partial search for that
-    # searches for tags like #yolo #wow #ethan #great #moves #such doge
-    ag -G 'md$' '#[a-zA-Z\-_0-9!]+' $CABINET/journal
 }
 
 oxmentions () {
     # searches for mentions like @ox @rogue @noob @2016-02-16
-    ag -G 'md$' '@[a-zA-Z\-_0-9!]+' $CABINET/journal
+    ag -G '(md|txt)$' '@[a-zA-Z\-_0-9!]+' $CABINET/journal
 }
 
 oxtodos () {
-    ag -G 'md$' 'TODO' $CABINET/journal
+    ag -G '(md|txt)$' 'TODO' $CABINET/journal
 }
 
 ## Notes
