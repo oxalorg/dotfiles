@@ -1,4 +1,4 @@
-#!/bash/bin
+#!/bin/bash
 
 ## Screenshots
 ROGUE_ARK_DIR=/var/www/rogue.oxal.org/public
