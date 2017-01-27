@@ -8,7 +8,8 @@ NOTES=$CABINET/notes
 # Imports
 [ -f ~/.aliases ] && source ~/.aliases  # Import common aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
-[ -f ~/.local/bin/notes.sh ] && source ~/.local/bin/notes.sh  # Import my custom notes functions
+[ -f ~/.local/bin/ox ] && source ~/.local/bin/ox  
+[ -f ~/.local/bin/rogue ] && source ~/.local/bin/rogue
 
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -27,76 +28,3 @@ export PATH="$HOME/.local/bin:$PATH"
 #  esac
 #}
 
-
-
-## Screenshots
-ROGUE_ARK_DIR=/var/www/rogue.oxal.org/public
-ROGUE_LOCAL_DIR=$CABINET/www/rogue.oxal.org/public
-rougescreen () {
-    FILENAME=${1-$(date +%s)}
-    URL="http://rogue.oxal.org/img/s/"$FILENAME.png
-    #FILENAME=$HOME/Pictures/Screenshots/$FILENAME.png
-    FILENAME=$ROGUE_LOCAL_DIR/img/s/$FILENAME.png
-    gnome-screenshot $1 -f $FILENAME
-    scp $FILENAME ark:$ROGUE_ARK_DIR/img/s/
-    echo $URL | pbcopy
-    notify-send "URL copied to clipboard"
-}
-
-## Upload snippets
-roguesnip () {
-    fname=${1-$(date +%s)}
-    echo "The file name is $fname"
-    FILENAME=$ROGUE_LOCAL_DIR/snip/$fname.txt
-    input=$(cat | tee "$FILENAME")
-    URL="http://rogue.oxal.org/snip/"$fname.txt
-    scp $FILENAME ark:$ROGUE_ARK_DIR/snip/
-    echo $URL | pbcopy
-    notify-send "URL copied to clipboard"
-}
-
-## Journal
-oxdiary () {
-    $EDITOR $CABINET/journal/diary/$(date +%F).md
-}
-
-oxdream () {
-    $EDITOR $CABINET/journal/diary/$(date +%F).md
-}
-
-oxantisocial () {
-    $EDITOR $CABINET/journal/antisocial/$(date +%FT%H:%M).md
-}
-
-## Notes
-nsearch () {
-    cd $NOTES
-    local query=$@ || ""
-    $EDITOR "$(fzf --preview='head -$LINES {}' -1 -q $query)"
-}
-
-ncreate () {
-    local query=$@ || ""
-    local p=$(find -L $NOTES -type d ! -path \*.git\* | sed "s|.*notes||" | fzf -1 -q "$@")
-    cd $NOTES/$p
-    $EDITOR
-}
-
-# Create snippet
-# TODO: Add linux (xclip) support
-nsnip() {
-local content=pbpaste
-local genname=`pbpaste | head -c 25`
-#local genname=`xclip -o -selection clip | head -c 25`
-local filename=${@:-$genname}
-local slug=`echo $filename | sed 's|\ |_|g' | sed 's|[_]*$||'`
-$content >> $NOTES/snips/$(date +%F)-${slug}.md
-echo "\n" >> $NOTES/snips/$(date +%F)-${slug}.md
-}
-
-# Edit scratch pad note
-alias npad='$EDITOR --cmd "cd /notes" /notes/scratch-pad.md'
-alias cpad='cat /notes/scratch-pad.md'
-alias ppad='/notes/scratch-pad.md'
-
-alias nt='cd $NOTES'
