@@ -3,7 +3,7 @@
 # TODO: Set these variables IF not defined in zshrc/bashrc
 #CABINET=~/Dropbox/cabinet
 #NOTES=$CABINET/notes
-#JOURNAL=$CABINET/journal
+JOURNAL=$CABINET/journal
 
 ## Journal
 oxdiary () {
@@ -16,6 +16,21 @@ oxdream () {
 
 oxantisocial () {
     $EDITOR $CABINET/journal/antisocial/$(date +%FT%H:%M).md
+}
+
+oxtags () {
+    # TODO: take an argument and do a partial search for that
+    # searches for tags like #yolo #wow #ethan #great #moves #such doge
+    ag -G 'md$' '#[a-zA-Z\-_0-9!]+' $JOURNAL/antisocial $JOURNAL/diary $JOURNAL/dreams
+}
+
+oxmentions () {
+    # searches for mentions like @ox @rogue @noob @2016-02-16
+    ag -G 'md$' '@[a-zA-Z\-_0-9!]+' $JOURNAL/antisocial $JOURNAL/diary $JOURNAL/dreams
+}
+
+oxtodos () {
+    ag -G 'md$' 'TODO' $JOURNAL/antisocial $JOURNAL/diary $JOURNAL/dreams
 }
 
 ## Notes
