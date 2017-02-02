@@ -1,0 +1,29 @@
+#!/bin/bash
+
+## Screenshots
+ROGUE_ARK_DIR=/var/www/oxal.org/public
+ROGUE_LOCAL_DIR=$CABINET/www/oxal.org/public
+FILENAME=${1-$(date +%s)}
+URL="http://ark.oxal.org/img/s/"$FILENAME.png
+echo $URL $FILENAME
+
+#FILENAME=$HOME/Pictures/Screenshots/$FILENAME.png
+FILENAME=$ROGUE_LOCAL_DIR/img/s/$FILENAME.png
+
+if [ "$(uname -s)" = "Darwin" ]; then
+    screencapture -i $FILENAME
+else
+    maim -s -p 0 -b 10 -c 1,0,0,0.8 --opengl --theme gothic $FILENAME
+fi
+
+scp $FILENAME ark:$ROGUE_ARK_DIR/img/s/
+
+if [ "$(uname -s)" = "Darwin" ]; then
+    echo $URL | pbcopy
+    osascript -e 'display notification "URL copied to clipboard" with title "Screenshot"'
+else
+    echo $URL | xlcip -i -selection clipboard
+    notify-send "URL copied to clipboard"
+fi
+
+

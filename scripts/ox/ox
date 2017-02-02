@@ -11,11 +11,16 @@ oxdiary () {
 }
 
 oxdream () {
-    $EDITOR $CABINET/journal/diary/$(date +%F).md
+    $EDITOR $CABINET/journal/dream/$(date +%F).md
 }
 
 oxantisocial () {
     $EDITOR $CABINET/journal/antisocial/$(date +%FT%H:%M).md
+}
+
+oxwork () {
+    # work journal
+    $EDITOR $CABINET/journal/work/$(date +%Y-%m).md
 }
 
 oxfind () {
@@ -64,12 +69,11 @@ ncreate () {
 # Create snippet
 nsnip() {
     # pbpaste and pbcopy should be mapped to xlcip on linux in zshrc
-    local content=pbpaste
-    local genname=`pbpaste | head -c 25`
+    local genname=`pbpaste | head -c 25 | sed 's|\ |_|g' | sed 's|/|_|g' `
     local filename=${@:-$genname}
     local slug=`echo $filename | sed 's|\ |_|g' | sed 's|[_]*$||'`
-    $content >> $NOTES/snips/$(date +%F)-${slug}.md
-    echo "\n" >> $NOTES/snips/$(date +%F)-${slug}.md
+    pbpaste >>! $NOTES/snips/$(date +%F)-${slug}.md
+    echo "\n" >>! $NOTES/snips/$(date +%F)-${slug}.md
 }
 
 # Edit scratch pad note
