@@ -1,28 +1,38 @@
 #!/bin/bash
 
 ## Screenshots
+CABINET=~/Dropbox/cabinet
 ROGUE_ARK_DIR=/var/www/oxal.org/public
 ROGUE_LOCAL_DIR=$CABINET/www/oxal.org/public
-FILENAME=${1-$(date +%s)}
-URL="http://ark.oxal.org/img/s/"$FILENAME.png
-echo $URL $FILENAME
+THIS_MONTH=$(date +%Y-%m)
 
-#FILENAME=$HOME/Pictures/Screenshots/$FILENAME.png
-FILENAME=$ROGUE_LOCAL_DIR/img/s/$FILENAME.png
+FILENAME=${1-$(date +%s)}
+DIRNAME=img/s/${THIS_MONTH}
+mkdir -p $ROGUE_LOCAL_DIR/${DIRNAME}
+URL="https://oxal.org/${DIRNAME}/${FILENAME}.png"
+fpath=$ROGUE_LOCAL_DIR/${DIRNAME}/$FILENAME.png
+
+echo $URL
+secs=$((2))
+while [ $secs -gt 0 ]; do
+    echo "Screenshot in $secs seconds..."
+    sleep 1
+    : $((secs--))
+done
 
 if [ "$(uname -s)" = "Darwin" ]; then
-    screencapture -i $FILENAME
+    screencapture -i $fpath
 else
-    maim -s -p 0 -b 10 -c 1,0,0,0.8 --opengl --theme gothic $FILENAME
+    maim -s -p 0 -b 10 -c 1,0,0,0.8 --opengl --theme gothic $fpath
 fi
 
-scp $FILENAME ark:$ROGUE_ARK_DIR/img/s/
+rsync -a $ROGUE_LOCAL_DIR/${DIRNAME} ark:$ROGUE_ARK_DIR/img/s
 
 if [ "$(uname -s)" = "Darwin" ]; then
     echo $URL | pbcopy
     osascript -e 'display notification "URL copied to clipboard" with title "Screenshot"'
 else
-    echo $URL | xlcip -i -selection clipboard
+    echo $URL | xclip -i -selection clipboard
     notify-send "URL copied to clipboard"
 fi
 

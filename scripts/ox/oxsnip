@@ -1,0 +1,27 @@
+#!/bin/bash
+
+
+CABINET=~/Dropbox/cabinet
+ROGUE_ARK_DIR=/var/www/oxal.org/public
+ROGUE_LOCAL_DIR=$CABINET/www/oxal.org/public
+THIS_MONTH=$(date +%Y-%m)
+
+FILENAME=${1-$(date +%s)}
+DIRNAME=snip/${THIS_MONTH}
+mkdir -p $ROGUE_LOCAL_DIR/${DIRNAME}
+URL="https://oxal.org/${DIRNAME}/${FILENAME}.txt"
+fpath=$ROGUE_LOCAL_DIR/${DIRNAME}/$FILENAME.txt
+
+input=$(cat | tee "$fpath")
+
+rsync -a $ROGUE_LOCAL_DIR/${DIRNAME} ark:$ROGUE_ARK_DIR/snip
+
+if [ "$(uname -s)" = "Darwin" ]; then
+    echo $URL | pbcopy
+    osascript -e 'display notification "URL copied to clipboard" with title "Screenshot"'
+else
+    echo $URL | xclip -i -selection clipboard
+    notify-send "URL copied to clipboard"
+fi
+
+
