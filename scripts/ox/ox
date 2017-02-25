@@ -1,66 +1,71 @@
 #!/bin/bash
 
-# TODO: Set these variables IF not defined in zshrc/bashrc
-#CABINET=~/Dropbox/cabinet
-#NOTES=$CABINET/notes
-#JOURNAL=$CABINET/journal
+CABINET=~/Dropbox/cabinet
+JOURNAL=$CABINET/journal
+NOTES=$JOURNAL/notes
+LOGS=$JOURNAL/logs
 
 ## Journal
 oxdiary () {
-    $EDITOR $CABINET/journal/diary/$(date +%F).md
+    $EDITOR $JOURNAL/diary/$(date +%F).md
 }
 
 oxdream () {
-    $EDITOR $CABINET/journal/dream/$(date +%F).md
+    $EDITOR $JOURNAL/dream/$(date +%F).md
 }
 
 oxantisocial () {
-    $EDITOR $CABINET/journal/antisocial/$(date +%FT%H:%M).md
+    $EDITOR $JOURNAL/antisocial/$(date +%FT%H:%M:%S).md
 }
 
 oxwork () {
     # work journal
-    $EDITOR $CABINET/journal/work/$(date +%Y-%m).md
+    $EDITOR $JOURNAL/work/$(date +%Y).md
+}
+
+oxfood () {
+    $EDITOR $LOGS/food/$(date +%Y).md
 }
 
 oxfind () {
     # searches for a term, shows a list of all files with that term
     # shows a preview of each file
-    local tempd=`pwd`
-    cd $CABINET/journal
+    cd $JOURNAL
     local query=${@-""}
     $EDITOR "$(ag -G '(md|txt)$' -l $query | fzf --preview='pygmentize {}' --color light --margin 5,20)"
 }
 
 oxsearch () {
-    ag -G '(md|txt)$' "$@" $CABINET/journal
+    ag -C 3 -G '(md|txt)$' "$@" $JOURNAL
 }
 
 oxtags () {
     # searches for ALL tags like #yolo #wow #ethan #great #moves #such doge
     # Specific tag search can simply be done by oxsearch()
-    ag -G '(md|txt)$' '#[a-zA-Z\-_0-9!]+' $CABINET/journal
-    # TODO: take an argument and do a partial search for that
+    if [ -z "$@" ]; then
+        ag -G '(md|txt)$' '#[a-zA-Z\-_0-9!]+' $JOURNAL
+    else
+        ag -G '(md|txt)$' "#$@" $JOURNAL
+    fi
 }
 
 oxmentions () {
     # searches for mentions like @ox @rogue @noob @2016-02-16
-    ag -G '(md|txt)$' '@[a-zA-Z\-_0-9!]+' $CABINET/journal
+    ag -G '(md|txt)$' '@[a-zA-Z\-_0-9!]+' $JOURNAL
 }
 
 oxtodos () {
-    ag -G '(md|txt)$' 'TODO' $CABINET/journal
+    ag -G '(md|txt)$' 'TODO' $JOURNAL
 }
 
-## Notes
-nsearch () {
-    cd $NOTES
-    local query=$@ || ""
-    $EDITOR "$(fzf --preview='head -$LINES {}' -1 -q $query)"
+oxedit () {
+    cd $JOURNAL
+    local query=${@-""}
+    $EDITOR "$(fzf --preview='head -$LINES {}' -1 -q "$query")"
 }
 
 ncreate () {
-    local query=$@ || ""
+    local query=${@-""}
     local p=$(find -L $NOTES -type d ! -path \*.git\* | sed "s|.*notes||" | fzf -1 -q "$@")
     cd $NOTES/$p
     $EDITOR
@@ -76,9 +81,10 @@ nsnip() {
     echo "\n" >>! $NOTES/snips/$(date +%F)-${slug}.md
 }
 
-# Edit scratch pad note
-alias npad='$EDITOR --cmd "cd /notes" /notes/scratch-pad.md'
-alias cpad='cat /notes/scratch-pad.md'
-alias ppad='/notes/scratch-pad.md'
+# Inbox to dump everything which will later be organized
+alias oxin="$EDITOR $JOURNAL/inbox.md"
+alias -g inbox="$JOURNAL/inbox.md"
 
+# Quick jumps
 alias nt='cd $NOTES'
+alias jr='cd $JOURNAL'
