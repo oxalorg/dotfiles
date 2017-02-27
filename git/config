@@ -1,0 +1,7 @@
+[user]
+    email = mitesh@oxal.org
+    name = Mitesh Shah
+[push]
+    default = simple
+[core]
+    excludesfile = ~/.config/git/gitignore
