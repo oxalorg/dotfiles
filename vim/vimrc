@@ -19,11 +19,14 @@ endif
 "" Custom
 "{{{
 autocmd CompleteDone * pclose
-inoremap qp <Esc> " map ESC to something senible
+inoremap qp <Esc>
 noremap : ;
 noremap ; :
 cmap w!! w !sudo tee % >/dev/null           " save with sudo
 colo ronox
+nnoremap <leader>mh execute('silent! !ohtml system("%"))
+autocmd BufReadPre *.doc,*.docx,*.rtf,*.odp,*.odt silent set ro
+autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -t markdown
 "}}}
 
 "" Functions
@@ -38,6 +41,7 @@ nnoremap <silent> <Leader>ev :e $MYVIMRC<CR>    " edit vimrc
 nnoremap <silent> <Leader>ez :e ~/.zshrc<CR>    " edit zshrc
 nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>   " source vimrc
 nnoremap <silent> <Leader>dd :bd<CR>
+nnoremap <silent> <Leader>daf i <C-r>=system('date +%F')<CR>
 "}}}
 
 
