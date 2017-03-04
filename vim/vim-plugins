@@ -5,10 +5,15 @@
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'ajh17/VimCompletesMe'
+Plug 'tpope/vim-commentary'
+Plug 'jreybert/vimagit'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"Plug 'vimwiki/vimwiki'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --tern-completer' }
 
 

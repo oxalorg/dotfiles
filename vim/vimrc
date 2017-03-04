@@ -43,27 +43,7 @@ nnoremap <silent> <Leader>ez :e ~/.zshrc<CR>    " edit zshrc
 nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>   " source vimrc
 nnoremap <silent> <Leader>dd :bd<CR>
 nnoremap <silent> <Leader>daf i <C-r>=system('date +%F')<CR>
-"}}}
-
-
-"{{{ Integrating 'fzy'
-set rtp+=~/.fzf
-function! FzyCommand(choice_command, vim_command)
-try
-    let output = system(a:choice_command . " | fzf ")
-catch /Vim:Interrupt/
-    " Swallow errors from ^C, allow redraw! below
-endtry
-redraw!
-if v:shell_error == 0 && !empty(output)
-    "exec a:vim_command . ' ' . output
-    exec a:vim_command . ' ' . escape(output, ' ')
-endif
-endfunction
-
-nnoremap <leader>oo :call FzyCommand("ag . -l -g ''", ":e")<cr>
-nnoremap <leader>ov :call FzyCommand("ag . -l -g ''", ":vs")<cr>
-nnoremap <leader>os :call FzyCommand("ag . -l -g ''", ":sp")<cr>
+nnoremap <silent> <Leader>w :w<CR>
 "}}}
 
 "" Notes
@@ -119,6 +99,7 @@ set autoread                    " Reload files changed outside vim
 set hidden                      " Allows dirty buffers to be hidden
 set timeoutlen=1000 ttimeoutlen=0
 set mouse=a
+set updatetime=250
 "}}}
 
 
@@ -211,6 +192,35 @@ source ~/.vim/vim-plugins
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Dropbox/cabinet/wiki/',
                    \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" NerdTree opens by default with plain `vim`
+nnoremap <silent> <Leader>t :NERDTreeToggle<CR>
+
+" fzf.vim
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+" Augmenting Ag command using fzf#vim#with_preview function
+"   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
+"   * Preview script requires Ruby
+"   * Install Highlight or CodeRay to enable syntax highlighting
+"
+"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+"   :Ag! - Start fzf in fullscreen and display the preview window above
+command! -bang -nargs=* Ag
+            \ call fzf#vim#ag(<q-args>,
+            \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+            \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \                 <bang>0)
+
+nnoremap <silent> <Leader>ff :GFiles<CR>
+nnoremap <silent> <Leader>fg :GFiles?<CR>
+nnoremap <silent> <Leader>fb :Buffers<CR>
+nnoremap <silent> <Leader>fs :Ag<CR> #s for search
+nnoremap <silent> <Leader>fl :Lines<CR>
+nnoremap <silent> <Leader>ft :Tags<CR>
 "}}}
 
 
