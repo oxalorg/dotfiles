@@ -2,6 +2,7 @@
 export EDITOR=vim
 export VISUAL=vim
 alias v=$EDITOR
+export MAIL=$HOME/mail/INBOX
 
 # MPC MPD Aliases
 alias mpn='mpc next'
@@ -31,16 +32,17 @@ alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset 
 # Stylize commands
 alias grep='grep --color'
 alias nyancat='pygmentize -g -O style=colorful'
-alias cpsakura='cat /projects/sakura.css/normalize.css /projects/sakura.css/sakura-light.css | pbcopy'
 
 # Utils
-alias dude='du -hcd 1 | gsort -hr'
+alias dude='du -hcd 1 | sort -hr'
 alias t='tree'
 
 # Custom sed
 alias sedmdimg="sed 's/\(.*\)/![\1]\(\1\)/g'"
 
 # Custom directories
+alias cab='cd /cabinet'
+alias www='cd /cabinet/www'
 alias doc='cd /doc'
 alias proj='cd /projects'
 ccd() {
@@ -48,8 +50,9 @@ ccd() {
 }
 
 # quickedits
-alias nvrc='$EDITOR $HOME/.config/nvim/init.vim'
-alias zshrc='$EDITOR $HOME/.config/zsh/.zshrc'
+alias envim='$EDITOR $HOME/.config/nvim/init.vim'
+alias ezshrc='$EDITOR $HOME/.oxzshrc'
+alias ealiases='$EDITOR $HOME/.aliases'
 
 # Super useful shortcuts
 alias agg='ag -g'
