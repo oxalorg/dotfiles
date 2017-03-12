@@ -1,0 +1,14 @@
+# <type>: If applied, this commit will...  50c ->|
+
+
+# Explain why this change is being made ----- maximum of 72 char ----->|
+
+
+# Type can be 
+#    feature  (new feature)
+#    fix      (bug fix)
+#    refactor (refactoring production code)
+#    style    (formatting, missing semi colons, etc; no code change)
+#    docs     (changes to documentation)
+#    test     (adding or refactoring tests; no production code change)
+#    chore    (updating grunt tasks etc; no production code change)

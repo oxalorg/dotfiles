@@ -5,3 +5,5 @@
     default = simple
 [core]
     excludesfile = ~/.config/git/gitignore
+[commit]
+    template = ~/.config/git/gittemplate
