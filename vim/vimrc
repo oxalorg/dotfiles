@@ -28,6 +28,10 @@ nnoremap <leader>mh execute('silent! !ohtml system("%"))
 autocmd BufReadPre *.doc,*.docx,*.rtf,*.odp,*.odt silent set ro
 autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -t markdown
 " au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+autocmd Filetype html setlocal ts=2 sw=2 sts=2
+autocmd Filetype javascript setlocal ts=2 sw=2 sts=2
+autocmd Filetype vue setlocal ts=2 sw=2 sts=2
+command! -range=% YAPF <line1>,<line2>call yapf#YAPF()
 "}}}
 
 "" Functions
@@ -39,11 +43,22 @@ command -nargs=1 E execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> e <a
 " Leader
 "{{{
 nnoremap <silent> <Leader>ev :e $MYVIMRC<CR>    " edit vimrc
+nnoremap <silent> <Leader>ep :e /dotfiles/vim/vim-plugins<CR>
 nnoremap <silent> <Leader>ez :e ~/.zshrc<CR>    " edit zshrc
 nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>   " source vimrc
 nnoremap <silent> <Leader>dd :bd<CR>
 nnoremap <silent> <Leader>daf i <C-r>=system('date +%F')<CR>
 nnoremap <silent> <Leader>w :w<CR>
+nmap <Leader>er :call yapf#YAPF()<cr>
+" System clipboard
+vmap <Leader>y "+y
+nmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 "}}}
 
 "" Notes
