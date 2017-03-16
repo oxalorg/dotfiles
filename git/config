@@ -7,3 +7,9 @@
     excludesfile = ~/.config/git/gitignore
 [commit]
     template = ~/.config/git/gittemplate
+[url "git@github.com:"]
+    insteadOf = "gh:"
+    pushInsteadOf = "gh:"
+[url "git@bitbucket.org:"]
+    insteadOf = "bb:"
+    pushInsteadOf = "bb:"
