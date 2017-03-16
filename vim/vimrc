@@ -112,7 +112,7 @@ set noerrorbells                " don't beep
 set path+=**                    " Search down into subfolders
 set autoread                    " Reload files changed outside vim
 set hidden                      " Allows dirty buffers to be hidden
-set timeoutlen=1000 ttimeoutlen=0
+set timeoutlen=1000 ttimeoutlen=10
 set mouse=a
 set updatetime=250
 "}}}
@@ -168,7 +168,7 @@ set foldenable          " enable folding
 set foldlevelstart=99   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 " comma open/closes folds
-nnoremap , za
+" nnoremap , za
 set foldmethod=indent   " fold based on indent level
 "}}}
 
@@ -230,10 +230,12 @@ command! -bang -nargs=* Ag
             \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
             \                 <bang>0)
 
+nnoremap <silent> <Leader>fz :Files<CR>
 nnoremap <silent> <Leader>ff :GFiles<CR>
 nnoremap <silent> <Leader>fg :GFiles?<CR>
 nnoremap <silent> <Leader>fb :Buffers<CR>
-nnoremap <silent> <Leader>fs :Ag<CR> #s for search
+nnoremap <silent> <Leader><Leader> :Buffers<CR>
+nnoremap <silent> <Leader>fs :Ag<CR>
 nnoremap <silent> <Leader>fl :Lines<CR>
 nnoremap <silent> <Leader>ft :Tags<CR>
 "}}}
