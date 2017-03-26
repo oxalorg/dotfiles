@@ -12,12 +12,16 @@ bash - use it on all servers and also write all personal scripts in bash
     ln -s $DOTFILES/shell/aliases ~/.aliases
     ln -s $DOTFILES/shell/bashrc ~/.oxbashrc
     ln -s $DOTFILES/shell/zshrc ~/.oxzshrc
-    ln -s $DOTFILES/shell/zprestorc ~/.zprestorc
+    ln -s $DOTFILES/shell/zpreztorc ~/.oxzprestorc
 
 Now you can source these from the local files.
 
     [ -f ~/.oxbashrc ] && source ~/.oxbashrc
     [ -f ~/.oxzshrc ] && source ~/.oxzshrc
+
+And add this line to `~/.zpreztorc` installed by the installer
+
+    [ -f ~/.oxzpreztorc ] && source ~/.oxzpreztorc
 
 ## Notes
 
