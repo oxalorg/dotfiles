@@ -12,7 +12,7 @@ bash - use it on all servers and also write all personal scripts in bash
     ln -s $DOTFILES/shell/aliases ~/.aliases
     ln -s $DOTFILES/shell/bashrc ~/.oxbashrc
     ln -s $DOTFILES/shell/zshrc ~/.oxzshrc
-    ln -s $DOTFILES/shell/zpreztorc ~/.oxzprestorc
+    ln -s $DOTFILES/shell/zpreztorc ~/.oxzpreztorc
 
 Now you can source these from the local files.
 
