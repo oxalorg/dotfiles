@@ -10,8 +10,8 @@ oxdiary () {
     $EDITOR $JOURNAL/diary/$(date +%F).md
 }
 
-oxdream () {
-    $EDITOR $JOURNAL/dream/$(date +%F).md
+oxdreams () {
+    $EDITOR $JOURNAL/dreams/$(date +%F).md
 }
 
 oxantisocial () {

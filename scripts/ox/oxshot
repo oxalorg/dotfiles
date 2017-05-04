@@ -3,7 +3,7 @@
 ## Screenshots
 CABINET=~/Dropbox/cabinet
 ROGUE_ARK_DIR=/var/www/oxal.org/public
-ROGUE_LOCAL_DIR=$CABINET/www/oxal.org/public
+ROGUE_LOCAL_DIR=$CABINET/www/oxal.org/src
 THIS_MONTH=$(date +%Y-%m)
 
 FILENAME=${1-$(date +%s)}
