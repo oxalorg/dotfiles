@@ -2,3 +2,4 @@ vim/autoload
 vim/plugged
 vim/.netrwhist
 vim/*.bak
+/ssh
