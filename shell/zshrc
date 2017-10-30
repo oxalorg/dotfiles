@@ -4,6 +4,7 @@
 autoload -U edit-command-line   # Allows C-x-e to edit command in editor
 CABINET=~/Dropbox/cabinet
 NOTES=$CABINET/notes
+DOTFILES=~/Dropbox/Projects/dotfiles
 
 # Imports
 [ -f ~/.aliases ] && source ~/.aliases  # Import common aliases
@@ -12,6 +13,11 @@ NOTES=$CABINET/notes
 [ -f ~/.local/bin/rogue ] && source ~/.local/bin/rogue
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/Library/Python/3.6/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Functions
 
@@ -28,3 +34,62 @@ export PATH="$HOME/.local/bin:$PATH"
 #  esac
 #}
 
+# Extremely useful fzf shell commands
+export FZF_DEFAULT_OPTS='-m'
+
+fe() {
+    # fe - Open the selected files with the default editor
+    local files=$(fzf --query="$1" --select-1 --exit-0 | sed -e "s/\(.*\)/\'\1\'/")
+    local command="${EDITOR:-vim} -p $files"
+    [ -n "$files" ] && eval $command
+}
+
+fd() {
+    # fd - cd to selected directory
+    local dir
+    dir=$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf +m) &&
+    cd "$dir"
+}
+
+fh() {
+    # fh - repeat history
+    eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+fkill() {
+    # fkill - kill process
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    if [ "x$pid" != "x" ]; then
+        kill -${1:-9} $pid
+    fi
+}
+
+ohtml () {
+    # open as html file
+    pandoc --standalone --css /cabinet/lab/sakura.css/css/sakura.css $1 -o /tmp/$1.html
+    xdg-open /tmp/$1.html
+}
+
+# press ctrl-z again to unsuspend
+fancy-ctrl-z () {
+    if [[ $#BUFFER -eq 0 ]]; then
+        BUFFER="fg"
+            zle accept-line
+    else
+        zle push-input
+            zle clear-screen
+            fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+export WORKON_HOME=$HOME/.virtualenvs
+if [ "$(uname -s)" = "Darwin" ]; then
+    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+    export VIRTUALENVWRAPPER_SCRIPT=$HOME/Library/Python/3.6/bin/virtualenvwrapper.sh
+    source $HOME/Library/Python/3.6/bin/virtualenvwrapper_lazy.sh
+else
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export VIRTUALENVWRAPPER_SCRIPT=~/.local/bin/virtualenvwrapper.sh
+    source ~/.local/bin/virtualenvwrapper_lazy.sh
+fi

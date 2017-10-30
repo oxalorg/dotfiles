@@ -18,7 +18,7 @@ alias mpa='mpc add'
 #alias la="ls -aGpF"
 
 # Git
-alias gst='git status -sb'
+alias gst='git status -b'
 alias ga='git add'
 alias gu='git add -u'
 alias gcm='git commit'
