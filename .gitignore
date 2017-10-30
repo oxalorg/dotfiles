@@ -1,5 +1,6 @@
 vim/autoload
 vim/plugged
+vim/after
 vim/.netrwhist
 vim/*.bak
 /ssh
