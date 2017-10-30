@@ -5,6 +5,7 @@
     default = simple
 [core]
     excludesfile = ~/.config/git/gitignore
+    editor = $(which vim)
 [commit]
     template = ~/.config/git/gittemplate
 [url "git@github.com:"]
