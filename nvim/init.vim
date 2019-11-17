@@ -1,99 +1,163 @@
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+"
+"  Map the leader key to SPACE
+let mapleader="\<SPACE>"
 
-let s:uname = system("uname")
-if s:uname == "Darwin\n"
-    set runtimepath+=/Users/ox/.random/repos/github.com/Shougo/dein.vim
-    call dein#begin('/Users/ox/.random')
-    let g:python3_host_prog = '/usr/local/bin/python3'
-else
-    set runtimepath+=/home/ox/.random/repos/github.com/Shougo/dein.vim
-    call dein#begin('/home/ox/.random')
-    let g:python3_host_prog = '/usr/bin/python3'
-endif
+" Saves one keystroke to go into command mode
+noremap : ;
+noremap ; :
 
-"Macro Marvim configs should be set before sourcing the plugin
-let marvim_store = '/dotfiles/nvim/macros'
-" let marvim_find_key = '<Space>' 
-" let marvim_store_key = 'ms' 
-" let marvim_register = 'c' 
+inoremap qp <Esc>
+noremap qp <Esc>
 
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
+set ignorecase
+set smartcase
 
-"------------------------------------------
-" Add or remove your plugins here:
-"------------------------------------------
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
-call dein#add('Shougo/deoplete.nvim')
-" call dein#add('zchee/deoplete-jedi')
-call dein#add('junegunn/fzf', { 'build': './install', 'merged': 0 })
-call dein#add('junegunn/fzf.vim')
+set ruler
+set relativenumber
 
-" Tpope in my vimrc
-call dein#add('tpope/vim-commentary')
-call dein#add('tpope/vim-surround')
-" Pretty theme
-call dein#add('junegunn/seoul256.vim')
-" Writing
-" call dein#add('reedes/vim-pencil')
-call dein#add('junegunn/limelight.vim')
-call dein#add('junegunn/goyo.vim')
-" Pasting
-call dein#add('ConradIrwin/vim-bracketed-paste')
-" Git
-call dein#add('airblade/vim-gitgutter')
-" Macros
-call dein#add('vim-scripts/marvim')
-
-"------------------------------------------
-" You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-" Required:
-call dein#end()
-
-" Required:
+filetype off
 filetype plugin indent on
-syntax enable
 
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
+set pastetoggle=<F3>
 
-"End dein Scripts-------------------------
+" Allows git gutter to update faster
+set updatetime=100
 
-" Enable plugins
-let g:deoplete#enable_at_startup=1
-autocmd FileType markdown let g:deoplete#enable_at_startup=0
-set updatetime=250 "for vim gitgutter
+" Avoid forced end of lines on saving
+set nofixendofline
 
-" NeoSnippets
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+set expandtab
+set smarttab
+set tabstop=4
+set softtabstop=0
+set shiftwidth=4
 
-" SuperTab like snippets behavior.
-imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
- \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/plugged')
 
-imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
-      \ "\<Plug>(neosnippet_jump_or_expand)" : "\<CR>"
-smap <silent><CR> <Plug>(neosnippet_jump_or_expand)
+Plug 'tpope/vim-sensible'
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
-" Limelight on/off based on Goyo
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+Plug 'flazz/vim-colorschemes'
 
-" TODO: Fix this
-source ~/.vim/vimrc
+" jump between hunks with `[c` and `]c`
+" Leader hp : Hunk Preview
+" Leader hs : Hunk Stage
+" Leader hu : Hunk Undo
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+
+" Uses C-n, C-x, C-p
+Plug 'terryma/vim-multiple-cursors'
+
+" gcc
+Plug 'tpope/vim-commentary'
+
+Plug 'itchyny/lightline.vim'
+
+Plug 'davidhalter/jedi-vim'
+Plug 'Vimjas/vim-python-pep8-indent'  "better indenting for python
+
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+
+" Better Visual Guide
+Plug 'Yggdroot/indentLine'
+" syntax check
+Plug 'w0rp/ale'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+
+" Plug 'ncm2/ncm2-jedi'
+Plug 'deoplete-plugins/deoplete-jedi'
+
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
+
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-sleuth'
+Plug 'tmhedberg/SimpylFold'
+let g:SimpylFold_docstring_preview=1
+
+Plug 'Vimjas/vim-python-pep8-indent'
+
+Plug 'francoiscabrol/ranger.vim'
+let g:ranger_map_keys = 0
+nnoremap - :Ranger<CR>
+
+call plug#end()
+
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+
+set encoding=utf-8
+
+" Flagging Unnecessary Whitespace
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+nnoremap <C-p> :Files<Cr>
+nnoremap <leader>o :Files<cr>
+nnoremap <leader>f :Rg<cr>
+nnoremap <leader>b :Buffers<cr>
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+colorscheme jellybeans
+
+nnoremap <leader>t :TagbarOpenAutoClose<cr>
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" Switch to last edited buffer by pressing backspace in normal mode
+nnoremap <silent> <BS> :b#<CR>
+
+" ncm2 settings
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=menuone,noselect,noinsert
+set shortmess+=c
+inoremap <c-c> <ESC>
+" make it fast
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1, 1]]
+" Use new fuzzy based matches
+let g:ncm2#matcher = 'substrfuzzy'
+
+let g:ncm2_jedi#environment = expand('~/.virtualenvs/tk-final/bin/python3')
+
+" Disable Jedi-vim autocompletion and enable call-signatures options
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = ""
+let g:jedi#show_call_signatures = "1"
+
+let g:deoplete#auto_complete_delay = 100
+
