@@ -1,7 +1,10 @@
+alias cdd='cd /c/Users/ox'
+alias tk='cd /c/Users/ox/Dropbox/Projects/taazakitchen/'
+alias drop='cd /c/Users/ox/Dropbox'
 # Needs to be DONE
-export EDITOR=vim
-export VISUAL=vim
-alias v=$EDITOR
+export EDITOR=nvim
+export VISUAL=nvim
+alias e=$EDITOR
 export MAIL=$HOME/mail/INBOX
 
 # MPC MPD Aliases
@@ -20,14 +23,15 @@ alias mpa='mpc add'
 # Git
 alias gst='git status -b'
 alias ga='git add'
-alias gu='git add -u'
-alias gcm='git commit'
+alias gu='git add -u' alias gcm='git commit'
 alias gp='git push'
 alias gc='git checkout'
 alias gb='git branch'
 ## Git log
 alias gl='git log --graph --color --decorate --all --stat -p'
-alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+# alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gls="git log --graph --full-history --all --oneline --decorate --abbrev-commit"
+alias glss="git log --graph --full-history --all --oneline --decorate --abbrev-commit --simplify-by-decoration"
 
 # Stylize commands
 alias grep='grep --color'
@@ -61,3 +65,12 @@ alias agd='find . -type d | ag'
 alias -g AG='| ag'
 alias -g G='| grep'
 alias ftd='find . -type d'
+
+alias -g lenv='env $(cat .env | xargs)'
+
+# Apt
+alias sai='sudo apt install -y'
+
+alias f='rg --files --smart-case | fzf'
+
+alias sai='sudo apt install -y'
