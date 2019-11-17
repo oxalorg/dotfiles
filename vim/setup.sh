@@ -1,5 +1,5 @@
 #!/bin/sh
-DOTFILESDIR=~/Dropbox/Projects/dotfiles
+DOTFILESDIR=/dotfiles
 echo ".vim setup initialized."
 
 

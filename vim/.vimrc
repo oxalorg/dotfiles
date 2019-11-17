@@ -1,0 +1,375 @@
+" vim:fdm=marker
+" oxalorgs vimrc
+"{{{ 
+" Latest version: https://github.com/oxalorg/dotfiles
+" * Customized for personal use.
+" * Minimal with a very low footprint.
+"}}}
+
+set nocompatible  " Be iMproved
+let mapleader = "\<Space>"
+filetype plugin indent on
+syntax enable
+
+let s:uname = system("uname")
+if s:uname == "Darwin\n"
+else
+endif
+
+
+"" Custom
+"{{{
+autocmd CompleteDone * pclose
+inoremap qp <Esc>
+
+" Saves one keystroke to go into command mode
+noremap : ;
+noremap ; :
+
+" save a file with sudo
+cmap w!! w !sudo tee % >/dev/null
+
+" color scheme
+colo ronox
+nnoremap <leader>mh execute('silent! !ohtml system("%"))
+autocmd BufReadPre *.doc,*.docx,*.rtf,*.odp,*.odt silent set ro
+autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -t markdown
+" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+command! -range=% YAPF <line1>,<line2>call yapf#YAPF()
+autocmd FileType python setlocal formatprg=yapf
+"}}}
+
+"" Functions
+"{{{
+command -nargs=1 E execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> e <args>
+"}}}
+
+
+" Leader
+"{{{
+nnoremap <silent> <Leader>ev :e $MYVIMRC<CR>    " edit vimrc
+nnoremap <silent> <Leader>ep :e /dotfiles/vim/vim-plugins<CR>
+nnoremap <silent> <Leader>ez :e ~/.zshrc<CR>    " edit zshrc
+nnoremap <silent> <Leader>sv :so $MYVIMRC<CR>   " source vimrc
+nnoremap <silent> <Leader>dd :bd<CR>
+nnoremap <silent> <Leader>daf i <C-r>=system('date +%F')<CR>
+nnoremap <silent> <Leader>w :w<CR>
+
+" Control music
+" TODO: Make these into super easy shell commands
+nnoremap <silent> <Leader>mm :silent exec "!deadbeef --play-pause"<CR><C-l>
+nnoremap <silent> <Leader>mn :silent exec "!deadbeef --next"<CR><C-l>
+nnoremap <silent> <Leader>mp :silent exec "!deadbeef --prev"<CR><C-l>
+nnoremap <silent> <Leader>mr :silent exec "!deadbeef --random"<CR><C-l>
+nnoremap <silent> <Leader>ms :silent exec "!deadbeef --stop"<CR><C-l>
+
+nmap <Leader>er :call yapf#YAPF()<cr>
+
+" System clipboard
+vmap <Leader>y "+y
+nmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+"}}}
+
+"" Notes
+"{{{
+nnoremap <leader>ns :call FzyCommand("ag ~/Dropbox/cabinet/notes -l -g ''", ":e")<cr>
+"nnoremap <leader>ns :call FzyCommand("ag ~/Dropbox/cabinet/notes -l -g ''", ":e")<cr>
+"}}}
+
+"" Journal
+"{{{
+fun! OpenDateFile(location, suffix)
+    " location must have a trailing slash
+    " suffix must include the dot
+    let cdate = strftime("%Y-%m-%d")
+    exe ":e " . a:location . cdate . a:suffix
+endfun
+
+nnoremap <silent> <leader>jt :call OpenTodo() <CR>
+"}}}
+
+
+"" Movement
+"{{{
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+"}}}
+
+
+"" Sane defaults
+"{{{
+set backspace=indent,eol,start  "Allow backspace in insert mode
+set history=1000                "Store lots of :cmdline history
+set undolevels=1000             " use many muchos levels of undo
+set wildmode=list:longest
+set wildmenu                    "enable ctrl-n and ctrl-p to scroll thru matches
+set wildignore=*.o,*.obj,*~     "stuff to ignore when tab completing
+set wildignore+=*.swp,*.bak,*.pyc,*.class
+set wildignore+=*DS_Store*
+set wildignore+=*.png,*.jpg,*.gif
+set title                       " change the terminal's title
+set visualbell                  " don't beep
+set noerrorbells                " don't beep
+set path+=**                    " Search down into subfolders
+set autoread                    " Reload files changed outside vim
+set hidden                      " Allows dirty buffers to be hidden
+set timeoutlen=1000 ttimeoutlen=10
+set mouse=a
+set updatetime=250
+"}}}
+
+
+"" Spacing and Indent
+"{{{
+set tabstop=4       " number of visual spaces interpreted for each tab
+set softtabstop=4   " number of spaces inserted when using tab
+set expandtab       " expand tabs to spaces
+set shiftwidth=4    " When indenting with > / <
+set autoindent
+nnoremap p p=`]<C-o> " Auto indent pasted text
+nnoremap P P=`]<C-o>
+autocmd Filetype html setlocal ts=2 sw=2 sts=2
+autocmd Filetype javascript setlocal ts=2 sw=2 sts=2
+autocmd Filetype go setlocal noexpandtab
+autocmd Filetype go setlocal nolist
+au BufRead, BufNewfile *.vue setlocal ts=2 sw=2 sts=2
+autocmd Filetype vue setlocal ts=2 sw=2 sts=2
+"}}}
+
+
+"" UI
+"{{{
+set relativenumber number
+set wildmenu            " Display all matching files when we tab complete
+set showcmd             " Display commands at bottom corner
+set lazyredraw          " redraw only when we need to.
+set showmatch           " highlight matching [{()}]
+" show tabs, and trailing spaces
+set listchars=tab:>~,nbsp:_,trail:.
+set list
+"}}}
+
+
+"" Scrolling 
+"{{{
+set scrolloff=8         "Start scrolling when we're 8 lines away from margins
+set sidescrolloff=15
+set sidescroll=1
+"}}}
+
+
+"" Searching
+"{{{
+set ignorecase
+set smartcase
+set incsearch
+set nohlsearch
+nnoremap <silent> <Leader>/ :nohlsearch<CR>    " clears the hl search
+"}}}
+
+
+"" Folding
+"{{{
+set foldenable          " enable folding
+set foldlevelstart=99   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+" comma open/closes folds
+" nnoremap , za
+set foldmethod=indent   " fold based on indent level
+"}}}
+
+
+"" Status line
+"{{{
+set laststatus=2    " Always show the status line
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+"}}}
+
+
+"" Filetype Specifics
+"{{{
+" Markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd Filetype markdown call SetMarkdownOptions()
+function! SetMarkdownOptions()
+    set textwidth=64
+    set formatprg=par\ -w62
+    set formatoptions+=t
+    setlocal st=4 sts=4 ts=4
+    highlight CursorLine ctermbg=NONE
+    let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+endfunction
+
+" Makefile
+autocmd FileType make setlocal noexpandtab
+"}}}
+
+
+"" Plugins
+"{{{
+" Load vim-plug
+call plug#begin('~/.vim/plugged')
+
+Plug 'ajh17/VimCompletesMe'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-expand-region'
+Plug 'jreybert/vimagit'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-syntastic/syntastic'
+Plug 'fatih/vim-go'
+
+" Vim sugar/helper for the UNIX shell commands
+Plug 'tpope/vim-eunuch'
+
+" Directory viewer for Vim
+Plug 'justinmk/vim-dirvish'
+
+" Markdown/Writing
+Plug 'gabrielelana/vim-markdown'
+Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
+
+" Filetypes
+Plug 'sheerun/vim-polyglot'
+
+call plug#end()
+
+" Vimwiki
+let g:vimwiki_list = [{'path': '~/Dropbox/cabinet/wiki/',
+                   \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" fzf.vim
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+" Augmenting Ag command using fzf#vim#with_preview function
+"   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
+"   * Preview script requires Ruby
+"   * Install Highlight or CodeRay to enable syntax highlighting
+"
+"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+"   :Ag! - Start fzf in fullscreen and display the preview window above
+command! -bang -nargs=* Ag
+            \ call fzf#vim#ag(<q-args>,
+            \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+            \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \                 <bang>0)
+
+nnoremap <silent> <Leader>fz :Files<CR>
+nnoremap <silent> <Leader>ff :GFiles<CR>
+nnoremap <silent> <Leader>fg :GFiles?<CR>
+nnoremap <silent> <Leader>fb :Buffers<CR>
+nnoremap <silent> <Leader><Leader> :Buffers<CR>
+nnoremap <silent> <Leader>fs :Ag<CR>
+nnoremap <silent> <Leader>fl :Lines<CR>
+nnoremap <silent> <Leader>ft :Tags<CR>
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"}}}
+
+
+"" Experimental
+"{{{
+" Testing out these settings
+" Better defaults
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_browse_split=4  " open in prior window
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+" Smooth Scrolling
+function! SmoothScroll(up)
+if a:up
+    let scrollaction=""
+else
+    let scrollaction=""
+endif
+exec "normal " . scrollaction
+redraw
+let counter=1
+while counter<&scroll
+    let counter+=1
+    sleep 5m
+    redraw
+    exec "normal " . scrollaction
+endwhile
+endfunction
+
+nnoremap <C-U> :call SmoothScroll(1)<Enter>
+nnoremap <C-D> :call SmoothScroll(0)<Enter>
+inoremap <C-U> <Esc>:call SmoothScroll(1)<Enter>i
+inoremap <C-D> <Esc>:call SmoothScroll(0)<Enter>i
+
+
+" ================ Persistent Undo ==================
+" Check for conflics with swap files
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+if has('persistent_undo') && !isdirectory(expand('~').'/.vim/backups')
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undodir=~/.vim/backups
+set undofile
+endif
+
+" ================ Completion =======================
+
+" Auto indent pasted text
+nnoremap p p=`]<C-o>
+nnoremap P P=`]<C-o>
+
+set nostartofline
+set cmdheight=2
+set lazyredraw          " redraw only when we need to.
+set cursorline          " highlight current line
+nnoremap gV `[v`]       " highlight last inserted text
+
+set grepprg=ag\ --nogroup\ --nocolor\ --column
+
+augroup quickfix
+autocmd!
+
+autocmd QuickFixCmdPost [^l]* cwindow
+autocmd QuickFixCmdPost l*    lwindow
+autocmd VimEnter        *     cwindow
+augroup END
+
+"To have a space (ASCII 32) considered as a valid character for a file name, add the following to your vimrc:
+set isfname+=32
+
+
+set pastetoggle=<F2>
+
+"}}}
+"
