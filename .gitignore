@@ -4,3 +4,8 @@ vim/after
 vim/.netrwhist
 vim/*.bak
 /ssh
+
+.DS_Store
+emacs.d/elpa
+emacs.d/url
+emacs.d/init.el~
