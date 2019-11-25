@@ -13,6 +13,9 @@
 (tool-bar-mode -1)
 (toggle-frame-maximized)
 
+;; Basic editior stuff
+(setq-default indent-tabs-mode nil)
+
 ;; All packages which are installed
 ;; evil
 ;; helm
@@ -22,9 +25,16 @@
 ;; evil-leader
 ;; projectile
 ;; helm-projectile
+;; magit
+;; elpy
+;; flycheck
+;; blacken
+;; treemacs
+;; treemacs-projectile
 
 ;; Evil Mode
 (setq evil-want-C-u-scroll t)
+(setq-default evil-escape-delay 0.7)
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (require 'evil)
@@ -36,12 +46,15 @@
   (define-key evil-motion-state-map (kbd ";") 'evil-ex))
 
 (evil-leader/set-key
-  "f" 'helm-find-files
+  "f" 'helm-projectile-find-file
   "s" 'save-buffer
   "b" 'helm-mini
   "d" 'kill-this-buffer
   "k" 'kill-buffer-and-window
-  "p" 'projectile-command-map)
+  "p" 'projectile-command-map
+  "g" 'magit-status
+  "m" 'list-bookmarks
+  "t" 'treemacs)
 
 ;; Helm
 (global-set-key (kbd "M-x") #'helm-M-x)
@@ -51,20 +64,77 @@
 
 (helm-mode 1)
 
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook))
-
 ;; Projectile
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
 
+(use-package dashboard
+  :ensure t
+  :init
+  (setq dashboard-items '((recents  . 5)
+			  (bookmarks . 5)
+			  (projects . 5)
+			  (agenda . 5)
+			  (registers . 5)))
+  :config
+  (dashboard-setup-startup-hook))
+
+;; Treemacs
+(use-package treemacs
+  :ensure t
+  :defer t)
+
+(use-package treemacs-projectile
+  :after treemacs projectile
+  :ensure t)
+
+;; (use-package treemacs-evil
+;;   :after treemacs evil
+;;   :ensure t)
+
+;; (use-package treemacs-magit
+;;   :after treemacs magit
+;;   :ensure t)
+
 ;; ORG Mode
 (setq org-todo-keywords
   '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
+
+;; Elpy & Python
+(use-package elpy
+  :ensure t
+  :config
+  (if (executable-find "python3")
+      (progn
+        (setq elpy-rpc-python-command "python3")
+        (setq python-shell-interpreter "python3")))
+
+  (setq elpy-rpc-python-command "/usr/local/bin/python3")
+  ;; (use-package pyvenv
+  ;;   :ensure t
+  ;;   :config
+  ;;   (pyvenv-workon "dotfiles"))
+
+  ;; (use-package jedi
+  ;;   :ensure t)
+
+  ;; Automatically run Black on buffer save
+  (add-hook 'elpy-mode-hook
+            '(lambda ()
+               (when (eq major-mode 'python-mode)
+                 (add-hook 'before-save-hook 'elpy-black-fix-code))))
+
+  ;; Use flycheck instead of flymake
+  (when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+  (elpy-enable)
+
+  ;;(setq elpy-rpc-backend "jedi")
+ )
 
 
 (custom-set-variables
@@ -74,7 +144,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (projectile evil-leader dashboard use-package helm evil-visual-mark-mode evil-escape))))
+    (treemacs-projectile treemacs ## zones blacken flycheck elpy magit projectile evil-leader dashboard use-package helm evil-visual-mark-mode evil-escape))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
