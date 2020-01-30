@@ -1,11 +1,13 @@
 "
-"  Map the leader key to SPACE
+" > Map the leader key to SPACE
 let mapleader="\<SPACE>"
 
-" Saves one keystroke to go into command mode
+" > Use ; to go into command mode instead of :
+" > Saves one keystroke (no need to press shift)
 noremap : ;
 noremap ; :
 
+" > Use `qp` to go into escape/normal mode
 inoremap qp <Esc>
 noremap qp <Esc>
 
@@ -60,8 +62,10 @@ Plug 'tpope/vim-commentary'
 
 Plug 'itchyny/lightline.vim'
 
+Plug 'preservim/nerdtree'
+nnoremap <leader>n :NERDTreeToggle<cr>
+
 Plug 'davidhalter/jedi-vim'
-Plug 'Vimjas/vim-python-pep8-indent'  "better indenting for python
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
@@ -69,25 +73,27 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'Yggdroot/indentLine'
 " syntax check
 Plug 'w0rp/ale'
+let g:ale_linters = {
+      \   'python': ['flake8', 'pylint'],
+      \   'javascript': ['eslint'],
+      \}
+
+let g:ale_fixers = {
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'python': ['black', ],
+      \   'javascript': [''],
+      \}
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 
-" Plug 'ncm2/ncm2'
-" Plug 'roxma/nvim-yarp'
-
-" Plug 'ncm2/ncm2-jedi'
 Plug 'deoplete-plugins/deoplete-jedi'
-
-" Plug 'ncm2/ncm2-bufword'
-" Plug 'ncm2/ncm2-path'
-
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-sleuth'
 Plug 'tmhedberg/SimpylFold'
 let g:SimpylFold_docstring_preview=1
 
-Plug 'Vimjas/vim-python-pep8-indent'
+" Plug 'Vimjas/vim-python-pep8-indent'
 
 Plug 'francoiscabrol/ranger.vim'
 let g:ranger_map_keys = 0
@@ -97,19 +103,21 @@ call plug#end()
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
+    \ softtabstop=4
+    \ shiftwidth=4
+    \ textwidth=79
+    \ expandtab
+    \ autoindent
+    \ fileformat=unix
+    \ foldmethod=indent
+
 
 set encoding=utf-8
 
 " Flagging Unnecessary Whitespace
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-au BufNewFile,BufRead *.js, *.html, *.css
+au BufNewFile, BufRead *.js, *.html, *.css
     \ set tabstop=2
     \ set softtabstop=2
     \ set shiftwidth=2
@@ -118,6 +126,7 @@ nnoremap <C-p> :Files<Cr>
 nnoremap <leader>o :Files<cr>
 nnoremap <leader>f :Rg<cr>
 nnoremap <leader>b :Buffers<cr>
+nnoremap <tab> :Buffers<cr>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -132,23 +141,14 @@ set foldlevel=99
 colorscheme jellybeans
 
 nnoremap <leader>t :TagbarOpenAutoClose<cr>
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/Users/ox/.virtualenvs/neovim/bin/python3'
 
 " Switch to last edited buffer by pressing backspace in normal mode
 nnoremap <silent> <BS> :b#<CR>
 
-" ncm2 settings
-" autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=menuone,noselect,noinsert
 set shortmess+=c
 inoremap <c-c> <ESC>
-" make it fast
-let ncm2#popup_delay = 5
-let ncm2#complete_length = [[1, 1]]
-" Use new fuzzy based matches
-let g:ncm2#matcher = 'substrfuzzy'
-
-let g:ncm2_jedi#environment = expand('~/.virtualenvs/tk-final/bin/python3')
 
 " Disable Jedi-vim autocompletion and enable call-signatures options
 let g:jedi#auto_initialization = 1
