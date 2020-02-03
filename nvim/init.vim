@@ -39,12 +39,37 @@ set shiftwidth=4
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'psliwka/vim-smoothie'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'flazz/vim-colorschemes'
+"Plug 'lifepillar/vim-solarized8'
+Plug 'jez/vim-colors-solarized'
+
+" Enable persistent undo so that undo history persists across vim sessions
+set undofile
+set undodir=~/.vim/undo
+Plug 'simnalamburt/vim-mundo'
+nnoremap <F5> :MundoToggle<CR>
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " jump between hunks with `[c` and `]c`
 " Leader hp : Hunk Preview
@@ -52,6 +77,11 @@ Plug 'flazz/vim-colorschemes'
 " Leader hu : Hunk Undo
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+
 Plug 'tpope/vim-surround'
 
 " Uses C-n, C-x, C-p
@@ -62,8 +92,13 @@ Plug 'tpope/vim-commentary'
 
 Plug 'itchyny/lightline.vim'
 
-Plug 'preservim/nerdtree'
-nnoremap <leader>n :NERDTreeToggle<cr>
+Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
+nnoremap <leader><tab> :NERDTreeToggle<cr>
+" autocmd StdinReadPre * let s:std_in=1
+" open a NERDTree automatically when vim starts up if no files were specified
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'davidhalter/jedi-vim'
 
@@ -73,6 +108,7 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'Yggdroot/indentLine'
 " syntax check
 Plug 'w0rp/ale'
+let g:ale_fix_on_save = 1
 let g:ale_linters = {
       \   'python': ['flake8', 'pylint'],
       \   'javascript': ['eslint'],
@@ -95,6 +131,7 @@ let g:SimpylFold_docstring_preview=1
 
 " Plug 'Vimjas/vim-python-pep8-indent'
 
+Plug 'rbgrouleff/bclose.vim'
 Plug 'francoiscabrol/ranger.vim'
 let g:ranger_map_keys = 0
 nnoremap - :Ranger<CR>
@@ -122,6 +159,11 @@ au BufNewFile, BufRead *.js, *.html, *.css
     \ set softtabstop=2
     \ set shiftwidth=2
 
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
 nnoremap <C-p> :Files<Cr>
 nnoremap <leader>o :Files<cr>
 nnoremap <leader>f :Rg<cr>
@@ -138,10 +180,13 @@ nnoremap <C-H> <C-W><C-H>
 set foldmethod=indent
 set foldlevel=99
 
-colorscheme jellybeans
-
 nnoremap <leader>t :TagbarOpenAutoClose<cr>
-let g:python3_host_prog = '/Users/ox/.virtualenvs/neovim/bin/python3'
+let s:uname = system("uname")
+if s:uname =~ "Linux"
+  let g:python3_host_prog = expand('~/.virtualenvs/neovim/bin/python3')
+elseif s:uname =~ "Darwin"
+  let g:python3_host_prog = '/Users/ox/.virtualenvs/neovim/bin/python3'
+endif
 
 " Switch to last edited buffer by pressing backspace in normal mode
 nnoremap <silent> <BS> :b#<CR>
@@ -161,3 +206,12 @@ let g:jedi#show_call_signatures = "1"
 
 let g:deoplete#auto_complete_delay = 100
 
+set grepprg=rg\ --vimgrep\ --smart-case
+
+set termguicolors
+set background=dark
+" colorscheme solarized
+colorscheme slate
+hi clear Visual
+hi Visual guibg=#345456
+set fillchars=diff:\ ,fold:\ ,
