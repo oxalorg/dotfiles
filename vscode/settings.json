@@ -1,1 +1,11 @@
-/home/ox/.config/Code/User/settings.json
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.fontSize": 15,
+    "window.zoomLevel": 0.5,
+    "python.pythonPath": "python3",
+    "files.autoSave": "afterDelay",
+    "python.linting.pylintPath": "/home/ox/.local/bin/pylint",
+    "python.linting.enabled": false,
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Nord",
+}
