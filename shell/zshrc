@@ -9,7 +9,7 @@ DOTFILES=~/Dropbox/Projects/dotfiles
 # Imports
 [ -f ~/.aliases ] && source ~/.aliases  # Import common aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
-[ -f ~/.local/bin/ox ] && source ~/.local/bin/ox  
+[ -f ~/.local/bin/ox ] && source ~/.local/bin/ox
 [ -f ~/.local/bin/rogue ] && source ~/.local/bin/rogue
 
 export PATH="$HOME/.local/bin:$PATH"
@@ -60,7 +60,7 @@ else
     export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
     export VIRTUALENVWRAPPER_SCRIPT=~/.local/bin/virtualenvwrapper.sh
     source ~/.local/bin/virtualenvwrapper_lazy.sh
-    export DOCKER_HOST=tcp://localhost:2375
+    #export DOCKER_HOST=tcp://localhost:2375
 fi
 
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -82,3 +82,5 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/home/ox/go/bin
+export PATH=$PATH:$HOME/.gem/ruby/2.5.0/bin
