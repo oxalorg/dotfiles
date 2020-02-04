@@ -144,6 +144,8 @@ nnoremap p p=`]<C-o> " Auto indent pasted text
 nnoremap P P=`]<C-o>
 autocmd Filetype html setlocal ts=2 sw=2 sts=2
 autocmd Filetype javascript setlocal ts=2 sw=2 sts=2
+autocmd Filetype go setlocal noexpandtab
+autocmd Filetype go setlocal nolist
 au BufRead, BufNewfile *.vue setlocal ts=2 sw=2 sts=2
 autocmd Filetype vue setlocal ts=2 sw=2 sts=2
 "}}}
@@ -222,27 +224,36 @@ autocmd FileType make setlocal noexpandtab
 " Load vim-plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'ajh17/VimCompletesMe'
+" Plug 'arcticicestudio/nord-vim'
+" colorscheme nord
+
+" Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-commentary'
+" Plug 'mattn/emmet-vim'
+
+" s key with motion
 Plug 'tpope/vim-surround'
+
+" Press + to expand the visual selection and _ to shrink it.
 Plug 'terryma/vim-expand-region'
-Plug 'jreybert/vimagit'
+" Plug 'jreybert/vimagit'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-syntastic/syntastic'
+" Plug 'tpope/vim-fugitive'
+" Plug 'vim-syntastic/syntastic'
+Plug 'fatih/vim-go'
 
 " Vim sugar/helper for the UNIX shell commands
-Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-eunuch'
 
 " Directory viewer for Vim
-Plug 'justinmk/vim-dirvish'
+" Plug 'justinmk/vim-dirvish'
 
 " Markdown/Writing
-Plug 'gabrielelana/vim-markdown'
-Plug 'godlygeek/tabular'
+" Plug 'gabrielelana/vim-markdown'
+" Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
 
 " Filetypes
@@ -273,19 +284,25 @@ command! -bang -nargs=* Ag
             \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
             \                 <bang>0)
 
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+
 nnoremap <silent> <Leader>fz :Files<CR>
 nnoremap <silent> <Leader>ff :GFiles<CR>
 nnoremap <silent> <Leader>fg :GFiles?<CR>
 nnoremap <silent> <Leader>fb :Buffers<CR>
 nnoremap <silent> <Leader><Leader> :Buffers<CR>
-nnoremap <silent> <Leader>fs :Ag<CR>
+nnoremap <silent> <Leader>fs :Rg<CR>
 nnoremap <silent> <Leader>fl :Lines<CR>
 nnoremap <silent> <Leader>ft :Tags<CR>
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
 "let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
@@ -369,4 +386,4 @@ set isfname+=32
 set pastetoggle=<F2>
 
 "}}}
-"
+
