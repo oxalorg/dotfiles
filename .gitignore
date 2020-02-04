@@ -3,9 +3,21 @@ vim/plugged
 vim/after
 vim/.netrwhist
 vim/*.bak
+vim/undo
 /ssh
 
 .DS_Store
 emacs.d/elpa
 emacs.d/url
 emacs.d/init.el~
+emacs.d/bookmarks
+emacs.d/elpy/
+emacs.d/recentf
+emacs.d/recentf~
+emacs.d/transient/
+emacs.d/eshell/
+emacs.d/projectile-bookmarks.eld
+
+nvim/.netrwhist
+nvim/undo
+.cache/
