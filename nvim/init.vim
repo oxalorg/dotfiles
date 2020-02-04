@@ -34,33 +34,44 @@ set tabstop=4
 set softtabstop=0
 set shiftwidth=4
 
+" Enable persistent undo so that undo history persists across vim sessions
+set undofile
+set undodir=~/.vim/undo
+
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'arcticicestudio/nord-vim'
 Plug 'psliwka/vim-smoothie'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-sleuth'
+Plug 'tmhedberg/SimpylFold'
+let g:SimpylFold_docstring_preview=1
 Plug 'tpope/vim-repeat'
-
-" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'tpope/vim-surround'
+" Uses C-n, C-x, C-p
+Plug 'terryma/vim-multiple-cursors'
+" gcc to comment
+Plug 'tpope/vim-commentary'
+Plug 'itchyny/lightline.vim'
+Plug 'Yggdroot/indentLine'
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'francoiscabrol/ranger.vim'
+let g:ranger_map_keys = 0
+nnoremap - :Ranger<CR>
 
-"Plug 'lifepillar/vim-solarized8'
-Plug 'jez/vim-colors-solarized'
-
-" Enable persistent undo so that undo history persists across vim sessions
-set undofile
-set undodir=~/.vim/undo
 Plug 'simnalamburt/vim-mundo'
 nnoremap <F5> :MundoToggle<CR>
 
-" Track the engine.
 Plug 'SirVer/ultisnips'
-
-" Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -82,31 +93,17 @@ autocmd User fugitive
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
 
-Plug 'tpope/vim-surround'
-
-" Uses C-n, C-x, C-p
-Plug 'terryma/vim-multiple-cursors'
-
-" gcc
-Plug 'tpope/vim-commentary'
-
-Plug 'itchyny/lightline.vim'
 
 Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
 nnoremap <leader><tab> :NERDTreeToggle<cr>
 " autocmd StdinReadPre * let s:std_in=1
 " open a NERDTree automatically when vim starts up if no files were specified
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-
+" IDE Plugins
 Plug 'davidhalter/jedi-vim'
-
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-
-" Better Visual Guide
-Plug 'Yggdroot/indentLine'
-" syntax check
 Plug 'w0rp/ale'
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
@@ -125,16 +122,7 @@ let g:deoplete#enable_at_startup = 1
 
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-sleuth'
-Plug 'tmhedberg/SimpylFold'
-let g:SimpylFold_docstring_preview=1
-
 " Plug 'Vimjas/vim-python-pep8-indent'
-
-Plug 'rbgrouleff/bclose.vim'
-Plug 'francoiscabrol/ranger.vim'
-let g:ranger_map_keys = 0
-nnoremap - :Ranger<CR>
 
 call plug#end()
 
@@ -210,8 +198,9 @@ set grepprg=rg\ --vimgrep\ --smart-case
 
 set termguicolors
 set background=dark
-" colorscheme solarized
-colorscheme slate
+let g:nord_uniform_diff_background=1
+colorscheme nord
+" colorscheme slate
 hi clear Visual
 hi Visual guibg=#345456
 set fillchars=diff:\ ,fold:\ ,
