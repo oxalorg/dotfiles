@@ -68,6 +68,8 @@ Plug 'francoiscabrol/ranger.vim'
 let g:ranger_map_keys = 0
 nnoremap - :Ranger<CR>
 
+" Plug 'ConradIrwin/vim-bracketed-paste'
+" Plugin 'chamindra/marvim'
 Plug 'simnalamburt/vim-mundo'
 nnoremap <F5> :MundoToggle<CR>
 
@@ -119,6 +121,7 @@ let g:ale_fixers = {
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
+autocmd FileType markdown let g:deoplete#enable_at_startup=0
 
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'majutsushi/tagbar'

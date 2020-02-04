@@ -20,4 +20,7 @@ emacs.d/projectile-bookmarks.eld
 
 nvim/.netrwhist
 nvim/undo
+nvim/init.vim.bak
 .cache/
+
+git/gitk
