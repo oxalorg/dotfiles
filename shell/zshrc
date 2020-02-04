@@ -48,6 +48,8 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
+eval `dircolors ~/.dircolors`
+
 export WORKON_HOME=$HOME/.virtualenvs
 if [ "$(uname -s)" = "Darwin" ]; then
     export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
