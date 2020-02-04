@@ -196,8 +196,13 @@ let g:deoplete#auto_complete_delay = 100
 
 set grepprg=rg\ --vimgrep\ --smart-case
 
-set termguicolors
+if &term =~# '256color' && ( &term =~# '^screen'  || &term =~# '^tmux' )
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
 set background=dark
+set t_Co=256
 let g:nord_uniform_diff_background=1
 colorscheme nord
 " colorscheme slate
