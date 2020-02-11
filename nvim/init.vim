@@ -43,7 +43,7 @@ set undodir=~/.vim/undo
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'arcticicestudio/nord-vim'
+Plug 'tomasiser/vim-code-dark'
 Plug 'psliwka/vim-smoothie'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
@@ -206,9 +206,14 @@ if &term =~# '256color' && ( &term =~# '^screen'  || &term =~# '^tmux' )
 endif
 set background=dark
 set t_Co=256
-let g:nord_uniform_diff_background=1
-colorscheme nord
-" colorscheme slate
-hi clear Visual
-hi Visual guibg=#345456
+colorscheme codedark
+" hi clear Visual
+" hi Visual guibg=#345456
 set fillchars=diff:\ ,fold:\ ,
+
+set diffopt+=vertical,iwhite
+if &diff
+  " diff mode
+  set diffopt+=iwhite
+endif
+
