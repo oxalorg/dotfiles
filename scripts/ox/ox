@@ -1,9 +1,32 @@
 #!/bin/bash
 
-CABINET=~/Dropbox/cabinet
-JOURNAL=$CABINET/journal
+JOURNAL=/journal
 NOTES=$JOURNAL/notes
 LOGS=$JOURNAL/logs
+
+oxhelp () {
+    echo "ox mntanagement system:"
+    echo ""
+    echo "Commands:"
+    echo "  oxdiary"
+    echo "  oxdreams"
+    echo "  oxantisocial"
+    echo "  oxwork"
+    echo "  oxfood"
+    echo "  oxfind"
+    echo "  oxsearch"
+    echo "  oxtags"
+    echo "  oxmentions"
+    echo "  oxtodos"
+    echo "  oxedit"
+    echo "  oxedit"
+    echo "  oxadd"
+    echo "  oxin"
+    echo ""
+    echo "Aliases:"
+    echo "  nt"
+    echo "  jr"
+}
 
 ## Journal
 oxdiary () {
@@ -32,7 +55,7 @@ oxfind () {
     # shows a preview of each file
     cd $JOURNAL
     local query=${@-""}
-    $EDITOR "$(ag -G '(md|txt)$' -l $query | fzf --preview='pygmentize {}' --color light --margin 5,20)"
+    $EDITOR "$(ag -G '(md|txt)$' -l $query | fzf --preview='head -n 100 {}' --color light --margin 2,2)"
 }
 
 oxsearch () {
@@ -51,7 +74,11 @@ oxtags () {
 
 oxmentions () {
     # searches for mentions like @ox @rogue @noob @2016-02-16
-    ag -G '(md|txt)$' '@[a-zA-Z\-_0-9!]+' $JOURNAL
+    if [ -z "$@" ]; then
+        ag -G '(md|txt)$' '@[a-zA-Z\-_0-9!]+' $JOURNAL
+    else
+        ag -G '(md|txt)$' "@$@" $JOURNAL
+    fi
 }
 
 oxtodos () {
@@ -64,7 +91,7 @@ oxedit () {
     $EDITOR "$(fzf --preview='head -$LINES {}' -1 -q "$query")"
 }
 
-ncreate () {
+oxadd () {
     local query=${@-""}
     local p=$(find -L $NOTES -type d ! -path \*.git\* | sed "s|.*notes||" | fzf -1 -q "$@")
     cd $NOTES/$p
