@@ -49,11 +49,13 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-sleuth'
 Plug 'tmhedberg/SimpylFold'
+Plug 'dkarter/bullets.vim'
 let g:SimpylFold_docstring_preview=1
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 " Uses C-n, C-x, C-p
 Plug 'terryma/vim-multiple-cursors'
+Plug 'markonm/traces.vim'
 " gcc to comment
 Plug 'tpope/vim-commentary'
 Plug 'itchyny/lightline.vim'
@@ -104,10 +106,13 @@ nnoremap <leader><tab> :NERDTreeToggle<cr>
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " IDE Plugins
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
 Plug 'davidhalter/jedi-vim'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+"Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'w0rp/ale'
-let g:ale_fix_on_save = 1
 let g:ale_linters = {
       \   'python': ['flake8', 'pylint'],
       \   'javascript': ['eslint'],
@@ -115,15 +120,20 @@ let g:ale_linters = {
 
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'python': ['black', ],
-      \   'javascript': [''],
+      \   'python': ['black'],
+      \   'javascript': ['eslint'],
       \}
+let g:ale_fix_on_save = 1
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 autocmd FileType markdown let g:deoplete#enable_at_startup=0
 
 Plug 'deoplete-plugins/deoplete-jedi'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
 Plug 'majutsushi/tagbar'
 " Plug 'Vimjas/vim-python-pep8-indent'
 
@@ -217,3 +227,37 @@ if &diff
   set diffopt+=iwhite
 endif
 
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave=1
+
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+      \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+      \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+highl CursorTransparent ctermfg=16 ctermbg=253 guifg=#000000 guibg=#00FF00 gui=strikethrough blend=100
+
+" ========================= COC.NVIM ===============================
+" if hidden is not set, TextEdit might fail.
+set hidden
+" Better display for messages
+set cmdheight=2
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
