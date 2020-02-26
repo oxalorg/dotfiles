@@ -2,6 +2,8 @@
 " > Map the leader key to SPACE
 let mapleader="\<SPACE>"
 
+set shell=/bin/bash
+
 " > Use ; to go into command mode instead of :
 " > Saves one keystroke (no need to press shift)
 noremap : ;
@@ -110,8 +112,6 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " disable vim-go :GoDef short cut (gd)
 " this is handled by LanguageClient [LC]
 let g:go_def_mapping_enabled = 0
-Plug 'davidhalter/jedi-vim'
-"Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'w0rp/ale'
 let g:ale_linters = {
       \   'python': ['flake8', 'pylint'],
@@ -125,13 +125,20 @@ let g:ale_fixers = {
       \}
 let g:ale_fix_on_save = 1
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
-autocmd FileType markdown let g:deoplete#enable_at_startup=0
+Plug 'davidhalter/jedi-vim'
+"Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
 
-Plug 'deoplete-plugins/deoplete-jedi'
+augroup deoplete_py
+  autocmd!
+  autocmd FileType python call plug#load('deoplete.nvim', 'deoplete-jedi')
+                         \| call deoplete#enable()
+                         \| autocmd! deoplete_py
+augroup END
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
+autocmd FileType go call plug#load('coc.nvim')
 
 
 Plug 'majutsushi/tagbar'
@@ -164,6 +171,11 @@ command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
+
+" command! -bang -nargs=* Ag
+"   \ call fzf#vim#grep(
+"   \   'ag --column --numbers --noheading --smart-case . '.shellescape(<q-args>), 1,
+"   \   fzf#vim#with_preview(), <bang>0)
 
 nnoremap <C-p> :Files<Cr>
 nnoremap <leader>o :Files<cr>

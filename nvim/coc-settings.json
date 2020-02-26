@@ -5,5 +5,7 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     }
-  }
+  },
+  "python.jediPath": "~/.virtualenvs/neovim/lib/python3.6/site-packages/jedi/",
+  "python.venvPath": "~/.virtualenvs"
 }
