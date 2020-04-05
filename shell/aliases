@@ -23,10 +23,15 @@ alias la="ls -aGpF"
 # Git
 alias gst='git status -b'
 alias ga='git add'
-alias gu='git add -u' alias gcm='git commit'
+alias gu='git add -u'
+alias gcm='git commit'
 alias gp='git push'
+alias gpu='git pull'
 alias gc='git checkout'
 alias gb='git branch'
+alias gd='git diff .'
+alias gdc='git diff --cached .'
+
 ## Git log
 alias gl='git log --graph --color --decorate --all --stat -p'
 # alias gls="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -74,3 +79,6 @@ alias sai='sudo apt install -y'
 alias f='rg --files --smart-case | fzf'
 
 alias sai='sudo apt install -y'
+
+# Virtualenv
+alias w=workon
