@@ -7,5 +7,6 @@
     }
   },
   "python.jediPath": "~/.virtualenvs/neovim/lib/python3.6/site-packages/jedi/",
-  "python.venvPath": "~/.virtualenvs"
+  "python.venvPath": "~/.virtualenvs",
+  "coc.source.around.enable": true
 }
