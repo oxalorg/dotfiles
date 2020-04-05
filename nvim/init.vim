@@ -213,6 +213,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release' }
 " autocmd FileType html,htmldjango call plug#load('coc.nvim')
 
 
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 " Plug 'Vimjas/vim-python-pep8-indent'
 "
