@@ -3,6 +3,7 @@
 " map the leader key to SPACE
 let mapleader="\<SPACE>"
 
+set clipboard=unnamedplus
 set shell=/bin/bash
 
 " install vim-plug if not already there
@@ -161,9 +162,11 @@ nnoremap <leader><tab> :NERDTreeToggle<cr>
 "":nmap <Leader>wb <Plug>VimwikiGoBackLink
 
 " IDE Plugins
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 Plug 'prettier/vim-prettier'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
 
 " language pack
 Plug 'sheerun/vim-polyglot'
@@ -194,7 +197,7 @@ let g:ale_fixers = {
       " \   'htmldjango': ['html-beautify'],
 let g:ale_fix_on_save = 1
 
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 " Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
@@ -217,7 +220,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 " Plug 'Vimjas/vim-python-pep8-indent'
 "
-Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-endwise'
 
 call plug#end()
 
@@ -260,14 +263,15 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
   \ 'options': '--ansi --delimiter : --nth 3..',
   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
-" command! -bang -nargs=* Ag
-"   \ call fzf#vim#grep(
-"   \   'ag --column --numbers --noheading --smart-case . '.shellescape(<q-args>), 1,
-"   \   fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Ag
+  \ call fzf#vim#grep(
+  \   'ag --column --numbers --noheading --smart-case . '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
 nnoremap <C-p> :Files<Cr>
 nnoremap <leader>o :Files<cr>
 nnoremap <leader>f :Rg<cr>
+nnoremap <leader>a :Ag<cr>
 nnoremap <leader>bd :bwipeout<cr>
 nnoremap <tab> :Buffers<cr>
 nnoremap <leader>tt :Tags<cr>
@@ -469,3 +473,9 @@ endfunction
 
 cabbrev help tab help
 cabbrev h tab help
+
+xnoremap <leader>c <esc>:'<,'>:w !cat\|pbcopy<CR>
+xnoremap <leader>gs <esc>:'<,'>:w !cat\|oxsnip<CR>
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
