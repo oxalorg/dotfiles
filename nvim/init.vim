@@ -16,8 +16,116 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   augroup END
 endif
 
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'tomasiser/vim-code-dark'
+Plug 'psliwka/vim-smoothie' " smoother CTRL+D/CTRL+U
+Plug 'tpope/vim-sensible'
+Plug 'Raimondi/delimitMate' " automatic pairing of parens, braces, quotes etc.
+Plug 'tmhedberg/SimpylFold' | let g:SimpylFold_docstring_preview=1
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'markonm/traces.vim'
+Plug 'terryma/vim-multiple-cursors' " Uses C-n, C-x, C-p
+Plug 'tpope/vim-commentary' " gcc to comment
+Plug 'itchyny/lightline.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'francoiscabrol/ranger.vim' | let g:ranger_map_keys = 0 | nnoremap - :Ranger<CR>
+Plug 'simnalamburt/vim-mundo' "nnoremap <F5> :MundoToggle<CR>
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'prettier/vim-prettier'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'sheerun/vim-polyglot'
+Plug 'dense-analysis/ale'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
+Plug 'neoclide/coc.nvim', {'branch': 'release' }
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+" Plug 'tpope/vim-endwise'
+" Plug 'ryanpcmcquen/fix-vim-pasting'
+" Plugin 'chamindra/marvim'
+" Plug 'davidhalter/jedi-vim'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+" Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
+call plug#end()
+
+" Plugin Related Config
+" ---------------------
+
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:go_def_mapping_enabled = 0
+nnoremap <leader><tab> :NERDTreeToggle<cr>
+
+let g:ale_set_highlights = 0
+let g:ale_echo_msg_format = '%linter%: %s'
+let g:ale_linters = {
+      \   'python': ['flake8',],
+      \   'javascript': ['eslint'],
+      \   'html': ['eslint'],
+      \}
+
+let g:ale_python_black_executable = '~/.virtualenvs/neovim/bin/black'
+let g:ale_javascript_prettier_use_global = 1
+let g:ale_fixers = {
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'python': ['isort', 'black'],
+      \   'javascript': ['prettier',],
+      \   'javascriptreact': ['prettier',],
+      \   'htmldjango': ['html-beautify'],
+      \}
+let g:ale_fix_on_save = 1
+
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \ },
+  \ }
+function! LightlineFilename()
+    return expand('%:.')
+endfunction
+" augroup deoplete_py
+"   autocmd!
+"   autocmd FileType python call plug#load('deoplete.nvim', 'deoplete-jedi')
+"                          \| call deoplete#enable()
+"                          \| autocmd! deoplete_py
+" augroup END
+"
+
+" git-gutter
+" jump between hunks with `[c` and `]c`
+" Leader hp : Hunk Preview
+" Leader hs : Hunk Stage
+" Leader hu : Hunk Undo
+
+" Vim Default Settings
+" --------------------
+
 " shortcut to editing vimrc quickly
-nnoremap <silent> <leader>nve :e $MYVIMRC<CR>
+nnoremap <silent> <leader>nve :tabedit $MYVIMRC<CR>
 
 " shortcut to reload vimrc without restarting vim
 nnoremap <silent> <leader>nvr :so $MYVIMRC<CR>
@@ -31,7 +139,7 @@ noremap ; :
 inoremap qp <Esc>
 noremap qp <Esc>
 
-" Basic Settings
+set encoding=utf-8
 set ignorecase
 set smartcase
 set ruler
@@ -39,190 +147,57 @@ set number
 set relativenumber
 filetype off
 filetype plugin indent on
-
-" use F3 to enter paste mode -> paste -> F3 to exit paste mode
-" this allows to paste without vim messing up the indents
 set pastetoggle=<F3>
-
 " Allows git gutter to update faster
 set updatetime=100
-
-" Avoid forced end of lines on saving
 set nofixendofline
-
 set expandtab
 set smarttab
 set tabstop=4
 set softtabstop=0
 set shiftwidth=4
-
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
 set undodir=~/.vim/undo
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
-" Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.local/share/nvim/plugged')
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+" Switch to last edited buffer by pressing backspace in normal mode
+nnoremap <silent> <BS> :b#<CR>
 
-" theme
-Plug 'tomasiser/vim-code-dark'
+set completeopt=menuone,noselect,noinsert
+set shortmess+=c
+inoremap <c-c> <ESC>
 
+if &term =~# '256color' && ( &term =~# '^screen'  || &term =~# '^tmux' )
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+set background=dark
+set t_Co=256
+colorscheme codedark
+" hi clear Visual
+" hi Visual guibg=#345456
+set fillchars=diff:\ ,fold:\ ,
 
-" makes Ctrl-D and Ctrl-U Smooooooth
-Plug 'psliwka/vim-smoothie'
+set diffopt+=vertical,iwhite
+if &diff
+  " diff mode
+  set diffopt+=iwhite
+endif
 
-" Some sensible defaults
-Plug 'tpope/vim-sensible'
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+      \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+      \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-" automatic pairing of parens, braces, quotes etc.
-Plug 'Raimondi/delimitMate'
-
-" auto detect indent/tab/space settings based on existing file
-" Plug 'tpope/vim-sleuth'
-
-Plug 'tmhedberg/SimpylFold'
-let g:SimpylFold_docstring_preview=1
-
-"Plug 'dkarter/bullets.vim'
-Plug 'justinmk/vim-sneak'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'markonm/traces.vim'
-
-" Uses C-n, C-x, C-p
-Plug 'terryma/vim-multiple-cursors'
-
-" gcc to comment
-Plug 'tpope/vim-commentary'
-
-Plug 'itchyny/lightline.vim'
-Plug 'Yggdroot/indentLine'
-let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \ },
-  \ }
-
-function! LightlineFilename()
-    return expand('%:.')
-  endfunction
-
-" fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'rbgrouleff/bclose.vim'
-
-" use ranger integration
-Plug 'francoiscabrol/ranger.vim'
-let g:ranger_map_keys = 0
-nnoremap - :Ranger<CR>
-
-" Plug 'ConradIrwin/vim-bracketed-paste'
-" Plugin 'chamindra/marvim'
-Plug 'simnalamburt/vim-mundo'
-"nnoremap <F5> :MundoToggle<CR>
-
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-s>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" jump between hunks with `[c` and `]c`
-" Leader hp : Hunk Preview
-" Leader hs : Hunk Stage
-" Leader hu : Hunk Undo
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-autocmd User fugitive
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
-
-
-Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
-nnoremap <leader><tab> :NERDTreeToggle<cr>
-" autocmd StdinReadPre * let s:std_in=1
-" open a NERDTree automatically when vim starts up if no files were specified
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" Plug 'vimwiki/vimwiki'
-" let g:vimwiki_list = [{'path': '~/vimwiki/',
-"                       \ 'syntax': 'markdown', 'ext': '.md'}]
-" let g:vimwiki_folding = ''
-"":nmap <Leader>wb <Plug>VimwikiGoBackLink
-
-" IDE Plugins
-" Plug 'mattn/emmet-vim'
-Plug 'prettier/vim-prettier'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
-
-" language pack
-Plug 'sheerun/vim-polyglot'
-" disable vim-go :GoDef short cut (gd)
-" this is handled by LanguageClient [LC]
-let g:go_def_mapping_enabled = 0
-Plug 'dense-analysis/ale'
-let g:ale_set_highlights = 0
-let g:ale_echo_msg_format = '%linter%: %s'
-let g:ale_linters = {
-      \   'python': ['flake8',],
-      \   'javascript': ['eslint'],
-      \   'html': ['eslint'],
-      \}
-
-let g:ale_python_black_executable = '~/.virtualenvs/neovim/bin/black'
-" let g:ale_fixers = {
-"       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-"       \   'python': ['black',],
-"       \   'javascript': ['eslint',],
-"       \}
-let g:ale_javascript_prettier_use_global = 1
-let g:ale_fixers = {
-      \   'python': ['isort', 'black'],
-      \   'javascript': ['prettier',],
-      \   'javascriptreact': ['prettier',],
-      \}
-      " \   'htmldjango': ['html-beautify'],
-let g:ale_fix_on_save = 1
-
-" Plug 'davidhalter/jedi-vim'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
-" Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
-
-" augroup deoplete_py
-"   autocmd!
-"   autocmd FileType python call plug#load('deoplete.nvim', 'deoplete-jedi')
-"                          \| call deoplete#enable()
-"                          \| autocmd! deoplete_py
-" augroup END
-
-" Plug 'neoclide/coc.nvim', {'branch': 'release', 'on': []}
-Plug 'neoclide/coc.nvim', {'branch': 'release' }
-" autocmd FileType go call plug#load('coc.nvim')
-" autocmd FileType javascript call plug#load('coc.nvim')
-" autocmd FileType html,htmldjango call plug#load('coc.nvim')
-
-
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
-" Plug 'Vimjas/vim-python-pep8-indent'
-"
-" Plug 'tpope/vim-endwise'
-
-call plug#end()
+highl CursorTransparent ctermfg=16 ctermbg=253 guifg=#000000 guibg=#00FF00 gui=strikethrough blend=100
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4
@@ -233,9 +208,6 @@ au BufNewFile,BufRead *.py
     \ autoindent
     \ fileformat=unix
     \ foldmethod=indent
-
-
-set encoding=utf-8
 
 " Flagging Unnecessary Whitespace
 au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
@@ -277,15 +249,6 @@ nnoremap <tab> :Buffers<cr>
 nnoremap <leader>tt :Tags<cr>
 nnoremap <leader>tb :TagbarOpenAutoClose<cr>
 
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
 
 let s:uname = system("uname")
 if s:uname =~ "Linux"
@@ -294,12 +257,6 @@ elseif s:uname =~ "Darwin"
   let g:python3_host_prog = '/Users/ox/.virtualenvs/neovim/bin/python3'
 endif
 
-" Switch to last edited buffer by pressing backspace in normal mode
-nnoremap <silent> <BS> :b#<CR>
-
-set completeopt=menuone,noselect,noinsert
-set shortmess+=c
-inoremap <c-c> <ESC>
 
 " Disable Jedi-vim autocompletion and enable call-signatures options
 let g:jedi#auto_initialization = 1
@@ -313,33 +270,9 @@ let g:jedi#show_call_signatures = "1"
 let g:deoplete#auto_complete_delay = 100
 
 set grepprg=rg\ --vimgrep\ --smart-case
-
-if &term =~# '256color' && ( &term =~# '^screen'  || &term =~# '^tmux' )
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-endif
-set background=dark
-set t_Co=256
-colorscheme codedark
-" hi clear Visual
-" hi Visual guibg=#345456
-set fillchars=diff:\ ,fold:\ ,
-
-set diffopt+=vertical,iwhite
-if &diff
-  " diff mode
-  set diffopt+=iwhite
-endif
-
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave=1
 
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-      \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-      \,sm:block-blinkwait175-blinkoff150-blinkon175
-
-highl CursorTransparent ctermfg=16 ctermbg=253 guifg=#000000 guibg=#00FF00 gui=strikethrough blend=100
 
 " ========================= COC.NVIM ===============================
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
@@ -476,6 +409,5 @@ cabbrev h tab help
 
 xnoremap <leader>c <esc>:'<,'>:w !cat\|pbcopy<CR>
 xnoremap <leader>gs <esc>:'<,'>:w !cat\|oxsnip<CR>
-
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
