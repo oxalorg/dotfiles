@@ -328,8 +328,10 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" highlight DiffChange ctermbg=1
-" highlight DiffText ctermbg=22
+highlight DiffAdd        ctermbg=237 guibg=#373D29
+highlight DiffChange     ctermbg=52 guibg=#345456
+highlight DiffDelete     ctermfg=12 ctermbg=52 guifg=Blue guibg=#4f0a0a
+highlight DiffText       ctermbg=52 guibg=#005500
 
 highlight GitGutterAdd    guifg=#009900 guibg=#1e1e1e ctermfg=2 ctermbg=234
 highlight GitGutterChange guifg=#bbbb00 guibg=#1e1e1e ctermfg=3 ctermbg=234
