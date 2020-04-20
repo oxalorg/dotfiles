@@ -57,3 +57,7 @@ crashlytics-build.properties
 fabric.properties
 
 *Zone.Identifier
+
+tags
+tags.temp
+tags.lock
