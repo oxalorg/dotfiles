@@ -42,6 +42,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
 Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'prettier/vim-prettier'
@@ -54,6 +55,16 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
 Plug 'neoclide/coc.nvim', {'branch': 'release' }
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
+Plug 'Valloric/MatchTagAlways'
+Plug 'easymotion/vim-easymotion'
+Plug 'unblevable/quick-scope'
+Plug 'godlygeek/tabular' " Call :TableFormat
+Plug 'elzr/vim-json'
+Plug 'plasticboy/vim-markdown' " Call :Toc
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+" Plug 'mhinz/vim-startify'
 " Plug 'tpope/vim-endwise'
 " Plug 'ryanpcmcquen/fix-vim-pasting'
 " Plugin 'chamindra/marvim'
@@ -64,6 +75,40 @@ call plug#end()
 
 " Plugin Related Config
 " ---------------------
+
+" let g:mkdp_markdown_css = expand('~/code/sakura/css/sakura.css')
+let g:indentLine_fileTypeExclude = ['markdown']
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" disable header folding
+let g:vim_markdown_folding_disabled = 1
+
+" do not use conceal feature, the implementation is not so good
+let g:vim_markdown_conceal = 0
+
+" disable math tex conceal feature
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+
+" support front matter of various format
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+let g:vim_markdown_json_frontmatter = 1  " for JSON format
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+vmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
 
 autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
@@ -145,7 +190,7 @@ set smartcase
 set ruler
 set number
 set relativenumber
-filetype off
+filetype on
 filetype plugin indent on
 set pastetoggle=<F3>
 " Allows git gutter to update faster
@@ -179,9 +224,16 @@ if &term =~# '256color' && ( &term =~# '^screen'  || &term =~# '^tmux' )
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
+else
+    set termguicolors
 endif
 set background=dark
 set t_Co=256
+augroup qs_colors
+    autocmd!
+    autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+    autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+augroup END
 colorscheme codedark
 " hi clear Visual
 " hi Visual guibg=#345456
@@ -212,11 +264,7 @@ au BufNewFile,BufRead *.py
 " Flagging Unnecessary Whitespace
 au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-autocmd FileType htmldjango setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
-autocmd FileType html setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
-autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
-autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
-autocmd FileType javascriptreact setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+autocmd FileType html,css,htmldjango,javascript,javascriptreact,json setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -248,6 +296,7 @@ nnoremap <leader>bd :bwipeout<cr>
 nnoremap <tab> :Buffers<cr>
 nnoremap <leader>tt :Tags<cr>
 nnoremap <leader>tb :TagbarOpenAutoClose<cr>
+nnoremap <leader>p p<cr>
 
 
 let s:uname = system("uname")
