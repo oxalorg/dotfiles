@@ -1,27 +1,31 @@
 #!/bin/bash
 
+set -e
 
 CABINET=~/Dropbox/cabinet
 ROGUE_ARK_DIR=~/oxal.org/public
-ROGUE_LOCAL_DIR=$CABINET/www/oxal.org/src
-THIS_MONTH=$(date +%Y-%m)
+ROGUE_REPO=/www/oxal.org
+ROGUE_LOCAL_DIR=$ROGUE_REPO/src
 
+THIS_MONTH=$(date +%Y-%m)
 FILENAME=${1-$(date +%s)}
 DIRNAME=snip/${THIS_MONTH}
+
 mkdir -p $ROGUE_LOCAL_DIR/${DIRNAME}
 URL="https://oxal.org/${DIRNAME}/${FILENAME}.txt"
 fpath=$ROGUE_LOCAL_DIR/${DIRNAME}/$FILENAME.txt
 
 input=$(cat | tee "$fpath")
 
-rsync -a $ROGUE_LOCAL_DIR/${DIRNAME} mitshi-blr:$ROGUE_ARK_DIR/snip
+source ~/.virtualenvs/oxal.org/bin/activate
+cd $ROGUE_REPO && make synconly
 
 if [ "$(uname -s)" = "Darwin" ]; then
     echo $URL | pbcopy
     osascript -e 'display notification "URL copied to clipboard" with title "Screenshot"'
+elif [ "$WSL_DISTRO_NAME" = "Ubuntu" ]; then
+    echo $URL | pbcopy
 else
     echo $URL | xclip -i -selection clipboard
     notify-send "URL copied to clipboard"
 fi
-
-
