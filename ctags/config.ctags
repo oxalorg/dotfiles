@@ -1,0 +1,3 @@
+--exclude=node_modules
+--exclude=*.min.js
+--exclude=.git
