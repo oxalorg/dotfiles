@@ -1,4 +1,5 @@
 " (neo)vimrc of @oxalorg
+" test
 
 " map the leader key to SPACE
 let mapleader="\<SPACE>"
@@ -31,17 +32,39 @@ Plug 'tpope/vim-surround'
 Plug 'markonm/traces.vim'
 Plug 'terryma/vim-multiple-cursors' " Uses C-n, C-x, C-p
 Plug 'tpope/vim-commentary' " gcc to comment
+
 Plug 'itchyny/lightline.vim'
-Plug 'Yggdroot/indentLine'
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \ },
+  \ }
+function! LightlineFilename()
+    return expand('%:.')
+endfunction
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'francoiscabrol/ranger.vim' | let g:ranger_map_keys = 0 | nnoremap - :Ranger<CR>
 Plug 'simnalamburt/vim-mundo' "nnoremap <F5> :MundoToggle<CR>
+
 Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<C-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+
 Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
+
 Plug 'tpope/vim-fugitive'
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+
 Plug 'rbong/vim-flog'
 Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -50,80 +73,8 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'sheerun/vim-polyglot'
+
 Plug 'dense-analysis/ale'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
-Plug 'neoclide/coc.nvim', {'branch': 'release' }
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
-Plug 'Valloric/MatchTagAlways'
-Plug 'easymotion/vim-easymotion'
-Plug 'unblevable/quick-scope'
-Plug 'godlygeek/tabular' " Call :TableFormat
-Plug 'elzr/vim-json'
-Plug 'plasticboy/vim-markdown' " Call :Toc
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-" Plug 'mhinz/vim-startify'
-" Plug 'tpope/vim-endwise'
-" Plug 'ryanpcmcquen/fix-vim-pasting'
-" Plugin 'chamindra/marvim'
-" Plug 'davidhalter/jedi-vim'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
-" Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
-call plug#end()
-
-" Plugin Related Config
-" ---------------------
-
-" let g:mkdp_markdown_css = expand('~/code/sakura/css/sakura.css')
-let g:indentLine_fileTypeExclude = ['markdown']
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
-" disable header folding
-let g:vim_markdown_folding_disabled = 1
-
-" do not use conceal feature, the implementation is not so good
-let g:vim_markdown_conceal = 0
-
-" disable math tex conceal feature
-let g:tex_conceal = ""
-let g:vim_markdown_math = 1
-
-" support front matter of various format
-let g:vim_markdown_frontmatter = 1  " for YAML format
-let g:vim_markdown_toml_frontmatter = 1  " for TOML format
-let g:vim_markdown_json_frontmatter = 1  " for JSON format
-
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-nmap s <Plug>(easymotion-overwin-f)
-vmap s <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
-
-autocmd User fugitive
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-s>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-let g:go_def_mapping_enabled = 0
-nnoremap <leader><tab> :NERDTreeToggle<cr>
-
 let g:ale_set_highlights = 0
 let g:ale_echo_msg_format = '%linter%: %s'
 let g:ale_linters = {
@@ -131,7 +82,6 @@ let g:ale_linters = {
       \   'javascript': ['eslint'],
       \   'html': ['eslint'],
       \}
-
 let g:ale_python_black_executable = '~/.virtualenvs/neovim/bin/black'
 let g:ale_javascript_prettier_use_global = 1
 let g:ale_fixers = {
@@ -143,28 +93,66 @@ let g:ale_fixers = {
       \}
 let g:ale_fix_on_save = 1
 
-let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \ },
-  \ }
-function! LightlineFilename()
-    return expand('%:.')
-endfunction
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
+Plug 'neoclide/coc.nvim', {'branch': 'release' }
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+Plug 'Valloric/MatchTagAlways'
+
+Plug 'Yggdroot/indentLine'
+let g:indentLine_fileTypeExclude = ['markdown']
+
+Plug 'easymotion/vim-easymotion'
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+nmap s <Plug>(easymotion-overwin-f)
+vmap s <Plug>(easymotion-overwin-f)
+nmap s <Plug>(easymotion-overwin-f2)
+
+Plug 'unblevable/quick-scope'
+Plug 'godlygeek/tabular' " Call :TableFormat
+Plug 'elzr/vim-json'
+
+Plug 'plasticboy/vim-markdown' " Call :Toc
+let g:tex_conceal = ""
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+let g:vim_markdown_json_frontmatter = 1  " for JSON format
+
+Plug 'junegunn/goyo.vim'
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+Plug 'junegunn/limelight.vim'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+" let g:mkdp_markdown_css = expand('~/code/sakura/css/sakura.css')
+
+Plug 'mattn/emmet-vim'
+Plug 'terryma/vim-expand-region'
+" Plug 'mhinz/vim-startify'
+" Plug 'tpope/vim-endwise'
+" Plug 'ryanpcmcquen/fix-vim-pasting'
+" Plugin 'chamindra/marvim'
+" Plug 'davidhalter/jedi-vim'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+" Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
+call plug#end()
+
+
+let g:go_def_mapping_enabled = 0
+nnoremap <leader><tab> :NERDTreeToggle<cr>
+
+
 " augroup deoplete_py
 "   autocmd!
 "   autocmd FileType python call plug#load('deoplete.nvim', 'deoplete-jedi')
 "                          \| call deoplete#enable()
 "                          \| autocmd! deoplete_py
 " augroup END
-"
-
-" git-gutter
-" jump between hunks with `[c` and `]c`
-" Leader hp : Hunk Preview
-" Leader hs : Hunk Stage
-" Leader hu : Hunk Undo
 
 " Vim Default Settings
 " --------------------
