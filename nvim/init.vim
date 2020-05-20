@@ -473,3 +473,38 @@ xnoremap <leader>c <esc>:'<,'>:w !cat\|pbcopy<CR>
 xnoremap <leader>gs <esc>:'<,'>:w !cat\|oxsnip<CR>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+function! TodoComplete()
+    let l:line = fnameescape(getline('.'))
+    let l:now = fnameescape(strftime("%F%T"))
+    let l:append_cmd = printf("echo %s %s >> /projects/todo/completed.txt", l:now, l:line)
+    let l:output = system(append_cmd)
+    execute ".d_"
+    echom l:output
+endfunction
+
+function! TodoMove(to)
+    execute 'normal dd'
+    execute 'normal /# ' . a:to . "\<CR>"
+    execute 'normal }p'
+endfunction
+
+function! TodoMoveNext()
+    execute 'normal dd'
+    execute 'normal /^# ' . "\<CR>"
+    execute 'normal }p'
+endfunction
+
+function! TodoMovePrev()
+    execute 'normal dd'
+    execute 'normal ?^# ' . "\<CR>n"
+    execute 'normal }p'
+endfunction
+
+nnoremap <leader>cc :call TodoComplete()<CR>
+nnoremap <leader>cw :call TodoMove('Week')<CR>
+nnoremap <leader>cm :call TodoMove('Month')<CR>
+nnoremap <leader>cy :call TodoMove('Year')<CR>
+nnoremap <leader>cb :call TodoMove('Backlog')<CR>
+nnoremap <leader>ca :call TodoMove('Archived')<CR>
+nnoremap <leader>c} :call TodoMoveNext()<CR>
+nnoremap <leader>c{ :call TodoMovePrev()<CR>
