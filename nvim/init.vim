@@ -521,14 +521,18 @@ function! TodoMovePrev()
     execute 'normal }p'
 endfunction
 
-nnoremap <leader>cc :call TodoComplete()<CR>
-nnoremap <leader>cw :call TodoMove('Week')<CR>
-nnoremap <leader>cm :call TodoMove('Month')<CR>
-nnoremap <leader>cy :call TodoMove('Year')<CR>
-nnoremap <leader>cb :call TodoMove('Backlog')<CR>
-nnoremap <leader>ca :call TodoMove('Archived')<CR>
-nnoremap <leader>c} :call TodoMoveNext()<CR>
-nnoremap <leader>c{ :call TodoMovePrev()<CR>
+augroup Todo
+    autocmd! Todo
+    autocmd FileType text nnoremap <leader>cc :call TodoComplete()<CR>
+    autocmd FileType text nnoremap <leader>cw :call TodoMove('Week')<CR>
+    autocmd FileType text nnoremap <leader>cm :call TodoMove('Month')<CR>
+    autocmd FileType text nnoremap <leader>cy :call TodoMove('Year')<CR>
+    autocmd FileType text nnoremap <leader>cb :call TodoMove('Backlog')<CR>
+    autocmd FileType text nnoremap <leader>ca :call TodoMove('Archived')<CR>
+    autocmd FileType text nnoremap <leader>c} :call TodoMoveNext()<CR>
+    autocmd FileType text nnoremap <leader>c{ :call TodoMovePrev()<CR>
+augroup END
+
 
 function! s:editHtmlClass()
     try
