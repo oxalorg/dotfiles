@@ -113,11 +113,16 @@ let g:indentLine_fileTypeExclude = ['markdown']
 Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-nmap s <Plug>(easymotion-overwin-f)
-vmap s <Plug>(easymotion-overwin-f)
-nmap s <Plug>(easymotion-overwin-f2)
+" vmap s <Plug>(easymotion-overwin-f)
+" nmap s <Plug>(easymotion-overwin-f2)
+nmap s <Plug>(easymotion-bd-w)
+nmap S <Plug>(easymotion-bd-e)
+nmap <leader>s <Plug>(easymotion-jumptoanywhere)
+nmap <leader>w <Plug>(easymotion-bd-w)
+vmap <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>j <Plug>(easymotion-j)
+nmap <leader>k <Plug>(easymotion-k)
 
-Plug 'unblevable/quick-scope'
 Plug 'godlygeek/tabular' " Call :TableFormat
 Plug 'elzr/vim-json'
 
