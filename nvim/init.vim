@@ -146,13 +146,16 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 Plug 'mattn/emmet-vim'
 Plug 'terryma/vim-expand-region'
+Plug 'justinmk/vim-gtfo'
 " Plug 'mhinz/vim-startify'
 " Plug 'tpope/vim-endwise'
 " Plug 'ryanpcmcquen/fix-vim-pasting'
 " Plugin 'chamindra/marvim'
-" Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 " Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
+Plug 'kovisoft/paredit', { 'for': 'clojure' }
+let g:paredit_smartjump = 1
 call plug#end()
 
 
