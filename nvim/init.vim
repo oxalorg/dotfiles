@@ -21,7 +21,10 @@ endif
 " - For Neovim: ~/.local/share/nvim/plugged
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
+Plug '/projects/vim-genox'
+
 Plug 'tomasiser/vim-code-dark'
+Plug 'andreasvc/vim-256noir'
 Plug 'psliwka/vim-smoothie' " smoother CTRL+D/CTRL+U
 Plug 'tpope/vim-sensible'
 Plug 'Raimondi/delimitMate' " automatic pairing of parens, braces, quotes etc.
@@ -55,6 +58,7 @@ let g:UltiSnipsExpandTrigger="<C-s>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
 
 Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
@@ -64,12 +68,15 @@ autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
+nnoremap <leader>gg :Gstatus<CR>
 
 Plug 'rbong/vim-flog'
 Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'prettier/vim-prettier'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'arp242/gopher.vim'
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'sheerun/vim-polyglot'
@@ -95,6 +102,7 @@ let g:ale_fix_on_save = 1
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
 Plug 'neoclide/coc.nvim', {'branch': 'release' }
+let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json', 'coc-python', 'coc-tsserver', 'coc-yank', 'coc-emmet', 'coc-ultisnips']
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'Valloric/MatchTagAlways'
