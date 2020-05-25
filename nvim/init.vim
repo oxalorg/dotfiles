@@ -218,26 +218,24 @@ nnoremap <C-H> <C-W><C-H>
 set foldmethod=indent
 set foldlevel=99
 " Switch to last edited buffer by pressing backspace in normal mode
-nnoremap <silent> <BS> :b#<CR>
+" nnoremap <silent> <BS> :b#<CR>
+" this mapping works even if previous buffer was closed, it will go to 2nd
+" last opened buffer
+nnoremap <silent> <BS> :<C-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<CR>
 
 set completeopt=menuone,noselect,noinsert
 set shortmess+=c
 inoremap <c-c> <ESC>
 
 if &term =~# '256color' && ( &term =~# '^screen'  || &term =~# '^tmux' )
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
 else
     set termguicolors
 endif
-set background=dark
+" set background=light
 set t_Co=256
-augroup qs_colors
-    autocmd!
-    autocmd ColorScheme * highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
-    autocmd ColorScheme * highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
-augroup END
 colorscheme codedark
 " hi clear Visual
 hi Visual guibg=#345456
@@ -254,11 +252,11 @@ if &diff
   set diffopt+=iwhite
 endif
 
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-      \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-      \,sm:block-blinkwait175-blinkoff150-blinkon175
+" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+"       \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+"       \,sm:block-blinkwait175-blinkoff150-blinkon175
 
-highl CursorTransparent ctermfg=16 ctermbg=253 guifg=#000000 guibg=#00FF00 gui=strikethrough blend=100
+" highl CursorTransparent ctermfg=16 ctermbg=253 guifg=#000000 guibg=#00FF00 gui=strikethrough blend=100
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4
@@ -298,7 +296,7 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 
-command! -bang -nargs=* Rg
+command! -bang -nargs=* Rg2
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
@@ -320,6 +318,13 @@ command! -bang -nargs=* Ag
   \   'ag --column --numbers --noheading --smart-case . '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   "rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+" Rg current word
+nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
 nnoremap <C-p> :Files<Cr>
 nnoremap <leader>o :Files<cr>
 nnoremap <leader>f :Rg<cr>
@@ -414,10 +419,10 @@ highlight DiffChange     ctermbg=52 guibg=#345456
 highlight DiffDelete     ctermfg=12 ctermbg=52 guifg=Blue guibg=#4f0a0a
 highlight DiffText       ctermbg=52 guibg=#005500
 
-highlight GitGutterAdd    guifg=#009900 guibg=#1e1e1e ctermfg=2 ctermbg=234
-highlight GitGutterChange guifg=#bbbb00 guibg=#1e1e1e ctermfg=3 ctermbg=234
-highlight GitGutterDelete guifg=#ff2222 guibg=#1e1e1e ctermfg=1 ctermbg=234
-
+" highlight GitGutterAdd    guifg=#009900 guibg=#1e1e1e ctermfg=2 ctermbg=234
+highlight GitGutterAdd    guifg=#009900 guibg=#000000 ctermfg=2 ctermbg=234
+highlight GitGutterChange guifg=#bbbb00 guibg=#000000 ctermfg=3 ctermbg=234
+highlight GitGutterDelete guifg=#ff2222 guibg=#000000 ctermfg=1 ctermbg=234
 
 let g:mundo_width = 88
 let g:mundo_preview_height = 20
@@ -492,8 +497,47 @@ cabbrev h tab help
 
 xnoremap <leader>c <esc>:'<,'>:w !cat\|pbcopy<CR>
 xnoremap <leader>gs <esc>:'<,'>:w !cat\|oxsnip<CR>
+command! -nargs=0 -range=% OxSnip <line1>,<line2>:w !oxsnip
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>"
+nnoremap <C-h> :%s/<C-r>///gc<left><left><left>
+vnoremap <c-s> y<ESC>/<c-r>"<CR>
+nnoremap <c-s> <ESC>/<c-r>"<CR>
+
+" nnoremap yA "Ayy
+" vnoremap yA '<,'>"Ayy
+nnoremap Y y$
+
+let g:dbs = {
+            \  'mrbse': 'sqlite:/www/mrbse/db.sqlite3'
+            \}
+
+" folding based on single space or tabs - from the comments section of:  http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
+function! TSIndent(line)
+        return strlen(matchstr(a:line,'\v^\s+'))
+endfunction
+setlocal foldmethod=expr
+setlocal foldexpr=MyTSIndentFoldExpr()
+function! MyTSIndentFoldExpr()
+        if (getline(v:lnum)=~'^$')
+                return -1
+        endif
+        let ind = TSIndent(getline(v:lnum))
+        let indNext = TSIndent(getline(v:lnum+1))
+        return (ind'.(indNext)) : ind
+endfunction
+setlocal foldtext=MyFoldText()
+function! MyFoldText()
+        let line = getline(v:foldstart)
+        " Foldtext ignores tabstop and shows tabs as one space,
+        " so convert tabs to 'tabstop' spaces so text lines up
+        let ts = repeat(' ',&tabstop)
+        let line = substitute(line, '\t', ts, 'g')
+  let numLines = v:foldend - v:foldstart + 1
+        return line.' ['.numLines.' lines]'
+endfunction
+
 function! TodoComplete()
     let l:line = fnameescape(getline('.'))
     let l:now = fnameescape(strftime("%F%T"))
@@ -533,6 +577,72 @@ augroup Todo
     autocmd FileType text nnoremap <leader>c{ :call TodoMovePrev()<CR>
 augroup END
 
+" Save current view settings on a per-window, per-buffer basis.
+function! AutoSaveWinView()
+    if !exists("w:SavedBufView")
+        let w:SavedBufView = {}
+    endif
+    let w:SavedBufView[bufnr("%")] = winsaveview()
+endfunction
+
+" Restore current view settings.
+function! AutoRestoreWinView()
+    let buf = bufnr("%")
+    if exists("w:SavedBufView") && has_key(w:SavedBufView, buf)
+        let v = winsaveview()
+        let atStartOfFile = v.lnum == 1 && v.col == 0
+        if atStartOfFile && !&diff
+            call winrestview(w:SavedBufView[buf])
+        endif
+        unlet w:SavedBufView[buf]
+    endif
+endfunction
+
+" When switching buffers, preserve window view.
+if v:version >= 700
+    autocmd BufLeave * call AutoSaveWinView()
+    autocmd BufEnter * call AutoRestoreWinView()
+endif
+
+" ----------------------------------------------------------------------------
+" BTags
+" ----------------------------------------------------------------------------
+function! s:align_lists(lists)
+  let maxes = {}
+  for list in a:lists
+    call map(list, "printf('%-'.maxes[v:key].'s', v:val)")
+  endfor
+  return a:lists
+endfunction
+
+function! s:btags_source()
+  let lines = map(split(system(printf(
+    \ 'ctags -f - --sort=no --excmd=pattern --language-force=%s %s',
+    \ &filetype, expand('%:S'))), "\n"), 'split(v:val, "\t")')
+  if v:shell_error
+    throw 'failed to extract tags'
+  endif
+  return map(s:align_lists(lines), 'join(v:val, "\t")')
+endfunction
+
+function! s:btags_sink(line)
+  execute split(a:line, "\t")[2]
+endfunction
+
+function! s:btags()
+  try
+    call fzf#run({'source':  s:btags_source(),
+                 \'down':    '40%',
+                \'options': '+m -d "\t" --with-nth 1,4..',
+                 \'sink':    function('s:btags_sink')})
+  catch
+    echohl WarningMsg
+    echom v:exception
+    echohl None
+  endtry
+endfunction
+
+command! BTags call s:btags()
 
 function! s:editHtmlClass()
     try
