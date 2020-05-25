@@ -508,3 +508,16 @@ nnoremap <leader>cb :call TodoMove('Backlog')<CR>
 nnoremap <leader>ca :call TodoMove('Archived')<CR>
 nnoremap <leader>c} :call TodoMoveNext()<CR>
 nnoremap <leader>c{ :call TodoMovePrev()<CR>
+
+function! s:editHtmlClass()
+    try
+        exe "normal! vato\<esc>vi>\<esc>/\\%Vclass=\<cr>2f\"i \<esc>l"
+        startinsert
+    catch
+        exe "normal! a class=\"\"\<esc>"
+        startinsert
+    endtry
+endfunction
+
+command! EditHtmlClass call s:editHtmlClass()
+nnoremap <leader>cc :EditHtmlClass<CR>
