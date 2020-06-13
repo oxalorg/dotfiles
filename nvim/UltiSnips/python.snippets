@@ -23,7 +23,7 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-snippet djurls [ "Django urls.py starter template" ] b
+snippet djurls "Django urls.py starter template" b
 from django.urls import path
 
 from . import views
@@ -31,4 +31,18 @@ from . import views
 urlpatterns = [
     path('', views.${1}, name="${1}"),
 ]
+endsnippet
+
+
+snippet djadmin "Django add admin for a model" b
+from .models import $1
+
+@admin.register($1)
+class $1Admin(admin.ModelAdmin):
+	pass
+
+endsnippet
+
+snippet "from" "Python from .. import .." b
+from ${1} import ${2}
 endsnippet
