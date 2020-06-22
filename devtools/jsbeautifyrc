@@ -1,0 +1,14 @@
+{
+    "indent_size": 2,
+    "html": {
+        "brace_style": "collapse",
+        "indent_char": " ",
+        "indent_scripts": "normal",
+        "indent_size": 2,
+        "wrap_indent": 2,
+        "wrap_line_length": 88,
+        "wrap-attributes-indent-size": 2,
+        "wrap_attributes": "auto"
+
+    }
+}
