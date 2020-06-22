@@ -5,6 +5,7 @@ alias drop='cd /c/Users/ox/Dropbox'
 export EDITOR=nvim
 export VISUAL=nvim
 alias e=$EDITOR
+alias et="$EDITOR /projects/todo/todo.txt"
 export MAIL=$HOME/mail/INBOX
 
 # MPC MPD Aliases
@@ -15,10 +16,10 @@ alias mppl='mpc playlist'
 alias mpa='mpc add'
 
 # List commands
-alias ls="ls -GpF"
-alias ll="ls -lGpF"
-alias lt="ls -ltGpF"
-alias la="ls -aGpF"
+# alias ls="ls -GpF"
+# alias ll="ls -lGpF"
+alias lt="ls -ltGpF --color=tty"
+# alias la="ls -aGpF"
 
 # Git
 alias gst='git status -b'
@@ -76,9 +77,12 @@ alias -g lenv='env $(cat .env | xargs)'
 # Apt
 alias sai='sudo apt install -y'
 
-alias f='rg --files --smart-case | fzf'
+# alias f='rg --files --smart-case | fzf'
 
 alias sai='sudo apt install -y'
 
-# Virtualenv
-alias w=workon
+alias ghi='gh issue create -t'
+
+alias pir='pip3 install -r requirements.txt'
+alias pi='pip3 install'
+alias pf='pip3 freeze'
