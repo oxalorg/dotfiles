@@ -13,13 +13,13 @@ oxhelp () {
     echo "  oxantisocial"
     echo "  oxwork"
     echo "  oxfood"
+    echo "  oxnote"
     echo "  oxfind"
     echo "  oxsearch"
     echo "  oxtags"
     echo "  oxmentions"
     echo "  oxtodos"
     echo "  oxedit"
-    echo "  oxadd"
     echo "  oxin"
     echo ""
     echo "Aliases:"
@@ -95,15 +95,15 @@ oxedit () {
     $EDITOR "$(fzf --preview='head -$LINES {}' -1 -q "$query")"
 }
 
-oxadd () {
-    local query=${@-""}
-    local p=$(find -L $NOTES -type d ! -path \*.git\* | sed "s|.*notes||" | fzf -1 -q "$@")
-    cd $NOTES/$p
-    $EDITOR
-}
+# oxadd () {
+#     local query=${@-""}
+#     local p=$(find -L $NOTES -type d ! -path \*.git\* | sed "s|.*notes||" | fzf -1 -q "$@")
+#     cd $NOTES/$p
+#     $EDITOR
+# }
 
 # Create snippet
-nsnip() {
+oxsnip() {
     # pbpaste and pbcopy should be mapped to xlcip on linux in zshrc
     local genname=`pbpaste | head -c 25 | sed 's|\ |_|g' | sed 's|/|_|g' `
     local filename=${@:-$genname}

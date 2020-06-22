@@ -1,0 +1,4053 @@
+{
+	"rss": {
+		"channel": {
+			"link": [
+				{
+					"_href": "http://philosophizethis.libsyn.com/rss",
+					"_rel": "self",
+					"_type": "application/rss+xml",
+					"__prefix": "atom"
+				},
+				"http://www.philosophizethis.org"
+			],
+			"title": "Philosophize This!",
+			"pubDate": "Thu, 01 Jun 2017 04:08:54 +0000",
+			"lastBuildDate": "Thu, 01 Jun 2017 04:09:44 +0000",
+			"generator": "Libsyn WebEngine 2.0",
+			"language": "en",
+			"copyright": {
+				"__cdata": ""
+			},
+			"docs": "http://www.philosophizethis.org",
+			"managingEditor": "steve@stephenwestshow.com (steve@stephenwestshow.com)",
+			"summary": {
+				"__prefix": "itunes",
+				"__cdata": "Beginner friendly if listened to in order! For anyone interested in an educational podcast about philosophy where you don't need to be a graduate-level philosopher to understand it. In chronological order, the thinkers and ideas that forged the world we live in are broken down and explained."
+			},
+			"image": [
+				{
+					"url": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+					"title": "Philosophize This!",
+					"link": {
+						"__cdata": "http://www.philosophizethis.org"
+					}
+				},
+				{
+					"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+					"__prefix": "itunes"
+				}
+			],
+			"author": {
+				"__prefix": "itunes",
+				"__text": "Stephen West"
+			},
+			"keywords": {
+				"__prefix": "itunes",
+				"__text": "philosophy"
+			},
+			"category": [
+				{
+					"category": {
+						"_text": "Philosophy",
+						"__prefix": "itunes"
+					},
+					"_text": "Society & Culture",
+					"__prefix": "itunes"
+				},
+				{
+					"_text": "Education",
+					"__prefix": "itunes"
+				},
+				{
+					"_text": "Comedy",
+					"__prefix": "itunes"
+				}
+			],
+			"explicit": {
+				"__prefix": "itunes",
+				"__text": "clean"
+			},
+			"owner": {
+				"name": {
+					"__prefix": "itunes",
+					"__cdata": "Stephen West"
+				},
+				"email": {
+					"__prefix": "itunes",
+					"__text": "steve@stephenwestshow.com"
+				},
+				"__prefix": "itunes"
+			},
+			"description": {
+				"__cdata": "Beginner friendly if listened to in order! For anyone interested in an educational podcast about philosophy where you don't need to be a graduate-level philosopher to understand it. In chronological order, the thinkers and ideas that forged the world we live in are broken down and explained."
+			},
+			"subtitle": {
+				"__prefix": "itunes",
+				"__cdata": ""
+			},
+			"item": [
+				{
+					"title": "Episode #104 ... Sartre and Camus pt. 5 - Consciousness is Freedom",
+					"pubDate": "Thu, 01 Jun 2017 04:08:54 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "b3d8614087c45966851781be6a5444bf"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-104-sartre-and-camus-pt-5-consciousness-is-freedom"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Sartre's view of consciousness and the notion of radical freedom. </p>"
+					},
+					"enclosure": {
+						"_length": "45051373",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Sartre_and_Camus_part_5.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:27"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Sartre's view of consciousness and the notion of radical freedom. "
+					}
+				},
+				{
+					"title": "Episode #103 ... Sartre and Camus pt. 4 - The Quest For Certainty",
+					"pubDate": "Wed, 24 May 2017 22:03:05 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "ddcb81a9a57a7e73f7c20678e9624571"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-103-sartre-and-camus-pt-4-the-quest-for-certainty"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we tell a story from the history of philosophy in an attempt to prepare us for understanding the Phenomenology of Sartre. </p>"
+					},
+					"enclosure": {
+						"_length": "48814885",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Sarte4_Final.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "32:03"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we tell a story from the history of philosophy in an attempt to prepare us for understanding the Phenomenology of Sartre. "
+					}
+				},
+				{
+					"title": "Episode #102 ... Heidegger pt. 3 - Authenticity",
+					"pubDate": "Fri, 12 May 2017 11:14:58 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "bc42768b00b029f3ac5e5f8cd687b422"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-102-heidegger-pt-3-authenticity"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Martin Heidegger and his concept of Authenticity. </p>"
+					},
+					"enclosure": {
+						"_length": "47771343",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Heidegger3_Final_amp.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "31:20"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Martin Heidegger and his concept of Authenticity. "
+					}
+				},
+				{
+					"title": "Episode #101 ... Heidegger pt. 2 - Science and Technology",
+					"pubDate": "Sun, 30 Apr 2017 06:01:52 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "4160d0a9976b5127ad0f25f0bdaecbc2"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-101-heidegger-pt-2-science-and-technology"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we discuss Martin Heidegger and his views on Modern Technology. </p>"
+					},
+					"enclosure": {
+						"_length": "65048504",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Heidegger_pt._2.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:00"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we discuss Martin Heidegger and his views on Modern Technology. "
+					}
+				},
+				{
+					"title": "Episode #100 ... Heidegger pt. 1 - Phenomenology and Dasein",
+					"pubDate": "Fri, 14 Apr 2017 05:15:58 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "85bdb46c1caed7ce8615da4d4bf38095"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-100-heidegger-pt-1-phenomenology-and-dasein"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we begin our discussion of the philosophy of Martin Heidegger by looking at his roots in Phenomenology and his revolutionary concept of Dasein. </p>"
+					},
+					"enclosure": {
+						"_length": "77262435",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Heidegger_pt._1.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "31:06"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we begin our discussion of the philosophy of Martin Heidegger by looking at his roots in Phenomenology and his revolutionary concept of Dasein. "
+					}
+				},
+				{
+					"title": "Episode #099 ... Schopenhauer pt. 2 - Ethics",
+					"pubDate": "Wed, 29 Mar 2017 04:24:09 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "a4334632e8dc8e3591179d0b0b0cb517"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-099-schopenhauer-pt-2-ethics"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about the ethics of Arthur Schopenhauer. </p>"
+					},
+					"enclosure": {
+						"_length": "33612655",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Schopenhauer_part_2_-_Ethics.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "22:48"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about the ethics of Arthur Schopenhauer. "
+					}
+				},
+				{
+					"title": "Episode #098 ... Schopenhauer pt. 1 - Metaphysics and Love",
+					"pubDate": "Tue, 14 Mar 2017 04:43:16 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "b3b895835dee789577fe29fe032d3297"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-098-schopenhauer-pt-1-metaphysics-and-love"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we begin our discussion on Arthur Schopenhauer.</p>"
+					},
+					"enclosure": {
+						"_length": "33335659",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Schopenhauer_Episode_1.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "22:37"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we begin our discussion on Arthur Schopenhauer."
+					}
+				},
+				{
+					"title": "Episode #097 ... Wittgenstein ep. 1",
+					"pubDate": "Wed, 01 Mar 2017 06:18:04 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "d45fa5fa43ac1ff19799c78971f44b24"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-097-wittgenstein-ep-1"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Ludwig Wittgenstein. </p>"
+					},
+					"enclosure": {
+						"_length": "37823802",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Wittgenstein.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "25:44"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Ludwig Wittgenstein. "
+					}
+				},
+				{
+					"title": "Episode #096 ... Is Ayn Rand A Philosopher?",
+					"pubDate": "Fri, 20 Jan 2017 20:57:44 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "32aa11ab261147444ac6ca20a533cbf4"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-096-is-ayn-rand-a-philosopher"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Ayn Rand. </p>"
+					},
+					"enclosure": {
+						"_length": "35582373",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Ayn_Rand.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "24:10"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Ayn Rand. "
+					}
+				},
+				{
+					"title": "Episode #095 ... Are you living in a simulation?",
+					"pubDate": "Fri, 30 Dec 2016 04:04:35 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "605c1c87c9eafcdb15210703797f1384"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-095-are-you-living-in-a-simulation"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we discuss the famous paper by Nick Bostrom about the probability that we are living in a simulation. </p>"
+					},
+					"enclosure": {
+						"_length": "38580913",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_95_-_Nick_Bostrom_and_Simulations.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:15"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we discuss the famous paper by Nick Bostrom about the probability that we are living in a simulation. "
+					}
+				},
+				{
+					"title": "Episode #094 ... A Look at Suffering",
+					"pubDate": "Thu, 24 Nov 2016 02:34:55 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "73b7684662b24a981ee5d182dc36992b"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-094-a-look-at-suffering"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we look at the concept of suffering from multiple different angles including the philosopher Fyodor Dostoyevsky and the movement in Transhumanism known as The Hedonistic Imperative. </p>"
+					},
+					"enclosure": {
+						"_length": "42632385",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/A_Look_at_Suffering.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:04"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we look at the concept of suffering from multiple different angles including the philosopher Fyodor Dostoyevsky and the movement in Transhumanism known as The Hedonistic Imperative. "
+					}
+				},
+				{
+					"title": "Episode #093 ... Nietzsche pt. 4 - Love",
+					"pubDate": "Sun, 06 Nov 2016 00:47:17 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1bf72739afd202f1fe84970de7acf14c"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-093-nietzsche-pt-4-love"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we look at the concept of love from several different angles in an attempt to better understand our own thoughts on love. </p>"
+					},
+					"enclosure": {
+						"_length": "39161841",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Nietzsche_On_Love.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:40"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we look at the concept of love from several different angles in an attempt to better understand our own thoughts on love. "
+					}
+				},
+				{
+					"title": "Episode #092 ... Nietzsche pt. 3 - Thus Spoke Zarathustra",
+					"pubDate": "Tue, 04 Oct 2016 06:48:01 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "d44c7d526494c9ca5a444e61234c204f"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-092-nietzsche-pt-3-thus-spoke-zarathustra"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Nietzsche's famous work Thus Spoke Zarathustra. </p>"
+					},
+					"enclosure": {
+						"_length": "43854887",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Thus_Spoke_Zarathustra.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:55"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Nietzsche's famous work Thus Spoke Zarathustra. "
+					}
+				},
+				{
+					"title": "Episode #091 ... Nietzsche pt. 2 - The Will to Power",
+					"pubDate": "Wed, 21 Sep 2016 00:27:07 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "4061c801e7ab68e949609c34ce903262"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-091-nietzsche-pt-2-the-will-to-power"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Nietzsche, the concept of the Will to Power and the dangers of predatory buffalos. </p>"
+					},
+					"enclosure": {
+						"_length": "40953453",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Will_to_Power.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:54"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Nietzsche, the concept of the Will to Power and the dangers of predatory buffalos. "
+					}
+				},
+				{
+					"title": "Episode #090 ... Nietzsche pt. 1 - God is dead and so is Captain Morgan",
+					"pubDate": "Fri, 26 Aug 2016 21:27:01 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "45a45f34ee24cbdfcfe08981326b0e1a"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-090-nietzsche-pt-1-god-is-dead-and-so-is-captain-morgan"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we begin our discussion on the work of Friedrich Nietzsche. </p>"
+					},
+					"enclosure": {
+						"_length": "39938081",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Nietzsche_Part_1.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:12"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we begin our discussion on the work of Friedrich Nietzsche. "
+					}
+				},
+				{
+					"title": "Episode #089 ... Simone De Beauvoir - The Second Sex",
+					"pubDate": "Wed, 17 Aug 2016 01:36:19 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "3ec2c19aae5ca611f74346ea1f265dd7"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-089-simone-de-beauvoir-the-second-sex"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we discuss the revolutionary work of Simone De Beauvoir entitled: The Second Sex</p>"
+					},
+					"enclosure": {
+						"_length": "45165135",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Simone_Second.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "30:50"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we discuss the revolutionary work of Simone De Beauvoir entitled: The Second Sex"
+					}
+				},
+				{
+					"title": "Episode #088 ... Sartre and Camus pt. 3 - The Great Debate",
+					"pubDate": "Wed, 27 Jul 2016 06:46:22 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "bc0844e9cb8aa97c649cb6cf44775d2b"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-088-sartre-and-camus-pt-3-the-great-debate"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about the great post WW2 debate between Sartre and Camus. </p>"
+					},
+					"enclosure": {
+						"_length": "33726822",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/sartre_and_camus_pt3.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:49"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about the great post WW2 debate between Sartre and Camus. "
+					}
+				},
+				{
+					"title": "Episode #087 ... Sartre and Camus pt. 2",
+					"pubDate": "Thu, 14 Jul 2016 08:02:12 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "fe9bbccb6986c9decd2003d508363fbb"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-087-sartre-and-camus-pt-2"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about the philosopher Albert Camus.</p>"
+					},
+					"enclosure": {
+						"_length": "29980736",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Sartre_and_Camus_pt._2.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "23:15"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about the philosopher Albert Camus."
+					}
+				},
+				{
+					"title": "Episode #086 ... Sartre and Camus pt. 1 - Freedom",
+					"pubDate": "Wed, 29 Jun 2016 03:56:31 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "74f2986f6218d8cbefafa2174ec09765"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-086-sartre-and-camus-pt-1-freedom"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today's episode is the first installment of a series on the great Cold War era thinkers Sartre and Camus. Today we lay the foundations for the line of thinking known as existentialism and focus on Sartre's view of freedom. </p>"
+					},
+					"enclosure": {
+						"_length": "30528911",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Sartre_on_Freedom.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "23:46"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today's episode is the first installment of a series on the great Cold War era thinkers Sartre and Camus. Today we lay the foundations for the line of thinking known as existentialism and focus on Sartre's view of freedom. "
+					}
+				},
+				{
+					"title": "Episode #085 ... Peter Singer on Effective Altruism",
+					"pubDate": "Tue, 21 Jun 2016 04:47:32 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "6f654556215da3dca798341412931011"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-085-peter-singer-on-effective-altruism"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about the great Peter Singer, his views on the unique moral obligations that we face as members of modern society and how we might fulfill the obligations in the most effective manner. </p>"
+					},
+					"enclosure": {
+						"_length": "30260155",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_085_..._Peter_Singer_on_Effective_Altruism.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "24:02"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about the great Peter Singer, his views on the unique moral obligations that we face as members of modern society and how we might fulfill the obligations in the most effective manner. "
+					}
+				},
+				{
+					"title": "Episode #084 ... William James on Truth",
+					"pubDate": "Tue, 14 Jun 2016 23:27:41 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "d8c9bf247d5cbd112528a3d81a8c7e7c"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-084-william-james-on-truth"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we take a look at William James and his work on the concept of Truth.</p>"
+					},
+					"enclosure": {
+						"_length": "33854901",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_084_..._William_James_on_Truth.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:44"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we take a look at William James and his work on the concept of Truth."
+					}
+				},
+				{
+					"title": "Episode #083 ... Henry David Thoreau",
+					"pubDate": "Sat, 04 Jun 2016 16:16:17 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "b4aacc633b2c14e82cc53a0935b905e3"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-083-henry-david-thoreau"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we take a look at Henry David Thoreau's views on the individual, society and civil disobedience. </p>"
+					},
+					"enclosure": {
+						"_length": "33342324",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_083_..._Henry_David_Thoreau.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:02"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we take a look at Henry David Thoreau's views on the individual, society and civil disobedience. "
+					}
+				},
+				{
+					"title": "Episode #082 ... Austrians and Marx",
+					"pubDate": "Thu, 26 May 2016 07:26:14 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "e1560006d2ebe5aaebac818ef0e4f534"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/082-austrians-and-marx"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about various classic critiques of Marx's economics made by the Austrian School of Economics. I really wanted to call this episode \"X Marx the Spot\", but it didn't make enough sense and wasn't very search friendly. </p>"
+					},
+					"enclosure": {
+						"_length": "64065910",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_082_..._Austrians_and_Marx_final.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "25:36"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about various classic critiques of Marx's economics made by the Austrian School of Economics. I really wanted to call this episode \"X Marx the Spot\", but it didn't make enough sense and wasn't very search friendly. "
+					}
+				},
+				{
+					"title": "Episode #081 ... Capitalism vs. Communism",
+					"pubDate": "Wed, 11 May 2016 06:11:16 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "ae76507467a3882c2b67649a7fb4cf0e"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-081-capitalism-vs-communism"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Karl Marx and his famous critiques of Capitalism.</p>"
+					},
+					"enclosure": {
+						"_length": "26255688",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_081_Capitalism_vs_Communism.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "24:35"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Karl Marx and his famous critiques of Capitalism."
+					}
+				},
+				{
+					"title": "Episode #80 ... Feuerbach on Religion",
+					"pubDate": "Tue, 03 May 2016 20:21:51 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "bb46f969d0caf13478a9be7ebe1512de"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/80-feuerbach-on-religion"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode we talk about Ludwig Feuerbach and his (occasionally) controversial views on the origins of religion.</p>"
+					},
+					"enclosure": {
+						"_length": "29524507",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/feuerbach.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "28:00"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode we talk about Ludwig Feuerbach and his (occasionally) controversial views on the origins of religion."
+					}
+				},
+				{
+					"title": "Episode #079 ... Kierkegaard on Anxiety",
+					"pubDate": "Wed, 23 Mar 2016 00:49:48 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1a19563212f9d203e6f97769ed80175b"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/079-kierkegaard-on-anxiety"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast we talk about Kierkegaard's views on the value of anxiety and the plight of one in its grips. </p>"
+					},
+					"enclosure": {
+						"_length": "24305447",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/kierkegaard2.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "22:33"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast we talk about Kierkegaard's views on the value of anxiety and the plight of one in its grips. "
+					}
+				},
+				{
+					"title": "Episode #078 ... Marx and Kierkegaard on Religion pt. 2",
+					"pubDate": "Wed, 27 Jan 2016 05:40:59 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1b387b22c6c1c655faea035b9a356799"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/078-marx-and-kierkegaard-on-religion-pt-2"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Soren Kierkegaard and his views on the function and value of religion. </p>"
+					},
+					"enclosure": {
+						"_length": "27036430",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/kierkegaard.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "25:24"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Soren Kierkegaard and his views on the function and value of religion. "
+					}
+				},
+				{
+					"title": "Episode #077 ... Marx and Kierkegaard on Religion pt. 1",
+					"pubDate": "Sun, 17 Jan 2016 00:07:12 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "bf36bea22a4f9260e5182e0d2f581815"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/077-marx-and-kierkegaard-on-religion-pt-1"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we discuss Marx, his views on religion as a means of oppression, and his connection to Hegel's Dialectic. </p>"
+					},
+					"enclosure": {
+						"_length": "28846149",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Marx_On_Religion.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:17"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we discuss Marx, his views on religion as a means of oppression, and his connection to Hegel's Dialectic. "
+					}
+				},
+				{
+					"title": "Episode #076 ... Hegel's God",
+					"pubDate": "Thu, 31 Dec 2015 17:43:00 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "8af3b50ff5edbd500358b4a5b9a05b0f"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-076-hegels-god"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about Hegel and a unique possibility of what God could be. </p>"
+					},
+					"enclosure": {
+						"_length": "31706627",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_076_..._Hegels_God.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "24:56"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about Hegel and a unique possibility of what God could be. "
+					}
+				},
+				{
+					"title": "Episode #075 ... How To Win An Argument Pt. 2",
+					"pubDate": "Mon, 21 Dec 2015 05:47:00 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "67a57a486aee4ca88d739291dced0e0d"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-075-how-to-win-an-argument-pt-2"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we answer listener questions clarifying How To Win An Argument Pt. 1 and discuss several other common logical fallacies, how to spot them and how to deal with them. </p>"
+					},
+					"enclosure": {
+						"_length": "30329274",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_075_..._How_To_Win_An_Argument_Pt._2.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "24:51"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we answer listener questions clarifying How To Win An Argument Pt. 1 and discuss several other common logical fallacies, how to spot them and how to deal with them. "
+					}
+				},
+				{
+					"title": "Episode #074 ... Hegel Returns",
+					"pubDate": "Thu, 17 Dec 2015 06:46:07 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "f4ea52232936a1f4df4ffcc053f36608"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/074-hegel-returns"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about an overview of Hegel and what is truly important about his work. </p>"
+					},
+					"enclosure": {
+						"_length": "36532036",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/074_..._Hegel_Returns.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:38"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about an overview of Hegel and what is truly important about his work. "
+					}
+				},
+				{
+					"title": "Episode #073 ... How To Win An Argument Pt. 1",
+					"pubDate": "Tue, 01 Dec 2015 09:17:29 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "3c7ada3e0ddc1e8c843230a07394094f"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-073-how-to-win-an-argument-pt-1"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we take a look at several common logical fallacies and how to spot them in the throes of a passionate argument. You will be a better person having listened to this episode. </p>"
+					},
+					"enclosure": {
+						"_length": "35971725",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_073_..._How_To_Win_An_Argument_Pt._1.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:30"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we take a look at several common logical fallacies and how to spot them in the throes of a passionate argument. You will be a better person having listened to this episode. "
+					}
+				},
+				{
+					"title": "Episode #072 ... Insecurity",
+					"pubDate": "Wed, 18 Nov 2015 07:50:53 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "5b9ba2f2fba31fc007ed8163de46367a"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-072-insecurity"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast we talk about insecurity and why we think and act the way we do. </p>"
+					},
+					"enclosure": {
+						"_length": "37244179",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_072_..._Insecurity.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "33:44"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast we talk about insecurity and why we think and act the way we do. "
+					}
+				},
+				{
+					"title": "Episode #071 ... Is Killing Animals For Food Morally Justifiable?",
+					"pubDate": "Sun, 01 Nov 2015 06:56:16 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "a3edae2f341d5575ca0f95cd804cebd9"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/071-is-killing-animals-for-food-justifiable"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about whether killing animals for food is morally justifiable.</p>"
+					},
+					"enclosure": {
+						"_length": "34826492",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/071_..._Killing_Animals_For_Food.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:04"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about whether killing animals for food is morally justifiable."
+					}
+				},
+				{
+					"title": "Episode #070 ... Off Moodiness",
+					"pubDate": "Tue, 20 Oct 2015 04:58:54 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1d6fbf9d2a403b703b2d28105b157a6d"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/070-off-moodiness"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode we talk about the most profound thing you will ever hear in your life: how to quell negative emotions. </p><p></p>"
+					},
+					"enclosure": {
+						"_length": "26372223",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/070_..._Off_Moodiness.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "23:24"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode we talk about the most profound thing you will ever hear in your life: how to quell negative emotions.   "
+					}
+				},
+				{
+					"title": "Episode #069 ... An Appeal To Reason",
+					"pubDate": "Mon, 12 Oct 2015 04:29:28 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1cd9bdb9ece7871370166ee008fe9799"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/069-an-appeal-to-reason"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Stephen West rambles relentlessly about stuff no one cares about. </p>"
+					},
+					"enclosure": {
+						"_length": "33173705",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/An_Appeal_to_Reason.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "31:48"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Stephen West rambles relentlessly about stuff no one cares about. "
+					}
+				},
+				{
+					"title": "Episode #068 ... On Moodiness",
+					"pubDate": "Tue, 06 Oct 2015 04:38:42 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "ea61329b2b680df0826308df1a957811"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/068-on-moodiness"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode we talk about one angle of the complex subject known to us all as: moodiness. </p>"
+					},
+					"enclosure": {
+						"_length": "24931450",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/068_..._On_Moodiness.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "22:11"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode we talk about one angle of the complex subject known to us all as: moodiness. "
+					}
+				},
+				{
+					"title": "Episode #067 ... What Hegel Was Saying!",
+					"pubDate": "Mon, 21 Sep 2015 06:31:45 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "86be2275fc9f03617f955f145ac6d9fa"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-067-what-hegel-was-saying"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>We continue our unfortunately abridged discussion on Hegel from last episode. </p>"
+					},
+					"enclosure": {
+						"_length": "26402057",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_067_..._What_Hegel_Was_Saying.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "22:13"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "We continue our unfortunately abridged discussion on Hegel from last episode. "
+					}
+				},
+				{
+					"title": "Episode #066 ... Hegel pt. 1 - Introduction",
+					"pubDate": "Mon, 14 Sep 2015 05:13:52 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "5f4d8e4d3917e3761bfc26b483157da5"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/066-hegel-pt-1-introduction"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Introduction of the philosophy of Hegel</p>"
+					},
+					"enclosure": {
+						"_length": "22324985",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/066_..._Hegel_pt._1.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "19:15"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Introduction of the philosophy of Hegel"
+					}
+				},
+				{
+					"title": "Episode #065 ... Mary Wollstonecraft",
+					"pubDate": "Mon, 07 Sep 2015 04:06:05 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "641cbc3967ae02b7291bc7c5218c7c82"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/065-mary-wollstonecraft"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8px;\"> On this episode of the podcast, we discuss the feminist philosopher Mary Wollstonecraft. First, we learn about the unexpected origin of The Royal Humane Society and how they assisted Mary Wollstonecraft. Next, we learn about the many ways Wollstonecraft challenged societal conventions and why she believed that women were essentially slaves to their husbands during her time. Finally, we consider the behavioral conditioning that is perpetuated by society even today and think about how we enact change when we’re not satisfied with the results. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "27436015",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/065_..._Mary_Wollstonecraft.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "22:49"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss the feminist philosopher Mary Wollstonecraft. First, we learn about the unexpected origin of The Royal Humane Society and how they assisted Mary Wollstonecraft. Next, we learn about the many ways..."
+					}
+				},
+				{
+					"title": "Episode #064 ... Interpreting Interpretations",
+					"pubDate": "Wed, 19 Aug 2015 22:15:23 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "89ea738009f2b20edabfb37a8c4c2845"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-064-interpreting-interpretations"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we discuss Hermeneutics, or “the art of avoiding misunderstanding.” First, we meet Johnny--a disgruntled Philosophize This! listener who is bored and frustrated by episodes about philosophers who make unverifiable speculations about metaphysics. Next, we discuss the effects our individual biases have on the way we interpret the world around us, and how this changes the reality we experience. Finally, we examine why Hermeneutics is so important, how this relates to Kant’s metaphysical claims, and why Johnny may want to consider giving those ideas a second glance. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "23746332",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_064_..._Interpreting_Interpretations.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "20:54"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss Hermeneutics, or “the art of avoiding misunderstanding.” First, we meet Johnny--a disgruntled Philosophize This! listener who is bored and frustrated by episodes about philosophers who make unverifiable..."
+					}
+				},
+				{
+					"title": "Episode #063 ... Kant pt. 8 - Limits of Knowledge",
+					"pubDate": "Wed, 01 Jul 2015 04:35:35 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "3e53430b3e275c8922ca4fb8340f077a"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-063-kant-pt-8-limits-of-knowledge"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we discuss Kant’s views on the limits of human knowledge. First, we ask ourselves why we seek knowledge at all and whether there will ever be an endpoint to our search for it. Next, we discuss our human experience of the world in contrast to the world as it actually exists and what limits this imposes on our ability to know. Finally, we learn why Kant believed in god, human souls, and free will, and the important distinction he made between two types of faith-based thinking. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "31553870",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_063_..._Kant_pt._8.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "28:48"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss Kant’s views on the limits of human knowledge. First, we ask ourselves why we seek knowledge at all and whether there will ever be an endpoint to our search for it. Next, we discuss our human experience of..."
+					}
+				},
+				{
+					"title": "Episode #062 ... Kant pt. 7 - Suicide",
+					"pubDate": "Tue, 23 Jun 2015 04:46:36 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "6d245fa392fd9f34c0a1b646d37de0c2"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-062-kant-pt-7-suicide"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we discuss the morality of suicide. We begin by questioning our own biases and assumptions about suicide and where they come from. Next, we examine suicide from a Christian perspective by considering the arguments posed by St. Augustine and Thomas Aquinas. Finally, we discuss the perspectives of enlightenment thinkers Hume, Voltaire, and Kant and ultimately discover that suicide may not be as easy to categorize as many people think. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "35439861",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_062_..._Kant_pt._8.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "33:20"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss the morality of suicide. We begin by questioning our own biases and assumptions about suicide and where they come from. Next, we examine suicide from a Christian perspective by considering the arguments posed..."
+					}
+				},
+				{
+					"title": "Episode #061 ... What is Enlightenment?",
+					"pubDate": "Sun, 14 Jun 2015 13:57:47 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "11688aafc195677277ece5e24efe59af"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-061-what-is-enlightenment"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we discuss Kant’s answer to the question “What is enlightenment?” We begin by recounting the story of how Kant came to answer this question in the first place and why this was an important question to consider at the time. Next, we examine why Kant believed that we impose immaturity on ourselves by outsourcing our thinking to others. Finally, we discuss why it takes courage to think for yourself and the importance of “daring to be wise.\" All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "30117490",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_061_..._What_is_Enlightenment.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:02"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss Kant’s answer to the question “What is enlightenment?” We begin by recounting the story of how Kant came to answer this question in the first place and why this was an important question to consider at..."
+					}
+				},
+				{
+					"title": "Episode #060 ... The Sublime",
+					"pubDate": "Mon, 01 Jun 2015 09:00:35 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "46305c96a022018a82019655be44521e"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-060-the-sublime"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we attempt to tackle the elusive concept of the sublime. We begin by clarifying everything the sublime is NOT, and then attempt to pin it down by considering a common motif that is has been associated with the sublime throughout history. Next, we discuss several anecdotes from people who have experienced the sublime and why one described it as “an agreeable kind of horror.” Finally, we discuss how the sublime relates to beauty and question some commonly made assumptions about ugliness. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "33059036",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_060_..._The_Sublime.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "30:49"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we attempt to tackle the elusive concept of the sublime. We begin by clarifying everything the sublime is NOT, and then attempt to pin it down by considering a common motif that is has been associated with the sublime..."
+					}
+				},
+				{
+					"title": "Episode #059 ... Kant pt. 4 - Categorical Trolley Cars",
+					"pubDate": "Thu, 28 May 2015 04:31:12 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "6fd25bcf9d416cee052a16899a6bbbe4"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-059-kant-pt-4-categorical-trolley-cars"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we analyze the infamous Trolley Car Problem and think about it in relation to Kant’s categorical imperative. First, we discuss the value of thought experiments and call into question the concept of “common sense”. Next, we look at the Trolley Car Problem from various perspectives and try to understand why we react to it in the ways we do. Finally, we discuss Kant’s categorical imperative and four other prerequisites he felt were necessary for arriving at moral principles. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "28360752",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_059_..._Kant_pt._4_-_Categorical_Trolley_Cars.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:48"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we analyze the infamous Trolley Car Problem and think about it in relation to Kant’s categorical imperative. First, we discuss the value of thought experiments and call into question the concept of “common sense”...."
+					}
+				},
+				{
+					"title": "Episode #058 ... Deontology vs Consequentialism",
+					"pubDate": "Wed, 20 May 2015 06:53:37 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "5c82fb2fffaa138a1e2b3ffdff7fe001"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-058-deontology-vs-consequentialism"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we continue our discussion of Kant, this time focusing on ethics. We begin with a thought experiment that calls into question whether or not lying is morally justifiable if it results in preserving human life. Next, we discuss the nature of morality and question the validity of the sources from which we typically derive these concepts. Finally, we explore the strengths and weaknesses of Deontology and Consequentialism and find out that there isn’t an easy answer when it comes to how human action should be judged. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "28858226",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_058_..._Deontology_vs_Consequentialism.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:26"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our discussion of Kant, this time focusing on ethics. We begin with a thought experiment that calls into question whether or not lying is morally justifiable if it results in preserving human life. Next, we..."
+					}
+				},
+				{
+					"title": "Episode #057 ... Kant pt. 2 - The Actual Introduction",
+					"pubDate": "Mon, 11 May 2015 22:32:47 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "d8d1c34508e0d7001842c4d66e2358e9"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-057-kant-pt-2-the-actual-introduction"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast we continue our discussion of Kant, this time focusing on his contributions to the debate between rationalism and empiricism . We begin by reviewing the major points of contention between the rationalists and empiricists regarding how we arrive at knowledge. Next, we learn about Kant’s “eureka!” moment, which arose from his discovery of a major assumption made by empiricist David Hume. Finally, we find out why Kant believed that we can never truly know the external world as it actually is, an idea which calls into questions basic concepts like space, time, and causality and goes well beyond the “veil of perception” discussed in previous episodes. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "31375425",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_057_..._Kant_pt._2_-_The_Actual_Introduction.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "25:37"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast we continue our discussion of Kant, this time focusing on his contributions to the debate between rationalism and empiricism . We begin by reviewing the major points of contention between the rationalists and empiricists..."
+					}
+				},
+				{
+					"title": "Episode #056 ... Kant pt. 1 - An Introduction to the Introduction",
+					"pubDate": "Wed, 22 Apr 2015 06:05:55 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "b60d1feab92875bd46bc832e29cfef96"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-056-kant-pt-1-an-introduction-to-the-introduction"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we begin our discussion of Immanuel Kant. We first examine the historical context Kant was born into and consider the challenges philosophy was faced with, thanks to David Hume. We also discuss the change in the way humans were beginning to look at the universe during Kant’s time. Finally, we hear what Kant has to say about whether or not we can know anything beyond “I think, therefore I am.” All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "33464921",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_056_..._Kant_pt._1_-_An_Introduction_to_the_Introduction.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:22"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we begin our discussion of Immanuel Kant. We first examine the historical context Kant was born into and consider the challenges philosophy was faced with, thanks to David Hume. We also discuss the change in the way..."
+					}
+				},
+				{
+					"title": "Episode #055 ... Interview on Hume with Massimo Pigliucci",
+					"pubDate": "Wed, 01 Apr 2015 02:54:50 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "3b1f5503ed4b7bb8fba0e5ad323c1d3a"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-054-interview-on-hume-with-massimo-pigliucci"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px; text-align: center;\"> On this episode of the podcast, Massimo Pigliucci calls in to help tie together some loose ends in our overview of David Hume. Massimo is a professor of philosophy at City University of New York. He is the author of the best sellers Philosophy of Pseudoscience and Answers For Aristotle, and is currently working on a book called How To Be A Stoic. </span></p>"
+					},
+					"enclosure": {
+						"_length": "30133589",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_055_..._Interview_on_Hume_with_Massimo_Pigliucci.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "30:35"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, Massimo Pigliucci calls in to help tie together some loose ends in our overview of David Hume. Massimo is a professor of philosophy at City University of New York. He is the author of the best sellers Philosophy of..."
+					}
+				},
+				{
+					"title": "Episode #054 ... Hume pt. 4 - Art",
+					"pubDate": "Fri, 27 Mar 2015 23:35:01 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1deb0675f5704338e10ceb1e696ccd28"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-054-hume-pt-4-art"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we discuss Hume’s views on taste and find out whether or not all of our opinions about art are equally valid. First, we compare the poetry of Shakespeare and Shel Silverstein, the music of Beethoven and Skrillex, and throw in the profound prose of Spongebob Squarepants just for good measure. Next, we examine some of the biases that influence our ability to judge art, and Stephen correctly guesses your favorite song of all time by throwing a dart at the Top 40 chart from your senior year of high school. Finally, we learn how to be better art critics by employing the five qualities Hume sets out as pre-requisites for Art Appreciation 101. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "39694318",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_054_..._Hume_pt._4_-_Art.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "30:22"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss Hume’s views on taste and find out whether or not all of our opinions about art are equally valid. First, we compare the poetry of Shakespeare and Shel Silverstein, the music of Beethoven and Skrillex, and..."
+					}
+				},
+				{
+					"title": "Episode #053 ... David Hume pt. 3 - Custom",
+					"pubDate": "Mon, 16 Mar 2015 03:02:26 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "d1299ea11862f81c5e963e7059d97cee"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-053-david-hume-pt-3-custom"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px; text-align: center;\"> On this episode of the podcast we talk about David Hume's thoughts on the soul, the self and how \"custom is the great guide of human life.\" All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "30292368",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_053_..._David_Hume_pt._3_-_Custom.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "24:25"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast we talk about David Hume's thoughts on the soul, the self and how \"custom is the great guide of human life.\" All this and more on the latest episode of Philosophize This!"
+					}
+				},
+				{
+					"title": "Episode #052 ... David Hume pt. 2 - Design",
+					"pubDate": "Thu, 05 Mar 2015 03:28:41 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "29d2b074d3812f4c38195f7782e258fb"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-052-david-hume-pt-2-design"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we continue our discussion of David Hume. This time, we focus on Hume's response to the Teleological Argument, which goes a little something like this: “Look at how perfectly everything works! All of this must have been designed by God.” We also learn about Hume’s view on miracles, and find out how unimpressed he is that Bruce Willis was the sole survivor of that train accident. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "34322221",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_052_..._David_Hume_pt._2_-_Design.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:57"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our discussion of David Hume. This time, we focus on Hume's response to the Teleological Argument, which goes a little something like this: “Look at how perfectly everything works! All of this must have..."
+					}
+				},
+				{
+					"title": "Episode #051 ... David Hume pt. 1",
+					"pubDate": "Wed, 25 Feb 2015 06:24:16 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "c18d8116cedce95caec5caece515493b"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-051-david-hume-pt-1"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we take a break from the The Island to spend some time talking about Desmond Hume and how great he was at pushing that button in the hatch every 108 minutes. Just kidding… this episode is about David Hume! First, we learn about Hume’s ‘is’ versus ‘ought’ distinction and how not being mindful of this pitfall can lead us down a dangerous path. Next, we discuss the limitations of science and learn what Hume thought should fill in the gaps it leaves (spoiler alert: it’s not religion). Finally, we discuss Hume’s thoughts on causality and ensure that you’ll never think about playing pool the same way again. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "36440196",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_051_..._David_Hume_pt._1.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "30:25"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we take a break from the The Island to spend some time talking about Desmond Hume and how great he was at pushing that button in the hatch every 108 minutes. Just kidding… this episode is about David Hume! First, we..."
+					}
+				},
+				{
+					"title": "Episode #050 ... Are You Left Or Right?",
+					"pubDate": "Sat, 07 Feb 2015 03:42:50 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "ca49f0dbf35fd36eedf4563e84f913e8"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-050-are-you-left-or-right"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we discuss the contrasting political philosophies of Edmund Burke and Thomas Paine. First, we find out the origin of the terms “left” and “right” in relation to politics, and find out that the meanings of these terms are not as simple as they may first seem. Next, we discuss the opposing viewpoints of Edmund Burke and Thomas Paine on how society should progress and implement change. Finally, we think about how their ideas relate to modern issues and consider whether or not their positions are mutually exclusive. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "33829572",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_050_..._Are_You_Left_Or_Right.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:29"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss the contrasting political philosophies of Edmund Burke and Thomas Paine. First, we find out the origin of the terms “left” and “right” in relation to politics, and find out that the meanings of these..."
+					}
+				},
+				{
+					"title": "Episode #049 ... Adam Smith pt. 2 - The Tip of the Iceberg of Wealth",
+					"pubDate": "Tue, 27 Jan 2015 04:21:31 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "e6fa97f619dc563dd0158152eacee513"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-049-adam-smith-pt-2-the-tip-of-the-iceberg-of-wealth"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 12.8000001907349px;\"> On this episode of the podcast, we continue our discussion of Adam Smith. First, we look at two towns with the same name on opposite sides of the US-Mexico border, and consider why their residents have such markedly different standards of living. Next, we ask ourselves what determines a nation’s wealth, which leads us to a discussion of Mercantilism and its various pitfalls. Finally, we learn about Adam Smith’s response to Mercantilism and how his ideas relate back to the two cities from the beginning of the episode. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "35591022",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_049_..._Adam_Smith_pt.2.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:33"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our discussion of Adam Smith. First, we look at two towns with the same name on opposite sides of the US-Mexico border, and consider why their residents have such markedly different standards of living...."
+					}
+				},
+				{
+					"title": "Episode #048 ... Adam Smith pt. 1 - Specialization",
+					"pubDate": "Sun, 18 Jan 2015 00:45:40 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1017ee9aec0f973b150284fe6fcee435"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-048-adam-smith-pt-1-specialization"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast, we begin our discussion of Adam Smith and how specialization has enabled each of us to live like a king, whether we realize it or not. First, we find out why Stephen is that weird guy who sits alone in the bar smiling to himself. Next, we take a look at what an hour of work buys today versus 200 years ago, and consider how this changes our ideas about wealth. Finally, we find out how pursuing our own self-interests ultimately benefits society and allows us to accomplish more together. All this and more on the latest episode of Philosophize This!</p>"
+					},
+					"enclosure": {
+						"_length": "29559772",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_048_..._Adam_Smith_pt._1_-_Specialization.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "24:13"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we begin our discussion of Adam Smith and how specialization has enabled each of us to live like a king, whether we realize it or not. First, we find out why Stephen is that weird guy who sits alone in the bar smiling..."
+					}
+				},
+				{
+					"title": "Episode #047 ... Rousseau pt. 3 - The General Will",
+					"pubDate": "Sat, 10 Jan 2015 05:30:44 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "415d869f62ea0cf5d54379450d7cb0e5"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-047-rousseau-pt-3-the-general-will"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we continue our desert island thought experiment, this time focusing on the general will of the people. First, we examine several interpretations of what \"the general will of the people\" actually means. Next, we take an in-depth look at Rousseau's interpretation, and discuss the difference between democratic and transcendental will. Finally, we explore the multitude of complications that arise when a government tries to enact the general will after it's (somewhat) agreed upon. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "32129997",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_047_..._Rousseau_pt._3_-_The_General_Will.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "25:21"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our desert island thought experiment, this time focusing on the general will of the people. First, we examine several interpretations of what \"the general will of the people\" actually means. Next, we take an..."
+					}
+				},
+				{
+					"title": "Episode #046 ... Rousseau pt. 2 - Democracy, Aristocracy or Monarchy?",
+					"pubDate": "Fri, 02 Jan 2015 06:40:04 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "15dd420c4f22a54e2d4598f2ab272ece"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-046-rousseau-pt-2-democracy-aristocracy-or-monarchy"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we continue last week's thought experiment about creating a society from scratch on a deserted island. First, we find out how building a society is similar to making cupcakes, in the sense that every ingredient contributes something important and interacts with the other ingredients in a unique way. Next, we discuss “human nature” and consider how our perception of it may be unfairly influenced by a small handful of people. Finally, we compare the three categories into which Rousseau believs all governments can be classified (democracy, monarchy, and aristocracy), and analyze the pros and cons of each structure. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "36591163",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_046_..._Rousseau_pt._2_-_Democracy_Aristocracy_or_Monarchy.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:52"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue last week's thought experiment about creating a society from scratch on a deserted island. First, we find out how building a society is similar to making cupcakes, in the sense that every ingredient..."
+					}
+				},
+				{
+					"title": "Episode #045 ... Rousseau Government pt. 1",
+					"pubDate": "Mon, 15 Dec 2014 03:26:26 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "5192e7474f2bbb82916856139bfa302b"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-045-rousseau-government-pt-1"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we examine the origins of government and discuss several opinions on how to construct the best system. First, we imagine that we’re stranded on an island and are forced to devise a system to organize ourselves into a functional “society.” Next, we discuss Hobbes' and Rousseau’s viewpoints on the state of nature and how it relates to the formation of governments. Finally, we talk about the adverse affects civilization and government have on our happiness and why we should constantly reevaluate the systems that are in place. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "34797634",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_045_..._Rousseau_Government_pt._1.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:13"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we examine the origins of government and discuss several opinions on how to construct the best system. First, we imagine that we’re stranded on an island and are forced to devise a system to organize ourselves into a..."
+					}
+				},
+				{
+					"title": "Episode #044 ... Slavery",
+					"pubDate": "Tue, 02 Dec 2014 05:02:30 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "b1e6c0ad19e002865ab52c491db6f4e6"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-044-slavery"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we revisit the topic of belief, this time focusing on the ramifications of the beliefs we hold. First, we ask ourselves why we should even attempt to arrive at truth if certainty is impossible, and examine this question in the context of how our beliefs affect others. Next, we introduce slavery as an example of the consequences that can come from false beliefs and learn why Aristotle, St. Augustine, and St. Thomas Aquinas argued in favor of it. Finally, we hear Jean Jacque Rousseau’s rebuttal to the pro-slavery philosophers and ask ourselves what practices we might be engaged in today that future generations will see as barbaric. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "45005352",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_044_..._Slavery.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "36:51"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we revisit the topic of belief, this time focusing on the ramifications of the beliefs we hold. First, we ask ourselves why we should even attempt to arrive at truth if certainty is impossible, and examine this question..."
+					}
+				},
+				{
+					"title": "Episode #043 ... Tolerance",
+					"pubDate": "Fri, 21 Nov 2014 03:38:14 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "70cad7167793aa219162a88b58924d75"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-043-tolerance"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we examine the true implications of tolerance and intolerance. First, we ask ourselves the inception-esque question of how tolerant we should be of intolerance, and find out that the answer may not be as simple as it seems. Next, we learn why intolerance was seen as a virtue during Voltaire’s time and discuss the paradox of tolerance. Finally, we consider the age-old question of the relative superiority of hot pockets and lean pockets, and think about the relationship between tolerance and the laws that govern our society. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "38970181",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_043_..._Tolerance.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "31:46"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we examine the true implications of tolerance and intolerance. First, we ask ourselves the inception-esque question of how tolerant we should be of intolerance, and find out that the answer may not be as simple as it..."
+					}
+				},
+				{
+					"title": "Episode #042 ... Optimism",
+					"pubDate": "Wed, 12 Nov 2014 03:01:40 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "64c583eddc41a6fb93329f965bdf527f"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-042-optimism"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode, we explore the benefits and drawbacks of optimism. First, we examine the various motivations for pessimism, and hear what Winston Churchill, Ralph Waldo Emerson, and Marcus Aurelius have to say about optimism. Next, we think about the vastly different implications of optimism in our personal lives and optimism on a societal level. Finally, we find out why Voltaire thought it was preposterous to think that we’re living in the best of all possible worlds and why he said, \"Optimism is the madness of insisting all is well when we are miserable.\" All this and more on the latest episode of Philosophize This! </span></p>"
+					},
+					"enclosure": {
+						"_length": "37663266",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_042_..._Optimism.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:46"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode, we explore the benefits and drawbacks of optimism. First, we examine the various motivations for pessimism, and hear what Winston Churchill, Ralph Waldo Emerson, and Marcus Aurelius have to say about optimism. Next, we think about the..."
+					}
+				},
+				{
+					"title": "Episode #041 ... Belief",
+					"pubDate": "Tue, 04 Nov 2014 01:27:52 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "c244792bab29cc0f4e94c94238494826"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-041-belief"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we discuss the many facets of belief. We start out by discussing two major complications that belief brings to the table. First, absolute certainty is impossible--even certainty about the fact that \"certainty is impossible”. Second, we can convince ourselves to believe in literally anything we want (such as the belief that demonic possession is achieved through rustling curtains and slamming doors). Next, we talk about justified, true belief and the multitude of ways our beliefs can be proven wrong. Finally, we learn how to put our beliefs under a microscope and why it’s absolutely necessary to do so in order to achieve true knowledge. All this and more on the latest episode of Philosophize this!</span></p>"
+					},
+					"enclosure": {
+						"_length": "47098634",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_041_..._Belief.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "40:00"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss the many facets of belief. We start out by discussing two major complications that belief brings to the table. First, absolute certainty is impossible--even certainty about the fact that \"certainty is..."
+					}
+				},
+				{
+					"title": "Episode #040 ... Superstition",
+					"pubDate": "Thu, 16 Oct 2014 23:04:17 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "5cc0de7d2dea439e36e7e44957345335"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-040-superstition"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast, we explore superstition in its various forms and examine the ways Berkeley and Voltaire tried to eliminate it in their work. First, we think about the superstitions we subscribe to in our everyday lives, whether it’s “an apple a day keeps the doctor away” or “the key to happiness is buying lots and lots of stuff.” Next, we learn why Berkeley wanted to throw out the notion that true reality lies behind the veil of perception and find out his answer to that cliché question about a tree falling in the forest. Finally, we begin our discussion of Voltaire and find out why he called Christianity \"the most ridiculous, the most absurd and the most bloody religion which has ever infected this world.” All this and more on the latest episode of Philosophize This!</p><p></p>"
+					},
+					"enclosure": {
+						"_length": "63398898",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_040_..._Superstition.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "50:38"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we explore superstition in its various forms and examine the ways Berkeley and Voltaire tried to eliminate it in their work. First, we think about the superstitions we subscribe to in our everyday lives, whether it’s..."
+					}
+				},
+				{
+					"title": "Episode #039 ... Before Our Very Eyes - The Limits of Empiricism",
+					"pubDate": "Wed, 08 Oct 2014 04:36:22 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "9ae7a1947d833e176251851492d0853e"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-039-before-our-very-eyes-the-limits-of-empiricism"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we explore the idea of reality and how our senses prevent us from perceiving its true nature. First, we launch a smear campaign against human eyes and their limitations. Next, we discuss the difference between deductive reasoning (the kind you see on CSI) and inductive reasoning (the kind you see on Bill Nye the Science Guy). Finally, we touch on Locke’s theory of primary and secondary qualities and end with Berkeley's teaser for next week’s episode: “To be is to be perceived.” All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "35820128",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_039_..._Before_Our_Very_Eyes_-_The_Limits_of_Empiricism.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "28:24"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we explore the idea of reality and how our senses prevent us from perceiving its true nature. First, we launch a smear campaign against human eyes and their limitations. Next, we discuss the difference between deductive..."
+					}
+				},
+				{
+					"title": "Episode #038 ... Leibniz pt. 2 - The Best of All Possible Worlds",
+					"pubDate": "Thu, 02 Oct 2014 03:29:01 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "211acb62b22f5088cfd8954be3788e5f"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-038-leibniz-pt-2-the-best-of-all-possible-worlds"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we continue our discussion of Gottfried Leibniz. First, we delve more into the feud between Leibniz and Isaac Newton, which we briefly mentioned last week. Next, we ask ourselves why God sometimes allows Steve Buschemi to murder innocent hitchhikers and why this question is so crucial to Leibniz. Finally, we return to the issue of free will vs. determinism and wonder whether we’re ever actually free to decide what kind of cheese to buy. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "35186342",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_038_..._Leibniz_pt._2_-_The_Best_of_All_Possible_Worlds.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:45"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our discussion of Gottfried Leibniz. First, we delve more into the feud between Leibniz and Isaac Newton, which we briefly mentioned last week. Next, we ask ourselves why God sometimes allows Steve Buschemi..."
+					}
+				},
+				{
+					"title": "Episode #037 ... Leibniz pt. 1 - A Million Points of Light",
+					"pubDate": "Tue, 23 Sep 2014 05:32:23 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "a9d03378871d894902dd6fa411301dbb"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-037-leibniz-pt-1-a-million-points-of-light"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we begin our discussion of Gottfried Leibniz. First, we find out what important invention created a riff between Leibniz and Isaac Newton. Next, we learn about Leibniz’s theory of Monads (which are basically the atoms of the spirit world), and how they are programmed to ensure that we are living in the best of all possible worlds. Finally, we learn about Leibniz’s distinction between “necessary truths” and “truths of fact,” and how knowing the difference can save you a lot of time and confusion. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "41207088",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_037_..._Leibniz_pt._1_-_A_Million_Points_of_Light.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "33:30"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we begin our discussion of Gottfried Leibniz. First, we find out what important invention created a riff between Leibniz and Isaac Newton. Next, we learn about Leibniz’s theory of Monads (which are basically the atoms..."
+					}
+				},
+				{
+					"title": "Episode #036 ... John Locke pt. 2 - The Blank Slate",
+					"pubDate": "Mon, 15 Sep 2014 22:34:30 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "d4fdfd4c2bdf5dfe112f2c45701e92be"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-036-john-locke-pt-2-the-blank-slate"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13.3333339691162px;\"> On this episode of the podcast, we continue our discussion of John Locke. We first admire how brave Locke was to share his ideas during a time when dissent earned you the privilege of being drawn and quartered (literally… quartered). Next, we discuss Locke’s views on the Nature vs. Nurture debate and how they differed from those of the Continental Rationalists. Finally, we find out what kind of changes Locke would make if he were the Secretary of Education (e.g., more dancing and less required reading). All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "37262837",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_036_..._John_Locke_pt._2_-_The_Blank_Slate.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:05"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our discussion of John Locke. We first admire how brave Locke was to share his ideas during a time when dissent earned you the privilege of being drawn and quartered (literally… quartered). Next, we..."
+					}
+				},
+				{
+					"title": "Episode #035 ... John Locke pt. 1 - From Sea to Shining Sea",
+					"pubDate": "Tue, 09 Sep 2014 05:34:13 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "8d890cca6601c3e3c33306346e5ce7fa"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-035-john-locke-pt-1-from-sea-to-shining-sea"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast, we begin learning about John Locke. First, we ask ourselves whether or not we own our bodies and what other things we are entitled to simply by virtue of being born. Next, we consider whether its possible to develop a system of ethics by studying the world around us, just as we develop systems of science and mathematics. Finally, we discuss the three unalienable rights Locke believes humans have (they’ll sound a bit familiar!), and why he thinks its the government’s job to uphold those rights. All this and more on the latest episode of Philosophize This!</p><p></p>"
+					},
+					"enclosure": {
+						"_length": "40694912",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_035_..._John_Locke_pt._1_-_From_Sea_to_Shining_Sea.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "31:50"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we begin learning about John Locke. First, we ask ourselves whether or not we own our bodies and what other things we are entitled to simply by virtue of being born. Next, we consider whether its possible to develop a..."
+					}
+				},
+				{
+					"title": "Episode #034 ... Spinoza pt. 2 - Force of Nature",
+					"pubDate": "Tue, 02 Sep 2014 03:09:44 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "e90d118ada82f9ea7a537e8e31f82b41"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-034-spinoza-pt-2-force-of-nature"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we continue learning about Spinoza, this time focusing on his concept of God. We begin by asking ourselves whether or not Stephen’s English bulldog Charlie is part of God, and analyzing the implications of our answer. Next, we discuss the concept of “substance” and what Spinoza thought the only one true substance was (hint: it’s not water). Finally, we consider how Spinoza’s concept of God/Nature impacts his thoughts on free will and why he would say Stephen has no choice but to imitate a drunk person singing “I Love Rock and Roll” every time he drives past that certain billboard. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "36669326",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_034_..._Spinoza_pt._2_-_Force_of_Nature.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "28:51"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue learning about Spinoza, this time focusing on his concept of God. We begin by asking ourselves whether or not Stephen’s English bulldog Charlie is part of God, and analyzing the implications of our answer...."
+					}
+				},
+				{
+					"title": "Episode #033 ... Spinoza pt. 1 - From Baruch to Benedicto",
+					"pubDate": "Tue, 26 Aug 2014 02:01:22 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "752dc135274b17beb4f1364838673a93"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-033-spinoza-pt-1-from-baruch-to-benedicto"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we learn about Baruch De Spinoza. We find out why it was not only life-threatening to have an unpopular opinion during the time Spinoza lived, but also potentially very profitable. We also question whether religion is really to blame for the violent acts that are committed on its behalf, and find out why Spinoza was exiled from his community and forced to live a life of solitude. Finally, we read excerpts from Spinoza’s correspondence with his ex-friend Albert Burgh regarding Christianity and find out whose arguments hold the most water (spoiler alert: Spinoza wins). All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "37194712",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_033_..._Spinoza_pt._1_-_From_Baruch_to_Benedicto.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "30:22"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about Baruch De Spinoza. We find out why it was not only life-threatening to have an unpopular opinion during the time Spinoza lived, but also potentially very profitable. We also question whether religion is..."
+					}
+				},
+				{
+					"title": "Episode #032 ... Blaise Pascal pt. 2 - +EV your way to success!!",
+					"pubDate": "Tue, 19 Aug 2014 02:04:08 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "3d59a56a4ab4200d1726ff52389d6c47"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-032-blaise-pascal-pt-2-ev-your-way-to-success"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast we continue our discussion of Blaise Pascal, this time focusing on his assertion that man is “the supreme paradox of creation.” First, we learn about Pascal’s early life and feel completely inadequate when we learn that he invented the calculator (yes, the calculator) at age 18. Next, we learn why Pascal believed it was impossible to arrive at scientific truth, and how this led him to develop the foundations of probability theory. Finally, we discuss \"expected value\" and how Barack Obama utilized it to secure his residency in the White House and avoid living underneath a freeway overpass. All this and more on the latest episode of Philosophize This!</p><p></p>"
+					},
+					"enclosure": {
+						"_length": "38387981",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_032_..._Blaise_Pascal_pt._2_-_EV_your_way_to_success.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:54"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast we continue our discussion of Blaise Pascal, this time focusing on his assertion that man is “the supreme paradox of creation.” First, we learn about Pascal’s early life and feel completely inadequate when we learn..."
+					}
+				},
+				{
+					"title": "Episode #031 ... Pascal's Wager",
+					"pubDate": "Tue, 12 Aug 2014 00:02:53 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "418e82c39745b3080b14e3816a93adf3"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-031-pascals-wager"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we begin our discussion of Blaise Pascal by examining Pascal's Wager. We begin by hearkening back to last week's episode and imagine Pascal as Descartes' wingman in a door-to-door campaign to convince us to believe in God. Whereas Descartes tries to prove that God exists, Pascal simply argues that believing in God is the most logical choice (assuming you want to avoid eternal damnation). We then examine various arguments for and against Pascal's wager, including some submitted by our Twitter followers. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "37826871",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_031_..._Pascals_Wager.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "28:43"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we begin our discussion of Blaise Pascal by examining Pascal's Wager. We begin by hearkening back to last week's episode and imagine Pascal as Descartes' wingman in a door-to-door campaign to convince us to believe in..."
+					}
+				},
+				{
+					"title": "Episode #030 ... Descartes pt. 3 - God Exists",
+					"pubDate": "Tue, 05 Aug 2014 22:14:42 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "0478408c64885a3806d223e2c084c919"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-030-descartes-pt-3-god-exists"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast we conclude our three-part installment on Rene Descartes. First we discuss what the concept of God meant to Descartes. Then we discuss why the concept of God was crucial for his system to be received well. Finally we imagine how it would feel to be lambasted by the most annoying/brilliant Jehovah's Witness in the history of the world. All this and more on this episode of Philosophize This!</p>"
+					},
+					"enclosure": {
+						"_length": "34429002",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_030_..._Descartes_pt._3_-_God_Exists.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "25:46"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast we conclude our three-part installment on Rene Descartes. First we discuss what the concept of God meant to Descartes. Then we discuss why the concept of God was crucial for his system to be received well. Finally we..."
+					}
+				},
+				{
+					"title": "Episode #029 ... Descartes pt. 2 - Visionary Genius",
+					"pubDate": "Wed, 16 Jul 2014 00:23:24 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "739b5b82a77e97b345a12197a169eadc"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-029-descartes-pt-2-visionary-genius"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we continue our three-part series on Rene Descartes. First, we discuss the obvious but unprovable superiority of fresh-caught tuna to Chicken of the Sea and how this parallels the divide between the continental rationalists and the British empiricists. Next, we learn about Descartes’ early life and how he essentially became Steve Jobs with neck ruffles. Finally, we examine the difference between people who avoid the boulder and those who find a way to demolish it. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "36081547",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_029_..._Descartes_pt._2_-_Visionary_Genius2.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "28:09"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our three-part series on Rene Descartes. First, we discuss the obvious but unprovable superiority of fresh-caught tuna to Chicken of the Sea and how this parallels the divide between the continental..."
+					}
+				},
+				{
+					"title": "Episode #028 ... Rene Descartes pt. 1 - a little context",
+					"pubDate": "Wed, 09 Jul 2014 03:23:31 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "89c0815509121c458bdfa6672a0b698f"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-028-rene-descartes-pt-1-a-little-context"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we begin learning about Rene Descartes. First, we find out why the entire human race can be compared to the loud, obnoxious guy at a party who thinks he’s smarter than everyone else. Next, we examine Descartes’ rigorous method of doubt and how it involves Morpheus from the Matrix and Sully from Monsters Inc. Finally, we think about how doubt can help us live better lives and why, when it comes to our beliefs, one bad apple really does spoil the barrel. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "36081547",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_029_..._Descartes_pt._2_-_Visionary_Genius.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "28:09"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we begin learning about Rene Descartes. First, we find out why the entire human race can be compared to the loud, obnoxious guy at a party who thinks he’s smarter than everyone else. Next, we examine Descartes’..."
+					}
+				},
+				{
+					"title": "Episode #027 ... Thomas Hobbes pt. 2",
+					"pubDate": "Tue, 01 Jul 2014 07:02:17 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "032481a97d7282922a50c6105b0afd2d"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-027-thomas-hobbes-pt-2"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we continue our discussion of Thomas Hobbes. First, we learn about how Hobbes views fear, and find out how Stephen was almost murdered while eating a Five Dollar Footlong. Next, we examine the differences between the approaches of Thomas Hobbes and Francis Bacon when it came to achieving scientific progress. Finally, we find out why Hobbes thought language was so important, and how his ideas could help you prevent your wife from thinking you’re ‘in da club’ when you’re not. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "37762851",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_027_..._Thomas_Hobbes_pt._2.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:36"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our discussion of Thomas Hobbes. First, we learn about how Hobbes views fear, and find out how Stephen was almost murdered while eating a Five Dollar Footlong. Next, we examine the differences between the..."
+					}
+				},
+				{
+					"title": "Episode #026 ... Thomas Hobbes pt. 1 - The Social Contract",
+					"pubDate": "Tue, 17 Jun 2014 02:41:38 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "3485fdcb2aaaf1d4a35eda124903293e"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-026-thomas-hobbes-pt-1-the-social-contract"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we learn about Thomas Hobbes. We first ask ourselves what it would be like to live in a society with no laws or government, much like the scenario depicted in The Purge. Next, we question whether or not humans are inherently selfish and how this affects the way we relate to each other. Finally, we find out why society needs a quarterback, so to speak, and why it’s important that we follow his playbook even when we don’t understand the plays. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "38122650",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_026_..._Thomas_Hobbes_pt._1_-_The_Social_Contract.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "30:31"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about Thomas Hobbes. We first ask ourselves what it would be like to live in a society with no laws or government, much like the scenario depicted in The Purge. Next, we question whether or not humans are..."
+					}
+				},
+				{
+					"title": "Episode #025 ... A Scientific Method For Your Life!",
+					"pubDate": "Tue, 10 Jun 2014 00:55:16 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "dc6e55b8def4db2eaf6803d18509a5e0"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-025-a-scientific-method-for-your-life"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we learn about Francis Bacon, a 16th century English philosopher. We first discuss what it meant to pursue knowledge during  the time Francis Bacon lived and why he thought that scientific advancement should be society’s chief priority. Next, we examine Bacon’s “Four Idols of the Mind,” which were the biases he believed prevented humans from thinking scientifically. We touch on everything from germ theory to diet fads to healthcare reform to gender inequality, with some Flamin’ Hot Cheetos thrown in for good measure. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "37601108",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_025_..._A_Scientific_Method_For_Your_Life.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "29:44"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about Francis Bacon, a 16th century English philosopher. We first discuss what it meant to pursue knowledge during  the time Francis Bacon lived and why he thought that scientific advancement should be..."
+					}
+				},
+				{
+					"title": "Episode #024 ... Montaigne",
+					"pubDate": "Wed, 04 Jun 2014 03:55:14 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "838eb5203873d964abf1b294620256ca"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-024-montaigne"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we learn about Michel de Montaigne. We first discuss how a case of 16th century road rage led to a near-death experience which ironically helped Montaigne overcome his fear of dying. Next, we learn why Montaigne valued personal experience above all other evidence, and how his philosophy drew from the four dominant schools of thought of the Hellenistic age. Finally, we find out why Montaigne thought that “to philosophize is to learn how to die,” and how he believed this idea could be put into practice. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "35496913",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_024_..._Montaigne.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "28:06"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about Michel de Montaigne. We first discuss how a case of 16th century road rage led to a near-death experience which ironically helped Montaigne overcome his fear of dying. Next, we learn why Montaigne valued..."
+					}
+				},
+				{
+					"title": "Episode #023 ... Machiavelli",
+					"pubDate": "Tue, 20 May 2014 02:11:18 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "c3ae7671f24e8a7382383e32dc97b836"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-023-machiavelli"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast, we discuss The Protestant Reformation and Machiavellianism. We begin by examining what it was like to live during the Renaissance under the rule of The Church and why the people of that time could have really benefited from Google Translate. Next, we dispel a common misconception about Machiavellianism by discussing the subjective nature of virtue. Finally, we find out why Machiavelli thought that rulers needed to act immorally at times in order to be successful. All this and more on the latest episode of Philosophize This!</p>"
+					},
+					"enclosure": {
+						"_length": "33443796",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_023_..._Machiavelli.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:41"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss The Protestant Reformation and Machiavellianism. We begin by examining what it was like to live during the Renaissance under the rule of The Church and why the people of that time could have really benefited..."
+					}
+				},
+				{
+					"title": "Episode #022 ... Blast off to the Renaissance!",
+					"pubDate": "Tue, 13 May 2014 03:18:45 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "ae0739c4f147fa1fb165a44db9c0e0eb"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-022-blast-off-to-the-renaissance"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast, we begin learning about the Renaissance. We first discuss the Black Death, a bacterial plague that wiped out 30-60% of the population of Europe. We examine how the population crisis caused by the Black Death led to an economic and political crisis that was ultimately the catalyst for a paradigm shift in philosophical thought. We also learn about the Humanist philosopher Erasmus, who, unlike the philosophers we’ve discussed on recent episodes, did not think that fusing faith and reason was a very good idea. It was much simpler than that. All this and more on the latest episode of Philosophize This!</p>"
+					},
+					"enclosure": {
+						"_length": "35065754",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_022_..._Blast_off_to_the_Renaissance.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:54"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we begin learning about the Renaissance. We first discuss the Black Death, a bacterial plague that wiped out 30-60% of the population of Europe. We examine how the population crisis caused by the Black Death led to an..."
+					}
+				},
+				{
+					"title": "Episode #021 ... One God - St. Thomas Aquinas",
+					"pubDate": "Mon, 05 May 2014 03:04:41 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "aac178b95266ffa69966ba410e718a7e"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-021-one-god-st-thomas-aquinas"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we learn about the Christian Aristotelean philosopher St. Thomas Aquinas. We begin by examining a song by The Postal Service which sets the stage for a discussion about how often humans mistake correlation with causation. Next, we learn about Aristotle’s conception of God as “The Unmoved Mover” and his thoughts on the nature of infinity. All of these ideas lead us to St. Thomas Aquinas’ quest to reconcile Aristotelianism and Christianity, which he approaches by arguing that the Christian belief that God created the universe and the Aristotelean belief that the universe has always existed are not mutually exclusive ideas. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "34116101",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_021_..._One_God_-_St._Thomas_Aquinas.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "26:22"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about the Christian Aristotelean philosopher St. Thomas Aquinas. We begin by examining a song by The Postal Service which sets the stage for a discussion about how often humans mistake correlation with..."
+					}
+				},
+				{
+					"title": "Episode #020 ... Two Medieval Approaches To God",
+					"pubDate": "Thu, 24 Apr 2014 21:05:14 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "ac25a0f0f5803e8256f9eb4b81d431a3"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-020-two-medieval-approaches-to-god"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we discuss the concept of God from a philosophical perspective. We first broaden our definition of God by recalling the multitude of ways that the philosophers we’ve already studied have approached the subject. Next, we examine St. Anselm’s famous “Ontological Argument” in proof of God’s existence, which is strangely reminiscent of a tongue twister Ron Burgundy might use to prepare for his evening newscast. Finally, we learn why Moses Maimonides would say that the first rule of God is, “You do not talk about God.” Or at least, “You do not talk about what God is, only what he isn’t.” All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "46734615",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_020_..._Two_Medieval_Approaches_To_God.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "35:37"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss the concept of God from a philosophical perspective. We first broaden our definition of God by recalling the multitude of ways that the philosophers we’ve already studied have approached the subject. Next,..."
+					}
+				},
+				{
+					"title": "Episode #019 ... Three Islamic Truths",
+					"pubDate": "Mon, 14 Apr 2014 03:40:32 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "a8f488329d5f24a43c6be14ee5a8f438"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-019-three-islamic-truths"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>On this episode of the podcast, we discuss the nature of truth and examine it through the lenses of three Islamic philosophers who each had a different approach to truth seeking. We first discuss Al Kindi and what he would have to say about modern day news organizations and their approach to reporting the “truth.” Then, we learn about Al Ghazali, who at one point became so skeptical about our ability to discover the truth, he actually made himself physically ill. Lastly, we take a look at Averroes who desperately wanted philosophy and religion to be business partners. All this and more on the latest episode of Philosophize This!</p><p></p>"
+					},
+					"enclosure": {
+						"_length": "41707132",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_019_..._Three_Islamic_Truths.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "32:15"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss the nature of truth and examine it through the lenses of three Islamic philosophers who each had a different approach to truth seeking. We first discuss Al Kindi and what he would have to say about modern day..."
+					}
+				},
+				{
+					"title": "Episode #018 ... Avicenna",
+					"pubDate": "Fri, 04 Apr 2014 01:15:37 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "8f78be8914f882a8675482b90e6aa29f"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-018-avicenna"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast we learn about Avicenna, an Arabic philosopher who is most known for his “Flying Man” thought experiment. We discuss the mind-body connection (or lack thereof) and ask ourselves what becomes of an iPhone if you pulverize it in a blender. We also work in two Breaking Bad references, and apply Avicenna’s Flying Man argument to modern day ethical dilemmas relating to life support. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "35700144",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_018_..._Avicenna.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "27:34"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast we learn about Avicenna, an Arabic philosopher who is most known for his “Flying Man” thought experiment. We discuss the mind-body connection (or lack thereof) and ask ourselves what becomes of an iPhone if you..."
+					}
+				},
+				{
+					"title": "Episode #017 ... Boethius",
+					"pubDate": "Wed, 26 Mar 2014 20:38:18 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "01ac437d04bddef0ed40614bdd7dd8c4"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-017-boethius"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we learn about the medieval neoplatonist philosopher Boethius. We find out how he came to be wrongly convicted of treason and subsequently sentenced to death, and how this led him to write a philosophical text that solved one of the oldest problems in philosophy. We manage to compare the main characters of Boethius’ book to Lady Liberty and Eeyore selling a rice cooker on QVC, and explain why Boethius believed that we’re all just contestants on a never-ending episode of Wheel of Fortune. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "32625483",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_017_..._Boethius.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "24:33"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about the medieval neoplatonist philosopher Boethius. We find out how he came to be wrongly convicted of treason and subsequently sentenced to death, and how this led him to write a philosophical text that..."
+					}
+				},
+				{
+					"title": "Episode #016 ... Saint Augustine",
+					"pubDate": "Fri, 28 Feb 2014 18:00:00 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1ee2e31dc604bbc71079461d6cb717be"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-016-saint-augustine"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we discuss St. Augustine, a philosopher who is known for merging the ideas of Neoplatonism and Christianity. We learn how an unsuspecting child led St. Augustine to devote his life to Christianity through divine intervention, and find out why he thinks crying babies are sinners. We also discuss St. Augustine’s explanation of the concept of time and why he claims that the past and future don’t really exist. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "40046409",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_016_..._Saint_Augustine.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "30:15"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss St. Augustine, a philosopher who is known for merging the ideas of Neoplatonism and Christianity. We learn how an unsuspecting child led St. Augustine to devote his life to Christianity through divine..."
+					}
+				},
+				{
+					"title": "Episode #015 ... A Period of Transition - Plotinus",
+					"pubDate": "Thu, 13 Feb 2014 05:13:57 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "8ad7838e8a56d6d599eba46723c1a99e"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-015-a-period-of-transition-plotinus"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/9/d/d/0/9dd0d07f3adf4161/2800x2800_PhilosophizeThis.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we learn about Plotinus, a Neo-Platonist philosopher who lived in Rome during \"the crisis of the third century.” We discuss the difference between religion and philosophy and question whether or not JK Rowling stole parts of Harry Potter’s backstory from Plotinus’ life. We also learn about Plotinus’ Hierarchy of Being and use the phrase “Polaroid picture” more times than Outkast does in their hit song “Hey Ya!”. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "50920547",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_015_..._A_Period_of_Transition_-_Plotinus.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "38:06"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about Plotinus, a Neo-Platonist philosopher who lived in Rome during \"the crisis of the third century.” We discuss the difference between religion and philosophy and question whether or not JK Rowling stole..."
+					}
+				},
+				{
+					"title": "Episode #014 ... The Hellenistic Age Pt. 5 - A Race To The Dark Ages",
+					"pubDate": "Sat, 18 Jan 2014 23:54:25 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "704c2554f60905c771b2966a361e3d9a"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-014-the-hellenistic-age-pt-5-a-race-to-the-dark-ages"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/d/9/4/1d946f34af4d1ee6/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we discuss Middle Platonism and the Race to the Dark Ages. We learn how Philo of Alexandria reconciled Judaism with Plato's vision of God as a master craftsman, and find out how this relates to building an IKEA bookcase. We also discuss the important distinction Plutarch made between a flatterer and a friend, and why he would have absolutely hated Facebook. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "62138234",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_014_..._The_Hellenistic_Age_Pt._5_-_A_Race_To_The_Dark_Ages.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "44:37"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we discuss Middle Platonism and the Race to the Dark Ages. We learn how Philo of Alexandria reconciled Judaism with Plato's vision of God as a master craftsman, and find out how this relates to building an IKEA..."
+					}
+				},
+				{
+					"title": "Episode #013 ... The Hellenistic Age Pt. 4 - Skepticism",
+					"pubDate": "Sun, 05 Jan 2014 05:58:00 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "d344a9009b30bff77f3cbb1507ceee47"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-013-the-hellenistic-age-pt-4-skepticism"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/c/5/8/e/c58edbe211377ae9/2800x2800_PhilosophizeThis.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<div style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\"> On this episode of the podcast, we continue our study of the Hellenistic Age, this time focusing on Skepticism. We find out how Pyrrho used Skepticism to endure surgery without anesthesia, and learn why you can never really know if a pomegranate is a pomegranate. We also discover how winning the lottery could be the worst thing that ever happens to you, and compare Skepticism's key philosophers to their Smurf counterparts.</div><div style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\"></div><div style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\"> All this and more on the latest episode of Philosophize This!</div>"
+					},
+					"enclosure": {
+						"_length": "60275386",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_013_..._The_Hellenistic_Age_Pt._4_-_Skepticism.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "47:12"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our study of the Hellenistic Age, this time focusing on Skepticism. We find out how Pyrrho used Skepticism to endure surgery without anesthesia, and learn why you can never really know if a pomegranate is a..."
+					}
+				},
+				{
+					"title": "Episode #012 ... The Hellenistic Age Pt. 3 - Hallmarks of Stoic Ethics",
+					"pubDate": "Fri, 20 Dec 2013 05:52:55 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "fe148a2803030f0554467b717287c759"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-012-the-hellenistic-age-pt-3-hallmarks-of-stoic-ethics"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/c/6/d/e/c6dee127d96cdb50/2800x2800_PhilosophizeThis.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we continue our discussion of Stoicism, this time focusing on ethics. We learn about the three most noteworthy contributors to Stoic ethics--a crippled slave, a statesman, and the emperor of Rome--and find out how much they actually had in common. We discuss what angry sports fans and Stephen's English bulldog could learn from Stoic ethics, as well as why you should start each day expecting the worst. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "62553120",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_012_..._The_Hellenistic_Age_Pt._3_-_Hallmarks_of_Stoic_Ethics.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "49:48"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue our discussion of Stoicism, this time focusing on ethics. We learn about the three most noteworthy contributors to Stoic ethics--a crippled slave, a statesman, and the emperor of Rome--and find out how much..."
+					}
+				},
+				{
+					"title": "Episode #011 ... The Hellenistic Age Pt. 2 - The Early Stoa and the Cynics",
+					"pubDate": "Sat, 07 Dec 2013 04:06:53 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "1a47992c63899ca442e4d64da44883ce"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-011-the-hellenistic-age-pt-2-the-early-stoa-and-the-cynics"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/6/a/6/d/6a6dc27838e7ffec/2800x2800_PhilosophizeThis.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">This is the first of two episodes on Stoicism; in this episode, we learn about stoic physics and logic. We learn how the Stoics would likely react if faced with a zombie apocalypse and how a shipwreck caused a guy named Zeno to start dabbling in philosophy. We also learn about Diogenes, a man who lived in a tub, urinated in public, barked at passersby, and somehow managed to be envied by Alexander the Great. Finally, we find out what John Locke, Charlie Pace and a wild boar from LOST have to do with Stoic philosophy. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "55032952",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_011_..._The_Hellenistic_Age_Pt._2_-_The_Early_Stoa_and_the_Cynics.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "43:31"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "This is the first of two episodes on Stoicism; in this episode, we learn about stoic physics and logic. We learn how the Stoics would likely react if faced with a zombie apocalypse and how a shipwreck caused a guy named Zeno to start dabbling in..."
+					}
+				},
+				{
+					"title": "Episode #010 ... The Hellenistic Age Pt. 1 - Epicurus",
+					"pubDate": "Sun, 24 Nov 2013 05:10:20 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "930f9ab68a37f92f2d1cafd7e83f952a"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-010-the-hellenistic-age-pt-1-epicurus"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/4/5/d/d/45dd0579e658c2e9/2800x2800_PhilosophizeThis.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>This week on the podcast, we shift our focus back to Western philosophy. On this episode, we learn about Epicureanism—one of four schools of thought that were prevalent during the Hellenistic Age, which will be our focus for the next few episodes. We find out why Diogenes liked Epicurus’ ideas so much that he permanently graffitied them onto the walls of an ancient greek community center. We also learn why Epicurus thought that the most satisfying part of eating a half gallon of ice cream was the moment after the last spoonful, and why a jacket from Nordstrom really isn’t that much better than a jacket from Target. All this and more on the latest episode of Philosophize This!</p><div></div>"
+					},
+					"enclosure": {
+						"_length": "61120860",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_010_..._The_Hellenistic_Age_Pt._1_-_Epicurus.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "47:56"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "This week on the podcast, we shift our focus back to Western philosophy. On this episode, we learn about Epicureanism—one of four schools of thought that were prevalent during the Hellenistic Age, which will be our focus for the next few episodes...."
+					}
+				},
+				{
+					"title": "Episode #009 ... The Buddha",
+					"pubDate": "Mon, 11 Nov 2013 02:57:13 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "2900bf17761b365911df7c2b1efebdcf"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-009-the-buddha"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/f/0/6/e/f06ece2a3f7086a9/2800x2800_PhilosophizeThis.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<div style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\"> On this episode of the podcast, we learn about the life of Siddhartha Gautama and his Heisenberg-esque transformation into Buddha. We learn how Buddha left a lifestyle of being fed grapes and being fanned with palm leaves to pursue a life of celibacy, starvation, and sleep deprivation. We also learn about how Buddha reached enlightenment while sitting beneath a fruit tree à la Isaac Newton, and about the four noble truths which he believed were the key to ending human suffering once and for all. All this and more on the latest episode of Philosophize This!</div><div></div>"
+					},
+					"enclosure": {
+						"_length": "56779630",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_009_..._The_Buddha.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "44:28"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about the life of Siddhartha Gautama and his Heisenberg-esque transformation into Buddha. We learn how Buddha left a lifestyle of being fed grapes and being fanned with palm leaves to pursue a life of celibacy,..."
+					}
+				},
+				{
+					"title": "Episode #008 ... Confucianism",
+					"pubDate": "Tue, 29 Oct 2013 22:35:00 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "c47d2335d9bcd20267c952d92d6b2a54"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-008-confucianism"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/6/5/2/8/65281544459e3579/2800x2800_PhilosophizeThis.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we learn about Confucius, a man whose ideas impacted China and eastern philosophy for thousands of years after his death. We find out how Confucius went from being the poor, friendless son of an ancient Chinese 'Teen Mom' to becoming one of the most quoted people in history, as well as how he was reduced to selling his philosophy door-to-door after a brief career as a politician which ended in conspiracy and bribery. All this and more on the latest episode of Philosophize This!</span></p>"
+					},
+					"enclosure": {
+						"_length": "54180230",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_008_..._Confucianism.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "40:55"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we learn about Confucius, a man whose ideas impacted China and eastern philosophy for thousands of years after his death. We find out how Confucius went from being the poor, friendless son of an ancient Chinese 'Teen..."
+					}
+				},
+				{
+					"title": "Episode #007 ... Daoism",
+					"pubDate": "Sat, 10 Aug 2013 04:21:21 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "b1ae284ab4b6fdff66647fc7dc96b8c1"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-007-daoism"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/d/2/1/b/d21beb7b333ddf74/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<div style= \"color: #222222; font-family: arial, sans-serif; margin: 0px; font-size: 12px;\"> You will acquire great knowledge about the way of the Dao in the coming hour.</div><div style= \"color: #222222; font-family: arial, sans-serif; margin: 0px; font-size: 12px;\"> Lucky numbers: 1 6 14 27 51 79</div>"
+					},
+					"enclosure": {
+						"_length": "53959956",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_007_..._Daoism.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "40:14"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "You will acquire great knowledge about the way of the Dao in the coming hour.  Lucky numbers: 1 6 14 27 51 79"
+					}
+				},
+				{
+					"title": "Episode #006 ... Aristotle Pt. 2",
+					"pubDate": "Fri, 26 Jul 2013 04:32:00 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "c316659daeb7eee65e284ba43f7a880e"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-006-aristotle-pt-2"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/3/0/d/2/30d2805fdd95da9e/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">On this episode of the podcast, we continue learning about Aristotle, a man who created the first system of biological classification, the first system of logic, and the first formal scientific method. We find out why Aristotle was anti-women and pro-slavery, and learn how Plato and Aristotle differed when it came to their definitions of \"tree-e-ness.\" We also learn why Aristotle would have been the world champion of Guess Who? and how to determine whether or not a carnivorous reptile with legs could possibly be a snake.</span></p>"
+					},
+					"enclosure": {
+						"_length": "52717893",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_006_..._Aristotle_Pt._2.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "39:18"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "On this episode of the podcast, we continue learning about Aristotle, a man who created the first system of biological classification, the first system of logic, and the first formal scientific method. We find out why Aristotle was anti-women and..."
+					}
+				},
+				{
+					"title": "Episode #005 ... Aristotle Pt. 1",
+					"pubDate": "Sun, 14 Jul 2013 07:29:44 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "716b1d846d1d576d094091a157073d30"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-005-aristotle-pt-1"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/7/d/b/3/7db342f4f4137dd2/logo1.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>This week we talk about various different applications of Aristotle's ethics in modern life. We discuss making a \"plan\" for your life, the underlying similarities between all human desires and the best way to live life. </p>"
+					},
+					"enclosure": {
+						"_length": "53749708",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_005_..._Aristotle_Pt._1.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "38:53"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes",
+						"__text": "entertainment,education,philosophy,edutainment"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "This week we talk about various different applications of Aristotle's ethics in modern life. We discuss making a \"plan\" for your life, the underlying similarities between all human desires and the best way to live life. "
+					}
+				},
+				{
+					"title": "Episode #004 ... Plato",
+					"pubDate": "Mon, 01 Jul 2013 05:34:59 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "a23e8bacb35a00316ecb457931c889a6"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-004-plato"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/1/2/d/f/12df5115d96b71e4/2800x2800_PhilosophizeThis.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p><span style= \"color: #222222; font-family: arial, sans-serif; font-size: 13px;\">In this week's episode, we learn about Plato's \"Symposium\", which you might think of as philosophy's version of fan fiction. We also learn about Plato's \"Theory of Forms\" and ask ourselves what makes a tree, well, a tree. This leads to discussion of Plato's famous \"Allegory of the Cave\" and calls into question whether or not everything we see is merely a shadow of its true self. Finally, we learn about Plato's views on society and government and why he thought democracy was one of the worst forms of government, second only to tyranny.</span></p>"
+					},
+					"enclosure": {
+						"_length": "60335055",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_004_..._Plato.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "45:02"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "In this week's episode, we learn about Plato's \"Symposium\", which you might think of as philosophy's version of fan fiction. We also learn about Plato's \"Theory of Forms\" and ask ourselves what makes a tree, well, a tree. This leads to discussion of..."
+					}
+				},
+				{
+					"title": "Episode #003 ... Socrates and the Sophists",
+					"pubDate": "Sun, 23 Jun 2013 11:57:30 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "e57f94b3d995114e13bce6513987e315"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-003-socrates-and-the-sophists"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/e/2/b/1/e2b1595fcbb8972a/05Philo.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>This week we talk about the prosperity of athens and how it led to the rise and ideas of a group of philosopher teachers called the Sophists, we tied up some loose ends and helped put all that we've learned in the last two episodes into context with a graph of the presocratics, and we ended by talking about a man whose wisdom was only rivaled by his stench, Socrates.  </p>"
+					},
+					"enclosure": {
+						"_length": "53899255",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_003_..._Socrates_and_the_Sophists.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "40:10"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "This week we talk about the prosperity of athens and how it led to the rise and ideas of a group of philosopher teachers called the Sophists, we tied up some loose ends and helped put all that we've learned in the last two episodes into context with a..."
+					}
+				},
+				{
+					"title": "Episode #002 ... Presocratic Philosophy - Italian",
+					"pubDate": "Sat, 15 Jun 2013 12:30:35 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "f4021423451bd26a1ef6cb7c52905ced"
+					},
+					"link": {
+						"__cdata": "http://philosophizethis.libsyn.com/episode-002-presocratic-philosophy-italian"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/6/3/5/1/6351f74bf06c129b/05Philo.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we talk about why philosophy is taken for granted, the crazed cult leader of ancient Greek philosophy, Pythagoras, the annoying dark cloud of deductive reasoning, Parmenides and the super hero Empedocles.</p>"
+					},
+					"enclosure": {
+						"_length": "50796162",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_002_..._Presocratic_Philosophy_-_Italian.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "37:27"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "no"
+					},
+					"keywords": {
+						"__prefix": "itunes",
+						"__text": "comedy,education,philosophy,edutainment"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we talk about why philosophy is taken for granted, the crazed cult leader of ancient Greek philosophy, Pythagoras, the annoying dark cloud of deductive reasoning, Parmenides and the super hero Empedocles."
+					}
+				},
+				{
+					"title": "Episode #001 ... Presocratic Philosophy - Ionian",
+					"pubDate": "Thu, 06 Jun 2013 22:10:00 +0000",
+					"guid": {
+						"_isPermaLink": "false",
+						"__cdata": "9b03279d996b6bd3bc748132e1710cec"
+					},
+					"link": {
+						"__cdata": "http://stephenwestshow.net/philosophize-this/"
+					},
+					"image": {
+						"_href": "http://static.libsyn.com/p/assets/2/8/1/4/281416a5a507f33f/05Philo.jpg",
+						"__prefix": "itunes"
+					},
+					"description": {
+						"__cdata": "<p>Today we discussed the \"Out of Africa\" theory, the adversity of early humans, the term \"Pre-Socratic\", the first philosopher Thales, the meanest philosopher Heraclitus and Democritus, the godfather of the theory of atomism. </p>"
+					},
+					"enclosure": {
+						"_length": "68732993",
+						"_type": "audio/mpeg",
+						"_url": "http://traffic.libsyn.com/philosophizethis/Episode_001_..._Presocratic_Philosophy_-_Ionian.mp3?dest-id=144660"
+					},
+					"duration": {
+						"__prefix": "itunes",
+						"__text": "50:24"
+					},
+					"explicit": {
+						"__prefix": "itunes",
+						"__text": "clean"
+					},
+					"keywords": {
+						"__prefix": "itunes",
+						"__text": "comedy,education,philosophy,edutainment,presocratic,ionian,thales,heraclitus,democritus"
+					},
+					"subtitle": {
+						"__prefix": "itunes",
+						"__cdata": "Today we discussed the \"Out of Africa\" theory, the adversity of early humans, the term \"Pre-Socratic\", the first philosopher Thales, the meanest philosopher Heraclitus and Democritus, the godfather of the theory of atomism. "
+					}
+				}
+			]
+		},
+		"_xmlns:atom": "http://www.w3.org/2005/Atom",
+		"_xmlns:cc": "http://web.resource.org/cc/",
+		"_xmlns:itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd",
+		"_xmlns:media": "http://search.yahoo.com/mrss/",
+		"_xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		"_version": "2.0"
+	}
+}
