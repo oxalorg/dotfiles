@@ -6,6 +6,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 alias e=$EDITOR
 alias et="$EDITOR /projects/todo/todo.txt"
+alias ett="$EDITOR /projects/todo/completed.txt"
 export MAIL=$HOME/mail/INBOX
 
 # MPC MPD Aliases
