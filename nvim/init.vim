@@ -27,6 +27,7 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'andreasvc/vim-256noir'
 Plug 'psliwka/vim-smoothie' " smoother CTRL+D/CTRL+U
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-eunuch'
 Plug 'Raimondi/delimitMate' " automatic pairing of parens, braces, quotes etc.
 Plug 'tmhedberg/SimpylFold' | let g:SimpylFold_docstring_preview=1
 Plug 'tpope/vim-unimpaired'
@@ -145,6 +146,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " let g:mkdp_markdown_css = expand('~/code/sakura/css/sakura.css')
 
 Plug 'mattn/emmet-vim'
+let g:user_emmet_settings = {
+    \ 'javascriptreact': {'extends': 'html', 'filters': 'html'}
+\ }
 Plug 'terryma/vim-expand-region'
 Plug 'justinmk/vim-gtfo'
 " Plug 'mhinz/vim-startify'
@@ -500,10 +504,11 @@ xnoremap <leader>gs <esc>:'<,'>:w !cat\|oxsnip<CR>
 command! -nargs=0 -range=% OxSnip <line1>,<line2>:w !oxsnip
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>"
+" vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>"
 nnoremap <C-h> :%s/<C-r>///gc<left><left><left>
 vnoremap <c-s> y<ESC>/<c-r>"<CR>
 nnoremap <c-s> <ESC>/<c-r>"<CR>
+vnoremap <C-h> <esc>:'<,'>s/<C-r>"/g<left><left>
 
 " nnoremap yA "Ayy
 " vnoremap yA '<,'>"Ayy

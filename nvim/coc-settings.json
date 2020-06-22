@@ -1,12 +1,25 @@
 {
   "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "clojure-lsp": {
+      "command": "bash",
+      "args": ["-c", "clojure-lsp"],
+      "filetypes": ["clojure"],
+      "rootPatterns": ["project.clj"],
+      "additionalSchemes": ["jar", "zipfile"],
+      "trace.server": "verbose",
+      "initializationOptions": {
+      }
     }
   },
   "python.venvPath": "~/.virtualenvs",
+  "python.jediEnabled": false,
   "coc.source.around.enable": true,
-  "emmet.includeLanguages": {"vue-html": "html", "javascript": "javascriptreact", "htmldjango": "html"}
+  "emmet.includeLanguages": {"vue-html": "html", "javascript": "javascriptreact", "htmldjango": "html"},
+  "tailwindCSS.htmlLanguages": ["html", "htmldjango"]
 }
