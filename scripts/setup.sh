@@ -17,7 +17,7 @@ done
 for f in $(find . -mindepth 2 -type f -not -name README.md -not -path "*archived*")
 do
     if [ "$(uname -s)" == "Darwin" ]; then
-        temp=`echo $f | gcut --complement -c 1,2`
+        temp=`echo $f | awk '{print substr($0, 3)}'`
     else
         temp=`echo $f | cut --complement -c 1,2`
     fi
@@ -25,3 +25,8 @@ do
     link=$dest/`basename $f`
     [ ! -e "$link" ] && ln -sv $src $link && chmod u+x $link
 done
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    echo "Unlinkin pbcopy and pbpaste as already on macos"
+    rm $dest/pbcopy $dest/pbpaste
+fi

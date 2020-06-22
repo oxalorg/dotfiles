@@ -2,9 +2,8 @@
 
 set -e
 
-CABINET=~/Dropbox/cabinet
-ROGUE_ARK_DIR=~/oxal.org/public
-ROGUE_REPO=/www/oxal.org
+CABINET=/cabinet
+ROGUE_REPO=/projects/oxal.org
 ROGUE_LOCAL_DIR=$ROGUE_REPO/src
 
 THIS_MONTH=$(date +%Y-%m)

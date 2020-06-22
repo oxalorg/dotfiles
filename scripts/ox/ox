@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JOURNAL=/journal
+JOURNAL=~/journal
 NOTES=$JOURNAL/notes
 LOGS=$JOURNAL/logs
 
@@ -18,7 +18,6 @@ oxhelp () {
     echo "  oxtags"
     echo "  oxmentions"
     echo "  oxtodos"
-    echo "  oxedit"
     echo "  oxedit"
     echo "  oxadd"
     echo "  oxin"
@@ -48,6 +47,11 @@ oxwork () {
 
 oxfood () {
     $EDITOR $LOGS/food/$(date +%Y).md
+}
+
+oxnote () {
+    slug=`echo "$*" | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+\|-+$//g' | tr A-Z a-z`
+    $EDITOR $NOTES/$(date +%F)-$slug.md
 }
 
 oxfind () {
@@ -104,13 +108,13 @@ nsnip() {
     local genname=`pbpaste | head -c 25 | sed 's|\ |_|g' | sed 's|/|_|g' `
     local filename=${@:-$genname}
     local slug=`echo $filename | sed 's|\ |_|g' | sed 's|[_]*$||'`
-    pbpaste >>! $NOTES/snips/$(date +%F)-${slug}.md
-    echo "\n" >>! $NOTES/snips/$(date +%F)-${slug}.md
+    pbpaste >> $JOURNAL/snips/$(date +%F)-${slug}.md
+    echo "\n" >> $JOURNAL/snips/$(date +%F)-${slug}.md
 }
 
 # Inbox to dump everything which will later be organized
 alias oxin="$EDITOR $JOURNAL/inbox.md"
-alias -g inbox="$JOURNAL/inbox.md"
+# alias -g inbox="$JOURNAL/inbox.md"
 
 # Quick jumps
 alias nt='cd $NOTES'

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    function date() {
+        gdate $*
+    }
+fi
+
+now=$(date +"%Y-%m-%dT%H:%M:%S")
+week=$(date +"%U")
+year=$(date +"%Y")
+
+logfile=~/journal.origin/logs/tt/$year-$week
+
+if [[ "$1" == "--cron" ]]; then
+    last_entry=`cat $logfile | tail -n 1 | cut -d ' ' -f1`
+    last_time=`date -d "$last_entry" "+%s"`
+    now_time=`date +%s`
+    if [[ $now_time -ge $(( $last_time + 1800 )) ]]; then
+        notify "tt please log in time tracker"
+    fi
+    exit 0
+fi
+
+echo "$now" "$1" >> $logfile
