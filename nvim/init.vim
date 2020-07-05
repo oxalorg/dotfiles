@@ -418,6 +418,18 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
 highlight DiffAdd        ctermbg=237 guibg=#373D29
 highlight DiffChange     ctermbg=52 guibg=#345456
 highlight DiffDelete     ctermfg=12 ctermbg=52 guifg=Blue guibg=#4f0a0a
