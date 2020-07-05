@@ -673,3 +673,41 @@ endfunction
 
 command! EditHtmlClass call s:editHtmlClass()
 nnoremap <leader>cc :EditHtmlClass<CR>
+
+function! s:pyimport_sink(line)
+    let lnum = getcurpos()[1]
+    let class = split(a:line, " ")[0]
+    let cpath = substitute(split(a:line, " ")[1], "/", ".", "g")
+    echom class
+    echom cpath
+    echo lnum
+    call append(lnum, printf("from %s import %s", cpath[:-4], class))
+endfunction
+
+function! s:pyimport(env)
+    let l:source = ""
+    if a:env ==? "local"
+        let l:source = 'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).' | grep "\.py" |'.printf("awk '{print $1 \" \" $2}'")
+    elseif a:env ==? "venv"
+        let l:source = 'cat ~/.virtualenvs/kashop/lib/python3.6/site-packages/tags'
+    else
+        let l:source = 'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).' ~/.virtualenvs/kashop/lib/python3.6/site-packages/tags | grep "\.py" |'.printf("awk '{print $1 \" \" $2}'")
+    endif
+    try
+        call fzf#run({
+        \ 'source':  l:source,
+        \ 'down':    '40%',
+        \ 'sink':    function('s:pyimport_sink')})
+    catch
+        echohl WarningMsg
+        echom v:exception
+        echohl None
+    endtry
+endfunction
+
+command! PyImportAll call s:pyimport('all')
+command! PyImportLocal call s:pyimport('local')
+command! PyImportVenv call s:pyimport('venv')
+nnoremap <leader>ii :PyImportAll<CR>
+nnoremap <leader>il :PyImportLocal<CR>
+nnoremap <leader>iv :PyImportVenv<CR>
