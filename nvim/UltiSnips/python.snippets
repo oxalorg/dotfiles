@@ -46,3 +46,67 @@ endsnippet
 snippet "from" "Python from .. import .." b
 from ${1} import ${2}
 endsnippet
+
+snippet djmanager "Django Model Manager"
+class $1(models.Manager):
+	def $2(self$3):
+endsnippet
+
+snippet djmodel "Django Model + Manager"
+class $1Manager(models.Manager):
+	def $2(self$3):
+
+class $1(models.Model):
+	objects = $1Manager()
+endsnippet
+
+snippet djmcreated "Django Model created_at & updated_at"
+created_at = models.DateTimeField(auto_now_add=True, editable=False)
+updated_at = models.DateTimeField(auto_now=True, editable=False)
+endsnippet
+
+snippet djmcharfield "Django Model CharField"
+$1 = models.CharField(max_length=255, default="", blank=True)
+endsnippet
+
+snippet djmchoicecharfield "Django Model Choiced CharField"
+$1 = models.CharField(
+	choices=$2.CHOICES,
+	default=$2.$3
+	max_length=40,
+	blank=True,
+)
+endsnippet
+
+snippet djmbooleanfield "Django Model BooleanField"
+$1 = models.BooleanField(default=True)
+endsnippet
+
+snippet djmtextfield "Django Model TextField"
+$1 = models.TextField(default="", blank=True)
+endsnippet
+
+snippet djmdatefield "Django Model DateField"
+$1 = models.DateField(blank=True, null=True)
+endsnippet
+
+snippet djmdatetimefield "Django Model DateTimeField"
+$1 = models.DateTimeField(blank=True, null=True)
+endsnippet
+
+snippet djmuserauthonetoonefield "Django Model UserAuthOne2OneField"
+user = models.OneToOneField(
+	settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="$1"
+)
+endsnippet
+
+snippet djmforeignkey "Django Model ForeignKey"
+$1 = models.ForeignKey($2, on_delete=models.SET_NULL, null=True, related_name="$3")
+endsnippet
+
+snippet djreturnrender "Django View return render"
+ctx = {
+
+}
+return render(request, "$1.html", ctx)
+endsnippet
