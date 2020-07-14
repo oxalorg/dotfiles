@@ -58,7 +58,7 @@ Plug 'francoiscabrol/ranger.vim' | let g:ranger_map_keys = 0 | nnoremap - :Range
 Plug 'simnalamburt/vim-mundo' "nnoremap <F5> :MundoToggle<CR>
 
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<C-s>"
+let g:UltiSnipsExpandTrigger="<C-s-0>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
