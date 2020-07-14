@@ -523,9 +523,10 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 " vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>"
 nnoremap <C-h> :%s/<C-r>///gc<left><left><left>
-vnoremap <c-s> y<ESC>/<c-r>"<CR>
+vnoremap <c-s> y<ESC>/<c-r>"<CR>N
+vnoremap R y<ESC>:%s/<c-r>"//gc<left><left><left>
 nnoremap <c-s> <ESC>/<c-r>"<CR>
-vnoremap <C-h> <esc>:'<,'>s/<C-r>"/g<left><left>
+vnoremap <C-h> <esc>:'<,'>s/<C-r>"//g<left><left>
 
 " nnoremap yA "Ayy
 " vnoremap yA '<,'>"Ayy
