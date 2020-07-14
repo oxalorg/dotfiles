@@ -251,6 +251,7 @@ hi Normal guibg=#000000
 hi SignColumn guibg=#000000
 hi LineNr guibg=#000000
 hi EndOfBuffer guibg=#000000
+hi IncSearch guibg=yellow ctermbg=green term=underline
 
 set fillchars=diff:\ ,fold:\ ,
 
