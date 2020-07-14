@@ -22,6 +22,9 @@ endif
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim/plugged')
 Plug '/projects/vim-genox'
+Plug '~/projects/vim-python-magic'
+Plug 'coderifous/textobj-word-column.vim'
+Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'tomasiser/vim-code-dark'
 Plug 'andreasvc/vim-256noir'
