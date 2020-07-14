@@ -106,7 +106,7 @@ let g:ale_fix_on_save = 1
 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
 Plug 'neoclide/coc.nvim', {'branch': 'release' }
-let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json', 'coc-python', 'coc-tsserver', 'coc-yank', 'coc-emmet', 'coc-ultisnips']
+let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json', 'coc-python', 'coc-tsserver', 'coc-yank', 'coc-emmet', 'coc-ultisnips', 'coc-tailwindcss', 'coc-conjure']
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'Valloric/MatchTagAlways'
@@ -161,7 +161,8 @@ Plug 'justinmk/vim-gtfo'
 Plug 'davidhalter/jedi-vim'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 " Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
-Plug 'kovisoft/paredit', { 'for': 'clojure' }
+Plug 'Olical/conjure', {'tag': 'v4.0.0'}
+" Plug 'kovisoft/paredit', { 'for': 'clojure' }
 let g:paredit_smartjump = 1
 call plug#end()
 
