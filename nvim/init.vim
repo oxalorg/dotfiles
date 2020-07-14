@@ -282,7 +282,7 @@ au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 autocmd FileType html,css,htmldjango,javascript,javascriptreact,json setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
@@ -327,20 +327,30 @@ command! -bang -nargs=* Ag
   \   'ag --column --numbers --noheading --smart-case . '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
-command! -bang -nargs=* Rg
+command! -bang -nargs=* Rg3
   \ call fzf#vim#grep(
   \   "rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
 " Rg current word
 nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
-nnoremap <C-p> :Files<Cr>
-nnoremap <leader>o :Files<cr>
-nnoremap <leader>f :Rg<cr>
+nnoremap <leader>o :Files!<cr>
+nnoremap <leader>go :GF!?<cr>
+nnoremap <leader>f :Rg!<cr>
 nnoremap <leader>a :Ag<cr>
 nnoremap <leader>bd :bwipeout<cr>
-nnoremap <tab> :Buffers<cr>
-nnoremap <leader>tt :Tags<cr>
+nnoremap <tab> :Buffers!<cr>
+nnoremap <leader>tt :Tags!<cr>
 nnoremap <leader>tb :TagbarOpenAutoClose<cr>
 nnoremap <leader>p p<cr>
 
@@ -627,46 +637,6 @@ if v:version >= 700
     autocmd BufEnter * call AutoRestoreWinView()
 endif
 
-" ----------------------------------------------------------------------------
-" BTags
-" ----------------------------------------------------------------------------
-function! s:align_lists(lists)
-  let maxes = {}
-  for list in a:lists
-    call map(list, "printf('%-'.maxes[v:key].'s', v:val)")
-  endfor
-  return a:lists
-endfunction
-
-function! s:btags_source()
-  let lines = map(split(system(printf(
-    \ 'ctags -f - --sort=no --excmd=pattern --language-force=%s %s',
-    \ &filetype, expand('%:S'))), "\n"), 'split(v:val, "\t")')
-  if v:shell_error
-    throw 'failed to extract tags'
-  endif
-  return map(s:align_lists(lines), 'join(v:val, "\t")')
-endfunction
-
-function! s:btags_sink(line)
-  execute split(a:line, "\t")[2]
-endfunction
-
-function! s:btags()
-  try
-    call fzf#run({'source':  s:btags_source(),
-                 \'down':    '40%',
-                \'options': '+m -d "\t" --with-nth 1,4..',
-                 \'sink':    function('s:btags_sink')})
-  catch
-    echohl WarningMsg
-    echom v:exception
-    echohl None
-  endtry
-endfunction
-
-command! BTags call s:btags()
-
 function! s:editHtmlClass()
     try
         exe "normal! vato\<esc>vi>\<esc>/\\%Vclass=\<cr>2f\"i \<esc>l"
@@ -680,40 +650,36 @@ endfunction
 command! EditHtmlClass call s:editHtmlClass()
 nnoremap <leader>cc :EditHtmlClass<CR>
 
-function! s:pyimport_sink(line)
-    let lnum = getcurpos()[1]
-    let class = split(a:line, " ")[0]
-    let cpath = substitute(split(a:line, " ")[1], "/", ".", "g")
-    echom class
-    echom cpath
-    echo lnum
-    call append(lnum, printf("from %s import %s", cpath[:-4], class))
-endfunction
-
-function! s:pyimport(env)
-    let l:source = ""
-    if a:env ==? "local"
-        let l:source = 'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).' | grep "\.py" |'.printf("awk '{print $1 \" \" $2}'")
-    elseif a:env ==? "venv"
-        let l:source = 'cat ~/.virtualenvs/kashop/lib/python3.6/site-packages/tags'
-    else
-        let l:source = 'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).' ~/.virtualenvs/kashop/lib/python3.6/site-packages/tags | grep "\.py" |'.printf("awk '{print $1 \" \" $2}'")
-    endif
-    try
-        call fzf#run({
-        \ 'source':  l:source,
-        \ 'down':    '40%',
-        \ 'sink':    function('s:pyimport_sink')})
-    catch
-        echohl WarningMsg
-        echom v:exception
-        echohl None
-    endtry
-endfunction
-
-command! PyImportAll call s:pyimport('all')
-command! PyImportLocal call s:pyimport('local')
-command! PyImportVenv call s:pyimport('venv')
 nnoremap <leader>ii :PyImportAll<CR>
 nnoremap <leader>il :PyImportLocal<CR>
 nnoremap <leader>iv :PyImportVenv<CR>
+
+nnoremap <leader>tv :PyTagsVenv<CR>
+nnoremap <leader>tg :PyTagsGenerate<CR>
+
+" TODO: figure out specific mark jumping
+nnoremap mm `n`b``
+
+command! RupeeSymbol execute "normal! i" . "â‚¹" . "\<esc>"
+
+command! MacroDjChoices let @q = '^i(qpf=a€kb€kb,qpf"lgUlA),qpj'
+
+function! RecMacroExe(cmds)
+    let a = @a
+    let @a = a:cmds . "@a"
+    try
+        normal @a
+    finally
+        let @a = a
+    endtry
+endfunction
+
+nmap <f6> :call RecMacroExe("macrohere")<cr>
+
+" add and subtract should be easy now
+nnoremap <c-x>a <c-a>
+vnoremap <c-x>a g<c-a>
+nnoremap <c-x>s <c-x>
+vnoremap <c-x>s g<c-x>
+
+nnoremap ? :BLines<cr>
