@@ -108,8 +108,8 @@ oxsnip() {
     local genname=`pbpaste | head -c 25 | sed 's|\ |_|g' | sed 's|/|_|g' `
     local filename=${@:-$genname}
     local slug=`echo $filename | sed 's|\ |_|g' | sed 's|[_]*$||'`
-    pbpaste >> $JOURNAL/snips/$(date +%F)-${slug}.md
-    echo "\n" >> $JOURNAL/snips/$(date +%F)-${slug}.md
+    pbpaste >>! $JOURNAL/snips/$(date +%F)-${slug}.md
+    echo "\n" >>! $JOURNAL/snips/$(date +%F)-${slug}.md
 }
 
 # Inbox to dump everything which will later be organized

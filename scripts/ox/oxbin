@@ -3,7 +3,7 @@
 set -e
 
 CABINET=/cabinet
-ROGUE_REPO=/projects/oxal.org
+ROGUE_REPO=~/www/oxal.org
 ROGUE_LOCAL_DIR=$ROGUE_REPO/src
 
 THIS_MONTH=$(date +%Y-%m)
@@ -17,7 +17,7 @@ fpath=$ROGUE_LOCAL_DIR/${DIRNAME}/$FILENAME.txt
 input=$(cat | tee "$fpath")
 
 source ~/.virtualenvs/oxal.org/bin/activate
-cd $ROGUE_REPO && make synconly
+cd $ROGUE_REPO && make sync
 
 if [ "$(uname -s)" = "Darwin" ]; then
     echo $URL | pbcopy

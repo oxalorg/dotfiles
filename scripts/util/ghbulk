@@ -1,0 +1,6 @@
+while IFS= read -r line; do
+    label=$(echo $line | cut -d ":" -f1)
+    title=$(echo $line | cut -d ":" -f2)
+    body=$(echo $line | cut -d ":" -f3)
+    gh issue create --title "$title" --body "$body" --label "$label"
+done < "${1:-/dev/stdin}"
