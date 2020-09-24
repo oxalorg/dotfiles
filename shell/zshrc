@@ -1,7 +1,43 @@
 # @oxalorg
 # Common shell rc
 
-autoload -U edit-command-line   # Allows C-x-e to edit command in editor
+set -o vi # enter the matrix
+bindkey -M viins 'qp' vi-cmd-mode
+bindkey "^?" backward-delete-char
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M vicmd '/' fzf-history-widget
+fzf-history-widget-accept() {
+    fzf-history-widget
+    zle accept-line
+}
+zle -N fzf-history-widget-accept
+bindkey -M vicmd '?' fzf-history-widget-accept
+bindkey -M vicmd 'gf' fzf-cd-widget
+TERM=xterm-256color
+
+function zle-keymap-select {
+	if [[ ${KEYMAP} == vicmd ]] ||
+		[[ $1 = 'block' ]]; then
+			echo -ne '\e[1 q'
+
+		elif [[ ${KEYMAP} == main ]] ||
+			[[ ${KEYMAP} == viins ]] ||
+			[[ ${KEYMAP} = '' ]] ||
+			[[ $1 = 'beam' ]]; then
+					echo -ne '\e[5 q'
+	fi
+}
+zle -N zle-keymap-select
+
+zle-line-init() {
+zle -K viins
+    echo -ne "\e[5 q"
+}
+
+autoload -z edit-command-line   # Allows C-x-e to edit command in editor
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
 CABINET=~/Dropbox/cabinet
 NOTES=$CABINET/notes
 DOTFILES=~/Dropbox/Projects/dotfiles
@@ -11,9 +47,12 @@ DOTFILES=~/Dropbox/Projects/dotfiles
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
 [ -f ~/.ox/ox ] && source ~/.ox/ox
 [ -f ~/.dircolors ] && eval `dircolors ~/.dircolors`
+[ -f ~/.z.sh ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o ~/.z.sh
+[ -f ~/.z.sh ] && source ~/.z.sh
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
@@ -89,7 +128,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export FZF_BASE=$HOME/.fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
+export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --bind=tab:down,shift-tab:up"
 export FZF_CTRL_T_COMMAND='fd --type f'
 
 export REVIEW_BASE='master'
@@ -185,3 +224,76 @@ alias sayb="figlet -f mono12.tlf"
 alias sayf="figlet -f future.tlf"
 alias sayp="figlet -f pagga.tlf"
 alias says="figlet -f smblock.tlf"
+
+meminsight() {
+    if [ ! "$#" -gt 0 ]; then echo "Need a single argument with process id"; return 1; fi
+    sudo pmap -x $1 | tail -n +3 | head -n -2 | sort -g -k 2 | awk '{$2=$2*1024;print}' | numfmt --field=2 --to iec
+}
+
+TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
+'avg shared (code):         %X KB'$'\n'\
+'avg unshared (data/stack): %D KB'$'\n'\
+'total (sum):               %K KB'$'\n'\
+'max memory:                %M MB'$'\n'\
+'page faults from disk:     %F'$'\n'\
+'other page faults:         %R'
+
+topdf() {
+    echo "\\\usepackage{sectsty}\n\\\sectionfont{\\\clearpage}" >! /tmp/chapter_break.tex
+        # -f gfm \
+        # --include-in-header /tmp/chapter_break.tex \
+        # -V linkcolor:blue \
+        # -V geometry:a4paper \
+    pandoc "$1" \
+        --toc \
+        -V geometry:"top=2.5cm, bottom=2cm, left=4cm, right=4cm" \
+        -V mainfont="DejaVu Serif" \
+        -V monofont="DejaVu Sans Mono" \
+        --latex-engine=xelatex \
+        -o "$2"
+}
+
+mkvtomp4() {
+    ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
+}
+
+ee() {
+    vimcmd=""
+    firstfile=""
+    first=1
+    for f in `git ls-files --modified`; do
+        if [[ first -eq 1 ]]; then
+            firstfile="$f"
+            first=0
+        else
+            vimcmd=$vimcmd"| badd $f "
+        fi
+
+    done;
+    $EDITOR "$firstfile" "-c" "$vimcmd"
+}
+
+compresspdf() {
+gs  -q -dNOPAUSE -dBATCH -dSAFER \
+    -sDEVICE=pdfwrite \
+    -dCompatibilityLevel=1.3 \
+    -dPDFSETTINGS=/screen \
+    -dEmbedAllFonts=true \
+    -dSubsetFonts=true \
+    -dColorImageDownsampleType=/Bicubic \
+    -dColorImageResolution=72 \
+    -dGrayImageDownsampleType=/Bicubic \
+    -dGrayImageResolution=72 \
+    -dMonoImageDownsampleType=/Bicubic \
+    -dMonoImageResolution=72 \
+    -sOutputFile="$2" \
+    "$1"
+}
+
+curlpj() {
+    curl -X POST -H "Content-Type: application/json" -d "$2" "$1"
+}
+
+curlgj() {
+    curl -X GET -H "Content-Type: application/json" -d "$2" "$1"
+}
