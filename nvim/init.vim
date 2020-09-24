@@ -1,272 +1,84 @@
 " (neo)vimrc of @oxalorg
-" test
-
 " map the leader key to SPACE
 let mapleader="\<SPACE>"
-
 set clipboard=unnamedplus
 set shell=/bin/bash
 
-" install vim-plug if not already there
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  augroup install_vim_plug
-      autocmd!
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-  augroup END
+let s:uname = system("uname")
+if s:uname =~ "Linux"
+  let g:python3_host_prog = expand('~/.virtualenvs/neovim/bin/python3')
+elseif s:uname =~ "Darwin"
+  let g:python3_host_prog = '/Users/ox/.virtualenvs/neovim/bin/python3'
 endif
 
-" Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
-" - Avoid using standard Vim directory names like 'plugin'
-call plug#begin('~/.local/share/nvim/plugged')
-Plug '/projects/vim-genox'
-Plug '~/projects/vim-python-magic'
-Plug 'coderifous/textobj-word-column.vim'
-Plug 'michaeljsmith/vim-indent-object'
-
-Plug 'tomasiser/vim-code-dark'
-Plug 'andreasvc/vim-256noir'
-Plug 'psliwka/vim-smoothie' " smoother CTRL+D/CTRL+U
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-eunuch'
-Plug 'Raimondi/delimitMate' " automatic pairing of parens, braces, quotes etc.
-Plug 'tmhedberg/SimpylFold' | let g:SimpylFold_docstring_preview=1
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'markonm/traces.vim'
-Plug 'terryma/vim-multiple-cursors' " Uses C-n, C-x, C-p
-Plug 'tpope/vim-commentary' " gcc to comment
-
-Plug 'itchyny/lightline.vim'
-let g:lightline = {
-      \ 'colorscheme': 'nord',
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \ },
-  \ }
-function! LightlineFilename()
-    return expand('%:.')
-endfunction
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'rbgrouleff/bclose.vim'
-Plug 'francoiscabrol/ranger.vim' | let g:ranger_map_keys = 0 | nnoremap - :Ranger<CR>
-Plug 'simnalamburt/vim-mundo' "nnoremap <F5> :MundoToggle<CR>
-
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<C-s-0>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
-
-Plug 'honza/vim-snippets'
-Plug 'airblade/vim-gitgutter'
-
-Plug 'tpope/vim-fugitive'
-autocmd User fugitive
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
-nnoremap <leader>gg :Gstatus<CR>
-
-Plug 'rbong/vim-flog'
-Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'prettier/vim-prettier'
-Plug 'arp242/gopher.vim'
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
-Plug 'sheerun/vim-polyglot'
-
-Plug 'dense-analysis/ale'
-let g:ale_set_highlights = 0
-let g:ale_echo_msg_format = '%linter%: %s'
-let g:ale_linters = {
-      \   'python': ['flake8',],
-      \   'javascript': ['eslint'],
-      \   'html': ['eslint'],
-      \}
-let g:ale_python_black_executable = '~/.virtualenvs/neovim/bin/black'
-let g:ale_javascript_prettier_use_global = 1
-let g:ale_fixers = {
-      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'python': ['isort', 'black'],
-      \   'javascript': ['prettier',],
-      \   'javascriptreact': ['prettier',],
-      \   'htmldjango': ['html-beautify'],
-      \}
-let g:ale_fix_on_save = 1
-
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins' }
-Plug 'neoclide/coc.nvim', {'branch': 'release' }
-let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json', 'coc-python', 'coc-tsserver', 'coc-yank', 'coc-emmet', 'coc-ultisnips', 'coc-tailwindcss', 'coc-conjure']
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
-Plug 'Valloric/MatchTagAlways'
-
-Plug 'Yggdroot/indentLine'
-let g:indentLine_fileTypeExclude = ['markdown']
-
-Plug 'easymotion/vim-easymotion'
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-" vmap s <Plug>(easymotion-overwin-f)
-" nmap s <Plug>(easymotion-overwin-f2)
-nmap s <Plug>(easymotion-bd-w)
-nmap S <Plug>(easymotion-bd-e)
-nmap <leader>s <Plug>(easymotion-jumptoanywhere)
-nmap <leader>w <Plug>(easymotion-bd-w)
-vmap <leader>w <Plug>(easymotion-bd-w)
-nmap <leader>j <Plug>(easymotion-j)
-nmap <leader>k <Plug>(easymotion-k)
-
-Plug 'godlygeek/tabular' " Call :TableFormat
-Plug 'elzr/vim-json'
-
-Plug 'plasticboy/vim-markdown' " Call :Toc
-let g:tex_conceal = ""
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1  " for YAML format
-let g:vim_markdown_toml_frontmatter = 1  " for TOML format
-let g:vim_markdown_json_frontmatter = 1  " for JSON format
-
-Plug 'junegunn/goyo.vim'
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
-Plug 'junegunn/limelight.vim'
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-" let g:mkdp_markdown_css = expand('~/code/sakura/css/sakura.css')
-
-Plug 'mattn/emmet-vim'
-let g:user_emmet_settings = {
-    \ 'javascriptreact': {'extends': 'html', 'filters': 'html'}
-\ }
-Plug 'terryma/vim-expand-region'
-Plug 'justinmk/vim-gtfo'
-" Plug 'mhinz/vim-startify'
-" Plug 'tpope/vim-endwise'
-" Plug 'ryanpcmcquen/fix-vim-pasting'
-" Plugin 'chamindra/marvim'
-Plug 'davidhalter/jedi-vim'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
-" Plug 'deoplete-plugins/deoplete-jedi', { 'on': [] }
-Plug 'Olical/conjure', {'tag': 'v4.0.0'}
-" Plug 'kovisoft/paredit', { 'for': 'clojure' }
-let g:paredit_smartjump = 1
-call plug#end()
-
-
-let g:go_def_mapping_enabled = 0
-nnoremap <leader><tab> :NERDTreeToggle<cr>
-
-
-" augroup deoplete_py
-"   autocmd!
-"   autocmd FileType python call plug#load('deoplete.nvim', 'deoplete-jedi')
-"                          \| call deoplete#enable()
-"                          \| autocmd! deoplete_py
-" augroup END
-
-" Vim Default Settings
-" --------------------
-
-" shortcut to editing vimrc quickly
+nnoremap <silent> <BS> :<C-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<CR>
 nnoremap <silent> <leader>nve :tabedit $MYVIMRC<CR>
-
-" shortcut to reload vimrc without restarting vim
 nnoremap <silent> <leader>nvr :so $MYVIMRC<CR>
-
-" Use ; to go into command mode instead of :
-" Saves one keystroke (no need to press shift)
 noremap : ;
 noremap ; :
-
-" Use `qp` to go into escape/normal mode
 inoremap qp <Esc>
 noremap qp <Esc>
 
-set encoding=utf-8
-set ignorecase
-set smartcase
-set ruler
-set number
-set relativenumber
-filetype on
-filetype plugin indent on
-set pastetoggle=<F3>
-" Allows git gutter to update faster
-set updatetime=100
-set nofixendofline
-set expandtab
-set smarttab
-set tabstop=4
-set softtabstop=0
-set shiftwidth=4
-" Enable persistent undo so that undo history persists across vim sessions
-set undofile
-set undodir=~/.vim/undo
-"split navigations
+cabbrev help tab help
+cabbrev h tab help
+cnoreabbrev w!! w !sudo tee > /dev/null %|  " write file with sudo
+
+xnoremap <leader>c <esc>:'<,'>:w !cat\|pbcopy<CR>
+xnoremap <leader>gs <esc>:'<,'>:w !cat\|oxsnip<CR>
+command! -nargs=0 -range=% OxSnip <line1>,<line2>:w !oxsnip
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+" vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>"
+nnoremap <leader>h :%s/<C-r>///gc<left><left><left>
+vnoremap <c-s> y<ESC>/<c-r>"<CR>N
+vnoremap R y<ESC>:%s/<c-r>"//gc<left><left><left>
+nnoremap <c-s> <ESC>/<c-r>"<CR>
+vnoremap <C-h> <esc>:'<,'>s/<C-r>"//g<left><left>
+" now it is possible to paste many times over selected text
+xnoremap <expr> p 'pgv"'.v:register.'y`>'
+xnoremap <expr> P 'Pgv"'.v:register.'y`>'
+
+" add and subtract should be easy now
+nnoremap <c-x>a <c-a>
+vnoremap <c-x>a g<c-a>
+nnoremap <c-x>s <c-x>
+vnoremap <c-x>s g<c-x>
+
+" nnoremap yA "Ayy
+" vnoremap yA '<,'>"Ayy
+nnoremap Y y$
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
-" Switch to last edited buffer by pressing backspace in normal mode
-" nnoremap <silent> <BS> :b#<CR>
-" this mapping works even if previous buffer was closed, it will go to 2nd
-" last opened buffer
-nnoremap <silent> <BS> :<C-u>exe v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<CR>
+set hidden
+set encoding=utf-8 ignorecase smartcase ruler number relativenumber
+filetype plugin indent on
+set pastetoggle=<F3>
+set updatetime=200
+set nofixendofline
+set expandtab smarttab tabstop=4 softtabstop=4 shiftwidth=4
+set undofile undodir=~/.vim/undo
+set conceallevel=0
+
+set foldmethod=indent foldlevel=99
 
 set completeopt=menuone,noselect,noinsert
 set shortmess+=c
-inoremap <c-c> <ESC>
+inoremap <c-shift-c> <ESC>
 
-if &term =~# '256color' && ( &term =~# '^screen'  || &term =~# '^tmux' )
-    " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-else
-    set termguicolors
-endif
-" set background=light
-set t_Co=256
-colorscheme codedark
-" hi clear Visual
-hi Visual guibg=#345456
-hi Normal guibg=#000000
-hi SignColumn guibg=#000000
-hi LineNr guibg=#000000
-hi EndOfBuffer guibg=#000000
-hi IncSearch guibg=yellow ctermbg=green term=underline
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
 
-set fillchars=diff:\ ,fold:\ ,
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
 
-set diffopt+=vertical,iwhite
-if &diff
-  " diff mode
-  set diffopt+=iwhite
-endif
-
-" set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-"       \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-"       \,sm:block-blinkwait175-blinkoff150-blinkon175
-
-" highl CursorTransparent ctermfg=16 ctermbg=253 guifg=#000000 guibg=#00FF00 gui=strikethrough blend=100
-
+set textwidth=120
 au BufNewFile,BufRead *.py
     \ set tabstop=4
     \ softtabstop=4
@@ -277,38 +89,9 @@ au BufNewFile,BufRead *.py
     \ fileformat=unix
     \ foldmethod=indent
 
-" Flagging Unnecessary Whitespace
 au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-autocmd FileType html,css,htmldjango,javascript,javascriptreact,json setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
-
-" let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-
-  let height = float2nr(20)
-  let width = float2nr(120)
-  let horizontal = float2nr((&columns - width) / 2)
-  let vertical = 1
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': vertical,
-        \ 'col': horizontal,
-        \ 'width': width,
-        \ 'height': height,
-        \ 'style': 'minimal'
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-
-command! -bang -nargs=* Rg2
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+autocmd FileType html,css,htmldjango,javascript,scss,javascriptreact,json setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -321,16 +104,6 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
   \ 'source': 'rg -n ^ --color always',
   \ 'options': '--ansi --delimiter : --nth 3..',
   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
-
-command! -bang -nargs=* Ag
-  \ call fzf#vim#grep(
-  \   'ag --column --numbers --noheading --smart-case . '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=* Rg3
-  \ call fzf#vim#grep(
-  \   "rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
@@ -354,110 +127,7 @@ nnoremap <leader>tt :Tags!<cr>
 nnoremap <leader>tb :TagbarOpenAutoClose<cr>
 nnoremap <leader>p p<cr>
 
-
-let s:uname = system("uname")
-if s:uname =~ "Linux"
-  let g:python3_host_prog = expand('~/.virtualenvs/neovim/bin/python3')
-elseif s:uname =~ "Darwin"
-  let g:python3_host_prog = '/Users/ox/.virtualenvs/neovim/bin/python3'
-endif
-
-
-" Disable Jedi-vim autocompletion and enable call-signatures options
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
-
-let g:deoplete#auto_complete_delay = 100
-
 set grepprg=rg\ --vimgrep\ --smart-case
-let g:go_fmt_command = "goimports"
-let g:go_fmt_autosave=1
-
-
-" ========================= COC.NVIM ===============================
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-" if hidden is not set, TextEdit might fail.
-set hidden
-" Better display for messages
-set cmdheight=2
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-inoremap <silent><expr> <C-Enter>
-      \ pumvisible() ? "\<C-y" :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-
-highlight DiffAdd        ctermbg=237 guibg=#373D29
-highlight DiffChange     ctermbg=52 guibg=#345456
-highlight DiffDelete     ctermfg=12 ctermbg=52 guifg=Blue guibg=#4f0a0a
-highlight DiffText       ctermbg=52 guibg=#005500
-
-" highlight GitGutterAdd    guifg=#009900 guibg=#1e1e1e ctermfg=2 ctermbg=234
-highlight GitGutterAdd    guifg=#009900 guibg=#000000 ctermfg=2 ctermbg=234
-highlight GitGutterChange guifg=#bbbb00 guibg=#000000 ctermfg=3 ctermbg=234
-highlight GitGutterDelete guifg=#ff2222 guibg=#000000 ctermfg=1 ctermbg=234
-
-let g:mundo_width = 88
-let g:mundo_preview_height = 20
-let g:mundo_right = 0
 
 " Bind F5 to save file if modified and execute python script in a buffer.
 nnoremap <silent> <F5> :call SaveAndExecutePython()<CR>
@@ -521,54 +191,6 @@ function! SaveAndExecutePython()
     setlocal readonly
     setlocal nomodifiable
     silent execute bufwinnr(s:source_buf_nr) . 'wincmd w'
-endfunction
-
-cabbrev help tab help
-cabbrev h tab help
-
-xnoremap <leader>c <esc>:'<,'>:w !cat\|pbcopy<CR>
-xnoremap <leader>gs <esc>:'<,'>:w !cat\|oxsnip<CR>
-command! -nargs=0 -range=% OxSnip <line1>,<line2>:w !oxsnip
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-" vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>"
-nnoremap <C-h> :%s/<C-r>///gc<left><left><left>
-vnoremap <c-s> y<ESC>/<c-r>"<CR>N
-vnoremap R y<ESC>:%s/<c-r>"//gc<left><left><left>
-nnoremap <c-s> <ESC>/<c-r>"<CR>
-vnoremap <C-h> <esc>:'<,'>s/<C-r>"//g<left><left>
-
-" nnoremap yA "Ayy
-" vnoremap yA '<,'>"Ayy
-nnoremap Y y$
-
-let g:dbs = {
-            \  'mrbse': 'sqlite:/www/mrbse/db.sqlite3'
-            \}
-
-" folding based on single space or tabs - from the comments section of:  http://vim.wikia.com/wiki/Folding_for_plain_text_files_based_on_indentation
-function! TSIndent(line)
-        return strlen(matchstr(a:line,'\v^\s+'))
-endfunction
-setlocal foldmethod=expr
-setlocal foldexpr=MyTSIndentFoldExpr()
-function! MyTSIndentFoldExpr()
-        if (getline(v:lnum)=~'^$')
-                return -1
-        endif
-        let ind = TSIndent(getline(v:lnum))
-        let indNext = TSIndent(getline(v:lnum+1))
-        return (ind'.(indNext)) : ind
-endfunction
-setlocal foldtext=MyFoldText()
-function! MyFoldText()
-        let line = getline(v:foldstart)
-        " Foldtext ignores tabstop and shows tabs as one space,
-        " so convert tabs to 'tabstop' spaces so text lines up
-        let ts = repeat(' ',&tabstop)
-        let line = substitute(line, '\t', ts, 'g')
-  let numLines = v:foldend - v:foldstart + 1
-        return line.' ['.numLines.' lines]'
 endfunction
 
 function! TodoComplete()
@@ -657,12 +279,10 @@ nnoremap <leader>iv :PyImportVenv<CR>
 nnoremap <leader>tv :PyTagsVenv<CR>
 nnoremap <leader>tg :PyTagsGenerate<CR>
 
-" TODO: figure out specific mark jumping
-nnoremap mm `n`b``
-
 command! RupeeSymbol execute "normal! i" . "â‚¹" . "\<esc>"
 
-command! MacroDjChoices let @q = '^i(qpf=a€kb€kb,qpf"lgUlA),qpj'
+command! -range MacroDjChoices let @z = '^i(qpf=aÂ€kbÂ€kb,qpf"lgUlA),qpj' | execute "'<,'>normal @z"
+command! -range MacroDjChoices2 let @z = '^gUwyiwea = ""qphphguiwj' | execute "'<,'>normal @z"
 
 function! RecMacroExe(cmds)
     let a = @a
@@ -676,10 +296,247 @@ endfunction
 
 nmap <f6> :call RecMacroExe("macrohere")<cr>
 
-" add and subtract should be easy now
-nnoremap <c-x>a <c-a>
-vnoremap <c-x>a g<c-a>
-nnoremap <c-x>s <c-x>
-vnoremap <c-x>s g<c-x>
+"nnoremap <leader>/ :BLines<cr>
 
-nnoremap ? :BLines<cr>
+" install vim-plug if not already there
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  augroup install_vim_plug
+      autocmd!
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  augroup END
+endif
+
+call plug#begin('~/.local/share/nvim/plugged')
+Plug '~/projects/vim-python-magic'
+let g:genox_root_dir = '~/projects/oxal.org'
+let g:genox_blog_dir = '~/projects/oxal.org/src/blog'
+Plug '/projects/vim-genox'
+Plug 'sheerun/vim-polyglot'
+Plug 'psliwka/vim-smoothie' " smoother CTRL+D/CTRL+U
+Plug 'kana/vim-textobj-user'
+Plug 'beloglazov/vim-textobj-quotes'
+Plug 'axelf4/vim-strip-trailing-whitespace'
+Plug 'guns/vim-clojure-highlight'
+Plug 'guns/vim-clojure-static'
+Plug 'luochen1990/rainbow'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary' " gcc to comment
+Plug 'tpope/vim-fugitive'
+nnoremap <leader>gg :Gstatus<CR>
+Plug 'tpope/vim-fireplace'
+Plug 'airblade/vim-gitgutter'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+Plug 'justinmk/vim-gtfo'
+" Plug 'danilo-augusto/vim-afterglow'
+Plug 'tomasiser/vim-code-dark'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'francoiscabrol/ranger.vim' | let g:ranger_map_keys = 0 | nnoremap - :Ranger<CR>
+Plug 'Yggdroot/indentLine'
+let g:indentLine_fileTypeExclude = ['markdown']
+Plug 'mattn/emmet-vim'
+let g:user_emmet_settings = {
+    \ 'javascriptreact': {'extends': 'html', 'filters': 'html'}
+\ }
+
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<C-s-0>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
+
+Plug 'honza/vim-snippets'
+
+Plug 'easymotion/vim-easymotion'
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" vmap s <Plug>(easymotion-overwin-f)
+" nmap s <Plug>(easymotion-overwin-f2)
+nmap s <Plug>(easymotion-bd-w)
+nmap S <Plug>(easymotion-bd-e)
+nmap <leader>s <Plug>(easymotion-jumptoanywhere)
+nmap <leader>w <Plug>(easymotion-bd-w)
+vmap <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>j <Plug>(easymotion-j)
+nmap <leader>k <Plug>(easymotion-k)
+
+Plug 'dense-analysis/ale'
+let g:ale_set_highlights = 0
+let g:ale_echo_msg_format = '%linter%: %s'
+let g:ale_linters = {
+      \   'python': ['flake8',],
+      \   'javascript': ['eslint'],
+      \   'html': ['eslint'],
+      \   'go': ['go build', 'gometalinter'],
+      \   'clojure': ['clj-kondo'],
+      \}
+let g:ale_python_black_executable = '~/.virtualenvs/neovim/bin/black'
+let g:ale_javascript_prettier_use_global = 1
+let g:ale_fixers = {
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'python': ['isort', 'black'],
+      \   'javascriptreact': ['prettier',],
+      \   'htmldjango': ['html-beautify'],
+      \   'go': ['goimports'],
+      \   'javascript': ['prettier',],
+      \   'html': ['html-beautify'],
+      \}
+let g:ale_fix_on_save = 1
+
+Plug 'bhurlow/vim-parinfer'
+"Plug 'guns/vim-sexp'
+"Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'neoclide/coc.nvim', {'branch': 'release' }
+let g:coc_global_extensions = ['coc-css', 'coc-json', 'coc-python', 'coc-tsserver', 'coc-yank', 'coc-emmet', 'coc-ultisnips', 'coc-tailwindcss', 'coc-conjure']
+call plug#end()
+
+colorscheme codedark
+set termguicolors t_Co=256
+hi Visual guibg=#345456
+hi Normal guibg=#000000
+hi SignColumn guibg=#000000
+hi LineNr guibg=#000000
+hi EndOfBuffer guibg=#000000
+hi IncSearch guibg=yellow ctermbg=green term=underline
+hi DiffAdd        ctermbg=237 guibg=#373D29
+hi DiffChange     ctermbg=52 guibg=#345456
+hi DiffDelete     ctermfg=12 ctermbg=52 guifg=Blue guibg=#4f0a0a
+hi DiffText       ctermbg=52 guibg=#005500
+hi GitGutterAdd    guifg=#009900 guibg=#000000 ctermfg=2 ctermbg=234
+hi GitGutterChange guifg=#bbbb00 guibg=#000000 ctermfg=3 ctermbg=234
+hi GitGutterDelete guifg=#ff2222 guibg=#000000 ctermfg=1 ctermbg=234
+
+set fillchars=diff:\ ,fold:\ ,
+set diffopt+=vertical,iwhite
+if &diff
+  set diffopt+=iwhite
+endif
+
+
+" COC
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>gf  <Plug>(coc-format-selected)
+nmap <leader>gf  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+set conceallevel=0
