@@ -9,7 +9,7 @@
     "clojure-lsp": {
       "command": "bash",
       "args": ["-c", "clojure-lsp"],
-      "filetypes": ["clojure"],
+      "filetypes": ["clojure2"],
       "rootPatterns": ["project.clj"],
       "additionalSchemes": ["jar", "zipfile"],
       "trace.server": "verbose",
@@ -17,9 +17,11 @@
       }
     }
   },
-  "python.venvPath": "~/.virtualenvs",
+  "python.venvPath": "~/.virtualenvs123",
   "python.jediEnabled": false,
   "coc.source.around.enable": true,
   "emmet.includeLanguages": {"vue-html": "html", "javascript": "javascriptreact", "htmldjango": "html"},
-  "tailwindCSS.htmlLanguages": ["html", "htmldjango"]
+  "tailwindCSS.htmlLanguages": ["html", "htmldjango"],
+  "html.format.wrapLineLength":93,
+  "sql.database": "postgresql"
 }
