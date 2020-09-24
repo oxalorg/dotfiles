@@ -61,3 +61,5 @@ fabric.properties
 tags
 tags.temp
 tags.lock
+
+.exrc
