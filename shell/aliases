@@ -2,8 +2,8 @@ alias cdd='cd /c/Users/ox'
 alias tk='cd /c/Users/ox/Dropbox/Projects/taazakitchen/'
 alias drop='cd /c/Users/ox/Dropbox'
 # Needs to be DONE
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=emacs
+export VISUAL=emacs
 alias e=$EDITOR
 alias et="$EDITOR /projects/todo/todo.txt"
 alias ett="$EDITOR /projects/todo/completed.txt"
@@ -89,3 +89,4 @@ alias ghi='gh issue create -t'
 alias pir='pip3 install -r requirements.txt'
 alias pi='pip3 install'
 alias pf='pip3 freeze'
+alias fd='fdfind'
