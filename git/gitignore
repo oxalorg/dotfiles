@@ -63,3 +63,9 @@ tags.temp
 tags.lock
 
 .exrc
+.log/*
+.calva/
+.cpcache/
+.nrepl-port
+
+.gittemplate
