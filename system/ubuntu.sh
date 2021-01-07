@@ -1,5 +1,8 @@
 set -e
 
+# Installing oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 declare -a programs=(
     "lolcat"
     "cowsay"
@@ -7,6 +10,9 @@ declare -a programs=(
     "toilet"
     "boxes"
     "w3m-img"
+    "python3-pip"
+    "fonts-firacode"
+    "fd-find"
     # "bb"
 )
 
