@@ -1,6 +1,12 @@
 # @oxalorg
 # Common shell rc
 
+if grep -q Microsoft /proc/version; then
+  myos=wsl
+else
+  myos=linux
+fi
+
 set -o vi # enter the matrix
 bindkey -M viins 'qp' vi-cmd-mode
 bindkey "^?" backward-delete-char
@@ -43,7 +49,7 @@ NOTES=$CABINET/notes
 DOTFILES=~/Dropbox/Projects/dotfiles
 
 # Imports
-[ -f ~/.aliases ] && source ~/.aliases  # Import common aliases
+[ -f $DOTFILES/shell/aliases ] && source $DOTFILES/shell/aliases  # Import common aliases
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
 [ -f ~/.ox/ox ] && source ~/.ox/ox
 [ -f ~/.dircolors ] && eval `dircolors ~/.dircolors`
@@ -57,6 +63,11 @@ export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH=$HOME/.yarn/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:$PATH
+if [[ "$myos" == "wsl" ]]; then
+	echo "INSIDE WSL"
+	export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
+fi
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -297,3 +308,26 @@ curlpj() {
 curlgj() {
     curl -X GET -H "Content-Type: application/json" -d "$2" "$1"
 }
+
+x(){
+    if [ -f $1 ] ; then
+        case $1 in
+        *.tar.bz2)   tar xvjf $1    ;;
+        *.tar.gz)    tar xvzf $1    ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar x $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xvf $1     ;;
+        *.tbz2)      tar xvjf $1    ;;
+        *.tgz)       tar xvzf $1    ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)           echo "Unable to extract '$1'" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+export CLOJURIANS_LOG_HOST="0.0.0.0"
