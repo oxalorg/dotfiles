@@ -34,9 +34,6 @@ vnoremap <c-s> y<ESC>/<c-r>"<CR>N
 vnoremap R y<ESC>:%s/<c-r>"//gc<left><left><left>
 nnoremap <c-s> <ESC>/<c-r>"<CR>
 vnoremap <C-h> <esc>:'<,'>s/<C-r>"//g<left><left>
-" now it is possible to paste many times over selected text
-xnoremap <expr> p 'pgv"'.v:register.'y`>'
-xnoremap <expr> P 'Pgv"'.v:register.'y`>'
 
 " add and subtract should be easy now
 nnoremap <c-x>a <c-a>
@@ -61,7 +58,6 @@ set updatetime=200
 set nofixendofline
 set expandtab smarttab tabstop=4 softtabstop=4 shiftwidth=4
 set undofile undodir=~/.vim/undo
-set conceallevel=0
 
 set foldmethod=indent foldlevel=99
 
@@ -69,14 +65,26 @@ set completeopt=menuone,noselect,noinsert
 set shortmess+=c
 inoremap <c-shift-c> <ESC>
 
-function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
+set termguicolors t_Co=256
+hi Visual guibg=#345456
+hi Normal guibg=#000000
+hi SignColumn guibg=#000000
+hi LineNr guibg=#000000
+hi EndOfBuffer guibg=#000000
+hi IncSearch guibg=yellow ctermbg=green term=underline
+hi DiffAdd        ctermbg=237 guibg=#373D29
+hi DiffChange     ctermbg=52 guibg=#345456
+hi DiffDelete     ctermfg=12 ctermbg=52 guifg=Blue guibg=#4f0a0a
+hi DiffText       ctermbg=52 guibg=#005500
+hi GitGutterAdd    guifg=#009900 guibg=#000000 ctermfg=2 ctermbg=234
+hi GitGutterChange guifg=#bbbb00 guibg=#000000 ctermfg=3 ctermbg=234
+hi GitGutterDelete guifg=#ff2222 guibg=#000000 ctermfg=1 ctermbg=234
 
-function! StatuslineGit()
-  let l:branchname = GitBranch()
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
+set fillchars=diff:\ ,fold:\ ,
+set diffopt+=vertical,iwhite
+if &diff
+  set diffopt+=iwhite
+endif
 
 set textwidth=120
 au BufNewFile,BufRead *.py
@@ -91,7 +99,7 @@ au BufNewFile,BufRead *.py
 
 au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-autocmd FileType html,css,htmldjango,javascript,clojure,clojurescript,scss,javascriptreact,json setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+autocmd FileType html,css,htmldjango,javascript,javascriptreact,json setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -309,15 +317,8 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.local/share/nvim/plugged')
-Plug '~/projects/vim-python-magic'
-let g:genox_root_dir = '~/projects/oxal.org'
-let g:genox_blog_dir = '~/projects/oxal.org/src/blog'
-Plug '/projects/vim-genox'
 Plug 'sheerun/vim-polyglot'
 Plug 'psliwka/vim-smoothie' " smoother CTRL+D/CTRL+U
-Plug 'kana/vim-textobj-user'
-Plug 'beloglazov/vim-textobj-quotes'
-Plug 'axelf4/vim-strip-trailing-whitespace'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
@@ -326,34 +327,19 @@ Plug 'tpope/vim-commentary' " gcc to comment
 Plug 'tpope/vim-fugitive'
 nnoremap <leader>gg :Gstatus<CR>
 Plug 'airblade/vim-gitgutter'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'justinmk/vim-gtfo'
-" Plug 'danilo-augusto/vim-afterglow'
-Plug 'tomasiser/vim-code-dark'
+Plug 'danilo-augusto/vim-afterglow'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'junegunn/goyo.vim'
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
 Plug 'rbgrouleff/bclose.vim'
 Plug 'francoiscabrol/ranger.vim' | let g:ranger_map_keys = 0 | nnoremap - :Ranger<CR>
 Plug 'Yggdroot/indentLine'
-let g:indentLine_fileTypeExclude = ['markdown', 'json']
+let g:indentLine_fileTypeExclude = ['markdown']
 Plug 'mattn/emmet-vim'
 let g:user_emmet_settings = {
     \ 'javascriptreact': {'extends': 'html', 'filters': 'html'}
 \ }
-
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<C-s-0>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
-
-Plug 'honza/vim-snippets'
 
 Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_smartcase = 1
@@ -375,8 +361,7 @@ let g:ale_linters = {
       \   'python': ['flake8',],
       \   'javascript': ['eslint'],
       \   'html': ['eslint'],
-      \   'go': ['go build', 'gometalinter'],
-      \   'clojure': ['clj-kondo'],
+      \   'go': ['go build', 'gometalinter']
       \}
 let g:ale_python_black_executable = '~/.virtualenvs/neovim/bin/black'
 let g:ale_javascript_prettier_use_global = 1
@@ -391,41 +376,11 @@ let g:ale_fixers = {
       \}
 let g:ale_fix_on_save = 1
 
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-Plug 'tpope/vim-fireplace'
-Plug 'bhurlow/vim-parinfer'
-"Plug 'venantius/vim-cljfmt'
-Plug 'clojure-vim/async-clj-omni'
-
-"Plug 'guns/vim-sexp'
-"Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'neoclide/coc.nvim', {'branch': 'release' }
 let g:coc_global_extensions = ['coc-css', 'coc-json', 'coc-python', 'coc-tsserver', 'coc-yank', 'coc-emmet', 'coc-ultisnips', 'coc-tailwindcss', 'coc-conjure']
 call plug#end()
 
-colorscheme codedark
-set termguicolors t_Co=256
-hi Visual guibg=#345456
-hi Normal guibg=#000000
-hi SignColumn guibg=#000000
-hi LineNr guibg=#000000
-hi EndOfBuffer guibg=#000000
-hi IncSearch guibg=yellow ctermbg=green term=underline
-hi DiffAdd        ctermbg=237 guibg=#373D29
-hi DiffChange     ctermbg=52 guibg=#345456
-hi DiffDelete     ctermfg=12 ctermbg=52 guifg=Blue guibg=#4f0a0a
-hi DiffText       ctermbg=52 guibg=#005500
-hi GitGutterAdd    guifg=#009900 guibg=#000000 ctermfg=2 ctermbg=234
-hi GitGutterChange guifg=#bbbb00 guibg=#000000 ctermfg=3 ctermbg=234
-hi GitGutterDelete guifg=#ff2222 guibg=#000000 ctermfg=1 ctermbg=234
-
-set fillchars=diff:\ ,fold:\ ,
-set diffopt+=vertical,iwhite
-if &diff
-  set diffopt+=iwhite
-endif
-
+colorscheme afterglow
 
 " COC
 if has("patch-8.1.1564")
@@ -544,5 +499,28 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
 
-set conceallevel=0
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\ 
+set statusline^=\ %f
+set laststatus=2
