@@ -18,7 +18,10 @@
    ["#fafafa" "#e45649" "#50a14f" "#986801" "#4078f2" "#a626a4" "#0184bc" "#383a42"])
  '(safe-local-variable-values
    (quote
-    ((cider-repl-display-help-banner)
+    ((cider-redirect-server-output-to-repl . t)
+     (cider-default-cljs-repl . custom)
+     (cider-clojure-cli-global-options . "-A:dev")
+     (cider-repl-display-help-banner)
      (cider-preferred-build-tool . clojure-cli)
      (cider-clojure-cli-global-options . "-A:dev:datomic-free")
      (cider-refresh-after-fn . "reloaded.repl/resume")

@@ -62,3 +62,23 @@
 (setq evil-snipe-override-evil-repeat-keys nil)
 (setq doom-localleader-key ",")
 (setq doom-localleader-alt-key "M-,")
+
+(map! :leader
+      :desc "Slurp from forward"
+      "0" #'paredit-forward-slurp-sexp)
+
+(map! :leader
+      :desc "Slurp from backword"
+      "9" #'paredit-backward-slurp-sexp)
+
+(map! :leader
+      :desc "Barf from forward"
+      "2" #'paredit-forward-barf-sexp)
+
+(map! :leader
+      :desc "Barf from backword"
+      "1" #'paredit-backward-barf-sexp)
+
+(map! :localleader
+      :desc "Eval list at point"
+      "ew" #'cider-eval-list-at-point)
