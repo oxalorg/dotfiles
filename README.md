@@ -26,6 +26,7 @@ Please edit the following files if you are cloning/forking this repository:
 
 ## Changelogs
 
+* 2020-08-01 switched to the dark side emacs + evil using doom emacs
 * 2020-06-22 Using Tmux with Zsh (+Zimfw) and NeoVim
 * 3 years forgot to add changelogs, whoops!
 * 2017-10-30 Started using tmux again
