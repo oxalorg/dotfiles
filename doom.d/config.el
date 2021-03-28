@@ -152,7 +152,7 @@
 
 ;; better terminal toggling
 (after! vterm
-  (set-popup-rule! "*doom:vterm-popup:main" :size 0.9 :vslot -4 :select t :quit nil :ttl 0))
+  (set-popup-rule! "*doom:vterm-popup:*" :size 0.6 :vslot -4 :select t :quit nil :ttl 0))
 (map! "<f8>" #'+vterm/toggle
       (:map vterm-mode-map
        :nvmi "<f8>" #'+vterm/toggle))
