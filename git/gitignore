@@ -69,3 +69,9 @@ tags.lock
 .nrepl-port
 
 .gittemplate
+
+.clj-kondo
+.lsp
+
+.dir-locals-2.el
+.projectile
