@@ -2,9 +2,9 @@ alias cdd='cd /c/Users/ox'
 alias tk='cd /c/Users/ox/Dropbox/Projects/taazakitchen/'
 alias drop='cd /c/Users/ox/Dropbox'
 # Needs to be DONE
-export EDITOR=emacs
-export VISUAL=emacs
-alias e=$EDITOR
+export EDITOR=vi
+export VISUAL=vi
+alias e=emacsclient
 alias et="$EDITOR /projects/todo/todo.txt"
 alias ett="$EDITOR /projects/todo/completed.txt"
 export MAIL=$HOME/mail/INBOX
