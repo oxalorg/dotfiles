@@ -353,3 +353,5 @@ ssh-key-create() {
     ssh-keygen -t rsa -b 4096 -C "mitesh@miteshshah.com" -N "" -f "$(date +%s)"
 }
 
+export DENO_INSTALL="/home/ox/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
