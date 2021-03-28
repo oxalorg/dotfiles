@@ -24,3 +24,4 @@ nvim/init.vim.bak
 .cache/
 
 git/gitk
+/doom.d/custom.el
