@@ -4,7 +4,7 @@ alias drop='cd /c/Users/ox/Dropbox'
 # Needs to be DONE
 export EDITOR=vi
 export VISUAL=vi
-alias e=emacsclient
+alias e="emacsclient -n"
 alias et="$EDITOR /projects/todo/todo.txt"
 alias ett="$EDITOR /projects/todo/completed.txt"
 export MAIL=$HOME/mail/INBOX
