@@ -1,4 +1,10 @@
 #!/bin/bash
 # the pbpaste script
-powershell.exe Get-Clipboard | sed 's/\r$//' | sed -z '$ s/\n$//'
+if [[ "$(uname)" == "Darwin" ]]; then
+  pbpaste
+elif grep -iq microsoft /proc/version; then
+  powershell.exe Get-Clipboard | sed 's/\r$//' | sed -z '$ s/\n$//'
+else
+  xclip -selection clipboard -out
+fi
 exit 0

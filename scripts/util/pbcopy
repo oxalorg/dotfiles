@@ -1,4 +1,10 @@
 #!/bin/bash
 # the pbcopy script
-tee <&0 | clip.exe
+if [[ "$(uname)" == "Darwin" ]]; then
+  pbcopy
+elif grep -iq microsoft /proc/version; then
+  tee <&0 | clip.exe
+else
+  xclip -selection clipboard -in
+fi
 exit 0
