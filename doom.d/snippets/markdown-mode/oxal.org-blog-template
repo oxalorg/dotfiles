@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: oxal.org blog template
+# key: oxblog
+# --
+---
+layout: post
+title: $0
+date: `(format-time-string "%Y-%m-%d")`
+tags:
+    - self
+---
