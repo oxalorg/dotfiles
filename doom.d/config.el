@@ -208,3 +208,15 @@
 ;;    ("M-y" . ivy-next-line)))
 
 (setq org-image-actual-width (/ (display-pixel-width) 3))
+
+;; Allows to eval sexp with cursor "on" the last char instead of
+;; "after" the last char. This is super helpful in vim normal / motion
+;; states.
+;; https://github.com/syl20bnr/spacemacs/issues/646#issuecomment-106037404
+(defadvice cider-last-sexp (around evil activate)
+  "In normal-state or motion-state, last sexp ends at point."
+  (if (or (evil-normal-state-p) (evil-motion-state-p))
+      (save-excursion
+        (unless (or (eobp) (eolp)) (forward-char))
+        ad-do-it)
+    ad-do-it))
