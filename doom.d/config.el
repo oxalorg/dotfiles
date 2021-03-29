@@ -107,6 +107,13 @@
 
 (map! :localleader
       :map (clojure-mode-map clojurescript-mode-map)
+      "n a" #'cljr-add-require-to-ns
+      "n i" #'cljr-add-import-to-ns
+      "n m" #'cljr-add-missing-libspec
+      "n c" #'cljr-clean-ns)
+
+(map! :localleader
+      :map (clojure-mode-map clojurescript-mode-map)
       "," #'cider-switch-to-repl-buffer-same-window-force)
 
 (map! :localleader
