@@ -321,6 +321,10 @@ curlgj() {
     curl -X GET -H "Content-Type: application/json" -d "$2" "$1"
 }
 
+curlj() {
+    curl -H "Content-Type: application/json" "$@"
+}
+
 x(){
     if [ -f $1 ] ; then
         case $1 in
