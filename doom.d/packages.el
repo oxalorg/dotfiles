@@ -52,3 +52,5 @@
 (package! ob-mermaid)
 (package! mermaid-mode)
 (package! evil-cleverparens)
+(package! html-to-hiccup)
+(package! zprint-mode)

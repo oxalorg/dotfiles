@@ -59,6 +59,8 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(setq browse-url-browser-function 'browse-url-firefox)
+
 (advice-add #'turn-on-evil-mode :before
             (lambda (&optional args)
               (when (eq major-mode 'fundamental-mode)
@@ -306,3 +308,7 @@ With a prefix argument N, (un)comment that many sexps."
       (uncomment-sexp n)
     (dotimes (_ (or n 1))
       (comment-sexp--raw))))
+
+(map! :localleader
+      :map (clojure-mode-map clojurescript-mode-map)
+      "=" #'zprint)
