@@ -67,7 +67,16 @@
                 (hack-local-variables))))
 
 ;; (add-hook 'lisp-mode-hook #'evil-cleverparens-mode)
-(add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+(use-package! evil-cleverparens
+  :commands evil-cleverparens-mode
+  :init
+  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+  :config
+  (map! :map evil-cleverparens-mode-map
+        :nv "{" nil
+        :nv "}" nil
+        :nv "[" nil
+        :nv "]" nil))
 
 (setq evil-snipe-override-evil-repeat-keys nil)
 (setq doom-localleader-key ",")
@@ -126,6 +135,11 @@
       :map cider-repl-mode-map
       :nvm "<tab>" #'cider-repl-switch-to-other)
 
+(defun ox/cider-pprint-eval-toggle-defun-at-point ()
+  (interactive)
+  (cider-pprint-eval-defun-at-point)
+  (switch-to-buffer-other-window "*cider-result*"))
+
 (map! :leader
       :map (clojure-mode-map clojurescript-mode-map)
       :prefix "e"
@@ -133,8 +147,8 @@
       "d" #'cider-eval-defun-at-point
       "b" #'cider-eval-buffer
       "D" #'cider-pprint-eval-defun-to-comment
-      "p" #'cider-pprint-eval-last-sexp
-      "P" #'cider-pprint-eval-last-sexp-to-comment)
+      "p" #'ox/cider-pprint-eval-toggle-defun-at-point
+      "P" #'cider-pprint-eval-last-sexp)
 
 (setq cider-known-endpoints
       '(("pitch-app/desktop-app" "localhost" "7888")))
