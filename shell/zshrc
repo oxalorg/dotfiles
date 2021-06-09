@@ -313,6 +313,10 @@ gs  -q -dNOPAUSE -dBATCH -dSAFER \
     "$1"
 }
 
+compressimg() {
+    convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize 25% -auto-orient "$1" "compressed_$1"
+}
+
 curlpj() {
     curl -X POST -H "Content-Type: application/json" -d "$2" "$1"
 }
@@ -351,6 +355,10 @@ oxtmp() {
     echo "https://oxal.org/tmp/$1"
 }
 
+ocr() {
+    tesseract "$1" "${1%.*}.ocr"
+}
+
 export CLOJURIANS_LOG_HOST="0.0.0.0"
 
 ssh-key-create() {
@@ -359,3 +367,7 @@ ssh-key-create() {
 
 export DENO_INSTALL="/home/ox/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="/home/ox/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+eval "$(direnv hook zsh)"

@@ -90,3 +90,5 @@ alias pir='pip3 install -r requirements.txt'
 alias pi='pip3 install'
 alias pf='pip3 freeze'
 alias fd='fdfind'
+
+alias l2='ls -lt | head -n 25'
