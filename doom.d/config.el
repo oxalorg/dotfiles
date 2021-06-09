@@ -216,6 +216,15 @@
 ;; (mapcar (lambda (f) (set-face-foreground f "dim gray"))
 ;;         '(lsp-ui-sideline-code-action lsp-ui-sideline-current-symbol lsp-ui-sideline-symbol lsp-ui-sideline-symbol-info))
 
+(use-package clockify
+  :load-path "~/projects/emacs-clockify"
+  :init
+  (setq clockify-api-key "")
+  (setq clockify-workspace "5e86dee9c170232ca4be1432")
+)
+
+(use-package html-to-hiccup
+  :load-path "~/projects/html-to-hiccup")
 
 ;; (use-package counsel
 ;;   :bind
@@ -326,3 +335,17 @@ With a prefix argument N, (un)comment that many sexps."
 (map! :localleader
       :map (clojure-mode-map clojurescript-mode-map)
       "=" #'zprint)
+
+(defun html-to-hiccup-buffer ()
+  (interactive)
+  ;; (evil-visual-select (point-min) (point-max))
+  (html-to-hiccup-convert-region (point-min) (point-max))
+  (zprint))
+
+(setq display-time-world-list
+      '(("America/Chicago" "Wisconsin")
+        ("America/Recife" "Recife")
+        ("Europe/Berlin" "Berlin")
+        ("Asia/Jerusalem" "Israel")
+        ("Asia/Kolkata" "Mumbai")))
+(setq display-time-world-time-format "%a, %l:%M %p")
