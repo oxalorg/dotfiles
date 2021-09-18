@@ -280,6 +280,10 @@ mkvtomp4() {
     ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
 }
 
+videotoaudio() {
+    ffmpeg -i "$1" -vn -acodec copy "${1%.*}.aac"
+}
+
 ee() {
     vimcmd=""
     firstfile=""
@@ -315,6 +319,11 @@ gs  -q -dNOPAUSE -dBATCH -dSAFER \
 
 compressimg() {
     convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize 25% -auto-orient "$1" "compressed_$1"
+}
+
+imgwrite() {
+  TEXT="$2"
+  convert -font helvetica -fill green -pointsize 36 -draw "text 15,50 '$TEXT'" "$1" "text-$1"
 }
 
 curlpj() {
