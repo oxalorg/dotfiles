@@ -3,6 +3,11 @@ set -e
 # Installing oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+
+sudo add-apt-repository ppa:xubuntu-dev/extras
+sudo apt update
+sudo apt install xfce4-docklike-plugin
+
 declare -a programs=(
     "lolcat"
     "cowsay"
