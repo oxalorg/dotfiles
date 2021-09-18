@@ -1,2 +1,2 @@
 #!/bin/sh
-wget --mirror --convert-links --adjust-extension --page-requisites --no-parent $1
+wget -erobots=off --mirror --convert-links --adjust-extension --page-requisites --no-parent $1
