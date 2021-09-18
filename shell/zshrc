@@ -1,13 +1,49 @@
 # @oxalorg
 # Common shell rc
 
-EDITOR=emacsclient
-
 if grep -iq microsoft /proc/version; then
+  export ZSH="/home/ox/.oh-my-zsh"
+  DOTFILES=/c/Users/ox/Dropbox/projects/dotfiles
   myos=wsl
+elif [ "$(uname -s)" = "Darwin" ]; then
+  export ZSH="/Users/ox/.oh-my-zsh"
+  DOTFILES=~/Dropbox/projects/dotfiles
+  myos=darwin
 else
+  export ZSH="/home/ox/.oh-my-zsh"
+  DOTFILES=~/Dropbox/projects/dotfiles
   myos=linux
 fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+ZSH_THEME="robbyrussell"
+HYPHEN_INSENSITIVE="true"
+DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+# DISABLE_AUTO_TITLE="true"
+# ENABLE_CORRECTION="true"
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+HIST_STAMPS="yyyy-mm-dd"
+
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git fzf fzf-tab)
+
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+# export LANG=en_US.UTF-8
+
+# export ARCHFLAGS="-arch x86_64"
+
+EDITOR=emacsclient
 
 if [ "$TMUX" = "" ]; then tmux; fi
 
@@ -21,7 +57,7 @@ fzf-history-widget-accept() {
     fzf-history-widget
     zle accept-line
 }
-zle -N fzf-history-widget-accept
+#zle -N fzf-history-widget-accept
 bindkey -M vicmd '?' fzf-history-widget-accept
 bindkey -M vicmd 'gf' fzf-cd-widget
 TERM=xterm-256color
@@ -48,13 +84,9 @@ zle -K viins
 autoload -z edit-command-line   # Allows C-x-e to edit command in editor
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
-CABINET=~/Dropbox/cabinet
-NOTES=$CABINET/notes
-DOTFILES=~/Dropbox/Projects/dotfiles
 
 # Imports
 [ -f $DOTFILES/shell/aliases ] && source $DOTFILES/shell/aliases  # Import common aliases
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
 [ -f ~/.ox/ox ] && source ~/.ox/ox
 [ -f ~/.dircolors ] && eval `dircolors ~/.dircolors`
 [ -f ~/.z.sh ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o ~/.z.sh
@@ -63,25 +95,29 @@ DOTFILES=~/Dropbox/Projects/dotfiles
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/bin:$PATH"
 export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH=$HOME/.yarn/bin:/usr/local/bin:$PATH
 export PATH=$HOME/.emacs.d/bin:$PATH
 export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="/opt/gradle/bin:$PATH"
 [ -f ~/.rbenv/bin/rbenv ] && eval "$(rbenv init -)"
 
 if [[ "$myos" == "wsl" ]]; then
-	export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
+    #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
+    export DISPLAY=$(netstat -rn | grep -o "^0.0.0.0 \+\([0-9]\.\?\)\+" | grep -o "[^ ]\+$"):0
     export LIBGL_ALWAYS_INDIRECT=1
 fi
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 [ -f "$HOME/.local/bin/ox" ] && source $HOME/.local/bin/ox
 
 # Functions
@@ -235,7 +271,9 @@ f() {
 }
 
 # Like f, but not recursive.
-fm() f "$@" --max-depth 1
+fm() {
+    f "$@" --max-depth 1
+}
 
 fif() {
     if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
@@ -368,15 +406,28 @@ ocr() {
     tesseract "$1" "${1%.*}.ocr"
 }
 
-export CLOJURIANS_LOG_HOST="0.0.0.0"
-
 ssh-key-create() {
-    ssh-keygen -t rsa -b 4096 -C "mitesh@miteshshah.com" -N "" -f "$(date +%s)"
+    ssh-keygen -t ed25519 -C "mitesh@miteshshah.com" -N "" -f "$(date +%s)"
 }
 
-export DENO_INSTALL="/home/ox/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="/home/ox/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"
+
+# xsetwacom set "Wacom Bamboo One S Pen eraser" MapToOutput HEAD-0
+# xsetwacom set "Wacom Bamboo One S Pen stylus" MapToOutput HEAD-0
+
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
+
+autoload -Uz compinit; compinit
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
+
+source $ZSH/oh-my-zsh.sh
+
+#;; Local Variables:
+#;; mode: sh
+#;; End:
+
