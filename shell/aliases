@@ -92,3 +92,13 @@ alias pf='pip3 freeze'
 # alias fd='fdfind'
 
 alias l2='ls -lt | head -n 25'
+
+alias m='e --eval "(progn (magit-status) (delete-other-windows))"'
+alias mt="m -t"
+alias et="e -t"
+
+alias say="figlet -f wideterm.tlf"
+alias sayb="figlet -f mono12.tlf"
+alias sayf="figlet -f future.tlf"
+alias sayp="figlet -f pagga.tlf"
+alias says="figlet -f smblock.tlf"

@@ -1,18 +1,20 @@
 # @oxalorg
 # Common shell rc
 
-if grep -iq microsoft /proc/version; then
-  export ZSH="/home/ox/.oh-my-zsh"
-  DOTFILES=/c/Users/ox/Dropbox/projects/dotfiles
-  myos=wsl
-elif [ "$(uname -s)" = "Darwin" ]; then
+zmodload zsh/zprof
+
+if [ "$(uname -s)" = "Darwin" ]; then
   export ZSH="/Users/ox/.oh-my-zsh"
-  DOTFILES=~/Dropbox/projects/dotfiles
-  myos=darwin
+  export DOTFILES=~/Dropbox/projects/dotfiles
+  export myos=mac
+elif grep -iq microsoft /proc/version; then
+  export ZSH="/home/ox/.oh-my-zsh"
+  export DOTFILES=/c/Users/ox/Dropbox/projects/dotfiles
+  export myos=wsl
 else
   export ZSH="/home/ox/.oh-my-zsh"
-  DOTFILES=~/Dropbox/projects/dotfiles
-  myos=linux
+  export DOTFILES=~/Dropbox/projects/dotfiles
+  export myos=linux
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -33,7 +35,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf fzf-tab)
+plugins=(git fzf fzf-tab zsh-autosuggestions)
 
 
 # User configuration
@@ -114,27 +116,13 @@ fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 [ -f "$HOME/.local/bin/ox" ] && source $HOME/.local/bin/ox
 
 # Functions
-
-## Make and Change Directory
-### Source: http://unix.stackexchange.com/questions/9123/is-there-a-one-liner-that-allows-me-to-create-a-directory-and-move-into-it-at-th
-#mcd () {
-#  case "$1" in
-#    */..|*/../) cd -- "$1";; # that doesn't make any sense unless the directory already exists
-#    /*/../*) (cd "${1%/../*}/.." && mkdir -p "./${1##*/../}") && cd -- "$1";;
-#    /*) mkdir -p "$1" && cd "$1";;
-#    */../*) (cd "./${1%/../*}/.." && mkdir -p "./${1##*/../}") && cd "./$1";;
-#    ../*) (cd .. && mkdir -p "${1#.}") && cd "$1";;
-#    *) mkdir -p "./$1" && cd "./$1";;
-#  esac
-#}
-
+ 
 # press ctrl-z again to unsuspend
 fancy-ctrl-z () {
     if [[ $#BUFFER -eq 0 ]]; then
@@ -148,35 +136,9 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-
-export WORKON_HOME=$HOME/.virtualenvs
-if [ "$(uname -s)" = "Darwin" ]; then
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-    export VIRTUALENVWRAPPER_SCRIPT=$HOME/Library/Python/3.6/bin/virtualenvwrapper.sh
-    source $HOME/Library/Python/3.6/bin/virtualenvwrapper_lazy.sh
-    export ANDROID_HOME=$HOME/Library/Android/sdk
-else
-    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    export VIRTUALENVWRAPPER_SCRIPT=~/.local/bin/virtualenvwrapper.sh
-    source ~/.local/bin/virtualenvwrapper_lazy.sh
-    export ANDROID_HOME=$HOME/Android/Sdk
-    export PATH=$PATH:$ANDROID_HOME/emulator
-    export PATH=$PATH:$ANDROID_HOME/tools
-    export PATH=$PATH:$ANDROID_HOME/tools/bin
-    export PATH=$PATH:$ANDROID_HOME/platform-tools
-    #export DOCKER_HOST=tcp://localhost:2375
-fi
-
-if [[ "$(uname)" == "Darwin" ]]; then
-    export ZSH="/Users/ox/.oh-my-zsh"
-    export PATH=/Users/ox/Library/Python/3.7/bin/:$PATH
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-    export VIRTUALENVWRAPPER_SCRIPT=/Users/ox/Library/Python/3.7/bin/virtualenvwrapper.sh
+if [[ "$myos" == "mac" ]]; then
     alias xdg-open="open"
 else
-    export ZSH="/home/ox/.oh-my-zsh"
-    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-    export VIRTUALENVWRAPPER_SCRIPT=~/.local/bin/virtualenvwrapper.sh
     alias open="xdg-open"
 fi
 
@@ -232,7 +194,6 @@ function og() {
     fi
 }
 
-
 function ogi() {
     project_slug=$(git remote -v | tr ':' ' ' | awk '{print $3}' | sed 's/\(.*\).git/\1/' | head -n 1)
     echo "Opening $project_slug"
@@ -279,12 +240,6 @@ fif() {
     if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
     rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
 }
-
-alias say="figlet -f wideterm.tlf"
-alias sayb="figlet -f mono12.tlf"
-alias sayf="figlet -f future.tlf"
-alias sayp="figlet -f pagga.tlf"
-alias says="figlet -f smblock.tlf"
 
 meminsight() {
     if [ ! "$#" -gt 0 ]; then echo "Need a single argument with process id"; return 1; fi
