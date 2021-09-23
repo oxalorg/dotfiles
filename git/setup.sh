@@ -1,5 +1,4 @@
 #!/bin/bash
-DOTFILES=/dotfiles
 
 if [ -z "$DOTFILES" ]; then
     echo "DOTFILES var is not set."
