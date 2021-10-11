@@ -25,9 +25,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-outrun-electric)
-;; (setq doom-font (font-spec :family "Fira Code" :size 19))
-(setq doom-font (font-spec :family "Iosevka" :size 21))
+(setq doom-theme 'doom-one)
+(setq doom-font (font-spec :family "Iosevka" :size 18))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -38,6 +37,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type t)
 (setq display-line-numbers-type nil)
 (global-linum-mode 0)
 (global-display-line-numbers-mode 0)
@@ -59,24 +59,34 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq browse-url-browser-function 'browse-url-firefox)
+;; (setq browse-url-browser-function 'browse-url-firefox)
+
+(setq-default
+ delete-by-moving-to-trash t)
+
+(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
+      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
+      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
+      truncate-string-ellipsis "…"                ; Unicode ellispis are nicer than "...", and also save /precious/ space
+      password-cache-expiry nil                   ; I can trust my computers ... can't I?
+      ;; scroll-preserve-screen-position 'always     ; Don't have `point' jump around
+      scroll-margin 2)                            ; It's nice to maintain a little margin
+
+(setq-default custom-file (expand-file-name ".custom.el" doom-private-dir))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
 
 (advice-add #'turn-on-evil-mode :before
             (lambda (&optional args)
               (when (eq major-mode 'fundamental-mode)
                 (hack-local-variables))))
 
-;; (add-hook 'lisp-mode-hook #'evil-cleverparens-mode)
-(use-package! evil-cleverparens
-  :commands evil-cleverparens-mode
-  :init
-  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
-  :config
-  (map! :map evil-cleverparens-mode-map
-        :nv "{" nil
-        :nv "}" nil
-        :nv "[" nil
-        :nv "]" nil))
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (consult-buffer))
 
 (setq evil-snipe-override-evil-repeat-keys nil)
 (setq doom-localleader-key ",")
@@ -121,10 +131,7 @@
       "n a" #'cljr-add-require-to-ns
       "n i" #'cljr-add-import-to-ns
       "n m" #'cljr-add-missing-libspec
-      "n c" #'cljr-clean-ns)
-
-(map! :localleader
-      :map (clojure-mode-map clojurescript-mode-map)
+      "n c" #'cljr-clean-ns
       "," #'cider-switch-to-repl-buffer-same-window-force)
 
 (map! :localleader
@@ -159,7 +166,8 @@
 (setq ivy-extra-directories nil)
 
 (after! evil
-  (setq evil-move-beyond-eol t)
+  (setq evil-move-beyond-eol t
+        evil-kill-on-visual-paste nil)
   (map!
    :nvm ";" #'evil-ex
    :nvm ":" #'evil-repeat-find-char
@@ -201,30 +209,30 @@
 
 (advice-add 'risky-local-variable-p :override #'ignore)
 
-(use-package! lsp
-  :config
-  (let ((lsp-dirs-to-ignore
-         '("[/\\\\]\\.cpcache\\'"
-           "[/\\\\]\\.datomic\\'"
-           "[/\\\\]cljs-runtime\\'"
-           "[/\\\\]\\.lsp\\'"
-           "[/\\\\]\\.store\\'"
-           "[/\\\\]\\.shadow-cljs\\'")))
-    (dolist (item lsp-dirs-to-ignore)
-      (add-to-list 'lsp-file-watch-ignored-directories item))))
+;; (use-package! lsp
+;;   :config
+;;   (let ((lsp-dirs-to-ignore
+;;          '("[/\\\\]\\.cpcache\\'"
+;;            "[/\\\\]\\.datomic\\'"
+;;            "[/\\\\]cljs-runtime\\'"
+;;            "[/\\\\]\\.lsp\\'"
+;;            "[/\\\\]\\.store\\'"
+;;            "[/\\\\]\\.shadow-cljs\\'")))
+;;     (dolist (item lsp-dirs-to-ignore)
+;;       (add-to-list 'lsp-file-watch-ignored-directories item))))
 
 ;; (mapcar (lambda (f) (set-face-foreground f "dim gray"))
 ;;         '(lsp-ui-sideline-code-action lsp-ui-sideline-current-symbol lsp-ui-sideline-symbol lsp-ui-sideline-symbol-info))
 
-(use-package clockify
-  :load-path "~/projects/emacs-clockify"
-  :init
-  (setq clockify-api-key "")
-  (setq clockify-workspace "5e86dee9c170232ca4be1432")
-)
+;; (use-package clockify
+;;   :load-path "~/projects/emacs-clockify"
+;;   :init
+;;   (setq clockify-api-key "")
+;;   (setq clockify-workspace "5e86dee9c170232ca4be1432")
+;; )
 
-(use-package html-to-hiccup
-  :load-path "~/projects/html-to-hiccup")
+;; (use-package html-to-hiccup
+;;   :load-path "~/projects/html-to-hiccup")
 
 ;; (use-package counsel
 ;;   :bind
@@ -349,3 +357,234 @@ With a prefix argument N, (un)comment that many sexps."
         ("Asia/Jerusalem" "Israel")
         ("Asia/Kolkata" "Mumbai")))
 (setq display-time-world-time-format "%a, %l:%M %p")
+
+(map! :map evil-window-map
+      "SPC" #'rotate-layout
+      ;; Navigation
+      "<left>"     #'evil-window-left
+      "<down>"     #'evil-window-down
+      "<up>"       #'evil-window-up
+      "<right>"    #'evil-window-right
+      ;; Swapping windows
+      "C-<left>"       #'+evil/window-move-left
+      "C-<down>"       #'+evil/window-move-down
+      "C-<up>"         #'+evil/window-move-up
+      "C-<right>"      #'+evil/window-move-right)
+
+(setq eros-eval-result-prefix "⟹ ")
+
+;; copied from corgi
+(setq evil-want-C-u-scroll t)
+
+(setq ring-bell-function 'ignore
+      display-time-world-list '(("America/Chicago" "Wisconsin")
+                                ("America/Recife" "Recife")
+                                ("Europe/Berlin" "Berlin")
+                                ("Asia/Jerusalem" "Israel")
+                                ("Asia/Kolkata" "Mumbai"))
+      display-time-world-time-format "%a, %l:%M %p"
+      dired-recursive-copies (quote always) ; “always” means no asking
+      dired-recursive-deletes (quote top) ; “top” means ask once
+      dired-dwim-target t ; Copy from one dired dir to the next dired dir shown in a split window
+      split-height-threshold nil
+      split-width-threshold 0)
+
+(defun custom-dired-mode-setup ()
+  "to be run as hook for `dired-mode'."
+  (dired-hide-details-mode 1))
+(add-hook 'dired-mode-hook 'custom-dired-mode-setup)
+
+(with-eval-after-load 'dired
+  (put 'dired-find-alternate-file 'disabled nil) ; disables warning
+  (evil-define-key '(normal) dired-mode-map
+    (kbd "RET") 'dired-find-alternate-file ; was dired-advertised-find-file
+    (kbd "^") (lambda () (interactive) (find-alternate-file "..")))) ; was dired-up-directory
+
+;; (setq ivy-initial-inputs-alist nil)
+
+;; (global-superword-mode t)
+;; (and window-system (server-start))
+;; (desktop-save-mode 1)
+;; (show-paren-mode 1)
+;; (set-frame-font "Iosevka 20")
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; (use-package dired-subtree)
+(use-package! org
+  :config
+  (setq org-startup-indented t))
+;; (use-package counsel-projectile
+;;   :init
+;;   (setq projectile-indexing-method 'hybrid)
+;;   ;; (setq projectile-sort-order 'recently-active)
+;;   (setq projectile-sort-order 'recentf))
+;; (use-package cherry-blossom-theme
+;;   :config
+;;   (load-theme 'cherry-blossom t))
+(use-package! evil-smartparens)
+
+(use-package! evil-cleverparens
+  :commands evil-cleverparens-mode
+  :init
+  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+  (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
+  (setq evil-cleverparens-complete-parens-in-yanked-region t)
+  :config
+  (map! :textobj "f" #'evil-cp-inner-form #'evil-cp-a-form)
+  (setq evil-cleverparens-use-s-and-S nil)
+  (evil-define-key '(normal visual) evil-cleverparens-mode-map
+    "s" nil
+    "S" nil
+    "{" nil
+    "}" nil
+    "[" nil
+    "]" nil
+    ;;(kbd "<tab>") 'evil-jump-item)
+    ))
+
+(use-package! zprint-mode)
+(use-package! evil-escape
+  :config
+  (setq-default evil-escape-key-sequence "qp")
+  (evil-escape-mode))
+;; (use-package html-to-hiccup
+;;   :load-path "~/projects/html-to-hiccup")
+(use-package! git-link
+  :config
+  (setq git-link-open-in-browser t
+        git-link-use-commit t))
+;; (use-package magit-delta
+;;   :after (magit)
+;;   :config
+;;   (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
+;; (use-package diff-hl
+;;   :config
+;;   (evil-set-initial-state 'diff-hl-show-hunk-posframe--transient-mode 'motion)
+;;   (global-diff-hl-mode))
+;; (with-eval-after-load 'evil
+;;   (fset 'evil-visual-update-x-selection 'ignore)
+;;   (setq evil-kill-on-visual-paste nil)
+;;   (setq evil-insert-state-cursor '(bar "green"))
+;;   (setq-default evil-symbol-word-search t))
+
+;; (with-eval-after-load 'diff-hl
+;;   '(progn
+;;      ;; let diff-hl inline popup keymaps take priority over evil
+;;      (evil-make-overriding-map diff-hl-show-hunk--inline-popup-map 'normal)
+;;      ;; force update evil keymaps after diff-hl-mode loaded
+;;      (add-hook 'diff-hl-mode-hook #'evil-normalize-keymaps)))
+
+;; (with-eval-after-load 'evil-maps
+;;   (define-key evil-motion-state-map (kbd ":") 'evil-repeat-find-char)
+;;   (define-key evil-motion-state-map (kbd ";") 'evil-ex))
+
+(defun html-to-hiccup-buffer ()
+  (interactive)
+  ;; (evil-visual-select (point-min) (point-max))
+  (html-to-hiccup-convert-region (point-min) (point-max))
+  (zprint))
+
+;; (map! :localleader
+;;       :map (clojure-mode-map clojurescript-mode-map)
+;;       "=" #'zprint)
+
+(when (and (eq system-type 'gnu/linux)
+           (string-match
+            "Linux.*Microsoft.*Linux"
+            (shell-command-to-string "uname -a")))
+  (setq
+   browse-url-generic-program  "/c/Windows/System32/cmd.exe"
+   browse-url-generic-args     '("/c" "start")
+   browse-url-browser-function #'browse-url-generic))
+
+(defun ox/cider-eval-defun-at-point-and-run-test ()
+  (interactive)
+  (cider-eval-defun-at-point)
+  (cider-test-run-test))
+
+(defun ox/cider-switch-to-repl-buffer-same-window-force ()
+  (interactive)
+  (let ((repl (cider-current-repl nil nil)))
+    (if repl
+        (switch-to-buffer repl)
+      (switch-to-buffer (cider-current-repl 'any 'ensure)))))
+
+
+(defun ox/toggle-parens--replace (pair start end)
+  "Replace parens with a new PAIR at START and END in current buffer.
+   A helper function for `toggle-parens'."
+  (goto-char start)
+  (delete-char 1)
+  (insert (substring pair 0 1))
+  (goto-char end)
+  (delete-char 1)
+  (insert (substring pair 1 2))
+  (goto-char start))
+
+(defun ox/toggle-parens ()
+  "Toggle parens () <> [] at cursor.
+
+Turn on `show-paren-mode' to see matching pairs of parentheses
+and other characters in buffers. This function then uses the same
+function `show-paren-data-function' to find and replace them with
+the other pair of brackets.
+
+This function can be easily modified and expanded to replace
+other brackets. Currently, mismatch information is ignored and
+mismatched parens are changed based on the left one."
+  (interactive)
+  (let* ((parens (funcall show-paren-data-function))
+         (start (if (< (nth 0 parens) (nth 2 parens))
+                    (nth 0 parens) (nth 2 parens)))
+         (end (if (< (nth 0 parens) (nth 2 parens))
+                  (nth 2 parens) (nth 0 parens)))
+         (startchar (buffer-substring-no-properties start (1+ start)))
+         (mismatch (nth 4 parens)))
+    (when parens
+      (case startchar
+        ("(" (ox/toggle-parens--replace "[]" start end))
+        ("[" (ox/toggle-parens--replace "{}" start end))
+        ("{" (ox/toggle-parens--replace "()" start end))))))
+
+(defun ox/refresh-projects-dir ()
+  (interactive)
+  (projectile-discover-projects-in-directory "~/projects"))
+
+(defun ox/open-round-insert ()
+  (interactive)
+  (paredit-open-round)
+  (evil-insert 0))
+
+(map! :map vertico-map
+      "<tab>" #'vertico-next
+       "<backtab>" #'vertico-previous
+       ";" #'vertico-insert)
+
+(setq deft-directory "~/journal"
+      deft-default-extension "org"
+      deft-extensions '("md" "org" "txt")
+      deft-recursive t
+      deft-use-filename-as-title t)
+
+;; (setq save-interprogram-paste-before-kill t)
+
+;; (evil-define-key '(normal visual) cider-repl-mode-map
+;;   (kbd "SPC,") 'evil-switch-to-windows-last-buffer)
+
+(use-package! smartparens
+  :init (require 'smartparens-config)
+  :diminish smartparens-mode
+  :hook (prog-mode . smartparens-mode))
+
+;; Dashboard quick actions
+(map! :map +doom-dashboard-mode-map
+      :ne "f" #'find-file
+      :ne "r" #'consult-recent-file
+      :ne "p" #'doom/open-private-config
+      :ne "c" (cmd! (find-file (expand-file-name "config.org" doom-private-dir)))
+      :ne "." (cmd! (doom-project-find-file "~/.config/")) ; . for dotfiles
+      :ne "b" #'+vertico/switch-workspace-buffer
+      :ne "B" #'consult-buffer
+      :ne "q" #'save-buffers-kill-terminal)
+
+;; (map! )
