@@ -421,7 +421,7 @@ With a prefix argument N, (un)comment that many sexps."
 ;; (use-package cherry-blossom-theme
 ;;   :config
 ;;   (load-theme 'cherry-blossom t))
-(use-package! evil-smartparens)
+;; (use-package! evil-smartparens)
 
 (use-package! evil-cleverparens
   :commands evil-cleverparens-mode
