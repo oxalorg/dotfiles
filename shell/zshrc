@@ -369,8 +369,8 @@ export PATH="/home/ox/.pyenv/bin:$PATH"
 if command -v pyenv &> /dev/null; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
-    eval "$(direnv hook zsh)"
 fi
+eval "$(direnv hook zsh)"
 
 # xsetwacom set "Wacom Bamboo One S Pen eraser" MapToOutput HEAD-0
 # xsetwacom set "Wacom Bamboo One S Pen stylus" MapToOutput HEAD-0
