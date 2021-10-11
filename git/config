@@ -47,3 +47,7 @@
   # git reviewone foo.js bar.js
   reviewone = !$EDITOR -p +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
 
+[init]
+	defaultBranch = main
+[pull]
+	ff = only
