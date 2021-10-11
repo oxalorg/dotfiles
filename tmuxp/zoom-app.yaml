@@ -1,0 +1,16 @@
+session_name: pitch-zoom
+windows:
+  - window_name: pitch-zoom
+    layout: tiled
+    shell_command_before:
+      - cd ~/projects/pitch-app
+    panes:
+      - shell_command:
+          - pit db
+          - services/backend/scripts/with-playground-auth pit backend -s
+      - shell_command:
+          - cd projects/zoom-app
+          - scripts/with-playground-backend scripts/dev
+      - shell_command:
+          - cd projects/zoom-app
+          - scripts/start-tunnel
