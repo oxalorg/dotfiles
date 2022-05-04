@@ -73,8 +73,10 @@
   ;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   )
 
+(use-package verb)
 ;; Language-specific packages
-(use-package org)
+(use-package org
+  :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 (use-package markdown-mode)
 (use-package yaml-mode)
 (use-package typescript-mode)
