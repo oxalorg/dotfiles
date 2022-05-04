@@ -35,17 +35,24 @@
  ;; Bindings for commands are usually only active in normal and visual state.
  (normal|visual
   ;; ("I" "Start insert on forms" evil-cp-insert-at-beginning-of-form)
+  ("[" "unimpared behind"
+   ("c" "Next hunk of git change" git-gutter:previous-hunk))
+
+  ("]" "unimpared ahead"
+   ("c" "Next hunk of git change" git-gutter:next-hunk))
+
   ("<backspace>" "Switch to previous buffer" corgi/switch-to-previous-buffer)
   ("z" "zzzzz"
    ("z" "Fold toggle" evil-toggle-fold))
 
-  ("SPC"
+  ("SPC" "leader"
    ("a" "End append on forms" evil-cp-insert-at-end-of-form)
    ("0" "Select Treemacs" treemacs-select-window)
    ("=" "Zoom in" default-text-scale-increase)
    ("-" "Zoom out" default-text-scale-decrease)
    ("[" "Prev error" flycheck-previous-error)
    ("]" "Next error" flycheck-next-error)
+   ;; ("`" "Switch to from cider" :switch-to-from-cider-repl)
 
    ("c" "clojure"
     ("a" "add arity" clojure-add-arity)
