@@ -268,7 +268,7 @@ mismatched parens are changed based on the left one."
    org-journal-dir "~/org/journal"
    org-journal-file-type 'monthly
    org-journal-date-format "%a, %Y-%m-%d"
-   org-journal-file-format "%Y-%m-%d.org"))
+   org-journal-file-format "%Y-%m.org"))
 
 (use-package magit-delta
   :after (magit)
