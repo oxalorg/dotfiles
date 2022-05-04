@@ -13,7 +13,10 @@
 ;; `user-keys.el', and your new binding will do the right thing regardless of
 ;; the language/mode you are in.
 
-((cider-mode (:eval/outer-sexp-comment cider-eval-defun-to-comment))
+((cider-mode (:eval/outer-sexp-comment cider-eval-defun-to-comment)
+             (:switch-to-from-cider-repl corgi/switch-to-previous-buffer))
+ (cider-repl-mode (:switch-to-from-cider-repl corgi/switch-to-previous-buffer))
+ (clojure-mode (:switch-to-from-cider-repl ox/cider-switch-to-repl-buffer-same-window-force))
  (js-mode ( :eval/last-sexp js-send-last-sexp
                             :eval/buffer js-send-buffer
                             :eval/region js-send-region
