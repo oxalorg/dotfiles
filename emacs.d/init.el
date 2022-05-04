@@ -414,6 +414,62 @@ mismatched parens are changed based on the left one."
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 (add-hook 'org-mode-hook 'auto-fill-mode)
 
-(setq tab-width 4)
-(setq default-tab-width 4)
-(setq c-basic-indent 4)
+(setq-default tab-width 4)
+(setq-default default-tab-width 4)
+(setq-default c-basic-indent 4)
+
+(defun ox/cider-switch-to-repl-buffer-same-window-force ()
+  (interactive)
+  (let ((repl (cider-current-repl nil nil)))
+    (if repl
+        (switch-to-buffer-other-window repl)
+      (switch-to-buffer (cider-current-repl 'any 'ensure)))))
+
+(defun ox/cider-pprint-eval-toggle-defun-at-point ()
+  (interactive)
+  (cider-pprint-eval-defun-at-point)
+  (switch-to-buffer-other-window "*cider-result*"))
+
+(defun ox/cider-eval-defun-at-point-and-run-test ()
+  (interactive)
+  (cider-eval-defun-at-point)
+  (cider-test-run-test))
+
+(defun ox/refresh-projects-dir ()
+  (interactive)
+  (projectile-discover-projects-in-directory "~/projects"))
+
+(use-package evil-escape
+  :config
+  (setq-default evil-escape-key-sequence "qp")
+  (evil-escape-mode))
+
+(use-package popper
+  :ensure t ; or :straight t
+  :bind (("M-`"   . popper-toggle-latest)
+         ("C-`"   . popper-cycle)
+         ("C-M-`" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Python\\*"
+          "\\*Async Shell Command\\*"
+          cider-repl-mode
+          help-mode
+          compilation-mode))
+  (popper-mode +1)
+  (popper-echo-mode +1))
+
+;; (use-package centaur-tabs
+;;   :demand
+;;   :config
+;;   (centaur-tabs-mode t)
+;;   (centaur-tabs-group-by-projectile-project)
+;;   :bind
+;;   ("C-<prior>" . centaur-tabs-backward)
+;;   ("C-<next>" . centaur-tabs-forward))
+
+(setq python-shell-interpreter "python3")
+;; (add-hook 'python-mode-hook 'electric-indent-mode-hook)
+(add-hook 'python-mode-hook (lambda () (electric-indent-local-mode 1)))
