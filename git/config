@@ -1,6 +1,7 @@
 [user]
     email = mitesh@miteshshah.com
     name = Mitesh Shah
+	signingKey = 9FC1459F9750C1CE
 [push]
     default = simple
 [core]
@@ -51,3 +52,5 @@
 	defaultBranch = main
 [pull]
 	ff = only
+[github]
+	user = oxalorg
