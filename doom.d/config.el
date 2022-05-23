@@ -25,8 +25,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
 (setq doom-font (font-spec :family "Iosevka" :size 18))
+(setq doom-theme 'doom-outrun-electric)
+(setq doom-font (font-spec :family "Fira Code" :size 16))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -571,10 +572,10 @@ mismatched parens are changed based on the left one."
 ;; (evil-define-key '(normal visual) cider-repl-mode-map
 ;;   (kbd "SPC,") 'evil-switch-to-windows-last-buffer)
 
-(use-package! smartparens
-  :init (require 'smartparens-config)
-  :diminish smartparens-mode
-  :hook (prog-mode . smartparens-mode))
+;; (use-package! smartparens
+;;   :init (require 'smartparens-config)
+;;   :diminish smartparens-mode
+;;   :hook (prog-mode . smartparens-mode))
 
 ;; Dashboard quick actions
 (map! :map +doom-dashboard-mode-map
@@ -588,3 +589,17 @@ mismatched parens are changed based on the left one."
       :ne "q" #'save-buffers-kill-terminal)
 
 ;; (map! )
+
+(setq auth-sources '("~/.authinfo"))
+
+
+;; fix for swiper bug https://github.com/clojure-emacs/cider/issues/2866
+(setq cider-font-lock-dynamically '(macro core))
+
+(setq magit-diff-refine-hunk (quote all))
+(define-key global-map [menu-bar edit] nil)
+(define-key global-map [menu-bar options] nil)
+(define-key global-map [menu-bar buffers] nil)
+(define-key global-map [menu-bar tools] nil)
+(define-key global-map [menu-bar outline] nil)
+(define-key global-map [menu-bar help-menu] nil)

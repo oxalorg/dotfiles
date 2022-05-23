@@ -55,6 +55,6 @@
 (package! rotate :pin "4e9ac3ff8008     80bd9b705794ef0f7c99d72900a6")
 (package! screenshot)
 (package! evil-cleverparens)
-(package! evil-smartparens)
+;; (package! evil-smartparens)
 (package! zprint-mode)
 (package! git-link)
