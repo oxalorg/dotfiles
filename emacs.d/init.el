@@ -170,7 +170,72 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((cider-refresh-after-fn . "reloaded.repl/resume")
+   '((elisp-lint-indent-specs
+      (if-let* . 2)
+      (when-let* . 1)
+      (let* . defun)
+      (nrepl-dbind-response . 2)
+      (cider-save-marker . 1)
+      (cider-propertize-region . 1)
+      (cider-map-repls . 1)
+      (cider--jack-in . 1)
+      (cider--make-result-overlay . 1)
+      (insert-label . defun)
+      (insert-align-label . defun)
+      (insert-rect . defun)
+      (cl-defun . 2)
+      (with-parsed-tramp-file-name . 2)
+      (thread-first . 1)
+      (thread-last . 1))
+     (checkdoc-package-keywords-flag)
+     (eval define-clojure-indent
+           (codepoint-case 'defun))
+     (eval define-clojure-indent
+           (l/matcha
+            '(1
+              (:defn)))
+           (l/matche
+            '(1
+              (:defn)))
+           (p\.types/def-abstract-type
+            '(1
+              (:defn)))
+           (p\.types/defprotocol+
+            '(1
+              (:defn)))
+           (p\.types/defrecord+
+            '(2 nil nil
+                (:defn)))
+           (p\.types/deftype+
+            '(2 nil nil
+                (:defn)))
+           (p/def-map-type
+            '(2 nil nil
+                (:defn)))
+           (p/defprotocol+
+            '(1
+              (:defn)))
+           (p/defrecord+
+            '(2 nil nil
+                (:defn)))
+           (p/deftype+
+            '(2 nil nil
+                (:defn)))
+           (tools\.macro/macrolet
+            '(1
+              ((:defn))
+              :form)))
+     (eval put 'p\.types/defprotocol+ 'clojure-doc-string-elt 2)
+     (eval put 's/defn 'clojure-doc-string-elt 2)
+     (eval put 'setting/defsetting 'clojure-doc-string-elt 2)
+     (eval put 'defsetting 'clojure-doc-string-elt 2)
+     (eval put 'api/defendpoint-async 'clojure-doc-string-elt 3)
+     (eval put 'api/defendpoint 'clojure-doc-string-elt 3)
+     (eval put 'define-premium-feature 'clojure-doc-string-elt 2)
+     (eval put 'defendpoint-async 'clojure-doc-string-elt 3)
+     (eval put 'defendpoint 'clojure-doc-string-elt 3)
+     (ftf-project-finders ftf-get-top-git-dir)
+     (cider-refresh-after-fn . "reloaded.repl/resume")
      (cider-refresh-before-fn . "reloaded.repl/suspend")
      (cider-save-file-on-load)
      (cider-auto-track-ns-form-changes)
@@ -302,83 +367,38 @@ mismatched parens are changed based on the left one."
   (require 'flycheck-clj-kondo))
 
 ;; Example configuration for Consult
-(use-package consult
-  ;; Replace bindings. Lazily loaded due by `use-package'.
-  :bind (:map isearch-mode-map
-              ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-              ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
-              ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
-              ("M-s L" . consult-line-multi))           ;; needed by consult-line to detect isearch
 
-  ;; Enable automatic preview at point in the *Completions* buffer. This is
-  ;; relevant when you use the default completion UI. You may want to also
-  ;; enable `consult-preview-at-point-mode` in Embark Collect buffers.
-  :hook (completion-list-mode . consult-preview-at-point-mode)
+;; (ivy-mode 0)
+;; (counsel-mode 0)
 
-  ;; The :init configuration is always executed (Not lazy)
+(use-package vertico
   :init
+  (vertico-mode))
 
-  ;; Optionally configure the register formatting. This improves the register
-  ;; preview for `consult-register', `consult-register-load',
-  ;; `consult-register-store' and the Emacs built-ins.
+(use-package consult
+  :init
   (setq register-preview-delay 0
         register-preview-function #'consult-register-format)
-
-  ;; Optionally tweak the register preview window.
-  ;; This adds thin lines, sorting and hides the mode line of the window.
   (advice-add #'register-preview :override #'consult-register-window)
-
-  ;; Optionally replace `completing-read-multiple' with an enhanced version.
   (advice-add #'completing-read-multiple :override #'consult-completing-read-multiple)
-
-  ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref)
-
-  ;; Configure other variables and modes in the :config section,
-  ;; after lazily loading the package.
+  :hook (completion-list-mode . consult-preview-at-point-mode)
   :config
-
-  ;; Optionally configure preview. The default value
-  ;; is 'any, such that any key triggers the preview.
-  ;; (setq consult-preview-key 'any)
-  ;; (setq consult-preview-key (kbd "M-."))
-  ;; (setq consult-preview-key (list (kbd "<S-down>") (kbd "<S-up>")))
-  ;; For some commands and buffer sources it is useful to configure the
-  ;; :preview-key on a per-command basis using the `consult-customize' macro.
   (consult-customize
    consult-theme
-   :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
    consult--source-recent-file consult--source-project-recent-file consult--source-bookmark
-   :preview-key (kbd "M-."))
-
-  ;; Optionally configure the narrowing key.
-  ;; Both < and C-+ work reasonably well.
+   :preview-key '(:debounce 0.2 any)
+   ;; :preview-key (kbd "M-."))
+  )
   (setq consult-narrow-key "<") ;; (kbd "C-+")
-
-  ;; Optionally make narrowing help available in the minibuffer.
-  ;; You may want to use `embark-prefix-help-command' or which-key instead.
-  ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
-
-  ;; Optionally configure a function which returns the project root directory.
-  ;; There are multiple reasonable alternatives to chose from.
-  ;;;; 1. project.el (project-roots)
-  ;; (setq consult-project-root-function
-  ;;       (lambda ()
-  ;;         (when-let (project (project-current))
-  ;;           (car (project-roots project)))))
-  ;;;; 2. projectile.el (projectile-project-root)
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-root-function #'projectile-project-root)
-  ;;;; 3. vc.el (vc-root-dir)
-  ;; (setq consult-project-root-function #'vc-root-dir)
-  ;;;; 4. locate-dominating-file
-  ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
   )
 
-(use-package consult-flycheck)
+;; (use-package consult-flycheck)
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 (add-hook 'clojure-mode-hook #'hs-minor-mode)
@@ -455,7 +475,7 @@ mismatched parens are changed based on the left one."
           "Output\\*$"
           "\\*Python\\*"
           "\\*Async Shell Command\\*"
-          cider-repl-mode
+          ;; cider-repl-mode
           help-mode
           compilation-mode))
   (popper-mode +1)
