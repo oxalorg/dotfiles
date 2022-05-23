@@ -5,10 +5,8 @@ windows:
     shell_command_before:
       - cd ~/projects/pitch-app
     panes:
-      - echo "wow"
       - shell_command:
           - pit db
           - services/backend/scripts/with-playground-auth pit backend -s
-      - echo "hello"
       - shell_command:
           - desktop-app/scripts/with-playground-backend pit dev

@@ -35,7 +35,10 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf fzf-tab zsh-autosuggestions)
+plugins=(
+    git fzf fzf-tab zsh-autosuggestions docker docker-compose
+    poetry
+)
 
 
 # User configuration
@@ -94,6 +97,12 @@ bindkey "^X^E" edit-command-line
 [ -f ~/.z.sh ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o ~/.z.sh
 [ -f ~/.z.sh ] && source ~/.z.sh
 
+export GPG_TTY=$(tty)
+
+gcloud-source() {
+    source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+}
+
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
@@ -111,18 +120,29 @@ if [[ "$myos" == "wsl" ]]; then
     #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
     export DISPLAY=$(netstat -rn | grep -o "^0.0.0.0 \+\([0-9]\.\?\)\+" | grep -o "[^ ]\+$"):0
     export LIBGL_ALWAYS_INDIRECT=1
+elif [[ "$myos" == "mac" ]]; then
+    export PATH="/Users/ox/Library/Python/3.9/bin:$PATH"
 fi
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export DISABLE_AUTO_TITLE='true'
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [[ "$myos" == "mac" ]]; then
+    export PATH="/opt/homebrew/opt/node@14/bin:$PATH"
+    export LDFLAGS="-L/opt/homebrew/opt/node@14/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/node@14/include"
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_complet
+else
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
 [ -f "$HOME/.local/bin/ox" ] && source $HOME/.local/bin/ox
 
 # Functions
- 
+
 # press ctrl-z again to unsuspend
 fancy-ctrl-z () {
     if [[ $#BUFFER -eq 0 ]]; then
@@ -277,6 +297,10 @@ videotoaudio() {
     ffmpeg -i "$1" -vn -acodec copy "${1%.*}.aac"
 }
 
+videocompress() {
+    ffmpeg -i "$1" -vcodec libx264 -crf 28 "${1%.*}.mp4"
+}
+
 ee() {
     vimcmd=""
     firstfile=""
@@ -312,6 +336,10 @@ gs  -q -dNOPAUSE -dBATCH -dSAFER \
 
 compressimg() {
     convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize 25% -auto-orient "$1" "compressed_$1"
+}
+
+resizeimg() {
+    convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize "$2" -auto-orient "$1" "compressed_$1"
 }
 
 imgwrite() {
@@ -353,7 +381,7 @@ x(){
 }
 
 oxtmp() {
-    scp $1 ark:/srv/ox/oxal.org/tmp/
+    scp $1 ark2:/srv/ox/oxal.org/tmp/
     echo "https://oxal.org/tmp/$1"
 }
 
@@ -387,4 +415,3 @@ source $ZSH/oh-my-zsh.sh
 #;; Local Variables:
 #;; mode: sh
 #;; End:
-
