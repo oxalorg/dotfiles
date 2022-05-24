@@ -8,3 +8,5 @@
           (lambda ()
             (setq gc-cons-threshold 33554432 ; 32mb
                   gc-cons-percentage 0.1)))
+
+(setq package-enable-at-startup nil)
