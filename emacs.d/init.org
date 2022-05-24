@@ -220,6 +220,9 @@ Main keybindings are configured using corkey. It supports easy keybindings for e
 
 #+end_src
 
+#+RESULTS:
+: t
+
 * UI Configuration
 
 ** Command Log Mode
@@ -571,10 +574,14 @@ To execute or export code in =org-mode= code blocks, you'll need to set up =org-
 
 #+end_src
 
-** Org simple templates
+** Org easy templates
+Keep it disabled in favor of yasnippets
 #+begin_src emacs-lisp
-
+  ;; (require 'org-tempo)
 #+end_src
+
+#+RESULTS:
+: org-tempo
 
 * Literate configuration with init.org
 ** Auto-tangle Configuration Files
@@ -603,6 +610,14 @@ This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-con
 | er/add-org-mode-expansions | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | (lambda nil (add-hook 'after-save-hook #'efs/org-babel-tangle-config)) | org-bullets-mode | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | efs/org-mode-visual-fill | efs/org-mode-setup | (lambda nil (display-line-numbers-mode 0)) |
 
 ** Open init.org function
+#+begin_src emacs-lisp
+  (defun ox/open-init-org ()
+    (interactive)
+      (find-file (expand-file-name "init.org" user-emacs-directory)))
+#+end_src
+
+#+RESULTS:
+: ox/open-init-org
 ** If you're sturggling to get tangling to work
 
 Add this into init.el and then `M-x eval-buffer`
@@ -687,10 +702,18 @@ This is an example of configuring another non-Emacs application using org-mode. 
 
 * Verb HTTP rest client
 #+begin_src emacs-lisp
-  (defun ox/open-init-org ()
-    (interactive)
-      (find-file (expand-file-name "init.org" user-emacs-directory)))
+#+end_src
+* Snippets
+yasnippets is the most complete and popular snippet engine which works based on major-modes
+
+#+begin_src emacs-lisp
+(use-package yasnippet-snippets
+  :ensure t)
+(use-package yasnippet
+  :ensure t
+  :config (yas-global-mode 1))
 #+end_src
 
 #+RESULTS:
-: ox/open-init-org
+: t
+

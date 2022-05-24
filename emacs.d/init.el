@@ -403,7 +403,7 @@
 (push '("conf-unix" . conf-unix) org-src-lang-modes)
 (setq org-confirm-babel-evaluate nil)
 
-
+;; (require 'org-tempo)
 
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun efs/org-babel-tangle-config ()
@@ -418,6 +418,10 @@
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
+
+(defun ox/open-init-org ()
+  (interactive)
+    (find-file (expand-file-name "init.org" user-emacs-directory)))
 
 (use-package projectile
   :diminish projectile-mode
@@ -445,3 +449,11 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+
+
+(use-package yasnippet-snippets
+  :ensure t)
+(use-package yasnippet
+  :ensure t
+  :config (yas-global-mode 1))
