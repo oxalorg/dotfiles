@@ -5,23 +5,43 @@
 (defvar efs/default-font-size 180)
 (defvar efs/default-variable-font-size 180)
 
-;; Initialize package sources
-(require 'package)
+;; Set up low-level stuff so we can install the various packages that make up
+;; Corgi. Not super pretty, but you normally don't have to look at it.
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;; Install the Straight package manager
 
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+(defvar bootstrap-version)
 
-  ;; Initialize use-package on non-Linux platforms
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+(let ((install-url "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el")
+      (bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer (url-retrieve-synchronously install-url 'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(require 'use-package)
-(setq use-package-always-ensure t)
+;; Install the use-package convenience macro
+
+(straight-use-package 'use-package)
+
+(setq straight-use-package-by-default t)
+
+(when (not (file-exists-p (expand-file-name "straight/versions/default.el" straight-base-dir)))
+  (straight-freeze-versions))
+
+;; Enable the corgi-packages repository so we can install our packages with
+;; Straight. This also runs some Corgi initialization code, notably copying over
+;; Corgi's version file, so you get the same versions of packages that Corgi was
+;; tested with.
+
+  (use-package corgi-packages
+    :straight (corgi-packages
+               :type git
+               :host github
+               :repo "lambdaisland/corgi-packages"))
+
+  (add-to-list #'straight-recipe-repositories 'corgi-packages)
 
 (setq inhibit-startup-message t)
 
@@ -51,7 +71,7 @@
 (set-face-attribute 'fixed-pitch nil :font "Iosevka" :height efs/default-font-size)
 
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Iosevka" :height efs/default-font-size :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Times New Roman" :height efs/default-font-size :weight 'regular)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -172,7 +192,7 @@
                   (org-level-6 . 1.1)
                   (org-level-7 . 1.1)
                   (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Iosevka" :weight 'regular :height (cdr face)))
+    (set-face-attribute (car face) nil :font "Times New Roman" :weight 'regular :height (cdr face)))
 
   ;; Ensure that anything that should be fixed-pitch in Org files appears that way
   (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -330,6 +350,7 @@
     (python . t)))
 
 (push '("conf-unix" . conf-unix) org-src-lang-modes)
+(setq org-confirm-babel-evaluate nil)
 
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun efs/org-babel-tangle-config ()
@@ -371,44 +392,6 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
-
-;; Set up low-level stuff so we can install the various packages that make up
-;; Corgi. Not super pretty, but you normally don't have to look at it.
-
-;; Install the Straight package manager
-
-(defvar bootstrap-version)
-
-(let ((install-url "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el")
-      (bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer (url-retrieve-synchronously install-url 'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; Install the use-package convenience macro
-
-(straight-use-package 'use-package)
-
-(setq straight-use-package-by-default t)
-
-(when (not (file-exists-p (expand-file-name "straight/versions/default.el" straight-base-dir)))
-  (straight-freeze-versions))
-
-;; Enable the corgi-packages repository so we can install our packages with
-;; Straight. This also runs some Corgi initialization code, notably copying over
-;; Corgi's version file, so you get the same versions of packages that Corgi was
-;; tested with.
-
-  (use-package corgi-packages
-    :straight (corgi-packages
-               :type git
-               :host github
-               :repo "lambdaisland/corgi-packages"))
-
-  (add-to-list #'straight-recipe-repositories 'corgi-packages)
 
 (let ((straight-current-profile 'corgi))
     ;; Change a bunch of Emacs defaults, from disabling the menubar and toolbar,

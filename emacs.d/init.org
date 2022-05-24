@@ -1,11 +1,11 @@
 #+title: Emacs From Scratch Configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 
-* Welcome!
+* Welcome to ox's emacs config!
 
-This is the configuration we've been building in the *Emacs From Scratch* series, now written as an Org Mode document. This file generates [[file:init.el][init.el]] which can be loaded by Emacs at startup.
+This is an org file which generates the [[file:init.el][init.el]] which can be loaded by Emacs at startup.
 
-The following variables are used to tweak some of the configuration pieces for use in the live streams so you might need to adjust them for your local machine if you try to use this configuration directly.
+** Variables
 
 #+begin_src emacs-lisp
 
@@ -22,31 +22,52 @@ The following variables are used to tweak some of the configuration pieces for u
 
 In this document I've added links in many places that lead you to documentation for the various packages we use.  If you're looking at this file in Emacs, you can put your cursor on a link and press =C-c C-o= or run =M-x org-open-at-point= to open the link in your web browser.
 
-* Package System Setup
+* Straight.el package manager
 
-Emacs has a built in package manager but it doesn't make it easy to automatically install packages on a new system the first time you pull down your configuration.  [[https://github.com/jwiegley/use-package][use-package]] is a really helpful package used in this configuration to make it a lot easier to automate the installation and configuration of everything else we use.
+Emacs has a built in package manager but it has a lot left to be desired. We're going to use straight.el and use-package combination here
 
 #+begin_src emacs-lisp
+  ;; Set up low-level stuff so we can install the various packages that make up
+  ;; Corgi. Not super pretty, but you normally don't have to look at it.
 
-  ;; Initialize package sources
-  (require 'package)
+  ;; Install the Straight package manager
 
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ("org" . "https://orgmode.org/elpa/")
-                           ("elpa" . "https://elpa.gnu.org/packages/")))
+  (defvar bootstrap-version)
 
-  (package-initialize)
-  (unless package-archive-contents
-    (package-refresh-contents))
+  (let ((install-url "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el")
+        (bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer (url-retrieve-synchronously install-url 'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
 
-    ;; Initialize use-package on non-Linux platforms
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
+  ;; Install the use-package convenience macro
 
-  (require 'use-package)
-  (setq use-package-always-ensure t)
+  (straight-use-package 'use-package)
 
+  (setq straight-use-package-by-default t)
+
+  (when (not (file-exists-p (expand-file-name "straight/versions/default.el" straight-base-dir)))
+    (straight-freeze-versions))
+
+  ;; Enable the corgi-packages repository so we can install our packages with
+  ;; Straight. This also runs some Corgi initialization code, notably copying over
+  ;; Corgi's version file, so you get the same versions of packages that Corgi was
+  ;; tested with.
+
+    (use-package corgi-packages
+      :straight (corgi-packages
+                 :type git
+                 :host github
+                 :repo "lambdaisland/corgi-packages"))
+
+    (add-to-list #'straight-recipe-repositories 'corgi-packages)
 #+end_src
+
+#+RESULTS:
+| corgi-packages | org-elpa | melpa | gnu-elpa-mirror | el-get | emacsmirror-mirror |
 
 * Basic UI Configuration
 
@@ -80,7 +101,7 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 ** Font Configuration
 
-I am using the [[https://github.com/tonsky/FiraCode][Fira Code]] and [[https://fonts.google.com/specimen/Cantarell][Cantarell]] fonts for this configuration which will more than likely need to be installed on your machine.  Both can usually be found in the various Linux distro package managers or downloaded from the links above.
+=Iosevka= gang assemble!
 
 #+begin_src emacs-lisp
 
@@ -90,13 +111,15 @@ I am using the [[https://github.com/tonsky/FiraCode][Fira Code]] and [[https://f
 (set-face-attribute 'fixed-pitch nil :font "Iosevka" :height efs/default-font-size)
 
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Iosevka" :height efs/default-font-size :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Times New Roman" :height efs/default-font-size :weight 'regular)
 
 #+end_src
 
+#+RESULTS:
+
 * Keybinding Configuration
 
-This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil-mode]] for a Vi-like modal editing experience.  [[https://github.com/noctuid/general.el][general.el]] is used for easy keybinding configuration that integrates well with which-key.  [[https://github.com/emacs-evil/evil-collection][evil-collection]] is used to automatically configure various Emacs modes with Vi-like keybindings for evil-mode.
+Main keybindings are configured using corkey. It supports easy keybindings for evil-mode. On the other hand [[https://github.com/noctuid/general.el][general.el]] is used for easy keybinding configuration that integrates well with which-key. [[https://github.com/emacs-evil/evil-collection][evil-collection]] is used to automatically configure various Emacs modes with Vi-like keybindings for evil-mode.
 
 #+begin_src emacs-lisp
 
@@ -293,7 +316,7 @@ The =efs/org-font-setup= function configures various text faces to tweak the siz
                     (org-level-6 . 1.1)
                     (org-level-7 . 1.1)
                     (org-level-8 . 1.1)))
-      (set-face-attribute (car face) nil :font "Iosevka" :weight 'regular :height (cdr face)))
+      (set-face-attribute (car face) nil :font "Times New Roman" :weight 'regular :height (cdr face)))
 
     ;; Ensure that anything that should be fixed-pitch in Org files appears that way
     (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
@@ -305,6 +328,9 @@ The =efs/org-font-setup= function configures various text faces to tweak the siz
     (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
 #+end_src
+
+#+RESULTS:
+: efs/org-font-setup
 
 ** Basic Config
 
@@ -483,6 +509,7 @@ To execute or export code in =org-mode= code blocks, you'll need to set up =org-
       (python . t)))
 
   (push '("conf-unix" . conf-unix) org-src-lang-modes)
+  (setq org-confirm-babel-evaluate nil)
 
 #+end_src
 
@@ -594,52 +621,7 @@ Add this into init.el and then `M-x eval-buffer`
 #+end_src
 
 
-* Corgi config
-
-#+begin_src emacs-lisp
-  ;; Set up low-level stuff so we can install the various packages that make up
-  ;; Corgi. Not super pretty, but you normally don't have to look at it.
-
-  ;; Install the Straight package manager
-
-  (defvar bootstrap-version)
-
-  (let ((install-url "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el")
-        (bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-        (bootstrap-version 5))
-    (unless (file-exists-p bootstrap-file)
-      (with-current-buffer (url-retrieve-synchronously install-url 'silent 'inhibit-cookies)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))
-    (load bootstrap-file nil 'nomessage))
-
-  ;; Install the use-package convenience macro
-
-  (straight-use-package 'use-package)
-
-  (setq straight-use-package-by-default t)
-
-  (when (not (file-exists-p (expand-file-name "straight/versions/default.el" straight-base-dir)))
-    (straight-freeze-versions))
-
-  ;; Enable the corgi-packages repository so we can install our packages with
-  ;; Straight. This also runs some Corgi initialization code, notably copying over
-  ;; Corgi's version file, so you get the same versions of packages that Corgi was
-  ;; tested with.
-
-    (use-package corgi-packages
-      :straight (corgi-packages
-                 :type git
-                 :host github
-                 :repo "lambdaisland/corgi-packages"))
-
-    (add-to-list #'straight-recipe-repositories 'corgi-packages)
-#+end_src
-
-#+RESULTS:
-| corgi-packages | org-elpa | melpa | gnu-elpa-mirror | el-get | emacsmirror-mirror |
-
-* Corkey
+* Corgi emacs
 
 #+begin_src emacs-lisp
   (let ((straight-current-profile 'corgi))
@@ -696,3 +678,6 @@ Add this into init.el and then `M-x eval-buffer`
 
 #+RESULTS:
 : t
+
+*  Verb HTTP rest client
+
