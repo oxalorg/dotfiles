@@ -686,3 +686,11 @@ This is an example of configuring another non-Emacs application using org-mode. 
 #+end_src
 
 * Verb HTTP rest client
+#+begin_src emacs-lisp
+  (defun ox/open-init-org ()
+    (interactive)
+      (find-file (expand-file-name "init.org" user-emacs-directory)))
+#+end_src
+
+#+RESULTS:
+: ox/open-init-org

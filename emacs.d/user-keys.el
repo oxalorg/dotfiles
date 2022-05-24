@@ -55,13 +55,14 @@
    ;; ("`" "Switch to from cider" :switch-to-from-cider-repl)
 
    ("c" "clojure"
-    ("a" "add arity" clojure-add-arity)
-    )
+    ("a" "add arity" clojure-add-arity))
 
    ("f"
     ("f" "Projectile file" projectile-find-file)
     ("t" "Turn Treemacs on/off" treemacs)
-    ("T" "Focus current file in file tree" treemacs-find-file))
+    ("T" "Focus current file in file tree" treemacs-find-file)
+    ("e" "edit"
+     ("o" "open init.org" ox/open-init-org)))
 
    ("g" "Git"
     ("s" "Magit Status" magit-status)
