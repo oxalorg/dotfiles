@@ -43,6 +43,57 @@
 
   (add-to-list #'straight-recipe-repositories 'corgi-packages)
 
+(let ((straight-current-profile 'corgi))
+    ;; Change a bunch of Emacs defaults, from disabling the menubar and toolbar,
+    ;; to fixing modifier keys on Mac and disabling the system bell.
+    (use-package corgi-defaults)
+
+    ;; UI configuration for that Corgi-feel. This sets up a bunch of packages like
+    ;; Evil, Smartparens, Ivy (minibuffer completion), Swiper (fuzzy search),
+    ;; Projectile (project-aware commands), Aggressive indent, Company
+    ;; (completion).
+    (use-package corgi-editor)
+
+    ;; The few custom commands that we ship with. This includes a few things we
+    ;; emulate from Spacemacs, and commands for jumping to the user's init.el
+    ;; (this file, with `SPC f e i'), or opening the user's key binding or signals
+    ;; file.
+    (use-package corgi-commands)
+
+    ;; Extensive setup for a good Clojure experience, including clojure-mode,
+    ;; CIDER, and a modeline indicator that shows which REPLs your evaluations go
+    ;; to.
+    ;; Also contains `corgi/cider-pprint-eval-register', bound to `,,', see
+    ;; `set-register' calls below.
+    (use-package corgi-clojure
+      :config
+      (corgi/enable-cider-connection-indicator))
+
+    ;; Emacs Lisp config, mainly to have a development experience that feels
+    ;; similar to using CIDER and Clojure. (show results in overlay, threading
+    ;; refactorings)
+    (use-package corgi-emacs-lisp)
+
+    ;; Change the color of the modeline based on the Evil state (e.g. green when
+    ;; in insert state)
+    (use-package corgi-stateline)
+
+    ;; Package which provides corgi-keys and corgi-signals, the two files that
+    ;; define all Corgi bindings, and the default files that Corkey will look for.
+    (use-package corgi-bindings)
+
+    ;; Corgi's keybinding system, which builds on top of Evil. See the manual, or
+    ;; visit the key binding and signal files (with `SPC f e k', `SPC f e K', `SPC
+    ;; f e s' `SPC f e S')
+    ;; Put this last here, otherwise keybindings for commands that aren't loaded
+    ;; yet won't be active.
+    (use-package corkey
+      :config 
+      (corkey/load-and-watch)
+      ;; Automatically pick up keybinding changes
+      (corkey-mode 1))
+)
+
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -394,73 +445,3 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
-
-(let ((straight-current-profile 'corgi))
-    ;; Change a bunch of Emacs defaults, from disabling the menubar and toolbar,
-    ;; to fixing modifier keys on Mac and disabling the system bell.
-    (use-package corgi-defaults)
-
-    ;; UI configuration for that Corgi-feel. This sets up a bunch of packages like
-    ;; Evil, Smartparens, Ivy (minibuffer completion), Swiper (fuzzy search),
-    ;; Projectile (project-aware commands), Aggressive indent, Company
-    ;; (completion).
-    (use-package corgi-editor)
-
-    ;; The few custom commands that we ship with. This includes a few things we
-    ;; emulate from Spacemacs, and commands for jumping to the user's init.el
-    ;; (this file, with `SPC f e i'), or opening the user's key binding or signals
-    ;; file.
-    (use-package corgi-commands)
-
-    ;; Extensive setup for a good Clojure experience, including clojure-mode,
-    ;; CIDER, and a modeline indicator that shows which REPLs your evaluations go
-    ;; to.
-    ;; Also contains `corgi/cider-pprint-eval-register', bound to `,,', see
-    ;; `set-register' calls below.
-    (use-package corgi-clojure
-      :config
-      (corgi/enable-cider-connection-indicator))
-
-    ;; Emacs Lisp config, mainly to have a development experience that feels
-    ;; similar to using CIDER and Clojure. (show results in overlay, threading
-    ;; refactorings)
-    (use-package corgi-emacs-lisp)
-
-    ;; Change the color of the modeline based on the Evil state (e.g. green when
-    ;; in insert state)
-    (use-package corgi-stateline)
-
-    ;; Package which provides corgi-keys and corgi-signals, the two files that
-    ;; define all Corgi bindings, and the default files that Corkey will look for.
-    (use-package corgi-bindings)
-
-    ;; Corgi's keybinding system, which builds on top of Evil. See the manual, or
-    ;; visit the key binding and signal files (with `SPC f e k', `SPC f e K', `SPC
-    ;; f e s' `SPC f e S')
-    ;; Put this last here, otherwise keybindings for commands that aren't loaded
-    ;; yet won't be active.
-    (use-package corkey
-      :config 
-      (corkey/load-and-watch)
-      ;; Automatically pick up keybinding changes
-      (corkey-mode 1))
-)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(safe-local-variable-values
-   '((eval define-clojure-indent
-           (assoc 0)
-           (ex-info 0))
-     (eval progn
-           (make-variable-buffer-local 'cider-jack-in-nrepl-middlewares)
-           (add-to-list 'cider-jack-in-nrepl-middlewares "shadow.cljs.devtools.server.nrepl/middleware"))
-     (cider-repl-display-help-banner))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
