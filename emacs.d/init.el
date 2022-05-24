@@ -43,56 +43,63 @@
 
   (add-to-list #'straight-recipe-repositories 'corgi-packages)
 
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
+(setq evil-want-C-u-scroll t)
+
 (let ((straight-current-profile 'corgi))
-    ;; Change a bunch of Emacs defaults, from disabling the menubar and toolbar,
-    ;; to fixing modifier keys on Mac and disabling the system bell.
-    (use-package corgi-defaults)
+  ;; Change a bunch of Emacs defaults, from disabling the menubar and toolbar,
+  ;; to fixing modifier keys on Mac and disabling the system bell.
+  (use-package corgi-defaults)
 
-    ;; UI configuration for that Corgi-feel. This sets up a bunch of packages like
-    ;; Evil, Smartparens, Ivy (minibuffer completion), Swiper (fuzzy search),
-    ;; Projectile (project-aware commands), Aggressive indent, Company
-    ;; (completion).
-    (use-package corgi-editor)
+  ;; UI configuration for that Corgi-feel. This sets up a bunch of packages like
+  ;; Evil, Smartparens, Ivy (minibuffer completion), Swiper (fuzzy search),
+  ;; Projectile (project-aware commands), Aggressive indent, Company
+  ;; (completion).
+  (use-package corgi-editor)
 
-    ;; The few custom commands that we ship with. This includes a few things we
-    ;; emulate from Spacemacs, and commands for jumping to the user's init.el
-    ;; (this file, with `SPC f e i'), or opening the user's key binding or signals
-    ;; file.
-    (use-package corgi-commands)
+  ;; The few custom commands that we ship with. This includes a few things we
+  ;; emulate from Spacemacs, and commands for jumping to the user's init.el
+  ;; (this file, with `SPC f e i'), or opening the user's key binding or signals
+  ;; file.
+  (use-package corgi-commands)
 
-    ;; Extensive setup for a good Clojure experience, including clojure-mode,
-    ;; CIDER, and a modeline indicator that shows which REPLs your evaluations go
-    ;; to.
-    ;; Also contains `corgi/cider-pprint-eval-register', bound to `,,', see
-    ;; `set-register' calls below.
-    (use-package corgi-clojure
-      :config
-      (corgi/enable-cider-connection-indicator))
+  ;; Extensive setup for a good Clojure experience, including clojure-mode,
+  ;; CIDER, and a modeline indicator that shows which REPLs your evaluations go
+  ;; to.
+  ;; Also contains `corgi/cider-pprint-eval-register', bound to `,,', see
+  ;; `set-register' calls below.
+  (use-package corgi-clojure
+    :config
+    (corgi/enable-cider-connection-indicator))
 
-    ;; Emacs Lisp config, mainly to have a development experience that feels
-    ;; similar to using CIDER and Clojure. (show results in overlay, threading
-    ;; refactorings)
-    (use-package corgi-emacs-lisp)
+  ;; Emacs Lisp config, mainly to have a development experience that feels
+  ;; similar to using CIDER and Clojure. (show results in overlay, threading
+  ;; refactorings)
+  (use-package corgi-emacs-lisp)
 
-    ;; Change the color of the modeline based on the Evil state (e.g. green when
-    ;; in insert state)
-    (use-package corgi-stateline)
+  ;; Change the color of the modeline based on the Evil state (e.g. green when
+  ;; in insert state)
+  (use-package corgi-stateline)
 
-    ;; Package which provides corgi-keys and corgi-signals, the two files that
-    ;; define all Corgi bindings, and the default files that Corkey will look for.
-    (use-package corgi-bindings)
+  ;; Package which provides corgi-keys and corgi-signals, the two files that
+  ;; define all Corgi bindings, and the default files that Corkey will look for.
+  (use-package corgi-bindings)
 
-    ;; Corgi's keybinding system, which builds on top of Evil. See the manual, or
-    ;; visit the key binding and signal files (with `SPC f e k', `SPC f e K', `SPC
-    ;; f e s' `SPC f e S')
-    ;; Put this last here, otherwise keybindings for commands that aren't loaded
-    ;; yet won't be active.
-    (use-package corkey
-      :config 
-      (corkey/load-and-watch)
-      ;; Automatically pick up keybinding changes
-      (corkey-mode 1))
-)
+  ;; Corgi's keybinding system, which builds on top of Evil. See the manual, or
+  ;; visit the key binding and signal files (with `SPC f e k', `SPC f e K', `SPC
+  ;; f e s' `SPC f e S')
+  ;; Put this last here, otherwise keybindings for commands that aren't loaded
+  ;; yet won't be active.
+  (use-package corkey
+    :config 
+    (corkey/load-and-watch)
+    ;; Automatically pick up keybinding changes
+    (corkey-mode 1))
+  )
 
 (setq inhibit-startup-message t)
 
@@ -107,7 +114,8 @@
 (setq visible-bell t)
 
 (column-number-mode)
-(global-display-line-numbers-mode t)
+;; disable line numbers completely
+(global-display-line-numbers-mode 0)
 
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
@@ -122,7 +130,8 @@
 (set-face-attribute 'fixed-pitch nil :font "Iosevka" :height efs/default-font-size)
 
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Times New Roman" :height efs/default-font-size :weight 'regular)
+;; (set-face-attribute 'variable-pitch nil :font "Times New Roman" :height efs/default-font-size :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Iosevka" :height efs/default-font-size :weight 'regular)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -144,9 +153,13 @@
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-i-jump nil)
+  (fset 'evil-visual-update-x-selection 'ignore)
+  (setq evil-kill-on-visual-paste nil)
+  (setq evil-insert-state-cursor '(bar "green"))
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
   ;; Use visual line motions even outside of visual-line-mode buffers
@@ -161,10 +174,37 @@
   :config
   (evil-collection-init))
 
+(use-package evil-escape
+  :config
+  (setq-default evil-escape-key-sequence "qp")
+  (evil-escape-mode))
+
+(use-package evil-cleverparens
+  :after (evil smartparens)
+  :commands evil-cleverparens-mode
+  :init
+  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+  (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
+  (setq evil-cleverparens-complete-parens-in-yanked-region t)
+  :config
+  (setq evil-cleverparens-use-s-and-S nil)
+  (evil-define-key '(normal visual) evil-cleverparens-mode-map
+    "s" nil
+    "S" nil
+    "{" nil
+    "}" nil
+    "[" nil
+    "]" nil
+    (kbd "<tab>") 'evil-jump-item))
+
 (use-package command-log-mode)
 
 (use-package doom-themes
   :init (load-theme 'doom-dracula t))
+
+(use-package cherry-blossom-theme
+  :config
+  (load-theme 'cherry-blossom t))
 
 (use-package all-the-icons)
 
@@ -263,6 +303,8 @@
   :hook (org-mode . efs/org-mode-setup)
   :config
   (setq org-ellipsis " ▾")
+
+  (setq org-edit-src-content-indentation 0)
 
   (setq org-agenda-start-with-log-mode t)
   (setq org-log-done 'time)
@@ -403,7 +445,19 @@
 (push '("conf-unix" . conf-unix) org-src-lang-modes)
 (setq org-confirm-babel-evaluate nil)
 
-;; (require 'org-tempo)
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+(require 'org-tempo)
+
+(use-package org-journal
+  :ensure t
+  :defer t
+  :config
+  (setq
+   org-journal-dir "~/org/journal"
+   org-journal-file-type 'monthly
+   org-journal-date-format "%a, %Y-%m-%d"
+   org-journal-file-format "%Y-%m.org"))
 
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun efs/org-babel-tangle-config ()
@@ -431,14 +485,20 @@
   ("C-c p" . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/Projects/Code")
-    (setq projectile-project-search-path '("~/Projects/Code")))
+  (when (file-directory-p "~/projects")
+    (setq projectile-project-search-path '("~/projects")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
 
+(defun ox/refresh-projects-dir ()
+  (interactive)
+  (projectile-discover-projects-in-directory "~/projects"))
+
 (use-package magit
+  :config
+;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
@@ -447,13 +507,128 @@
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge)
 
+(use-package magit-delta
+  :after (magit)
+  :config
+  (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
+
+(use-package git-link
+  :config
+  (setq git-link-open-in-browser t
+        git-link-use-commit t))
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-
+(use-package verb)
+(use-package org
+  :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
 (use-package yasnippet-snippets
   :ensure t)
 (use-package yasnippet
   :ensure t
   :config (yas-global-mode 1))
+
+(use-package markdown-mode)
+(use-package yaml-mode)
+
+;; REPL-driven development for JavaScript, included as an example of how to
+;; configure signals, see `user-signal.el' (visit it with `SPC f e s')
+(use-package js-comint)
+
+(server-start)
+
+(set-register ?k "#_clj (do (require 'kaocha.repl) (kaocha.repl/run))")
+(set-register ?K "#_clj (do (require 'kaocha.repl) (kaocha.repl/run-all))")
+(set-register ?r "#_clj (do (require 'user :reload) (user/reset))")
+(set-register ?g "#_clj (user/go)")
+(set-register ?b "#_clj (user/browse)")
+
+(defun ox/open-round-insert ()
+  (interactive)
+  (paredit-open-round)
+  (evil-insert 0))
+
+(show-paren-mode 1)
+
+(defun ox/toggle-parens--replace (pair start end)
+  "Replace parens with a new PAIR at START and END in current buffer.
+   A helper function for `toggle-parens'."
+  (goto-char start)
+  (delete-char 1)
+  (insert (substring pair 0 1))
+  (goto-char end)
+  (delete-char 1)
+  (insert (substring pair 1 2))
+  (goto-char start))
+
+(defun ox/toggle-parens ()
+  "Toggle parens () <> [] at cursor.
+Turn on `show-paren-mode' to see matching pairs of parentheses
+and other characters in buffers. This function then uses the same
+function `show-paren-data-function' to find and replace them with
+the other pair of brackets.
+This function can be easily modified and expanded to replace
+other brackets. Currently, mismatch information is ignored and
+mismatched parens are changed based on the left one."
+  (interactive)
+  (let* ((parens (funcall show-paren-data-function))
+         (start (if (< (nth 0 parens) (nth 2 parens))
+                    (nth 0 parens) (nth 2 parens)))
+         (end (if (< (nth 0 parens) (nth 2 parens))
+                  (nth 2 parens) (nth 0 parens)))
+         (startchar (buffer-substring-no-properties start (1+ start)))
+         (mismatch (nth 4 parens)))
+    (when parens
+      (pcase startchar
+        ("(" (ox/toggle-parens--replace "[]" start end))
+        ("[" (ox/toggle-parens--replace "{}" start end))
+        ("{" (ox/toggle-parens--replace "()" start end))))))
+
+(setq python-shell-interpreter "python3")
+;; (add-hook 'python-mode-hook 'electric-indent-mode-hook)
+(add-hook 'python-mode-hook (lambda () (electric-indent-local-mode 1)))
+
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode +1))
+
+(use-package html-to-hiccup
+  :load-path "~/projects/html-to-hiccup")
+
+(use-package caddyfile-mode
+  :ensure t
+  :mode (("Caddyfile\\'" . caddyfile-mode)
+         ("caddy\\.conf\\'" . caddyfile-mode)))
+
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+(add-hook 'clojure-mode-hook #'hs-minor-mode)
+(add-hook 'emacs-lisp-mode-hook #'hs-minor-mode)
+
+(setq scroll-step            1
+      scroll-conservatively  10000)
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+(use-package flycheck-clj-kondo
+  :ensure t)
+
+(use-package clojure-mode
+  :ensure t
+  :config
+  (require 'flycheck-clj-kondo))
+
+(use-package zprint-mode)
+
+(use-package web-mode
+  :custom
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  :init
+  (setq-default
+   indent-tabs-mode nil
+   tab-width 2))
