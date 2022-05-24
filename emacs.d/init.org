@@ -513,6 +513,12 @@ To execute or export code in =org-mode= code blocks, you'll need to set up =org-
 
 #+end_src
 
+** Org simple templates
+#+begin_src emacs-lisp
+
+#+end_src
+
+* Literate configuration with init.org
 ** Auto-tangle Configuration Files
 
 This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-config= gets executed each time such a buffer gets saved.  This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files.
@@ -537,6 +543,17 @@ This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-con
 
 #+RESULTS:
 | er/add-org-mode-expansions | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | (lambda nil (add-hook 'after-save-hook #'efs/org-babel-tangle-config)) | org-bullets-mode | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | efs/org-mode-visual-fill | efs/org-mode-setup | (lambda nil (display-line-numbers-mode 0)) |
+
+** Open init.org function
+** If you're sturggling to get tangling to work
+
+Add this into init.el and then `M-x eval-buffer`
+
+#+begin_src emacs-lisp :tangle no
+(require 'org)
+(org-babel-load-file
+ (expand-file-name "init.org" user-emacs-directory))
+#+end_src
 
 * Development
 
@@ -610,17 +627,6 @@ This is an example of configuring another non-Emacs application using org-mode. 
 
 #+end_src
 
-* If you're sturggling to get tangling to work
-
-Add this into init.el and then `M-x eval-buffer`
-
-#+begin_src emacs-lisp :tangle no
-(require 'org)
-(org-babel-load-file
- (expand-file-name "init.org" user-emacs-directory))
-#+end_src
-
-
 * Corgi emacs
 
 #+begin_src emacs-lisp
@@ -679,5 +685,4 @@ Add this into init.el and then `M-x eval-buffer`
 #+RESULTS:
 : t
 
-*  Verb HTTP rest client
-
+* Verb HTTP rest client
