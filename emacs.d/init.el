@@ -156,6 +156,7 @@
   (fset 'evil-visual-update-x-selection 'ignore)
   (setq evil-kill-on-visual-paste nil)
   (setq evil-insert-state-cursor '(bar "green"))
+  (setq-default evil-symbol-word-search t)
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
