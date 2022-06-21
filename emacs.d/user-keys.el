@@ -25,7 +25,7 @@
  ;; "global" bindings are always active regardless of Evil's "state" (= vim mode)
  ;; If you don't provide this the default is `normal'.
  (global
-  ("M-x" "meta-x" counsel-M-x)
+  ;; ("M-x" "meta-x" counsel-M-x)
   )
 
  (motion
@@ -78,7 +78,7 @@
     ("t" "parens toggle" ox/toggle-parens))
 
    ("y" "Yank"
-    ("p" "Yank pop list" counsel-yank-pop))
+    ("p" "Yank pop list" consult-yank-pop))
 
    ("o" "Go to other window" other-window)
 
@@ -100,8 +100,8 @@
     ("i" "Interrupt eval" :eval/interrupt)
     ("-" "Eval up to point" :eval/up-to-point))
 
-   ("SPC" "Switch buffer" ivy-switch-buffer)
-   ("/" "Search in project" counsel-projectile-rg)
+   ("SPC" "Switch buffer" consult-buffer)
+   ("/" "Search in project" consult-ripgrep)
    ("9" "Clever slurp backwd" evil-cp-<)
    ("0" "Clever barf backwd" evil-cp->)
    ("RET" "Resume last sess" ivy-resume)
