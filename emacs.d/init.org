@@ -1035,10 +1035,27 @@ yasnippets is the most complete and popular snippet engine which works based on 
 * Javascript 
 
 #+begin_src emacs-lisp
-  ;; REPL-driven development for JavaScript, included as an example of how to
-  ;; configure signals, see `user-signal.el' (visit it with `SPC f e s')
-  (use-package js-comint)
+;; REPL-driven development for JavaScript, included as an example of how to
+;; configure signals, see `user-signal.el' (visit it with `SPC f e s')
+(use-package js-comint)
+
+(use-package js2-mode
+  :mode "\\.js\\'"
+  :config
+  (customize-set-variable 'js2-basic-offset 2)
+  (customize-set-variable 'js2-include-node-externs t))
+
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+
+(use-package tide
+  :after (company flycheck)
+  :config
+  (define-key tide-mode-map (kbd "s-b") 'tide-jump-to-definition)
+  (define-key tide-mode-map (kbd "s-[") 'tide-jump-back))
 #+end_src
+
+#+RESULTS:
+: t
 
 * Emacs server
 
