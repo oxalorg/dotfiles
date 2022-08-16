@@ -46,13 +46,17 @@
    ("z" "Fold toggle" evil-toggle-fold))
 
   ("SPC" "leader"
+   ("." "Find file from point" find-file)
    ("a" "End append on forms" evil-cp-insert-at-end-of-form)
    ("0" "Select Treemacs" treemacs-select-window)
-   ("=" "Zoom in" default-text-scale-increase)
-   ("-" "Zoom out" default-text-scale-decrease)
+   ("=" "Zoom in" text-scale-increase)
+   ("-" "Zoom out" text-scale-decrease)
    ("[" "Prev error" flycheck-previous-error)
    ("]" "Next error" flycheck-next-error)
    ;; ("`" "Switch to from cider" :switch-to-from-cider-repl)
+
+   ("i" "inspect"
+    ("r" "last result" cider-inspect-last-result))
 
    ("c" "clojure"
     ("a" "add arity" clojure-add-arity))

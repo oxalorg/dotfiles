@@ -13,7 +13,18 @@
 ;; `user-keys.el', and your new binding will do the right thing regardless of
 ;; the language/mode you are in.
 
-((cider-mode (:eval/outer-sexp-comment cider-eval-defun-to-comment)
+((default (:command/execute execute-extended-command
+                            :file/open find-file
+                            :file/open-recent counsel-recentf
+
+                            :buffer/switch switch-to-buffer
+                            :buffer/incremental-search swiper
+
+                            :project/incremental-search counsel-git-grep
+                            :project/switch-buffer projectile-switch-to-buffer
+
+                            :jump/identifier counsel-imenu))
+ (cider-mode (:eval/outer-sexp-comment cider-eval-defun-to-comment)
              (:switch-to-from-cider-repl corgi/switch-to-previous-buffer))
  (cider-repl-mode (:switch-to-from-cider-repl corgi/switch-to-previous-buffer))
  (clojure-mode (:switch-to-from-cider-repl ox/cider-switch-to-repl-buffer-same-window-force))
