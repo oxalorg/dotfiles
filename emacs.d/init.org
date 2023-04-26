@@ -33,12 +33,15 @@ Emacs has a built in package manager but it has a lot left to be desired. We're 
 ;; Install the Straight package manager
 
 (defvar bootstrap-version)
-
-(let ((install-url "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el")
-      (bootstrap-file (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
+(setq straight-use-package-by-default t)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
   (unless (file-exists-p bootstrap-file)
-    (with-current-buffer (url-retrieve-synchronously install-url 'silent 'inhibit-cookies)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -46,8 +49,6 @@ Emacs has a built in package manager but it has a lot left to be desired. We're 
 ;; Install the use-package convenience macro
 
 (straight-use-package 'use-package)
-
-(setq straight-use-package-by-default t)
 
 (when (not (file-exists-p (expand-file-name "straight/versions/default.el" straight-base-dir)))
   (straight-freeze-versions))
@@ -62,13 +63,13 @@ Emacs has a built in package manager but it has a lot left to be desired. We're 
                :type git
                ;; :local-repo "/home/Users/ox/projects/corgi-packages"
                :host github
-               :repo "lambdaisland/corgi-packages"))
+               :repo "corgi-emacs/corgi-packages"))
 
 (add-to-list #'straight-recipe-repositories 'corgi-packages)
 #+end_src
 
 #+RESULTS:
-| corgi-packages | org-elpa | melpa | gnu-elpa-mirror | el-get | emacsmirror-mirror |
+| corgi-packages | org-elpa | melpa | gnu-elpa-mirror | nongnu-elpa | el-get | emacsmirror-mirror |
 
 * Exec path
 
@@ -143,6 +144,11 @@ Unfortunately emacs launched from =.app= launcher does not get the full exec pat
 
 #+RESULTS:
 : t
+
+* Env vars
+#+begin_src emacs-lisp
+(setenv "GOOGLE_APPLICATION_CREDENTIALS" "/Users/ox/projects/does/does-app/.does2020-credentials.json")
+#+end_src
 
 * Basic emacs config
 ** Custom vars
@@ -906,6 +912,16 @@ Add this into init.el and then `M-x eval-buffer`
  (expand-file-name "init.org" user-emacs-directory))
 #+end_src
 
+* Completion / Company
+#+begin_src emacs-lisp
+(use-package company
+  :diminish company-mode
+  :hook (prog-mode . company-mode))
+#+end_src
+
+#+RESULTS:
+| company-mode | hs-minor-mode | rainbow-delimiters-mode | smartparens-mode |
+
 * Projectile
 
 [[https://projectile.mx/][Projectile]] is a project management library for Emacs which makes it a lot easier to navigate around code projects for various languages.  Many packages integrate with Projectile so it's a good idea to have it installed even if you don't use its commands directly.
@@ -926,6 +942,9 @@ Add this into init.el and then `M-x eval-buffer`
 
 #+end_src
 
+#+RESULTS:
+| lambda | nil | (interactive) | (use-package-autoload-keymap 'projectile-command-map 'projectile nil) |
+
 ** Refresh directory
 
 #+begin_src emacs-lisp
@@ -933,6 +952,12 @@ Add this into init.el and then `M-x eval-buffer`
     (interactive)
     (projectile-discover-projects-in-directory "~/projects"))
 #+end_src
+
+#+RESULTS:
+: t
+
+*** 
+
 
 * Magit
 
