@@ -319,7 +319,6 @@ Use another key to go into normal / escape mode. I have it configured as =qp=
 #+end_src
 
 * UI Configuration
-
 ** Command Log Mode
 
 [[https://github.com/lewang/command-log-mode][command-log-mode]] is useful for displaying a panel showing each key binding you use in a panel on the right side of the frame.  Great for live streams and screencasts!
@@ -958,25 +957,28 @@ Add this into init.el and then `M-x eval-buffer`
 
 *** 
 
-
 * Magit
 
 [[https://magit.vc/][Magit]] is the best Git interface I've ever used.  Common Git operations are easy to execute quickly using Magit's command panel system.
 
 #+begin_src emacs-lisp
 
-  (use-package magit
-    :config
-  ;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
-    :custom
-    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+(use-package magit
+  :config
+  (setq evil-magit-use-z-for-folds t)
+;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-  ;; NOTE: Make sure to configure a GitHub token before using this package!
-  ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-  ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-  (use-package forge)
+;; NOTE: Make sure to configure a GitHub token before using this package!
+;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
+;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
+(use-package forge)
 
 #+end_src
+
+#+RESULTS:
+: error in evil-define-key: Symbol’s value as variable is void: evil-magit-state
 
 ** Delta - better diffing
 #+begin_src emacs-lisp
@@ -1037,6 +1039,12 @@ This is an example of configuring another non-Emacs application using org-mode. 
 #+RESULTS:
 : t
 
+* RestClient 
+
+#+begin_src emacs-lisp
+
+#+end_src
+
 * Snippets
 yasnippets is the most complete and popular snippet engine which works based on major-modes
 
@@ -1073,15 +1081,25 @@ yasnippets is the most complete and popular snippet engine which works based on 
 
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 
-(use-package tide
-  :after (company flycheck)
-  :config
-  (define-key tide-mode-map (kbd "s-b") 'tide-jump-to-definition)
-  (define-key tide-mode-map (kbd "s-[") 'tide-jump-back))
+;; (use-package tide
+;;   :after (company flycheck)
+;;   :config
+;;   (define-key tide-mode-map (kbd "s-b") 'tide-jump-to-definition)
+;;   (define-key tide-mode-map (kbd "s-[") 'tide-jump-back))
+
+;; (use-package web-mode
+;;   :custom
+;;   (web-mode-markup-indent-offset 2)
+;;   (web-mode-css-indent-offset 2)
+;;   (web-mode-code-indent-offset 2)
+;;   :init
+;;   (setq-default
+;;    indent-tabs-mode nil
+;;    tab-width 2))
 #+end_src
 
 #+RESULTS:
-: t
+| er/add-js2-mode-expansions | evil-collection-js2-set-evil-shift-width | js2-imenu-extras-mode | er/add-js-mode-expansions |
 
 * Emacs server
 
@@ -1159,6 +1177,13 @@ By starting a snippet with =#_clj= or =#_cljs= you can control which type of REP
 (add-hook 'python-mode-hook (lambda () (electric-indent-local-mode 1)))
 #+end_src
 
+* Caddyfile
+#+begin_src emacs-lisp
+(use-package caddyfile-mode
+  :ensure t
+  :mode (("Caddyfile\\'" . caddyfile-mode)
+         ("caddy\\.conf\\'" . caddyfile-mode)))
+#+end_src
 * Uncategorised
 
 These blocks need to find a home yet :)
@@ -1170,11 +1195,6 @@ These blocks need to find a home yet :)
 
 (use-package html-to-hiccup
   :load-path "~/projects/html-to-hiccup")
-
-(use-package caddyfile-mode
-  :ensure t
-  :mode (("Caddyfile\\'" . caddyfile-mode)
-         ("caddy\\.conf\\'" . caddyfile-mode)))
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 (add-hook 'clojure-mode-hook #'hs-minor-mode)
@@ -1190,26 +1210,18 @@ These blocks need to find a home yet :)
 (use-package flycheck-clj-kondo
   :ensure t)
 
+(use-package zprint-mode)
+
+#+end_src
+
+* Clojure
+** clojure mode
+#+begin_src emacs-lisp
 (use-package clojure-mode
   :ensure t
   :config
   (require 'flycheck-clj-kondo))
-
-(use-package zprint-mode)
-
-(use-package web-mode
-  :custom
-  (web-mode-markup-indent-offset 2)
-  (web-mode-css-indent-offset 2)
-  (web-mode-code-indent-offset 2)
-  :init
-  (setq-default
-   indent-tabs-mode nil
-   tab-width 2))
 #+end_src
-
-* Clojure
-
 ** cljr Refactoring
 
 #+begin_src emacs-lisp
