@@ -1233,6 +1233,22 @@ These blocks need to find a home yet :)
 
 #+RESULTS:
 | clj-refactor-mode |
+
+* Emojis
+
+#+begin_src emacs-lisp
+(defvar emojify-company-tooltips-p)
+(use-package emojify
+  :ensure t
+  :straight t
+  :defer 3
+  :config
+  (setq emojify-company-tooltips-p t)
+  (add-hook 'after-init-hook #'global-emojify-mode))
+#+end_src
+
+#+RESULTS:
+
 * Direnv
 
 #+begin_src emacs-lisp
