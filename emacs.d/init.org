@@ -1233,3 +1233,13 @@ These blocks need to find a home yet :)
 
 #+RESULTS:
 | clj-refactor-mode |
+* Direnv
+
+#+begin_src emacs-lisp
+(use-package direnv
+ :config
+ (direnv-mode))
+#+end_src
+
+#+RESULTS:
+: t
