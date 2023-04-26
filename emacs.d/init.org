@@ -378,6 +378,7 @@ Use another key to go into normal / escape mode. I have it configured as =qp=
 
 ** Vertico
 
+*** Vertico base
 #+begin_src emacs-lisp
 (use-package vertico
   :init
@@ -440,6 +441,14 @@ Use another key to go into normal / escape mode. I have it configured as =qp=
 #+end_src
 
 #+RESULTS:
+
+*** Vertico Repeat
+#+begin_src emacs-lisp
+;; (use-package vertico-repeat
+;;   :after vertico
+;;   :ensure nil
+;; )
+#+end_src
 
 ** Consult
 
@@ -801,7 +810,7 @@ This section contains the basic configuration for =org-mode= plus the configurat
 
 We use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] to center =org-mode= buffers for a more pleasing writing experience as it centers the contents of the buffer horizontally to seem more like you are editing a document.  This is really a matter of personal preference so you can remove the block below if you don't like the behavior.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 
   (defun efs/org-mode-visual-fill ()
     (setq visual-fill-column-width 100
@@ -812,6 +821,9 @@ We use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]
     :hook (org-mode . efs/org-mode-visual-fill))
 
 #+end_src
+
+#+RESULTS:
+| (lambda nil (add-hook 'after-save-hook #'efs/org-babel-tangle-config)) | org-tempo-setup | org-bullets-mode | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | efs/org-mode-visual-fill | efs/org-mode-setup | (lambda nil (display-line-numbers-mode 0)) |
 
 ** Configure Babel Languages
 

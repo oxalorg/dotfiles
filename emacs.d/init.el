@@ -103,6 +103,8 @@
     (corkey-mode 1))
   )
 
+(setenv "GOOGLE_APPLICATION_CREDENTIALS" "/Users/ox/projects/does/does-app/.does2020-credentials.json")
+
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 
@@ -283,6 +285,11 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
+;; (use-package vertico-repeat
+;;   :after vertico
+;;   :ensure nil
+;; )
+
 ;; Example configuration for Consult
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
@@ -371,8 +378,9 @@
   ;; :preview-key on a per-command basis using the `consult-customize' macro.
   (consult-customize
    consult-theme
+   consult-ripgrep 
    :preview-key '(:debounce 0.2 any)
-   consult-ripgrep consult-git-grep consult-grep
+   consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-recent-file
    consult--source-project-recent-file
@@ -392,8 +400,8 @@
   ;;;; 1. project.el (the default)
   ;; (setq consult-project-function #'consult--default-project--function)
   ;;;; 2. projectile.el (projectile-project-root)
-  ;; (autoload 'projectile-project-root "projectile")
-  ;; (setq consult-project-function (lambda (_) (projectile-project-root)))
+  (autoload 'projectile-project-root "projectile")
+  (setq consult-project-function (lambda (_) (projectile-project-root)))
   ;;;; 3. vc.el (vc-root-dir)
   ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
   ;;;; 4. locate-dominating-file
@@ -622,6 +630,10 @@
   (interactive)
     (find-file (expand-file-name "init.org" user-emacs-directory)))
 
+(use-package company
+  :diminish company-mode
+  :hook (prog-mode . company-mode))
+
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
@@ -640,6 +652,7 @@
 
 (use-package magit
   :config
+  (setq evil-magit-use-z-for-folds t)
 ;; (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
@@ -666,6 +679,8 @@
 (use-package org
   :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
+
+
 (use-package yasnippet-snippets
   :ensure t)
 (use-package yasnippet
@@ -687,11 +702,21 @@
 
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 
-(use-package tide
-  :after (company flycheck)
-  :config
-  (define-key tide-mode-map (kbd "s-b") 'tide-jump-to-definition)
-  (define-key tide-mode-map (kbd "s-[") 'tide-jump-back))
+;; (use-package tide
+;;   :after (company flycheck)
+;;   :config
+;;   (define-key tide-mode-map (kbd "s-b") 'tide-jump-to-definition)
+;;   (define-key tide-mode-map (kbd "s-[") 'tide-jump-back))
+
+;; (use-package web-mode
+;;   :custom
+;;   (web-mode-markup-indent-offset 2)
+;;   (web-mode-css-indent-offset 2)
+;;   (web-mode-code-indent-offset 2)
+;;   :init
+;;   (setq-default
+;;    indent-tabs-mode nil
+;;    tab-width 2))
 
 (server-start)
 
@@ -746,17 +771,17 @@ mismatched parens are changed based on the left one."
 ;; (add-hook 'python-mode-hook 'electric-indent-mode-hook)
 (add-hook 'python-mode-hook (lambda () (electric-indent-local-mode 1)))
 
+(use-package caddyfile-mode
+  :ensure t
+  :mode (("Caddyfile\\'" . caddyfile-mode)
+         ("caddy\\.conf\\'" . caddyfile-mode)))
+
 (use-package git-gutter
   :config
   (global-git-gutter-mode +1))
 
 (use-package html-to-hiccup
   :load-path "~/projects/html-to-hiccup")
-
-(use-package caddyfile-mode
-  :ensure t
-  :mode (("Caddyfile\\'" . caddyfile-mode)
-         ("caddy\\.conf\\'" . caddyfile-mode)))
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 (add-hook 'clojure-mode-hook #'hs-minor-mode)
@@ -772,22 +797,12 @@ mismatched parens are changed based on the left one."
 (use-package flycheck-clj-kondo
   :ensure t)
 
+(use-package zprint-mode)
+
 (use-package clojure-mode
   :ensure t
   :config
   (require 'flycheck-clj-kondo))
-
-(use-package zprint-mode)
-
-(use-package web-mode
-  :custom
-  (web-mode-markup-indent-offset 2)
-  (web-mode-css-indent-offset 2)
-  (web-mode-code-indent-offset 2)
-  :init
-  (setq-default
-   indent-tabs-mode nil
-   tab-width 2))
 
 (use-package clj-refactor
   :after (cider)
@@ -803,3 +818,16 @@ mismatched parens are changed based on the left one."
           clojurec-mode-hook
           clojure-mode-hook)
          . clj-refactor-mode))
+
+(defvar emojify-company-tooltips-p)
+(use-package emojify
+  :ensure t
+  :straight t
+  :defer 3
+  :config
+  (setq emojify-company-tooltips-p t)
+  (add-hook 'after-init-hook #'global-emojify-mode))
+
+(use-package direnv
+ :config
+ (direnv-mode))
