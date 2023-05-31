@@ -25,3 +25,7 @@ nvim/init.vim.bak
 
 git/gitk
 /doom.d/custom.el
+/emacs.d/.test.config
+/emacs.d/eln-cache/
+/emacs.d/history
+/emacs.d/tramp

@@ -5,9 +5,6 @@
 (defvar efs/default-font-size 180)
 (defvar efs/default-variable-font-size 180)
 
-;; Set up low-level stuff so we can install the various packages that make up
-;; Corgi. Not super pretty, but you normally don't have to look at it.
-
 ;; Install the Straight package manager
 
 (defvar bootstrap-version)
@@ -41,7 +38,7 @@
                :type git
                ;; :local-repo "/home/Users/ox/projects/corgi-packages"
                :host github
-               :repo "lambdaisland/corgi-packages"))
+               :repo "corgi-emacs/corgi-packages"))
 
 (add-to-list #'straight-recipe-repositories 'corgi-packages)
 
@@ -53,16 +50,6 @@
 (setq evil-want-C-u-scroll t)
 
 (let ((straight-current-profile 'corgi))
-  ;; Change a bunch of Emacs defaults, from disabling the menubar and toolbar,
-  ;; to fixing modifier keys on Mac and disabling the system bell.
-  (use-package corgi-defaults)
-
-  ;; UI configuration for that Corgi-feel. This sets up a bunch of packages like
-  ;; Evil, Smartparens, Ivy (minibuffer completion), Swiper (fuzzy search),
-  ;; Projectile (project-aware commands), Aggressive indent, Company
-  ;; (completion).
-  (use-package corgi-editor)
-
   ;; The few custom commands that we ship with. This includes a few things we
   ;; emulate from Spacemacs, and commands for jumping to the user's init.el
   ;; (this file, with `SPC f e i'), or opening the user's key binding or signals
@@ -108,6 +95,41 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 
+;; Turn off mouse interface early in startup to avoid momentary display
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+(setq inhibit-startup-message t)
+
+;; Auto refresh buffers
+;; Also auto refresh dired, but be quiet about it
+(require 'autorevert)
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+(add-hook 'dired-mode-hook #'auto-revert-mode)
+(global-auto-revert-mode 1)
+
+;; Show keystrokes in progress
+(setq echo-keystrokes 0.1)
+
+;; Move files to trash when deleting
+(setq delete-by-moving-to-trash t)
+
+;; Real emacs knights don't use shift to mark things
+(setq shift-select-mode nil)
+
+;; Transparently open compressed files
+(auto-compression-mode t)
+
+;; Answering just 'y' or 'n' will do
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+(setq ring-bell-function 'ignore)
+
+;; Never insert tabs
+(set-default 'indent-tabs-mode nil)
+
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -116,6 +138,8 @@
 (set-fringe-mode 10)        ; Give some breathing room
 
 (menu-bar-mode -1)            ; Disable the menu bar
+
+;; (setq-default fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist))
 
 ;; Set up the visible bell
 (setq visible-bell t)
@@ -154,6 +178,8 @@
     "t"  '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")))
 
+(use-package undo-fu)
+
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -165,7 +191,16 @@
   (setq evil-insert-state-cursor '(bar "green"))
   (setq-default evil-symbol-word-search t)
   :config
-  (evil-mode 1)
+  (evil-mode t)
+  (evil-set-undo-system 'undo-fu)
+  (setq evil-move-cursor-back nil
+        evil-move-beyond-eol t
+        evil-want-fine-undo t
+        evil-mode-line-format 'before
+        evil-normal-state-cursor '(box "orange")
+        evil-insert-state-cursor '(box "green")
+        evil-visual-state-cursor '(box "#F86155")
+        evil-emacs-state-cursor  '(box "purple"))
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
 
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
@@ -173,12 +208,17 @@
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  
+  (require 'evil-maps)
+  (define-key evil-motion-state-map "L" nil)
+  (define-key evil-motion-state-map "M" nil)
 
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
 
 (use-package evil-collection
   :after evil
+  :diminish evil-collection-unimpaired-mode
   :config
   (evil-collection-init))
 
@@ -186,6 +226,16 @@
   :config
   (setq-default evil-escape-key-sequence "qp")
   (evil-escape-mode))
+
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
+(use-package smartparens
+  :init (require 'smartparens-config)
+  :diminish smartparens-mode
+  :hook (prog-mode . smartparens-mode))
 
 (use-package evil-cleverparens
   :after (evil smartparens)
@@ -224,6 +274,7 @@
   :init (which-key-mode)
   :diminish which-key-mode
   :config
+  (setq which-key-sort-order 'which-key-prefix-then-key-order)
   (setq which-key-idle-delay 1))
 
 (use-package vertico
@@ -384,7 +435,7 @@
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-recent-file
    consult--source-project-recent-file
-   :preview-key (kbd "M-."))
+   :preview-key "M-.")
 
   ;; Optionally configure the narrowing key.
   ;; Both < and C-+ work reasonably well.
@@ -407,6 +458,45 @@
   ;;;; 4. locate-dominating-file
   ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
 )
+
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  :init
+  ;; Must be in the :init section of use-package such that the mode gets
+  ;; enabled right away. Note that this forces loading the package.
+  (marginalia-mode))
+
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
+  ;; strategy, if you want to see the documentation from multiple providers.
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+  :config
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package helpful
   :custom
@@ -634,6 +724,12 @@
   :diminish company-mode
   :hook (prog-mode . company-mode))
 
+(add-hook 'after-init-hook #'global-company-mode)
+(add-hook 'javascript-mode-hook #'eglot-ensure)
+(add-hook 'typescript-mode-hook #'eglot-ensure)
+(add-hook 'js-mode-hook #'eglot-ensure)
+(add-hook 'typescript-mode-hook #'eglot-ensure)
+
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
@@ -660,7 +756,7 @@
 ;; NOTE: Make sure to configure a GitHub token before using this package!
 ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-(use-package forge)
+;; (use-package forge)
 
 (use-package magit-delta
   :after (magit)
@@ -674,6 +770,20 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package aggressive-indent
+  :diminish aggressive-indent-mode
+  :hook ((clojurex-mode
+          clojurescript-mode
+          clojurec-mode
+          clojure-mode
+          emacs-lisp-mode
+          lisp-data-mode)
+         . aggressive-indent-mode))
+
+(use-package avy)
+
+(use-package undo-fu)
 
 (use-package verb)
 (use-package org
@@ -695,12 +805,27 @@
 (use-package js-comint)
 
 (use-package js2-mode
-  :mode "\\.js\\'"
+  :mode (("\\.ts\\'" . js2-mode)
+         ("\\.js\\'" . js2-mode)
+         ("\\.mjs\\'" . js2-mode)
+         ("\\.tsx\\'" . js2-mode)
+         ("\\.jsx\\'" . js2-mode))
   :config
   (customize-set-variable 'js2-basic-offset 2)
   (customize-set-variable 'js2-include-node-externs t))
 
 (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+
+;; (use-package web-mode
+;;   :ensure t
+;;   :mode (("\\.ts\\'" . web-mode)
+;;          ("\\.js\\'" . web-mode)
+;;          ("\\.mjs\\'" . web-mode)
+;;          ("\\.tsx\\'" . web-mode)
+;;          ("\\.jsx\\'" . web-mode))
+;;   :config
+;;   (setq web-mode-content-types-alist
+;;  '(("jsx" . "\\.js[x]?\\'"))))
 
 ;; (use-package tide
 ;;   :after (company flycheck)
@@ -831,3 +956,11 @@ mismatched parens are changed based on the left one."
 (use-package direnv
  :config
  (direnv-mode))
+
+;; (use-package piglet-mode
+;;   :load-path )
+(add-to-list 'load-path "/Users/ox/projects/piglet-emacs")
+(require 'piglet-mode)
+
+(require 'treesit)
+;; (add-to-list 'treesit-extra-load-path ")
