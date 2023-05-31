@@ -55,8 +55,14 @@
    ("]" "Next error" flycheck-next-error)
    ;; ("`" "Switch to from cider" :switch-to-from-cider-repl)
 
+   ("b" "Buffer commands"
+    ("b" "Switch buffer" consult-buffer))
+
    ("i" "inspect"
     ("r" "last result" cider-inspect-last-result))
+
+   ("j" "journal"
+    ("j" "journal" org-journal-new-entry))
 
    ("c" "clojure"
     ("a" "add arity" clojure-add-arity))
