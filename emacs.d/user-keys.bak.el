@@ -36,88 +36,59 @@
  (normal|visual
   ;; ("I" "Start insert on forms" evil-cp-insert-at-beginning-of-form)
   ("[" "unimpared behind"
-   ("c" "Prev hunk of git change" git-gutter:previous-hunk)
-   ("m" "Prev merge conflict" smerge-prev)
-   )
+   ("c" "Next hunk of git change" git-gutter:previous-hunk))
 
   ("]" "unimpared ahead"
-   ("c" "Next hunk of git change" git-gutter:next-hunk)
-   ("m" "Next merge conflict" smerge-next)
-   )
+   ("c" "Next hunk of git change" git-gutter:next-hunk))
 
   ("<backspace>" "Switch to previous buffer" corgi/switch-to-previous-buffer)
-
-  ;; ("s" "Jump" avy-goto-char-2)
-
-  ("g" "Goto lsp"
-   ("d" "Find definition" lsp-find-definition)
-   ("r" "Find ref" lsp-find-references)
-   ("D" "Find UI definition" lsp-ui-peek-find-definitions)
-   ("R" "Find ref" lsp-ui-peek-find-references))
-
   ("z" "zzzzz"
-   ;; ("z" "Fold toggle" evil-toggle-fold)
-   )
+   ("z" "Fold toggle" evil-toggle-fold))
 
   ("SPC" "leader"
    ("." "Find file from point" find-file)
    ("a" "End append on forms" evil-cp-insert-at-end-of-form)
    ("0" "Select Treemacs" treemacs-select-window)
-   ("=" "Zoom in" default-text-scale-increase)
-   ("-" "Zoom out" default-text-scale-decrease)
+   ("=" "Zoom in" text-scale-increase)
+   ("-" "Zoom out" text-scale-decrease)
    ("[" "Prev error" flycheck-previous-error)
    ("]" "Next error" flycheck-next-error)
    ;; ("`" "Switch to from cider" :switch-to-from-cider-repl)
 
    ("b" "Buffer commands"
-    ("b" "Switch buffer" counsel-switch-buffer))
+    ("b" "Switch buffer" consult-buffer))
 
    ("i" "inspect"
     ("r" "last result" cider-inspect-last-result))
 
+   ("j" "journal"
+    ("j" "journal" org-journal-new-entry))
+
    ("c" "clojure"
-    ("a" "add arity" clojure-add-arity)
-    ("c" "Recompile" recompile))
+    ("a" "add arity" clojure-add-arity))
 
    ("f"
     ("f" "Projectile file" projectile-find-file)
     ("t" "Turn Treemacs on/off" treemacs)
     ("T" "Focus current file in file tree" treemacs-find-file)
     ("e" "edit"
-     ("o" "local.ox.el" ox/open-init-el)))
+     ("o" "open init.org" ox/open-init-org)))
 
    ("g" "Git"
     ("s" "Magit Status" magit-status)
-    ("." "Magit file dispatch" magit-file-dispatch)
     ("r" "Git repo home" git-link-homepage)
     ("l" "Git repo link" git-link)
-    ("g" "Git status" magit-status)
-    ("l" "Keep lower merge conflict" smerge-keep-lower)
-    ("u" "Keep upper merge conflict" smerge-keep-upper)
-    ("w" "Emojify" emojify-insert-emoji)
-    ("e" "Gitemoji" gitmoji-insert-emoji)
-    )
-
-   ("j" "Journal"
-    ("j" "journal" org-journal-new-entry)
-    ("d" "Discord log" ox/journal-discord-gaiwan)
-    )
-
-   ("p" "projectile"
-    ("r" "refresh projects" ox/refresh-projects-dir))
+    ("g" "Git status" magit-status))
 
    ("r" "(w)rap"
     ("r" "round insert" ox/open-round-insert)
-    ("w" "wrap" paredit-wrap-round)
-    ("(" "wrap" paredit-wrap-round)
-    ("[" "wrap square" paredit-wrap-square)
-    ("{" "wrap curly" paredit-wrap-curly))
+    ("w" "wrap" paredit-wrap-round))
 
    ("t" "Toggle"
     ("t" "parens toggle" ox/toggle-parens))
 
    ("y" "Yank"
-    ("p" "Yank pop list" counsel-yank-pop))
+    ("p" "Yank pop list" consult-yank-pop))
 
    ("o" "Go to other window" other-window)
 
@@ -143,12 +114,11 @@
     ("i" "Interrupt eval" :eval/interrupt)
     ("-" "Eval up to point" :eval/up-to-point))
 
-   ("SPC" "Switch buffer" counsel-switch-buffer)
-   ("/" "Search in project" counsel-rg)
+   ("SPC" "Switch buffer" consult-buffer)
+   ("/" "Search in project" consult-ripgrep)
    ("9" "Clever slurp backwd" evil-cp-<)
    ("0" "Clever barf backwd" evil-cp->)
    ("RET" "Resume last sess" ivy-resume)
    ("." "Find file" :file/open)
-   ("DEL" "Last buffer" corgi/switch-to-previous-buffer)
 
    )))
