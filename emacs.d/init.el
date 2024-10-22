@@ -147,7 +147,7 @@ cider-connected-hook
 
 (defun ox/open-init-el ()
   (interactive)
-  (find-file (expand-file-name "local.ox.el" user-emacs-directory)))
+  (find-file (expand-file-name "init.el" user-emacs-directory)))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)

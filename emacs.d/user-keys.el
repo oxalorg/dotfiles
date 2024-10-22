@@ -84,7 +84,7 @@
     ("t" "Turn Treemacs on/off" treemacs)
     ("T" "Focus current file in file tree" treemacs-find-file)
     ("e" "edit"
-     ("o" "local.ox.el" ox/open-init-el)))
+     ("o" "init.el" ox/open-init-el)))
 
    ("g" "Git"
     ("s" "Magit Status" magit-status)
