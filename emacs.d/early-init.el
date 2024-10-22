@@ -38,16 +38,16 @@
 (when (not (file-exists-p (expand-file-name "straight/versions/default.el" straight-base-dir)))
   (straight-freeze-versions))
 
-;; (use-package corgi-packages
-;;   :straight (corgi-packages
-;;              :type git
-;;              :local "~/projects/corgi-packages"
-;;              ;; :host github
-;;              ;; :repo "corgi-emacs/corgi-packages"
-;;              ))
+(use-package corgi-packages
+  :straight (corgi-packages
+             :type git
+             :local-repo "~/projects/corgi-packages"
+             ;; :host github
+             ;; :repo "corgi-emacs/corgi-packages"
+             ))
 
 ;; (add-to-list #'straight-recipe-repositories 'corgi-packages)
 
 (message "Early init finished loading...")
 
-(provide 'early-init.el)
+(provide 'early-init)
