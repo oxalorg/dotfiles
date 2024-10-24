@@ -1,4 +1,60 @@
-(use-package json)
+(setq package-enable-at-startup nil)
+(defvar elpaca-installer-version 0.7)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil :depth 1
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (< emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                 ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                 ,@(when-let ((depth (plist-get order :depth)))
+                                                     (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                 ,(plist-get order :repo) ,repo))))
+                 ((zerop (call-process "git" nil buffer t "checkout"
+                                       (or (plist-get order :ref) "--"))))
+                 (emacs (concat invocation-directory invocation-name))
+                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                 ((require 'elpaca))
+                 ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
+
+;; Install use-package support
+(elpaca elpaca-use-package
+  ;; Enable use-package :ensure support for Elpaca.
+  (elpaca-use-package-mode)
+ (setq elpaca-use-package-by-default t))
+
+;; (setq use-package-always-ensure t)
+(elpaca-wait)
+
+;; (use-package corgi-packages
+;;              :ensure (corgi-packages
+;;                        :host github
+;;                        :repo "corgi-emacs/corgi-packages"
+;;                        :branch "ox/separate-completion-ui"))
+
+(use-package transient)
+(use-package json :ensure nil)
 (use-package request)
 
 (message "ox's emacs initializing...")
@@ -6,31 +62,70 @@
 ;; Allow Ctrl-u to scroll up a page like vim
 (setq evil-want-C-u-scroll t)
 
-(setq warning-minimum-level :error)
-(setq warning-minimum-log-level :error)
+;; (setq warning-minimum-level :error)
+;; (setq warning-minimum-log-level :error)
 
 (message "[ox] Loading corgi")
 
-;; can use it without straight
-;; (use-package corgi-defaults
-;;   :straight nil
-;;   :load-path "~/projects/corgi-packages/corgi-defaults")
-(let ((straight-current-profile 'corgi))
-  (use-package corgi-defaults)
-  (use-package corgi-editor)
-  (use-package corgi-commands)
-  (use-package corgi-clojure)
-  (use-package corgi-emacs-lisp)
-  (use-package corgi-stateline)
-  (use-package corgi-bindings)
-  (use-package corkey
-    :straight (corkey
-               :type git
-               :host github
-               :repo "corgi-emacs/corkey")
-    :config
-    (corkey-mode 1)
-    (corkey/reload)))
+;; Loading corgi deps
+(use-package clj-ns-name
+  :ensure (clj-ns-name
+	   :type git
+	   :host github
+	   :files ("clj-ns-name.el")
+	   :repo "corgi-emacs/clj-ns-name"))
+
+(use-package walkclj
+  :ensure
+  (walkclj
+   :type git
+   :host github
+   :files ("walkclj.el")
+   :repo "corgi-emacs/walkclj"))
+
+(use-package pprint-to-buffer
+  :ensure
+  (pprint-to-buffer
+   :type git
+   :host github
+   :files ("pprint-to-buffer/pprint-to-buffer.el")
+   :repo "plexus/plexmacs"))
+
+(defmacro corgi-use-package (package)
+  `(use-package ,package
+     :ensure (,package
+              :host github
+              :repo "corgi-emacs/corgi-packages"
+              :local-repo ,(symbol-name package)
+              :files (,(concat (symbol-name package) "/" (symbol-name package) ".el"))
+              :branch "ox/separate-completion-ui")))
+
+(corgi-use-package corgi-editor)
+(corgi-use-package corgi-commands)
+(corgi-use-package corgi-clojure)
+(corgi-use-package corgi-emacs-lisp)
+(corgi-use-package corgi-stateline)
+(use-package corgi-bindings
+  :ensure
+  (corgi-bindings
+   :type git
+   :host github
+   :branch "main"
+   :files ("corgi-bindings/corgi-bindings.el"
+           "corgi-bindings/corgi-keys.el"
+           "corgi-bindings/corgi-signals.el"
+           "corgi-bindings/user-keys-template.el"
+           "corgi-bindings/user-signals-template.el")
+   :repo "corgi-emacs/corgi-packages"))
+
+(use-package corkey
+  :ensure (corkey
+           :type git
+           :host github
+           :repo "corgi-emacs/corkey")
+  :config
+  (corkey-mode 1)
+  (corkey/reload))
 
 (message "[ox] Corgi loaded.")
 
@@ -81,28 +176,26 @@
 
 (setq recentf-max-saved-items 100)
 
-(when (executable-find "bb")
-  (corgi/cider-jack-in-babashka))
-(run-at-time nil (* 5 60) 'recentf-save-list)
-(corgi/enable-cider-connection-indicator)
+;; (when (executable-find "bb")
+;;   (corgi/cider-jack-in-babashka))
+;; (run-at-time nil (* 5 60) 'recentf-save-list)
+;; (corgi/enable-cider-connection-indicator)
 
-cider-connected-hook
+;; cider-connected-hook
 
 (use-package visual-fill-column)
 
-(with-current-buffer (get-buffer-create "*scratch-clj*")
-  (clojure-mode))
+(with-eval-after-load
+    'clojure-mode
+  (with-current-buffer (get-buffer-create "*scratch-clj*")
+    (clojure-mode))
 
-(with-current-buffer (get-buffer-create "*scratch*")
-  (lisp-interaction-mode))
+  (with-current-buffer (get-buffer-create "*scratch*")
+    (lisp-interaction-mode))
 
-(use-package html-to-hiccup)
 
-(setq warning-minimum-level :warning)
-(setq warning-minimum-log-level :warning)
-
-(put-clojure-indent 'reflect/extend-signatures '(1 :form (1)))
-(put-clojure-indent 'sc.api/letsc '(1))
+  (put-clojure-indent 'reflect/extend-signatures '(1 :form (1)))
+  (put-clojure-indent 'sc.api/letsc '(1)))
 
 ;; (eval-after-load 'projectile
 ;;   (setq projectile-project-root-files-bottom-up
@@ -228,15 +321,15 @@ cider-connected-hook
         git-link-use-commit t))
 
 (use-package emojify)
-(use-package gitmoji
-  :straight nil
-  :load-path "~/projects/emacs-gitmoji")
+;; (use-package gitmoji
+;;   :ensure nil
+;;   :load-path "~/projects/emacs-gitmoji")
 
 (use-package default-text-scale)
 
-(use-package html-to-hiccup
-  :straight nil
-  :load-path "~/projects/html-to-hiccup")
+;; (use-package html-to-hiccup
+;;   :ensure nil
+;;   :load-path "~/projects/html-to-hiccup")
 
 ;; (use-package ivy-rich
 ;;   :config
@@ -302,12 +395,12 @@ cider-connected-hook
 (use-package coverlay)
 (use-package origami)
 (use-package css-in-js-mode
-  :straight '(css-in-js-mode :type git :host github :repo "orzechowskid/tree-sitter-css-in-js"))
+  :ensure '(css-in-js-mode :type git :host github :repo "orzechowskid/tree-sitter-css-in-js"))
 
 ;; (use-package corfu)
 
 (use-package tsx-mode
-  :straight '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
+  :ensure '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
 
 ;; (evil-define-key '(normal visual insert operator)
 ;;   global-map
@@ -445,7 +538,7 @@ cider-connected-hook
 ;;      '(("r" ox/counsel-rg-change-dir "change root directory")))))
 
 (use-package avy
-  :straight t
+  :ensure t
   :config
   (setq avy-timeout-seconds 0.5)
   (setq avy-ignored-modes
