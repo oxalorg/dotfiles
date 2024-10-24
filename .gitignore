@@ -30,3 +30,5 @@ git/gitk
 /emacs.d/history
 /emacs.d/tramp
 /emacs.d/secrets.el
+/emacs.d/elpaca/
+/emacs.d/straight/
