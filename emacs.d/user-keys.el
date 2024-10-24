@@ -70,7 +70,7 @@
    ;; ("`" "Switch to from cider" :switch-to-from-cider-repl)
 
    ("b" "Buffer commands"
-    ("b" "Switch buffer" counsel-switch-buffer))
+    ("b" "Switch buffer" consult-buffer))
 
    ("i" "inspect"
     ("r" "last result" cider-inspect-last-result))
@@ -117,7 +117,7 @@
     ("t" "parens toggle" ox/toggle-parens))
 
    ("y" "Yank"
-    ("p" "Yank pop list" counsel-yank-pop))
+    ("p" "Yank pop list" consult-yank-pop))
 
    ("o" "Go to other window" other-window)
 
@@ -143,8 +143,8 @@
     ("i" "Interrupt eval" :eval/interrupt)
     ("-" "Eval up to point" :eval/up-to-point))
 
-   ("SPC" "Switch buffer" counsel-switch-buffer)
-   ("/" "Search in project" counsel-rg)
+   ("SPC" "Switch buffer" consult-buffer)
+   ("/" "Search in project" consult-ripgrep)
    ("9" "Clever slurp backwd" evil-cp-<)
    ("0" "Clever barf backwd" evil-cp->)
    ("RET" "Resume last sess" ivy-resume)
