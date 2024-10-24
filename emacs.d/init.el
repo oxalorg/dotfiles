@@ -17,27 +17,17 @@
 
 (message "[ox] Loading corgi")
 
-(use-package corgi-defaults)
-
 ;; can use it without straight
 ;; (use-package corgi-defaults
 ;;   :straight nil
 ;;   :load-path "~/projects/corgi-packages/corgi-defaults")
-
-(use-package corgi-editor
-  :load-path "~/projects/corgi-packages/corgi-editor")
-
-(use-package corgi-commands
-  :load-path "~/projects/corgi-packages/corgi-commands")
-(use-package corgi-clojure
-  :load-path "~/projects/corgi-packages/corgi-clojure")
-(use-package corgi-emacs-lisp
-  :load-path "~/projects/corgi-packages/corgi-emacs-lisp")
-(use-package corgi-stateline
-  :load-path "~/projects/corgi-packages/corgi-stateline")
-(use-package corgi-bindings
-  :load-path "~/projects/corgi-packages/corgi-bindings")
-
+(use-package corgi-defaults)
+(use-package corgi-editor)
+(use-package corgi-commands)
+(use-package corgi-clojure)
+(use-package corgi-emacs-lisp)
+(use-package corgi-stateline)
+(use-package corgi-bindings)
 (use-package corkey
   :straight (corkey
              :type git
