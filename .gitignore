@@ -29,3 +29,4 @@ git/gitk
 /emacs.d/eln-cache/
 /emacs.d/history
 /emacs.d/tramp
+/emacs.d/secrets.el
