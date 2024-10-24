@@ -1,0 +1,34 @@
+;;; -*- no-byte-compile: t -*-
+
+;; This is your user signals file, here you configure how certain signals are
+;; handled in specific modes.
+
+;; In this Corgi sample config we've included `js-comint' to demonstrate how
+;; that works. This package allows evaluating JavaScript directly from a buffer.
+;; Evaluating the expression before the cursor is done in Corgi with `, RET' (or
+;; `, e e'), by telling Corgi that in JS buffers this means `js-send-last-sexp'
+;; we get the same bindings there.
+;;
+;; If you prefer some other key binding for "eval", then you can do that in
+;; `user-keys.el', and your new binding will do the right thing regardless of
+;; the language/mode you are in.
+
+((default (:command/execute execute-extended-command
+                            :file/open find-file
+                            :file/open-recent counsel-recentf
+
+                            :buffer/switch switch-to-buffer
+                            :buffer/incremental-search swiper
+
+                            :project/incremental-search counsel-git-grep
+                            :project/switch-buffer projectile-switch-to-buffer
+
+                            :jump/identifier counsel-imenu))
+ (cider-mode (:eval/outer-sexp-comment cider-eval-defun-to-comment)
+             (:switch-to-from-cider-repl corgi/switch-to-previous-buffer))
+ (cider-repl-mode (:switch-to-from-cider-repl corgi/switch-to-previous-buffer))
+ (clojure-mode (:switch-to-from-cider-repl ox/cider-switch-to-repl-buffer-same-window-force))
+ (js-mode ( :eval/last-sexp js-send-last-sexp
+                            :eval/buffer js-send-buffer
+                            :eval/region js-send-region
+                            :repl/toggle js-comint-start-or-switch-to-repl)))

@@ -1,14 +1,3 @@
-#+title: Literate emacs w/ Corgi for Clojure
-#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
-
-* Welcome to ox's emacs config!
-
-This is an org file which generates the [[file:init.el][init.el]] which can be loaded by Emacs at startup.
-
-** Variables
-
-#+begin_src emacs-lisp
-
 ;; NOTE: init.el is now generated from init.org.  Please edit that file
 ;;       in Emacs and init.el will be generated automatically!
 
@@ -16,17 +5,6 @@ This is an org file which generates the [[file:init.el][init.el]] which can be l
 (defvar efs/default-font-size 180)
 (defvar efs/default-variable-font-size 180)
 
-#+end_src
-
-* Tips for Use
-
-In this document I've added links in many places that lead you to documentation for the various packages we use.  If you're looking at this file in Emacs, you can put your cursor on a link and press =C-c C-o= or run =M-x org-open-at-point= to open the link in your web browser.
-
-* Straight.el package manager
-
-Emacs has a built in package manager but it has a lot left to be desired. We're going to use straight.el and use-package combination here
-
-#+begin_src emacs-lisp
 ;; Install the Straight package manager
 
 (defvar bootstrap-version)
@@ -63,32 +41,12 @@ Emacs has a built in package manager but it has a lot left to be desired. We're 
                :repo "corgi-emacs/corgi-packages"))
 
 (add-to-list #'straight-recipe-repositories 'corgi-packages)
-#+end_src
 
-#+RESULTS:
-| corgi-packages | org-elpa | melpa | gnu-elpa-mirror | nongnu-elpa | el-get | emacsmirror-mirror |
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
-* Exec path
-
-Unfortunately emacs launched from =.app= launcher does not get the full exec path which our shell has. Let's fix that
-
-#+begin_src emacs-lisp
-  (use-package exec-path-from-shell
-    :config
-    (when (memq window-system '(mac ns x))
-      (exec-path-from-shell-initialize)))
-#+end_src
-
-#+RESULTS:
-: t
-
-* Corgi emacs
-
-Corgi is a debundled emacs configuration. Which is absolutely awesome, because it lets you choose only the packages you want.
-
-For example, I include almost all the corgi packages except for =corgi-defaults= and =corgi-editor=. I want those to be configured in my own way.
-
-#+begin_src emacs-lisp
 (setq evil-want-C-u-scroll t)
 
 (let ((straight-current-profile 'corgi))
@@ -131,26 +89,11 @@ For example, I include almost all the corgi packages except for =corgi-defaults=
     ;; Automatically pick up keybinding changes
     (corkey-mode 1))
   )
-#+end_src
 
-#+RESULTS:
-: t
-
-* Env vars
-#+begin_src emacs-lisp
 (setenv "GOOGLE_APPLICATION_CREDENTIALS" "/Users/ox/projects/does/does-app/.does2020-credentials.json")
-#+end_src
 
-* Basic emacs config
-** Custom vars
-#+begin_src emacs-lisp
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
-#+end_src
-
-#+RESULTS:
-** Sensible defaults
-#+begin_src emacs-lisp
 
 ;; Turn off mouse interface early in startup to avoid momentary display
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -187,16 +130,6 @@ For example, I include almost all the corgi packages except for =corgi-defaults=
 ;; Never insert tabs
 (set-default 'indent-tabs-mode nil)
 
-#+end_src
-
-#+RESULTS:
-
-* Basic UI Configuration
-
-This section configures basic UI settings that remove unneeded elements to make Emacs look a lot more minimal and modern.  If you're just getting started in Emacs, the menu bar might be helpful so you can remove the =(menu-bar-mode -1)= line if you'd like to still see that.
-
-#+begin_src emacs-lisp
-
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
@@ -222,58 +155,28 @@ This section configures basic UI settings that remove unneeded elements to make 
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-#+end_src
+(set-face-attribute 'default nil :font "Iosevka" :height efs/default-font-size)
 
-#+RESULTS:
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Iosevka" :height efs/default-font-size)
 
-** Font Configuration
+;; Set the variable pitch face
+;; (set-face-attribute 'variable-pitch nil :font "Times New Roman" :height efs/default-font-size :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Iosevka" :height efs/default-font-size :weight 'regular)
 
-=Iosevka= gang assemble!
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-#+begin_src emacs-lisp
+(use-package general
+  :config
+  (general-create-definer rune/leader-keys
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC"
+    :global-prefix "C-SPC")
 
-  (set-face-attribute 'default nil :font "Iosevka" :height efs/default-font-size)
-
-  ;; Set the fixed pitch face
-  (set-face-attribute 'fixed-pitch nil :font "Iosevka" :height efs/default-font-size)
-
-  ;; Set the variable pitch face
-  ;; (set-face-attribute 'variable-pitch nil :font "Times New Roman" :height efs/default-font-size :weight 'regular)
-  (set-face-attribute 'variable-pitch nil :font "Iosevka" :height efs/default-font-size :weight 'regular)
-
-#+end_src
-
-#+RESULTS:
-
-* Keybinding Configuration
-
-Main keybindings are configured using corkey. It supports easy keybindings for evil-mode. On the other hand [[https://github.com/noctuid/general.el][general.el]] is used for easy keybinding configuration that integrates well with which-key. [[https://github.com/emacs-evil/evil-collection][evil-collection]] is used to automatically configure various Emacs modes with Vi-like keybindings for evil-mode.
-
-#+begin_src emacs-lisp
-
-  ;; Make ESC quit prompts
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-  (use-package general
-    :config
-    (general-create-definer rune/leader-keys
-      :keymaps '(normal insert visual emacs)
-      :prefix "SPC"
-      :global-prefix "C-SPC")
-
-    (rune/leader-keys
-      "t"  '(:ignore t :which-key "toggles")
-      "tt" '(counsel-load-theme :which-key "choose theme")))
-
-#+end_src
-
-#+RESULTS:
-: t
-
-* Evil
-** Base config
-
-#+begin_src emacs-lisp
+  (rune/leader-keys
+    "t"  '(:ignore t :which-key "toggles")
+    "tt" '(counsel-load-theme :which-key "choose theme")))
 
 (use-package undo-fu)
 
@@ -313,136 +216,59 @@ Main keybindings are configured using corkey. It supports easy keybindings for e
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
 
-#+end_src
-
-#+RESULTS:
-: t
-
-** Evil collection
-
-#+begin_src emacs-lisp
-
 (use-package evil-collection
   :after evil
   :diminish evil-collection-unimpaired-mode
   :config
   (evil-collection-init))
 
-#+end_src
+(use-package evil-escape
+  :config
+  (setq-default evil-escape-key-sequence "qp")
+  (evil-escape-mode))
 
-** Evil Escape
-
-Use another key to go into normal / escape mode. I have it configured as =qp=
-
-#+begin_src emacs-lisp
-
-  (use-package evil-escape
-    :config
-    (setq-default evil-escape-key-sequence "qp")
-    (evil-escape-mode))
-
-#+end_src
-
-#+RESULTS:
-: t
-
-** Evil Surround
-
-#+begin_src emacs-lisp
 (use-package evil-surround
   :ensure t
   :config
   (global-evil-surround-mode 1))
-#+end_src
 
-#+RESULTS:
-: t
-
-** Evil SmartParens
-
-#+begin_src emacs-lisp
 (use-package smartparens
   :init (require 'smartparens-config)
   :diminish smartparens-mode
   :hook (prog-mode . smartparens-mode))
-#+end_src
 
-#+RESULTS:
-| smartparens-mode | hs-minor-mode | rainbow-delimiters-mode | company-mode |
-
-** Evil cleverparens
-
-#+begin_src emacs-lisp
-  (use-package evil-cleverparens
-    :after (evil smartparens)
-    :commands evil-cleverparens-mode
-    :init
-    (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
-    (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
-    (setq evil-cleverparens-complete-parens-in-yanked-region t)
-    :config
-    (setq evil-cleverparens-use-s-and-S nil)
-    (evil-define-key '(normal visual) evil-cleverparens-mode-map
-      "s" nil
-      "S" nil
-      "{" nil
-      "}" nil
-      "[" nil
-      "]" nil
-      (kbd "<tab>") 'evil-jump-item))
-#+end_src
-
-#+RESULTS:
-
-* UI Configuration
-** Command Log Mode
-
-[[https://github.com/lewang/command-log-mode][command-log-mode]] is useful for displaying a panel showing each key binding you use in a panel on the right side of the frame.  Great for live streams and screencasts!
-
-#+begin_src emacs-lisp
+(use-package evil-cleverparens
+  :after (evil smartparens)
+  :commands evil-cleverparens-mode
+  :init
+  (add-hook 'clojure-mode-hook #'evil-cleverparens-mode)
+  (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
+  (setq evil-cleverparens-complete-parens-in-yanked-region t)
+  :config
+  (setq evil-cleverparens-use-s-and-S nil)
+  (evil-define-key '(normal visual) evil-cleverparens-mode-map
+    "s" nil
+    "S" nil
+    "{" nil
+    "}" nil
+    "[" nil
+    "]" nil
+    (kbd "<tab>") 'evil-jump-item))
 
 (use-package command-log-mode)
 
-#+end_src
+(use-package doom-themes
+  :init (load-theme 'doom-dracula t))
 
-** Color Theme
-
-[[https://github.com/hlissner/emacs-doom-themes][doom-themes]] is a great set of themes with a lot of variety and support for many different Emacs modes.  Taking a look at the [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][screenshots]] might help you decide which one you like best.  You can also run =M-x counsel-load-theme= to choose between them easily.
-
-#+begin_src emacs-lisp
-
-  (use-package doom-themes
-    :init (load-theme 'doom-dracula t))
-
-  (use-package cherry-blossom-theme
-    :config
-    (load-theme 'cherry-blossom t))
-#+end_src
-
-#+RESULTS:
-: t
-
-** Better Modeline
-
-[[https://github.com/seagle0128/doom-modeline][doom-modeline]] is a very attractive and rich (yet still minimal) mode line configuration for Emacs.  The default configuration is quite good but you can check out the [[https://github.com/seagle0128/doom-modeline#customize][configuration options]] for more things you can enable or disable.
-
-*NOTE:* The first time you load your configuration on a new machine, you'll need to run `M-x all-the-icons-install-fonts` so that mode line icons display correctly.
-
-#+begin_src emacs-lisp
+(use-package cherry-blossom-theme
+  :config
+  (load-theme 'cherry-blossom t))
 
 (use-package all-the-icons)
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
-
-#+end_src
-
-** Which Key
-
-[[https://github.com/justbur/emacs-which-key][which-key]] is a useful UI panel that appears when you start pressing any key binding in Emacs to offer you all possible completions for the prefix.  For example, if you press =C-c= (hold control and press the letter =c=), a panel will appear at the bottom of the frame displaying all of the bindings under that prefix and which command they run.  This is very useful for learning the possible key bindings in the mode of your current buffer.
-
-#+begin_src emacs-lisp
 
 (use-package which-key
   :init (which-key-mode)
@@ -451,15 +277,6 @@ Use another key to go into normal / escape mode. I have it configured as =qp=
   (setq which-key-sort-order 'which-key-prefix-then-key-order)
   (setq which-key-idle-delay 1))
 
-#+end_src
-
-#+RESULTS:
-: t
-
-** Vertico
-
-*** Vertico base
-#+begin_src emacs-lisp
 (use-package vertico
   :init
   (vertico-mode)
@@ -518,21 +335,12 @@ Use another key to go into normal / escape mode. I have it configured as =qp=
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
-#+end_src
 
-#+RESULTS:
-
-*** Vertico Repeat
-#+begin_src emacs-lisp
 ;; (use-package vertico-repeat
 ;;   :after vertico
 ;;   :ensure nil
 ;; )
-#+end_src
 
-** Consult
-
-#+begin_src emacs-lisp
 ;; Example configuration for Consult
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
@@ -650,25 +458,14 @@ Use another key to go into normal / escape mode. I have it configured as =qp=
   ;;;; 4. locate-dominating-file
   ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
 )
-#+end_src
 
-#+RESULTS:
-: consult-history
-
-** Marginalia
-#+begin_src emacs-lisp
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
   :init
   ;; Must be in the :init section of use-package such that the mode gets
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode))
-#+end_src
 
-#+RESULTS:
-
-** Embark
-#+begin_src emacs-lisp
 (use-package embark
   :ensure t
 
@@ -701,94 +498,53 @@ Use another key to go into normal / escape mode. I have it configured as =qp=
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-#+end_src
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
 
-#+RESULTS:
-| embark-consult--upgrade-markers | consult-preview-at-point-mode |
+(use-package hydra)
 
-** Helpful Help Commands
+(defhydra hydra-text-scale (:timeout 4)
+  "scale text"
+  ("j" text-scale-increase "in")
+  ("k" text-scale-decrease "out")
+  ("f" nil "finished" :exit t))
 
-[[https://github.com/Wilfred/helpful][Helpful]] adds a lot of very helpful (get it?) information to Emacs' =describe-= command buffers.  For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.  It is very useful for figuring out how things work in Emacs.
+(rune/leader-keys
+  "ts" '(hydra-text-scale/body :which-key "scale text"))
 
-#+begin_src emacs-lisp
+(defun efs/org-font-setup ()
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-  (use-package helpful
-    :custom
-    (counsel-describe-function-function #'helpful-callable)
-    (counsel-describe-variable-function #'helpful-variable)
-    :bind
-    ([remap describe-function] . counsel-describe-function)
-    ([remap describe-command] . helpful-command)
-    ([remap describe-variable] . counsel-describe-variable)
-    ([remap describe-key] . helpful-key))
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.2)
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Times New Roman" :weight 'regular :height (cdr face)))
 
-#+end_src
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
 
-** Text Scaling
-
-This is an example of using [[https://github.com/abo-abo/hydra][Hydra]] to design a transient key binding for quickly adjusting the scale of the text on screen.  We define a hydra that is bound to =C-s t s= and, once activated, =j= and =k= increase and decrease the text scale.  You can press any other key (or =f= specifically) to exit the transient key map.
-
-#+begin_src emacs-lisp
-
-  (use-package hydra)
-
-  (defhydra hydra-text-scale (:timeout 4)
-    "scale text"
-    ("j" text-scale-increase "in")
-    ("k" text-scale-decrease "out")
-    ("f" nil "finished" :exit t))
-
-  (rune/leader-keys
-    "ts" '(hydra-text-scale/body :which-key "scale text"))
-
-#+end_src
-
-* Org Mode
-
-[[https://orgmode.org/][Org Mode]] is one of the hallmark features of Emacs.  It is a rich document editor, project planner, task and time tracker, blogging engine, and literate coding utility all wrapped up in one package.
-
-** Better Font Faces
-
-The =efs/org-font-setup= function configures various text faces to tweak the sizes of headings and use variable width fonts in most cases so that it looks more like we're editing a document in =org-mode=.  We switch back to fixed width (monospace) fonts for code blocks and tables so that they display correctly.
-
-#+begin_src emacs-lisp
-
-  (defun efs/org-font-setup ()
-    ;; Replace list hyphen with dot
-    (font-lock-add-keywords 'org-mode
-                            '(("^ *\\([-]\\) "
-                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
-    ;; Set faces for heading levels
-    (dolist (face '((org-level-1 . 1.2)
-                    (org-level-2 . 1.1)
-                    (org-level-3 . 1.05)
-                    (org-level-4 . 1.0)
-                    (org-level-5 . 1.1)
-                    (org-level-6 . 1.1)
-                    (org-level-7 . 1.1)
-                    (org-level-8 . 1.1)))
-      (set-face-attribute (car face) nil :font "Times New Roman" :weight 'regular :height (cdr face)))
-
-    ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-    (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-    (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-    (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
-    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-    (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
-
-#+end_src
-
-#+RESULTS:
-: efs/org-font-setup
-
-** Basic Config
-
-This section contains the basic configuration for =org-mode= plus the configuration for Org agendas and capture templates.  There's a lot to unpack in here so I'd recommend watching the videos for [[https://youtu.be/VcgjTEa0kU4][Part 5]] and [[https://youtu.be/PNE-mgkZ6HM][Part 6]] for a full explanation.
-
-#+begin_src emacs-lisp
 (defun efs/org-mode-setup ()
   (org-indent-mode)
   (variable-pitch-mode 1)
@@ -918,76 +674,24 @@ This section contains the basic configuration for =org-mode= plus the configurat
 
   (efs/org-font-setup))
 
-#+end_src
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-#+RESULTS:
-| (lambda nil (add-hook 'after-save-hook #'efs/org-babel-tangle-config)) | org-tempo-setup | org-bullets-mode | er/add-org-mode-expansions | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | efs/org-mode-visual-fill | efs/org-mode-setup | (lambda nil (display-line-numbers-mode 0)) |
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (python . t)))
 
-*** Nicer Heading Bullets
+(push '("conf-unix" . conf-unix) org-src-lang-modes)
+(setq org-confirm-babel-evaluate nil)
 
-[[https://github.com/sabof/org-bullets][org-bullets]] replaces the heading stars in =org-mode= buffers with nicer looking characters that you can control.  Another option for this is [[https://github.com/integral-dw/org-superstar-mode][org-superstar-mode]] which we may cover in a later video.
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+(require 'org-tempo)
 
-#+begin_src emacs-lisp
-
-  (use-package org-bullets
-    :after org
-    :hook (org-mode . org-bullets-mode)
-    :custom
-    (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
-#+end_src
-
-*** Center Org Buffers
-
-We use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] to center =org-mode= buffers for a more pleasing writing experience as it centers the contents of the buffer horizontally to seem more like you are editing a document.  This is really a matter of personal preference so you can remove the block below if you don't like the behavior.
-
-#+begin_src emacs-lisp :tangle no
-
-  (defun efs/org-mode-visual-fill ()
-    (setq visual-fill-column-width 100
-          visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
-
-  (use-package visual-fill-column
-    :hook (org-mode . efs/org-mode-visual-fill))
-
-#+end_src
-
-#+RESULTS:
-| (lambda nil (add-hook 'after-save-hook #'efs/org-babel-tangle-config)) | org-tempo-setup | org-bullets-mode | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-fold-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | efs/org-mode-visual-fill | efs/org-mode-setup | (lambda nil (display-line-numbers-mode 0)) |
-
-** Configure Babel Languages
-
-To execute or export code in =org-mode= code blocks, you'll need to set up =org-babel-load-languages= for each language you'd like to use.  [[https://orgmode.org/worg/org-contrib/babel/languages.html][This page]] documents all of the languages that you can use with =org-babel=.
-
-#+begin_src emacs-lisp
-
-  (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((emacs-lisp . t)
-      (python . t)))
-
-  (push '("conf-unix" . conf-unix) org-src-lang-modes)
-  (setq org-confirm-babel-evaluate nil)
-
-#+end_src
-
-** Org easy templates
-
-You can disable it in favor of yasnippets
-
-#+begin_src emacs-lisp
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-  (require 'org-tempo)
-#+end_src
-
-#+RESULTS:
-: org-tempo
-
-** Org Journal
-
-#+begin_src emacs-lisp
 (use-package org-journal
   :ensure t
   :defer t
@@ -997,126 +701,50 @@ You can disable it in favor of yasnippets
    org-journal-file-type 'monthly
    org-journal-date-format "%a, %Y-%m-%d"
    org-journal-file-format "%Y-%m.org"))
-#+end_src
 
-** Optional finds
+;; Automatically tangle our Emacs.org config file when we save it
+(defun efs/org-babel-tangle-config ()
+  (when (or 
+         (string-equal buffer-file-name
+                       (expand-file-name (concat user-emacs-directory "init.org")))
+         (string-equal buffer-file-name
+                       (file-truename
+                        (expand-file-name (concat user-emacs-directory "init.org")))))
+    ;; Dynamic scoping to the rescue
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle))))
 
-Most of these are disabled for now, but I find some cool awesome stuff from over the interwebz and this is the place to save those
+(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
 
-#+begin_src emacs-lisp :tangle no
-  (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
-  (add-hook 'org-mode-hook 'turn-on-auto-fill)
-  (add-hook 'org-mode-hook 'auto-fill-mode)
-#+end_src
+(defun ox/open-init-org ()
+  (interactive)
+    (find-file (expand-file-name "init.org" user-emacs-directory)))
 
-* Literate configuration with init.org
-** Auto-tangle Configuration Files
-
-This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-config= gets executed each time such a buffer gets saved.  This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files.
-
-#+begin_src emacs-lisp
-
-  ;; Automatically tangle our Emacs.org config file when we save it
-  (defun efs/org-babel-tangle-config ()
-    (when (or 
-           (string-equal buffer-file-name
-                         (expand-file-name (concat user-emacs-directory "init.org")))
-           (string-equal buffer-file-name
-                         (file-truename
-                          (expand-file-name (concat user-emacs-directory "init.org")))))
-      ;; Dynamic scoping to the rescue
-      (let ((org-confirm-babel-evaluate nil))
-        (org-babel-tangle))))
-
-  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'efs/org-babel-tangle-config)))
-
-#+end_src
-
-#+RESULTS:
-| er/add-org-mode-expansions | #[0 \301\211\207 [imenu-create-index-function org-imenu-get-tree] 2] | (lambda nil (add-hook 'after-save-hook #'efs/org-babel-tangle-config)) | org-bullets-mode | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-show-all append local] 5] | #[0 \300\301\302\303\304$\207 [add-hook change-major-mode-hook org-babel-show-result-all append local] 5] | org-babel-result-hide-spec | org-babel-hide-all-hashes | efs/org-mode-visual-fill | efs/org-mode-setup | (lambda nil (display-line-numbers-mode 0)) |
-
-** Open init.org function
-#+begin_src emacs-lisp
-  (defun ox/open-init-org ()
-    (interactive)
-      (find-file (expand-file-name "init.org" user-emacs-directory)))
-#+end_src
-
-#+RESULTS:
-: ox/open-init-org
-** If you're sturggling to get tangling to work
-
-Add this into init.el and then `M-x eval-buffer`
-
-#+begin_src emacs-lisp :tangle no
-(require 'org)
-(org-babel-load-file
- (expand-file-name "init.org" user-emacs-directory))
-#+end_src
-
-* Completion / Company
-#+begin_src emacs-lisp
 (use-package company
   :diminish company-mode
   :hook (prog-mode . company-mode))
-#+end_src
 
-#+RESULTS:
-| company-mode | hs-minor-mode | rainbow-delimiters-mode | smartparens-mode |
-
-* LSP
-#+begin_src emacs-lisp
 (add-hook 'after-init-hook #'global-company-mode)
 (add-hook 'javascript-mode-hook #'eglot-ensure)
 (add-hook 'typescript-mode-hook #'eglot-ensure)
 (add-hook 'js-mode-hook #'eglot-ensure)
 (add-hook 'typescript-mode-hook #'eglot-ensure)
-#+end_src
 
-#+RESULTS:
-| eglot-ensure |
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  ;; :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  ;; NOTE: Set this to the folder where you keep your Git repos!
+  (when (file-directory-p "~/projects")
+    (setq projectile-project-search-path '("~/projects")))
+  (setq projectile-switch-project-action #'projectile-dired))
 
-* Projectile
-
-[[https://projectile.mx/][Projectile]] is a project management library for Emacs which makes it a lot easier to navigate around code projects for various languages.  Many packages integrate with Projectile so it's a good idea to have it installed even if you don't use its commands directly.
-
-#+begin_src emacs-lisp
-
-  (use-package projectile
-    :diminish projectile-mode
-    :config (projectile-mode)
-    ;; :custom ((projectile-completion-system 'ivy))
-    :bind-keymap
-    ("C-c p" . projectile-command-map)
-    :init
-    ;; NOTE: Set this to the folder where you keep your Git repos!
-    (when (file-directory-p "~/projects")
-      (setq projectile-project-search-path '("~/projects")))
-    (setq projectile-switch-project-action #'projectile-dired))
-
-#+end_src
-
-#+RESULTS:
-| lambda | nil | (interactive) | (use-package-autoload-keymap 'projectile-command-map 'projectile nil) |
-
-** Refresh directory
-
-#+begin_src emacs-lisp
-  (defun ox/refresh-projects-dir ()
-    (interactive)
-    (projectile-discover-projects-in-directory "~/projects"))
-#+end_src
-
-#+RESULTS:
-: t
-
-*** 
-
-* Magit
-
-[[https://magit.vc/][Magit]] is the best Git interface I've ever used.  Common Git operations are easy to execute quickly using Magit's command panel system.
-
-#+begin_src emacs-lisp
+(defun ox/refresh-projects-dir ()
+  (interactive)
+  (projectile-discover-projects-in-directory "~/projects"))
 
 (use-package magit
   :config
@@ -1130,44 +758,19 @@ Add this into init.el and then `M-x eval-buffer`
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 ;; (use-package forge)
 
-#+end_src
-
-#+RESULTS:
-: t
-
-** Delta - better diffing
-#+begin_src emacs-lisp
 (use-package magit-delta
   :after (magit)
   :config
   (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
-#+end_src
 
-* Git link
-#+begin_src emacs-lisp
-  (use-package git-link
-    :config
-    (setq git-link-open-in-browser t
-          git-link-use-commit t))
-#+end_src
+(use-package git-link
+  :config
+  (setq git-link-open-in-browser t
+        git-link-use-commit t))
 
-#+RESULTS:
-: t
-
-* Rainbow Delimiters
-
-[[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]] is useful in programming modes because it colorizes nested parentheses and brackets according to their nesting depth.  This makes it a lot easier to visually match parentheses in Emacs Lisp code without having to count them yourself.
-
-#+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
-#+end_src
 
-#+RESULTS:
-| hs-minor-mode | rainbow-delimiters-mode | company-mode | smartparens-mode |
-
-* Indentation
-#+begin_src emacs-lisp
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
   :hook ((clojurex-mode
@@ -1177,84 +780,26 @@ Add this into init.el and then `M-x eval-buffer`
           emacs-lisp-mode
           lisp-data-mode)
          . aggressive-indent-mode))
-#+end_src
 
-#+RESULTS:
-| aggressive-indent-mode |
-
-* Applications
-
-** Some App
-
-This is an example of configuring another non-Emacs application using org-mode.  Not only do we write out the configuration at =.config/some-app/config=, we also compute the value that gets stored in this configuration from the Emacs Lisp block above it.
-
-#+NAME: the-value
-#+begin_src emacs-lisp :tangle no
-
-  (+ 55 100)
-
-#+end_src
-
-#+begin_src conf :tangle .test.config :noweb yes
-
-  value=<<the-value()>>
-
-#+end_src
-
-* Quick moves
-#+begin_src emacs-lisp
 (use-package avy)
-#+end_src
 
-#+RESULTS:
-
-* Undo
-#+begin_src emacs-lisp
 (use-package undo-fu)
-#+end_src
 
-#+RESULTS:
+(use-package verb)
+(use-package org
+  :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
-* Verb HTTP rest client
-#+begin_src emacs-lisp
-  (use-package verb)
-  (use-package org
-    :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
-#+end_src
 
-#+RESULTS:
-: t
 
-* RestClient 
-
-#+begin_src emacs-lisp
-
-#+end_src
-
-* Snippets
-yasnippets is the most complete and popular snippet engine which works based on major-modes
-
-#+begin_src emacs-lisp
 (use-package yasnippet-snippets
   :ensure t)
 (use-package yasnippet
   :ensure t
   :config (yas-global-mode 1))
-#+end_src
 
-#+RESULTS:
-: t
-
-* Markdown & Yaml
-
-#+begin_src emacs-lisp
 (use-package markdown-mode)
 (use-package yaml-mode)
-#+end_src
 
-* Javascript 
-
-#+begin_src emacs-lisp
 ;; REPL-driven development for JavaScript, included as an example of how to
 ;; configure signals, see `user-signal.el' (visit it with `SPC f e s')
 (use-package js-comint)
@@ -1297,99 +842,65 @@ yasnippets is the most complete and popular snippet engine which works based on 
 ;;   (setq-default
 ;;    indent-tabs-mode nil
 ;;    tab-width 2))
-#+end_src
 
-#+RESULTS:
-| js2-imenu-extras-mode |
-
-* Emacs server
-
-Start the emacs-server, so you can open files from the command line with
-`emacsclient -n <file>' (we like to put `alias en="emacsclient -n"' in our shell
-config).
-
-#+begin_src emacs-lisp
 (server-start)
-#+end_src
 
-* Register shortcuts
-
-Emacs has "registers", places to keep small snippets of text. We make it easy to run a snippet of Clojure code in such a register, just press comma twice followed by the letter that designates the register (while in a Clojure buffer with a connected REPL). The code will be evaluated, and the result pretty-printed to a separate buffer.
-
-By starting a snippet with =#_clj= or =#_cljs= you can control which type of REPL it will go to, in case you have both a CLJ and a CLJS REPL connected.
-
-#+begin_src emacs-lisp
 (set-register ?k "#_clj (do (require 'kaocha.repl) (kaocha.repl/run))")
 (set-register ?K "#_clj (do (require 'kaocha.repl) (kaocha.repl/run-all))")
 (set-register ?r "#_clj (do (require 'user :reload) (user/reset))")
 (set-register ?g "#_clj (user/go)")
 (set-register ?b "#_clj (user/browse)")
-#+end_src
 
-* ox's paren magic
-#+begin_src emacs-lisp
-  (defun ox/open-round-insert ()
-    (interactive)
-    (paredit-open-round)
-    (evil-insert 0))
+(defun ox/open-round-insert ()
+  (interactive)
+  (paredit-open-round)
+  (evil-insert 0))
 
-  (show-paren-mode 1)
+(show-paren-mode 1)
 
-  (defun ox/toggle-parens--replace (pair start end)
-    "Replace parens with a new PAIR at START and END in current buffer.
-     A helper function for `toggle-parens'."
-    (goto-char start)
-    (delete-char 1)
-    (insert (substring pair 0 1))
-    (goto-char end)
-    (delete-char 1)
-    (insert (substring pair 1 2))
-    (goto-char start))
+(defun ox/toggle-parens--replace (pair start end)
+  "Replace parens with a new PAIR at START and END in current buffer.
+   A helper function for `toggle-parens'."
+  (goto-char start)
+  (delete-char 1)
+  (insert (substring pair 0 1))
+  (goto-char end)
+  (delete-char 1)
+  (insert (substring pair 1 2))
+  (goto-char start))
 
-  (defun ox/toggle-parens ()
-    "Toggle parens () <> [] at cursor.
-  Turn on `show-paren-mode' to see matching pairs of parentheses
-  and other characters in buffers. This function then uses the same
-  function `show-paren-data-function' to find and replace them with
-  the other pair of brackets.
-  This function can be easily modified and expanded to replace
-  other brackets. Currently, mismatch information is ignored and
-  mismatched parens are changed based on the left one."
-    (interactive)
-    (let* ((parens (funcall show-paren-data-function))
-           (start (if (< (nth 0 parens) (nth 2 parens))
-                      (nth 0 parens) (nth 2 parens)))
-           (end (if (< (nth 0 parens) (nth 2 parens))
-                    (nth 2 parens) (nth 0 parens)))
-           (startchar (buffer-substring-no-properties start (1+ start)))
-           (mismatch (nth 4 parens)))
-      (when parens
-        (pcase startchar
-          ("(" (ox/toggle-parens--replace "[]" start end))
-          ("[" (ox/toggle-parens--replace "{}" start end))
-          ("{" (ox/toggle-parens--replace "()" start end))))))
-#+end_src
+(defun ox/toggle-parens ()
+  "Toggle parens () <> [] at cursor.
+Turn on `show-paren-mode' to see matching pairs of parentheses
+and other characters in buffers. This function then uses the same
+function `show-paren-data-function' to find and replace them with
+the other pair of brackets.
+This function can be easily modified and expanded to replace
+other brackets. Currently, mismatch information is ignored and
+mismatched parens are changed based on the left one."
+  (interactive)
+  (let* ((parens (funcall show-paren-data-function))
+         (start (if (< (nth 0 parens) (nth 2 parens))
+                    (nth 0 parens) (nth 2 parens)))
+         (end (if (< (nth 0 parens) (nth 2 parens))
+                  (nth 2 parens) (nth 0 parens)))
+         (startchar (buffer-substring-no-properties start (1+ start)))
+         (mismatch (nth 4 parens)))
+    (when parens
+      (pcase startchar
+        ("(" (ox/toggle-parens--replace "[]" start end))
+        ("[" (ox/toggle-parens--replace "{}" start end))
+        ("{" (ox/toggle-parens--replace "()" start end))))))
 
-* Python
-
-#+begin_src emacs-lisp
 (setq python-shell-interpreter "python3")
 ;; (add-hook 'python-mode-hook 'electric-indent-mode-hook)
 (add-hook 'python-mode-hook (lambda () (electric-indent-local-mode 1)))
-#+end_src
 
-* Caddyfile
-#+begin_src emacs-lisp
 (use-package caddyfile-mode
   :ensure t
   :mode (("Caddyfile\\'" . caddyfile-mode)
          ("caddy\\.conf\\'" . caddyfile-mode)))
-#+end_src
-* Uncategorised
 
-These blocks need to find a home yet :)
-
-#+begin_src emacs-lisp
 (use-package git-gutter
   :config
   (global-git-gutter-mode +1))
@@ -1413,19 +924,10 @@ These blocks need to find a home yet :)
 
 (use-package zprint-mode)
 
-#+end_src
-
-* Clojure
-** clojure mode
-#+begin_src emacs-lisp
 (use-package clojure-mode
   :ensure t
   :config
   (require 'flycheck-clj-kondo))
-#+end_src
-** cljr Refactoring
-
-#+begin_src emacs-lisp
 
 (use-package clj-refactor
   :after (cider)
@@ -1442,14 +944,6 @@ These blocks need to find a home yet :)
           clojure-mode-hook)
          . clj-refactor-mode))
 
-#+end_src
-
-#+RESULTS:
-| clj-refactor-mode |
-
-* Emojis
-
-#+begin_src emacs-lisp
 (defvar emojify-company-tooltips-p)
 (use-package emojify
   :ensure t
@@ -1458,37 +952,15 @@ These blocks need to find a home yet :)
   :config
   (setq emojify-company-tooltips-p t)
   (add-hook 'after-init-hook #'global-emojify-mode))
-#+end_src
 
-#+RESULTS:
-
-* Direnv
-
-#+begin_src emacs-lisp
 (use-package direnv
  :config
  (direnv-mode))
-#+end_src
 
-#+RESULTS:
-: t
-
-* Piglet
-#+begin_src emacs-lisp
 ;; (use-package piglet-mode
 ;;   :load-path )
 (add-to-list 'load-path "/Users/ox/projects/piglet-emacs")
 (require 'piglet-mode)
-#+end_src
 
-#+RESULTS:
-: piglet-mode
-
-* Tree sit
-#+begin_src emacs-lisp
 (require 'treesit)
 ;; (add-to-list 'treesit-extra-load-path ")
-#+end_src
-
-#+RESULTS:
-: treesit
