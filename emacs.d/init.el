@@ -9,33 +9,28 @@
 (setq warning-minimum-level :error)
 (setq warning-minimum-log-level :error)
 
-(defun gaiwan-filter-local (files)
-  (seq-filter
-   (lambda (file)
-     (file-exists-p (expand-file-name file user-emacs-directory)))
-   files))
-
 (message "[ox] Loading corgi")
 
 ;; can use it without straight
 ;; (use-package corgi-defaults
 ;;   :straight nil
 ;;   :load-path "~/projects/corgi-packages/corgi-defaults")
-(use-package corgi-defaults)
-(use-package corgi-editor)
-(use-package corgi-commands)
-(use-package corgi-clojure)
-(use-package corgi-emacs-lisp)
-(use-package corgi-stateline)
-(use-package corgi-bindings)
-(use-package corkey
-  :straight (corkey
-             :type git
-             :host github
-             :repo "corgi-emacs/corkey")
-  :config
-  (corkey-mode 1)
-  (corkey/reload))
+(let ((straight-current-profile 'corgi))
+  (use-package corgi-defaults)
+  (use-package corgi-editor)
+  (use-package corgi-commands)
+  (use-package corgi-clojure)
+  (use-package corgi-emacs-lisp)
+  (use-package corgi-stateline)
+  (use-package corgi-bindings)
+  (use-package corkey
+    :straight (corkey
+               :type git
+               :host github
+               :repo "corgi-emacs/corkey")
+    :config
+    (corkey-mode 1)
+    (corkey/reload)))
 
 (message "[ox] Corgi loaded.")
 
@@ -340,6 +335,28 @@ cider-connected-hook
   ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
   :init
   (vertico-mode))
+
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  ;; Bind `marginalia-cycle' locally in the minibuffer.  To make the binding
+  ;; available in the *Completions* buffer, add it to the
+  ;; `completion-list-mode-map'.
+  :bind (:map minibuffer-local-map
+              ("M-A" . marginalia-cycle))
+
+  ;; The :init section is always executed.
+  :init
+
+  ;; Marginalia must be activated in the :init section of use-package such that
+  ;; the mode gets enabled right away. Note that this forces loading the
+  ;; package.
+  (marginalia-mode))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;; ;; Define a function to paste text
 ;; (defun my-paste ()
