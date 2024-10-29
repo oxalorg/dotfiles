@@ -143,7 +143,7 @@
 (use-package buttercup)
 (use-package rainbow-mode)
 (use-package pkg-info)
-;;(use-package clj-refactor)
+(use-package clj-refactor)
 
 (server-start)
 (global-display-line-numbers-mode 1)
@@ -327,14 +327,8 @@
 
 (use-package default-text-scale)
 
-;; (use-package html-to-hiccup
-;;   :ensure nil
-;;   :load-path "~/projects/html-to-hiccup")
-
-;; (use-package ivy-rich
-;;   :config
-;;   (ivy-rich-mode 1)
-;;   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
+(use-package html-to-hiccup
+  :ensure (:host github :repo "plexus/html-to-hiccup"))
 
 (message "loading secrets...")
 (load-file (expand-file-name (concat user-emacs-directory "/secrets.el")))
@@ -359,7 +353,6 @@
     (send-discord-message-with-webhook discord-ox-journal-webhook-url message)))
 
 ;; (use-package clockify
-;;   :ensure nil
 ;;   :load-path "~/projects/emacs-clockify")
 
 ;; Usage example: M-x send-discord-message
@@ -444,21 +437,6 @@
 (use-package tsx-mode
   :ensure '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
 
-;; (evil-define-key '(normal visual insert operator)
-;;   global-map
-;;   (kbd "C-v") 'evil-paste-after
-;;   (kbd "C-V") 'evil-paste-before)
-
-;; (define-key input-decode-map (kbd "M-v") 'my-paste-from-clipboard)
-;; (defun my-paste-from-clipboard ()
-;;   "Paste from clipboard in Evil normal and insert modes."
-;;   (interactive)
-;;   (if (not (evil-insert-state-p))
-;;       (progn
-;;         (evil-normal-state)
-;;         (evil-paste-after))
-;;     (yank)))
-
 (use-package consult
   :hook (completion-list-mode . consult-preview-at-point-mode))
 
@@ -469,7 +447,7 @@
   (vertico-resize t) ;; Grow and shrink the Vertico minibuffer
   ;; (vertico-cycle t) ;; Enable cycling for `vertico-next/previous'
   :init
-  (vertico-mode))
+  (vertico-mode 1))
 
 ;; Enable rich annotations using the Marginalia package
 (use-package marginalia
@@ -588,13 +566,10 @@
   (evil-define-key nil evil-normal-state-map
     "s" 'avy-goto-char-2))
 
-;; (use-package copilot
-;;   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-;;   :ensure t
-;;   :config
-;;   (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-;;   (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion))
-;; ;; you can utilize :map :hook and :config to customize copilot
+(use-package devdocs)
+
+(add-to-list 'load-path (expand-file-name "~/projects/clojuredocs.el"))
+(require 'clojuredocs)
 
 (message "[ox] loading tailwind cheatsheet...")
 (load-file (expand-file-name (concat user-emacs-directory "/tailwind_cheatsheet.el")))
