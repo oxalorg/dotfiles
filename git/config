@@ -7,6 +7,7 @@
 [core]
     excludesfile = ~/.config/git/gitignore
     editor = $(which vim)
+    pager = delta
 [commit]
     template = ~/.config/git/gittemplate
 [url "git@github.com:"]
@@ -54,3 +55,25 @@
 	ff = only
 [github]
 	user = oxalorg
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+
+    # delta detects terminal colors automatically; set one of these to disable auto-detection
+    # dark = true
+    # light = true
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
+[pager]
+  blame  = delta
+  diff   = delta
+  reflog = delta
+  show   = delta
