@@ -20,7 +20,7 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-ZSH_THEME="arrow"
+ZSH_THEME="simple" # set by `omz`
 HYPHEN_INSENSITIVE="true"
 DISABLE_UPDATE_PROMPT="true"
 
@@ -103,6 +103,7 @@ gcloud-source() {
 }
 
 export PATH=/usr/local/go/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$PATH:/Users/ox/bin
 export PATH=$HOME/go/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
@@ -115,6 +116,7 @@ export PATH=$HOME/.emacs.d/bin:$PATH
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="/opt/gradle/bin:$PATH"
 [ -f ~/.rbenv/bin/rbenv ] && eval "$(rbenv init -)"
+export PATH="$PATH:$HOME/.babashka/bbin/bin"
 
 if [[ "$myos" == "wsl" ]]; then
     #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
@@ -170,7 +172,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export FZF_BASE=$HOME/.fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --bind=tab:down,shift-tab:up"
-export FZF_CTRL_T_COMMAND='fd --type f'
+export FZF_CTRL_T_COMMAND='fd'
 
 export REVIEW_BASE='master'
 
@@ -348,6 +350,10 @@ compressimginplace() {
     convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize 25% -auto-orient "$1" "$1"
 }
 
+compressimginplace-resize() {
+    convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize "$2" -auto-orient "$1" "$1"
+}
+
 resizeimg() {
     convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize "$2" -auto-orient "$1" "compressed_$1"
 }
@@ -439,23 +445,70 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
+eval "$(mcfly init zsh)"
+
 alias funnelclj="clojure -Sdeps '{:deps {lambdaisland/funnel {:mvn/version \"1.4.71\"}}}' -m lambdaisland.funnel -vv"
+function tsc-error-files() {
+    tsc | awk -F '(' '/error TS/ {print $1}' | sort | uniq
+}
 
-#;; Local Variables:
-#;; mode: sh
-#;; End:
+check_git_repos() {
+  local project_dir="$HOME/projects"
+  local total=0
+  local clean_count=0
+  local unclean_count=0
+  local unclean_repos=()
 
-# pnpm
-export PNPM_HOME="/Users/ox/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-export PATH="$PATH:$HOME/.babashka/bbin/bin"
+  for dir in "$project_dir"/*/; do
+    if [ -d "$dir/.git" ]; then
+      ((total++))
+      # Run git status and check for cleanliness
+      if git -C "$dir" status --porcelain | grep -q .; then
+        ((unclean_count++))
+        unclean_repos+=("$dir")
+      else
+        ((clean_count++))
+      fi
+    fi
+  done
+
+  echo "Total Git repositories checked: $total"
+  echo "Total clean repositories: $clean_count"
+  echo "Total unclean repositories: $unclean_count"
+
+  if [ "$unclean_count" -gt 0 ]; then
+    echo -e "\nUnclean repositories:"
+    printf "%s\n" "${unclean_repos[@]}"
+  fi
+}
+
+# File to track the last run date
+LAST_RUN_FILE="$HOME/.git_check_last_run"
+
+# Function to call `check_git_repos` only once per day
+daily_git_check() {
+  # Get the current date in YYYY-MM-DD format
+  local today=$(date +%F)
+
+  # Check if the last run file exists and read the last run date
+  if [ -f "$LAST_RUN_FILE" ]; then
+    last_run_date=$(cat "$LAST_RUN_FILE")
+  else
+    last_run_date=""
+  fi
+
+  # If the last run date is not today, run the check and update the last run file
+  if [ "$last_run_date" != "$today" ]; then
+    echo "Running daily Git repository check..."
+    check_git_repos
+    echo "$today" > "$LAST_RUN_FILE"
+  else
+    echo "Daily Git repository check has already been run today."
+  fi
+}
+
+daily_git_check
+
 
 function gcp-switch() {
   local project="$1"
@@ -469,6 +522,9 @@ function gcp-switch() {
     itrev)
       gcloud config configurations activate itrev
       ;;
+    humble)
+      gcloud config configurations activate humble
+      ;;
     *)
       echo "Invalid project specified. Choose from: gaiwan, default, itrev"
       return 1
@@ -478,7 +534,7 @@ function gcp-switch() {
 
 # Enable auto-completion for project names
 function _gcp-switch-completion() {
-  _arguments '*: :(_values "gaiwan" "default" "itrev")'
+  _arguments '*: :(_values "gaiwan" "default" "itrev" "humble")'
 }
 compdef _gcp-switch-completion gcp-switch
 
@@ -659,3 +715,33 @@ if [ "$funcstack[1]" = "_doctl" ]; then
 fi
 
 compdef _doctl doctl
+
+# pnpm
+export PNPM_HOME="/Users/ox/Library/pnpm"
+case ":$PATH:" in
+  # *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE='/opt/homebrew/opt/micromamba/bin/micromamba';
+export MAMBA_ROOT_PREFIX='/Users/ox/micromamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+#;; Local Variables:
+#;; mode: sh
+#;; End:
