@@ -32,3 +32,7 @@ git/gitk
 /emacs.d/secrets.el
 /emacs.d/elpaca/
 /emacs.d/straight/
+/emacs.d/devdocs/
+/emacs.d/request/
+/emacs.d/tree-sitter/
+/emacs.d/projects

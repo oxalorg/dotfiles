@@ -35,6 +35,7 @@
  ;; Bindings for commands are usually only active in normal and visual state.
  (normal|visual
   ;; ("I" "Start insert on forms" evil-cp-insert-at-beginning-of-form)
+
   ("[" "unimpared behind"
    ("c" "Prev hunk of git change" git-gutter:previous-hunk)
    ("m" "Prev merge conflict" smerge-prev)
@@ -63,6 +64,10 @@
    ("." "Find file from point" find-file)
    ("a" "End append on forms" evil-cp-insert-at-end-of-form)
    ("0" "Select Treemacs" treemacs-select-window)
+   ("1" "Harpoon 1" harpoon-go-to-1)
+   ("2" "Harpoon 2" harpoon-go-to-2)
+   ("3" "Harpoon 3" harpoon-go-to-3)
+   ("4" "Harpoon 4" harpoon-go-to-4)
    ("=" "Zoom in" default-text-scale-increase)
    ("-" "Zoom out" default-text-scale-decrease)
    ("[" "Prev error" flycheck-previous-error)
@@ -98,9 +103,13 @@
     ("e" "Gitemoji" gitmoji-insert-emoji)
     )
 
-   ("j" "Journal"
+   ("j" "Journal / jump"
     ("j" "journal" org-journal-new-entry)
     ("d" "Discord log" ox/journal-discord-gaiwan)
+    ("s" "slack log" ox/journal-slack-gaiwan)
+    ("f" "Harpoon toogle file" harpoon-toggle-file)
+    ("a" "Harpoon add file" harpoon-add-file)
+    ("c" "Harpoon clear" harpoon-clear)
     )
 
    ("p" "projectile"

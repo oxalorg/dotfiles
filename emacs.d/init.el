@@ -129,6 +129,11 @@
 
 (message "[ox] Corgi loaded.")
 
+(setq backup-directory-alist
+      `(("." . "~/.emacs-saves")))
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs-saves/" t)))
+
 (use-package magit)
 (use-package org
   :config
@@ -158,10 +163,16 @@
 (set-register ?, "#_clj (nextjournal.clerk/show! \"{{buffer-file-name}}\")")
 (set-register ?p "#_clj (user/portal)")
 (set-register ?P "#_cljs (user/portal)")
+(set-register ?z "#_clj (do (user/pathom-reload-env) nil)")
 
-(use-package color-theme-sanityinc-tomorrow
+;; (use-package color-theme-sanityinc-tomorrow
+;;   :config
+;;   (load-theme 'sanityinc-tomorrow-night t))
+
+(use-package cherry-blossom-theme
+  :ensure t
   :config
-  (load-theme 'sanityinc-tomorrow-night t))
+  (load-theme 'cherry-blossom t))
 
 (add-hook 'before-save-hook
           (lambda ()
@@ -185,15 +196,19 @@
 
 (use-package visual-fill-column)
 
-(with-eval-after-load
-    'clojure-mode
+(use-package flycheck-clj-kondo
+  :ensure t)
+
+(with-eval-after-load 'clojure-mode
   (with-current-buffer (get-buffer-create "*scratch-clj*")
     (clojure-mode))
 
   (with-current-buffer (get-buffer-create "*scratch*")
     (lisp-interaction-mode))
 
+  (require 'flycheck-clj-kondo)
 
+  (put-clojure-indent 'lambdaisland.morf/deform 1)
   (put-clojure-indent 'reflect/extend-signatures '(1 :form (1)))
   (put-clojure-indent 'sc.api/letsc '(1)))
 
@@ -325,7 +340,9 @@
 ;;   :ensure nil
 ;;   :load-path "~/projects/emacs-gitmoji")
 
-(use-package default-text-scale)
+(use-package default-text-scale
+  :config
+  (setq default-text-scale-amount 20))
 
 (use-package html-to-hiccup
   :ensure (:host github :repo "plexus/html-to-hiccup"))
@@ -346,11 +363,30 @@
                (lambda (&key response &allow-other-keys)
                  (message "Done: %s" (request-response-status-code response))))))
 
-(defun ox-journal-discord-gaiwan ()
+(defun send-slack-message-with-webhook (webhook-url message)
+  "Send a message to a Slack channel using a webhook URL."
+  (request webhook-url
+    :type "POST"
+    :data (json-encode `(("message" . ,message)))
+    :headers '(("Content-Type" . "application/json"))
+    :parser 'json-read
+    :sync t
+    :complete (cl-function
+               (lambda (&key response &allow-other-keys)
+                 (message "Done: %s" (request-response-status-code response))))))
+
+(defun ox/journal-discord-gaiwan ()
   "Interactively send a message to a Discord channel using a webhook URL."
   (interactive)
   (let* ((message (read-string "Enter message: ")))
-    (send-discord-message-with-webhook discord-ox-journal-webhook-url message)))
+    (send-discord-message-with-webhook discord-ox-journal-webhook-url message)
+    ))
+
+(defun ox/journal-slack-gaiwan ()
+  "Interactively send a message to a Discord channel using a webhook URL."
+  (interactive)
+  (let* ((message (read-string "Enter message: ")))
+    (send-slack-message-with-webhook discord-slack-journal-webhook-url message)))
 
 ;; (use-package clockify
 ;;   :load-path "~/projects/emacs-clockify")
@@ -392,9 +428,9 @@
 
 (use-package corfu
   ;; Optional customizations
-  ;; :custom
+  :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  ;; (corfu-auto t)                 ;; Enable auto completion
+  (corfu-auto t)                 ;; Enable auto completion
   ;; (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
@@ -402,6 +438,7 @@
   ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+  (corfu-popupinfo-delay '(0.2 . 0.2))
 
   ;; Enable Corfu only for certain modes. See also `global-corfu-modes'.
   ;; :hook ((prog-mode . corfu-mode)
@@ -412,7 +449,10 @@
   ;; be used globally (M-/).  See also the customization variable
   ;; `global-corfu-modes' to exclude certain modes.
   :init
-  (global-corfu-mode))
+  (global-corfu-mode)
+  (corfu-echo-mode)
+  (corfu-popupinfo-mode)
+  )
 
 ;; A few more useful configurations...
 (use-package emacs
@@ -542,6 +582,9 @@
 (use-package cider
   :ensure t
   :init
+  (setq cider-dynamic-indentation nil
+	cider-font-lock-dynamically nil
+	cider-font-lock-reader-conditionals nil)
   (setq cider-clojure-cli-global-options ""))
 
 ;; (defun ox/counsel-rg-change-dir (arg)
@@ -568,8 +611,44 @@
 
 (use-package devdocs)
 
-(add-to-list 'load-path (expand-file-name "~/projects/clojuredocs.el"))
-(require 'clojuredocs)
+(with-eval-after-load 'require
+  (add-to-list 'load-path (expand-file-name "~/projects/clojuredocs.el"))
+  (require 'clojuredocs))
+
+(use-package difftastic
+  :demand t
+  :bind (:map magit-blame-read-only-mode-map
+              ("D" . difftastic-magit-show)
+              ("S" . difftastic-magit-show))
+  :config
+  (eval-after-load 'magit-diff
+    '(transient-append-suffix 'magit-diff '(-1 -1)
+       [("D" "Difftastic diff (dwim)" difftastic-magit-diff)
+        ("S" "Difftastic show" difftastic-magit-show)])))
+
+
+(use-package harpoon)
+
+;; (use-package magit-delta)
+
+;; (defun aankh/toggle-magit-delta ()
+;;   (interactive)
+;;   (magit-delta-mode
+;;    (if magit-delta-mode
+;;        -1
+;;      1))
+;;   (magit-refresh))
+
+;; ;; For some reason, this was being called twice without the guard.
+;; (with-eval-after-load 'magit-diff
+;;   (unless (boundp 'aankh/added-magit-diff-suffixes)
+;;     (transient-append-suffix 'magit-diff '(-1 -1)
+;;       [("l" "Toggle magit-delta" aankh/toggle-magit-delta)
+;;        ;; ("D" "Difftastic Diff (dwim)" th/magit-diff-with-difftastic)
+;;        ;; ("S" "Difftastic Show" th/magit-show-with-difftastic)
+;;        ]))
+;;   (setf aankh/added-magit-diff-suffixes t))
+
 
 (message "[ox] loading tailwind cheatsheet...")
 (load-file (expand-file-name (concat user-emacs-directory "/tailwind_cheatsheet.el")))
