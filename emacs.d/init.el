@@ -237,8 +237,8 @@
 (load custom-file 'noerror)
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar ox/default-font-size 280)
-(defvar ox/default-variable-font-size 280)
+(defvar ox/default-font-size 160)
+(defvar ox/default-variable-font-size 160)
 (set-face-attribute 'default nil :font "Iosevka" :height ox/default-font-size)
 (set-face-attribute 'fixed-pitch nil :font "Iosevka" :height ox/default-font-size)
 

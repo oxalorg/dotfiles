@@ -36,3 +36,4 @@ git/gitk
 /emacs.d/request/
 /emacs.d/tree-sitter/
 /emacs.d/projects
+/emacs.d/.local/

@@ -3,6 +3,8 @@
 (setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
       gc-cons-percentage 0.6)
 
+(add-to-list 'default-frame-alist '(undecorated-round . t))
+
 (setq package-enable-at-startup nil)
 
 (add-hook 'emacs-startup-hook
