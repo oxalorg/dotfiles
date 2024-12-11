@@ -20,6 +20,24 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export PATH=/opt/homebrew/bin:$PATH
+export PATH=/usr/local/go/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$PATH:/Users/ox/bin
+export PATH=$HOME/go/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/bin:$PATH"
+export PATH="$HOME/Library/Python/3.6/bin:$PATH"
+export PATH="$HOME/Library/Python/3.7/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
+export PATH=$HOME/.yarn/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.emacs.d/bin:$PATH
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="/opt/gradle/bin:$PATH"
+[ -f ~/.rbenv/bin/rbenv ] && eval "$(rbenv init -)"
+export PATH="$PATH:$HOME/.babashka/bbin/bin"
+
+
 ZSH_THEME="simple" # set by `omz`
 HYPHEN_INSENSITIVE="true"
 DISABLE_UPDATE_PROMPT="true"
@@ -36,9 +54,8 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git fzf fzf-tab zsh-autosuggestions docker docker-compose
+    git fzf fzf-tab docker docker-compose
 )
-
 
 # User configuration
 
@@ -102,22 +119,6 @@ gcloud-source() {
     source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 }
 
-export PATH=/usr/local/go/bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$PATH:/Users/ox/bin
-export PATH=$HOME/go/bin:$PATH
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/opt/bin:$PATH"
-export PATH="$HOME/Library/Python/3.6/bin:$PATH"
-export PATH="$HOME/Library/Python/3.7/bin:$PATH"
-export PATH="$HOME/.npm-global/bin:$PATH"
-export PATH=$HOME/.yarn/bin:/usr/local/bin:$PATH
-export PATH=$HOME/.emacs.d/bin:$PATH
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="/opt/gradle/bin:$PATH"
-[ -f ~/.rbenv/bin/rbenv ] && eval "$(rbenv init -)"
-export PATH="$PATH:$HOME/.babashka/bbin/bin"
-
 if [[ "$myos" == "wsl" ]]; then
     #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
     export DISPLAY=$(netstat -rn | grep -o "^0.0.0.0 \+\([0-9]\.\?\)\+" | grep -o "[^ ]\+$"):0
@@ -142,6 +143,8 @@ else
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 [ -f "$HOME/.local/bin/ox" ] && source $HOME/.local/bin/ox
+
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Functions
 
