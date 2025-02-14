@@ -136,8 +136,11 @@
 
 (use-package magit)
 (use-package org
+  :ensure nil
   :config
   (require 'org-tempo))
+(use-package org-modern
+  :hook '(org-mode-hook . org-modern-mode))
 (use-package markdown-mode)
 (use-package yaml-mode)
 (use-package inf-clojure)
@@ -431,7 +434,7 @@
   :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto t)                 ;; Enable auto completion
-  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  (corfu-separator ?*)          ;; Orderless field separator
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
   ;; (corfu-preview-current nil)    ;; Disable current candidate preview
@@ -474,11 +477,15 @@
   ;; useful beyond Corfu.
   (read-extended-command-predicate #'command-completion-default-include-p))
 
+(use-package wgrep)
+
 (use-package tsx-mode
   :ensure '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el"))
 
 (use-package consult
-  :hook (completion-list-mode . consult-preview-at-point-mode))
+  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :config
+  (setq consult-narrow-key "<"))
 
 (use-package vertico
   :custom
@@ -504,6 +511,42 @@
   ;; the mode gets enabled right away. Note that this forces loading the
   ;; package.
   (marginalia-mode))
+
+(use-package embark
+  :ensure t
+
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; Show the Embark target at point via Eldoc. You may adjust the
+  ;; Eldoc strategy, if you want to see the documentation from
+  ;; multiple providers. Beware that using this can be a little
+  ;; jarring since the message shown in the minibuffer can be more
+  ;; than one line, causing the modeline to move up and down:
+
+  ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+  :config
+
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package orderless
   :ensure t
@@ -531,33 +574,56 @@
 ;; ;;         (evil-paste-after))
 ;; ;;     (yank)))
 
-;; (use-package lsp-mode
-;;   :ensure t
-;;   ;; :hook ( (clojure-mode . lsp)
-;;   ;;         (clojurec-mode . lsp)
-;;   ;;         (clojurescript-mode . lsp))
-;;   :config
-;;   ;; add paths to your local installation of project mgmt tools, like lein
-;;   (setenv "PATH" (concat
-;;                   "/usr/local/bin" path-separator
-;;                   (getenv "PATH")))
-;;   (setq lsp-enable-indentation nil)
-;;   (dolist (m '(clojure-mode
-;;                clojurec-mode
-;;                clojurescript-mode
-;;                clojurex-mode))
-;;     (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
+(use-package lsp-mode
+  :ensure t
+  :hook ( (clojure-mode . lsp)
+          (clojurec-mode . lsp)
+          (clojurescript-mode . lsp)
+	  (typescript-ts-mode . lsp))
+  :config
+  ;; add paths to your local installation of project mgmt tools, like lein
+  (setenv "PATH" (concat
+                  "/usr/local/bin" path-separator
+                  (getenv "PATH")))
+  (setq lsp-enable-indentation nil)
+  (dolist (m '(clojure-mode
+               clojurec-mode
+               clojurescript-mode
+               clojurex-mode))
+    (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
 
-;; (use-package lsp-ui
-;;   :ensure t
-;;   :commands lsp-ui-mode
-;;   :config
-;;   (ivy-rich-mode 1)
-;;   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-;;   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-;;   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-;;   (setq lsp-ui-doc-show-with-cursor t)
-;;   )
+;; (add-hook 'typescript-ts-mode 'lsp-mode-hook)
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :config
+  (ivy-rich-mode 1)
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+  (setq lsp-ui-doc-show-with-cursor t)
+  )
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
+
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :ensure t)
+
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+
+(use-package lsp-treemacs
+  :after (treemacs evil lsp-mode)
+  :ensure t)
+
 
 ;; ;; (add-hook 'evil-insert-state-entry-hook (lambda () (send-string-to-terminal "\033[5 q")))                                                                                    (add-hook 'evil-normal-state-entry-hook (lambda () (send-string-to-terminal "\033[0 q")))
 
@@ -628,6 +694,42 @@
 
 
 (use-package harpoon)
+
+(use-package haskell-mode)
+
+(use-package terraform-mode)
+
+(use-package rust-mode)
+
+(use-package go-ts-mode
+  :ensure nil
+  :hook
+  (go-ts-mode . lsp-deferred)
+  (go-ts-mode . go-format-on-save-mode)
+  :init
+  (add-to-list 'treesit-language-source-alist '(go "https://github.com/tree-sitter/tree-sitter-go"))
+  (add-to-list 'treesit-language-source-alist '(gomod "https://github.com/camdencheek/tree-sitter-go-mod"))
+  ;; (dolist (lang '(go gomod)) (treesit-install-language-grammar lang))
+  (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+
+  (add-to-list 'auto-mode-alist '("/go\\.mod\\'" . go-mod-ts-mode))
+  :config
+  (reformatter-define go-format
+		      :program "goimports"
+		      :args '("/dev/stdin"))
+  )
+
+(defun ox/lsp-get-signature ()
+  (interactive)
+  (let ((contents (-some->> (lsp--text-document-position-params)
+                    (lsp--make-request "textDocument/hover")
+                    (lsp--send-request)
+                    (lsp:hover-contents))))
+    (let ((contents (and contents
+			 (lsp--render-on-hover-content
+			  contents
+			  t))))
+      (message contents))))
 
 ;; (use-package magit-delta)
 
