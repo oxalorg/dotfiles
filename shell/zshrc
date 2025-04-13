@@ -66,7 +66,14 @@ plugins=(
 
 EDITOR=emacsclient
 
-if [ "$TMUX" = "" ]; then tmux; fi
+# if tmux has a session, attach to the first session, if not just launch tmux
+if [ "$TMUX" = "" ]; then
+    if [ "$(tmux list-sessions 2>/dev/null | wc -l)" -gt 0 ]; then
+        tmux attach-session -t 0
+    else
+        tmux
+    fi
+fi
 
 set -o vi # enter the matrix
 bindkey -M viins 'qp' vi-cmd-mode
