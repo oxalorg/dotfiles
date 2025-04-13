@@ -151,7 +151,13 @@ else
 fi
 [ -f "$HOME/.local/bin/ox" ] && source $HOME/.local/bin/ox
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if command -v zsh-autosuggestions &> /dev/null; then
+    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if command -v mise &> /dev/null; then
+    eval "$(mise activate zsh --shims)"
+fi
 
 # Functions
 
@@ -353,7 +359,7 @@ gs  -q -dNOPAUSE -dBATCH -dSAFER \
 }
 
 compressimg() {
-    convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize 25% -auto-orient "$1" "compressed_$1"
+    convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% -resize 50% -auto-orient "$1" "compressed_$1"
 }
 
 compressimginplace() {
@@ -755,3 +761,21 @@ export SDKMAN_DIR="$HOME/.sdkman"
 #;; Local Variables:
 #;; mode: sh
 #;; End:
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ox/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ox/.local/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ox/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ox/.local/google-cloud-sdk/completion.zsh.inc'; fi
+
+[ -f "/Users/ox/.ghcup/env" ] && . "/Users/ox/.ghcup/env" # ghcup-env
+# bun completions
+[ -s "/Users/ox/.bun/_bun" ] && source "/Users/ox/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
