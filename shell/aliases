@@ -102,3 +102,5 @@ alias sayb="figlet -f mono12.tlf"
 alias sayf="figlet -f future.tlf"
 alias sayp="figlet -f pagga.tlf"
 alias says="figlet -f smblock.tlf"
+
+alias love="/Applications/love.app/Contents/MacOS/love"
