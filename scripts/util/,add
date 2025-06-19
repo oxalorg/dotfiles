@@ -1,0 +1,271 @@
+#!/usr/bin/env bb
+
+(require '[babashka.deps :as deps])
+
+(alter-var-root #'*print-namespace-maps* (constantly nil))
+
+(deps/add-deps
+ '{:deps
+   {borkdude/rewrite-edn        {:mvn/version "0.4.8"}
+    com.lambdaisland/cli        {:mvn/version "0.22.87"}
+    com.lambdaisland/xml-select {:mvn/version "0.2.5"}
+    org.clojure/data.xml        {:mvn/version "0.2.0-alpha9"}
+    org.clojure/tools.gitlibs   {:mvn/version "2.6.206"}}})
+
+(require
+ '[borkdude.rewrite-edn :as re]
+ '[clojure.data.xml :as xml]
+ '[clojure.edn :as edn]
+ '[clojure.java.io :as io]
+ '[clojure.java.shell :as sh]
+ '[clojure.pprint :as pprint]
+ '[clojure.tools.gitlibs :as gl]
+ '[clojure.tools.gitlibs.impl :as gli]
+ '[lambdaisland.cli :as cli]
+ '[lambdaisland.xml-select :as xs])
+
+(def repos
+  ["https://repo.clojars.org/"
+   "https://repo.maven.apache.org/maven2/"])
+
+(defn maven-artifact-versions [artifact]
+  (let [[group artifact-id] (str/split (str artifact) #"/")
+        doc (some #(try
+                     (slurp (str % (str/replace group #"\." "/") "/" artifact-id "/maven-metadata.xml"))
+                     (catch Exception e))
+                  repos)]
+    (when doc
+      (map (comp first :content)
+           (xs/select
+            [:metadata :versions :> :version]
+            (xml/parse-str doc))))))
+
+(defn version-sort-key [version]
+  ;; not ideal, but vectors have to be of the same length, so ignore anything
+  ;; beyond major.minor.teeny. Works in 97% of all cases.
+  (let [[a i t] (map #(try (parse-long %) (catch Exception _ %))
+                     (str/split version #"[\.\-]"))]
+    [(or a 0) (or i 0) (or t 0)]))
+
+(defn maven-latest-version [artifact]
+  (let [versions (sort-by version-sort-key (maven-artifact-versions artifact))]
+    (or
+     (last (remove #(re-find #"-(SNAPSHOT|alpha|beta)" %) versions))
+     (last versions))))
+
+(defn maven-all-jars []
+  (edn/read-string
+   (str "["
+        (-> "https://repo.clojars.org/all-jars.clj"
+            slurp
+            ;; there's an artifact in there that's not a valid symbol, boooo
+            (str/replace #"trident\/1\.1" "trident/v1.1")
+            (str/replace #"3x-ui-java-wrapper" "x3x-ui-java-wrapper"))
+        "]")))
+
+(defn add-dep [{:keys [artifact]}]
+  (prn "add-dep" artifact (maven-latest-version artifact))
+  (spit "deps.edn"
+        (re/assoc-in (re/parse-string (try (slurp "deps.edn") (catch Exception _ "{}")))
+                     [:deps (symbol artifact) :mvn/version]
+                     (maven-latest-version artifact))))
+
+(defn add-bb-dep [{:keys [artifact]}]
+  (spit "bb.edn"
+        (re/assoc-in (re/parse-string (try (slurp "bb.edn") (catch Exception _ "{}")))
+                     [:deps (symbol artifact) :mvn/version]
+                     (maven-latest-version artifact))))
+
+
+(defn search-dep* [{:keys [needle]}]
+  (for [artifact (distinct (map first (maven-all-jars)))
+        :let [artifact (if (simple-symbol? artifact)
+                         (symbol (str artifact) (str artifact))
+                         artifact)]
+        :when (.contains ^String (str artifact) needle)]
+    artifact))
+
+(defn search-dep [opts]
+  (run! println (search-dep* opts)))
+
+(defn lucky-dep [opts]
+  (doseq [artifact (search-dep* opts)]
+    (println "Adding" artifact #'add-dep)
+    (add-dep {:artifact (str artifact)})
+    (println "ok")))
+
+(defn lucky-bb-dep [opts]
+  (doseq [artifact (search-dep* opts)]
+    (println "Adding" artifact)
+    (add-bb-dep {:artifact (str artifact)})))
+
+(defn bin-dev []
+  ['(require '[lambdaisland.cli :as cli])
+   '(def init {})
+   '(defn initialize-local-files
+      "Create local files which are not checked in"
+      [_]
+      (spit "deps.local.edn" "{:launchpad/aliases [:dev]}"))
+   '(def commands ["init" (var initialize-local-files)])
+   '(def flags ["-v, --verbose" "Increase verbosity"
+                "-h, --help" "Show help text for a (sub-)command"])
+   '(cli/dispatch*
+     {:name "bin/dev"
+      :init init
+      :flags flags
+      :commands commands})])
+
+(defn bin-launchpad []
+  ['(require '[lambdaisland.launchpad :as launchpad])
+   '(launchpad/main {:java-args ["-Dclojure.main.report=stderr"]})])
+
+(defn pprint-str [o]
+  (binding [*print-namespace-maps* false]
+    (with-out-str (pprint/pprint o))))
+
+(defn add-bin-dev [_]
+  (add-bb-dep {:artifact "com.lambdaisland/cli"})
+  (sh/sh "mkdir" "-p" "bin")
+  (spit "bin/dev" (str "#!/usr/bin/env bb\n\n"
+                       (str/join "\n" (map pprint-str (bin-dev)))
+                       "\n;; Local Variables:\n;; mode:clojure\n;; End:\n"))
+  (sh/sh "chmod" "+x" "bin/dev"))
+
+(defn add-bin-launchpad [_]
+  (add-bb-dep {:artifact "com.lambdaisland/launchpad"})
+  (sh/sh "mkdir" "-p" "bin")
+  (spit "bin/launchpad" (str "#!/usr/bin/env bb\n\n"
+                             (str/join "\n" (map pprint-str (bin-launchpad)))
+                             "\n;; Local Variables:\n;; mode:clojure\n;; End:\n"))
+  (sh/sh "chmod" "+x" "bin/launchpad"))
+
+(defn bump-deps [deps re-deps path only]
+  (reduce (fn [re-deps [artifact version-spec]]
+            (try
+              (cond
+                (and only (not (str/includes? (str artifact) only)))
+                re-deps
+
+                (:mvn/version version-spec)
+                (if-let [v (maven-latest-version artifact)]
+                  (do
+                    (when (not= v (:mvn/version version-spec))
+                      (prn (assoc-in {} path {artifact {:mvn/version [(:mvn/version version-spec) '-> v]}})))
+                    (re/assoc-in re-deps (into path [artifact :mvn/version]) v))
+                  (do
+                    (println "Latest version for" artifact "not found")
+                    re-deps))
+
+                (:git/url version-spec)
+                (let [git-dir (gli/ensure-git-dir (:git/url version-spec))
+                      _ (gli/git-fetch (io/file git-dir))
+                      old-sha (or (:sha version-spec) (:git/sha version-spec))
+                      sha (gli/git-rev-parse git-dir (:git/ref version-spec "HEAD"))]
+                  (if (= sha old-sha)
+                    re-deps
+                    (do
+                      (prn (assoc-in {} path {artifact {:git/sha [old-sha '-> sha]}}))
+                      (-> re-deps
+                          (re/update-in (conj path artifact) re/dissoc :sha)
+                          (re/assoc-in (into path [artifact :git/sha]) sha)))))
+
+                :else
+                re-deps)
+              (catch Exception e
+                (println "Couldn't bump" artifact)
+                (println e)
+                re-deps)))
+          re-deps
+          (get-in deps path)))
+
+(defn bump [{:keys [file only]}]
+  (let [contents (slurp file)
+        deps     (edn/read-string contents)
+        re-deps  (re/parse-string contents)]
+    (spit file
+          (reduce (fn [re-deps alias]
+                    (bump-deps deps re-deps [:aliases alias :extra-deps] only))
+                  (bump-deps deps re-deps [:deps] only)
+                  (keys (:aliases deps))))
+    ))
+
+(defn add-shadow-cljs [opts]
+  )
+
+(def new-project-files
+  {"deps.edn" "{}"
+   "bb.edn" "{}"
+   "deps.local.edn" "{}"
+   ".gitignore" ".cpcache
+.nrepl-port
+.shadow-cljs
+target
+out
+node_modules/
+.DS_Store
+.store
+.#*
+*.lock
+*.local
+*.local.*
+   "})
+
+(defn init-project
+  {:flags ["--main-ns <main-ns>" "Main namespace, if not derived from project-name"
+           "--dir-name <dir-name>" "Directory to create project in, if not derived from project name."]}
+  [{:keys [artifact-name
+           dir-name
+           main-ns]}]
+  (assert (= 1 (count (filter #{\/} artifact-name)))
+          "Project name must contain exactly one slash")
+  (let [[group-id project-name] (str/split artifact-name #"/")]
+    (assert (some #{\.} group-id)
+            "Group id must include a period (reverse domain name)")
+    (let [dir-name (or dir-name project-name)
+          main-ns (or main-ns (str/replace artifact-name #"/" "."))]
+      (sh/sh "mkdir" dir-name)
+      (doseq [[f c] new-project-files]
+        (spit (io/file dir-name f) c))
+      (let [main-file (io/file dir-name "src" (str (str/replace main-ns #"\." "/") ".clj"))]
+        (sh/sh "mkdir" "-p" (str (.getParent main-file)))
+        (spit main-file (pr-str (list 'ns (symbol main-ns)))))
+      (spit (io/file dir-name "LICENSE.txt") (slurp "https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"))
+      (sh/sh "mkdir" (str (io/file dir-name ".config")))
+      (spit (io/file dir-name ".config/project.edn")
+            (with-out-str
+              (clojure.pprint/pprint
+               {:artifact-id (symbol artifact-name)
+                :main-ns (symbol main-ns)
+                :created (java.util.Date.)})))
+      (sh/sh "git" "init" dir-name)
+      ))
+  )
+
+(def commands
+  ["bin/dev" {:command #'add-bin-dev}
+   "bin/launchpad" {:command #'add-bin-launchpad}
+   "dep <artifact>" {:doc "Add the latest version of the given dependency to deps.edn"
+                     :command #'add-dep}
+   "bb-dep <artifact>" {:doc "Add the latest version of the given dependency to bb.edn"
+                        :command #'add-bb-dep}
+   "lucky <needle>" {:doc "Search + add latest artifact"
+                     :command #'lucky-dep}
+   "bb-lucky <needle>" {:doc "Search + add latest artifact"
+                        :command #'lucky-bb-dep}
+   "search <needle>" {:doc "Find artifact names that match"
+                      :command #'search-dep}
+   "bump <file>" {:doc "Upgrade all artifacts in file (deps.edn, bb.edn, etc)"
+                  :command #'bump}
+   "init <artifact-name>" {:doc "Initialize new project"
+                           :command #'init-project}
+   "shadow-cljs" {:doc "Set up shadow-cljs"
+                  :command #'add-shadow-cljs}])
+
+(cli/dispatch*
+ {:name ",add"
+  :commands commands})
+
+
+;; Local Variables:
+;; mode:clojure
+;; End:
