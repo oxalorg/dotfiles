@@ -3,6 +3,8 @@
 
 zmodload zsh/zprof
 
+# source ~/.hax.sh
+
 if [ "$(uname -s)" = "Darwin" ]; then
   export ZSH="/Users/ox/.oh-my-zsh"
   export DOTFILES=~/Dropbox/projects/dotfiles
@@ -54,7 +56,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git fzf fzf-tab docker docker-compose
+    git fzf fzf-tab docker docker-compose zummoner
 )
 
 # User configuration
@@ -461,6 +463,7 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
+export MCFLY_FUZZY=2
 eval "$(mcfly init zsh)"
 
 alias funnelclj="clojure -Sdeps '{:deps {lambdaisland/funnel {:mvn/version \"1.4.71\"}}}' -m lambdaisland.funnel -vv"
@@ -779,3 +782,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/ox/.lmstudio/bin"
+# End of LM Studio CLI section
