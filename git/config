@@ -1,13 +1,15 @@
 [user]
     email = mitesh@miteshshah.com
     name = Mitesh Shah
-	signingKey = 9FC1459F9750C1CE
+    signingKey = 9FC1459F9750C1CE
 [push]
     default = simple
+    autoSetupRemote = true
 [core]
     excludesfile = ~/.config/git/gitignore
     editor = $(which vim)
     pager = delta
+    autocrlf = input
 [commit]
     template = ~/.config/git/gittemplate
 [url "git@github.com:"]
@@ -48,7 +50,16 @@
   # instead of opening all files:
   # git reviewone foo.js bar.js
   reviewone = !$EDITOR -p +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
-
+  # difftastic
+  dlog = -c diff.external=difft log --ext-diff
+  dshow = -c diff.external=difft show --ext-diff
+  ddiff = -c diff.external=difft diff
+  # `git log` with patches shown with difftastic.
+  dl = -c diff.external=difft log -p --ext-diff
+  # Show the most recent commit with difftastic.
+  ds = -c diff.external=difft show --ext-diff
+  # `git diff` with difftastic.
+  dft = -c diff.external=difft diff
 [init]
 	defaultBranch = main
 [pull]
