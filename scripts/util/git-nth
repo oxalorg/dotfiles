@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Check if a number was passed
+if [ -z "$1" ]; then
+  echo "Usage: git nth <n>"
+  exit 1
+fi
+
+NTH=$1
+
+# Get the Nth commit from the beginning
+COMMIT=$(git rev-list --reverse HEAD | awk "NR==$NTH")
+
+if [ -z "$COMMIT" ]; then
+  echo "Commit number $NTH not found."
+  exit 1
+fi
+
+# Checkout that commit
+git checkout "$COMMIT"
