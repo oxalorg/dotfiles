@@ -3,7 +3,7 @@
 set -e
 
 CABINET=/cabinet
-ROGUE_REPO=~/www/oxal.org
+ROGUE_REPO=~/projects/oxal.org
 ROGUE_LOCAL_DIR=$ROGUE_REPO/src
 
 THIS_MONTH=$(date +%Y-%m)

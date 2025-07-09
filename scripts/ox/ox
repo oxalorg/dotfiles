@@ -1,8 +1,10 @@
 #!/bin/bash
 
-JOURNAL=~/journal
+JOURNAL=~/projects/org
 NOTES=$JOURNAL/notes
 LOGS=$JOURNAL/logs
+BLOG=~/projects/oxal.org
+SNIPDIR=~/projects/oxal.org/src/snip
 
 oxhelp () {
     echo "ox mntanagement system:"
@@ -103,13 +105,46 @@ oxedit () {
 # }
 
 # Create snippet
-oxsnip() {
+oxsnip0() {
     # pbpaste and pbcopy should be mapped to xlcip on linux in zshrc
     local genname=`pbpaste | head -c 25 | sed 's|\ |_|g' | sed 's|/|_|g' `
     local filename=${@:-$genname}
-    local slug=`echo $filename | sed 's|\ |_|g' | sed 's|[_]*$||'`
-    pbpaste >>! $JOURNAL/snips/$(date +%F)-${slug}.md
-    echo "\n" >>! $JOURNAL/snips/$(date +%F)-${slug}.md
+    local slug=`echo $filename | sed 's|[# ]|_|g' | sed 's|[_]*$||'`
+    local filepath="$(date +%F-%H%M%S)-${slug}.txt"
+    pbpaste >>! $SNIPDIR/$filepath
+    echo "\n" >>! $SNIPDIR/$filepath
+    cd $BLOG
+    make sync
+    URL="https://oxal.org/snip/${filepath}"
+    echo $URL | pbcopy
+    echo "$URL"
+}
+# Create snippet from clipboard
+oxsnip() {
+    # Generate default filename from clipboard if no argument is provided
+    local genname=$(pbpaste | head -c 25 | tr -s '[:space:]/#' '_' | sed 's/_*$//')
+    local input_name="${*:-$genname}"
+
+    # Normalize slug: replace spaces and # with underscores, trim trailing _
+    local slug=$(echo "$input_name" | tr -s '[:space:]#/' '_' | sed 's/_*$//')
+
+    # Generate timestamp and 5-char random slug
+    local timestamp=$(date +%F-%H%M%S)
+    local randslug=$(LC_CTYPE=C tr -dc 'a-z0-9' </dev/urandom | head -c 5)
+
+    # Construct final filepath
+    local filename="${timestamp}-${randslug}-${slug}.txt"
+    local fullpath="$SNIPDIR/$filename"
+
+    # Save clipboard content to file
+    pbpaste > "$fullpath"
+    echo "" >> "$fullpath"
+
+    # Sync blog and copy URL
+    cd "$BLOG" && make sync
+    local url="https://oxal.org/snip/${filename}"
+    echo "$url" | pbcopy
+    echo "$url"
 }
 
 # Inbox to dump everything which will later be organized
