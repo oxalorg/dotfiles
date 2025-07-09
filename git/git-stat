@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+
+import argparse
+import subprocess
+import sys
+from datetime import datetime, timedelta
+from collections import defaultdict
+
+
+def run_git_command(cmd):
+    """Run a git command and return the output."""
+    try:
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
+        return result.stdout.strip()
+    except subprocess.CalledProcessError as e:
+        print(f"Error running git command: {e}", file=sys.stderr)
+        print(f"Command output: {e.stderr}", file=sys.stderr)
+        sys.exit(1)
+
+
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description='Count git commits by author over time')
+    parser.add_argument('--author', required=True, help='Author name or email to search for')
+    parser.add_argument('--since', default='30 days', help='Time period to look back (e.g., "30 days", "1 week", "2 months")')
+    return parser.parse_args()
+
+
+def get_commits_and_stats_by_date(author, since):
+    """Get commits and line change stats by the specified author since the given time period."""
+    # Git log command to get commit dates and stats for the specified author
+    cmd = f'git log --author="{author}" --since="{since}" --pretty=format:"%cd" --date=short --numstat'
+    
+    output = run_git_command(cmd)
+    
+    if not output:
+        return {}
+    
+    # Parse commits and stats by date
+    stats_by_date = defaultdict(lambda: {'commits': 0, 'added': 0, 'deleted': 0})
+    
+    lines = output.split('\n')
+    current_date = None
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+            
+        # Check if this line is a date (YYYY-MM-DD format)
+        if len(line) == 10 and line.count('-') == 2:
+            try:
+                datetime.strptime(line, '%Y-%m-%d')
+                current_date = line
+                stats_by_date[current_date]['commits'] += 1
+            except ValueError:
+                # Not a date, must be a numstat line
+                if current_date and '\t' in line:
+                    parts = line.split('\t')
+                    if len(parts) >= 2:
+                        try:
+                            added = int(parts[0]) if parts[0] != '-' else 0
+                            deleted = int(parts[1]) if parts[1] != '-' else 0
+                            stats_by_date[current_date]['added'] += added
+                            stats_by_date[current_date]['deleted'] += deleted
+                        except ValueError:
+                            # Skip binary files or malformed lines
+                            pass
+        else:
+            # This is a numstat line
+            if current_date and '\t' in line:
+                parts = line.split('\t')
+                if len(parts) >= 2:
+                    try:
+                        added = int(parts[0]) if parts[0] != '-' else 0
+                        deleted = int(parts[1]) if parts[1] != '-' else 0
+                        stats_by_date[current_date]['added'] += added
+                        stats_by_date[current_date]['deleted'] += deleted
+                    except ValueError:
+                        # Skip binary files or malformed lines
+                        pass
+    
+    return dict(stats_by_date)
+
+
+def generate_date_range(since_str):
+    """Generate all dates in the range from 'since' to today."""
+    # Parse the since string to get number of days
+    try:
+        if 'day' in since_str:
+            days = int(since_str.split()[0])
+        elif 'week' in since_str:
+            weeks = int(since_str.split()[0])
+            days = weeks * 7
+        elif 'month' in since_str:
+            months = int(since_str.split()[0])
+            days = months * 30  # Approximate
+        else:
+            # Try to parse as number of days
+            days = int(since_str.split()[0])
+    except (ValueError, IndexError):
+        print(f"Error: Unable to parse time period '{since_str}'", file=sys.stderr)
+        sys.exit(1)
+    
+    end_date = datetime.now().date()
+    start_date = end_date - timedelta(days=days)
+    
+    dates = []
+    current_date = start_date
+    while current_date <= end_date:
+        dates.append(current_date.strftime('%Y-%m-%d'))
+        current_date += timedelta(days=1)
+    
+    return dates
+
+
+def main():
+    args = parse_args()
+    
+    # Check if we're in a git repository
+    try:
+        run_git_command('git rev-parse --git-dir')
+    except SystemExit:
+        print("Error: Not in a git repository", file=sys.stderr)
+        sys.exit(1)
+    
+    # Get commit counts and stats by date
+    commit_stats = get_commits_and_stats_by_date(args.author, args.since)
+    
+    # Generate full date range
+    all_dates = generate_date_range(args.since)
+    
+    # Print results
+    print(f"Commits and line changes by {args.author} over the last {args.since}:")
+    print("-" * 80)
+    
+    total_commits = 0
+    total_added = 0
+    total_deleted = 0
+    
+    for date in all_dates:
+        stats = commit_stats.get(date, {'commits': 0, 'added': 0, 'deleted': 0})
+        commits = stats['commits']
+        added = stats['added']
+        deleted = stats['deleted']
+        total_lines = added + deleted
+        
+        total_commits += commits
+        total_added += added
+        total_deleted += deleted
+        
+        print(f"{date}: {commits} commits, +{added} -{deleted} ({total_lines} total lines)")
+    
+    print("-" * 80)
+    print(f"TOTAL: {total_commits} commits, +{total_added} -{total_deleted} ({total_added + total_deleted} total lines)")
+
+
+if __name__ == '__main__':
+    main()
