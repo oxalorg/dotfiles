@@ -104,3 +104,5 @@ alias sayp="figlet -f pagga.tlf"
 alias says="figlet -f smblock.tlf"
 
 alias love="/Applications/love.app/Contents/MacOS/love"
+
+alias yolo="claude --dangerously-skip-permissions"
