@@ -75,3 +75,5 @@ tags.lock
 
 .dir-locals-2.el
 .projectile
+
+.local

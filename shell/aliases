@@ -2,9 +2,10 @@ alias cdd='cd /c/Users/ox'
 alias tk='cd /c/Users/ox/Dropbox/Projects/taazakitchen/'
 alias drop='cd /c/Users/ox/Dropbox'
 # Needs to be DONE
-export EDITOR=vi
-export VISUAL=vi
+export EDITOR=nvim
+export VISUAL=nvim
 alias e="emacsclient -n"
+alias v="$EDITOR"
 alias et="$EDITOR /projects/todo/todo.txt"
 alias ett="$EDITOR /projects/todo/completed.txt"
 export MAIL=$HOME/mail/INBOX
@@ -106,3 +107,7 @@ alias says="figlet -f smblock.tlf"
 alias love="/Applications/love.app/Contents/MacOS/love"
 
 alias yolo="claude --dangerously-skip-permissions"
+
+alias rclone="rclone -P"
+alias k="kubectl"
+alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'

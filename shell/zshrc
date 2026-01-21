@@ -3,7 +3,7 @@
 
 zmodload zsh/zprof
 
-# source ~/.hax.sh
+source ~/.hax.sh
 
 if [ "$(uname -s)" = "Darwin" ]; then
   export ZSH="/Users/ox/.oh-my-zsh"
@@ -38,7 +38,11 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="/opt/gradle/bin:$PATH"
 [ -f ~/.rbenv/bin/rbenv ] && eval "$(rbenv init -)"
 export PATH="$PATH:$HOME/.babashka/bbin/bin"
-
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/llvm/include"
+export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/zstd/lib"
+export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/zstd/include"
 
 ZSH_THEME="simple" # set by `omz`
 HYPHEN_INSENSITIVE="true"
@@ -92,6 +96,14 @@ bindkey -M vicmd '?' fzf-history-widget-accept
 bindkey -M vicmd 'gf' fzf-cd-widget
 TERM=xterm-256color
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
 function zle-keymap-select {
 	if [[ ${KEYMAP} == vicmd ]] ||
 		[[ $1 = 'block' ]]; then
@@ -119,8 +131,8 @@ bindkey "^X^E" edit-command-line
 [ -f $DOTFILES/shell/aliases ] && source $DOTFILES/shell/aliases  # Import common aliases
 [ -f ~/.ox/ox ] && source ~/.ox/ox
 [ -f ~/.dircolors ] && eval `dircolors ~/.dircolors`
-[ -f ~/.z.sh ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o ~/.z.sh
-[ -f ~/.z.sh ] && source ~/.z.sh
+# [ -f ~/.z.sh ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o ~/.z.sh
+# [ -f ~/.z.sh ] && source ~/.z.sh
 
 export GPG_TTY=$(tty)
 
@@ -143,8 +155,8 @@ export DISABLE_AUTO_TITLE='true'
 export NVM_DIR="$HOME/.nvm"
 if [[ "$myos" == "mac" ]]; then
     export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
-    export LDFLAGS="-L/opt/homebrew/opt/node@16/lib"
-    export CPPFLAGS="-I/opt/homebrew/opt/node@16/include"
+    export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/node@16/lib"
+    export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/node@16/include"
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_complet
 else
@@ -159,6 +171,10 @@ fi
 
 if command -v mise &> /dev/null; then
     eval "$(mise activate zsh --shims)"
+fi
+
+if command -v zoxide >/dev/null 2>&1; then
+   eval "$(zoxide init zsh)"
 fi
 
 # Functions
@@ -324,7 +340,8 @@ videotoaudio() {
 }
 
 videocompress() {
-    ffmpeg -i "$1" -vcodec libx264 -crf 28 "${1%.*}.mp4"
+    ffmpeg -i "$1" -c:v libx264 -b:v 2M -c:a aac -b:a 128k -crf 28 -movflags +faststart "${1%.*}.mp4"
+
 }
 
 ee() {
@@ -415,7 +432,7 @@ x(){
 }
 
 oxtmp() {
-    scp $1 ark2:/srv/ox/oxal.org/tmp/
+    scp $1 ark:/srv/ox/oxal.org/tmp/
     echo "https://oxal.org/tmp/$1"
 }
 
@@ -446,7 +463,7 @@ autoload -Uz compinit; compinit
 
 source $ZSH/oh-my-zsh.sh
 
-export HISTSIZE=1000000000
+export HISTSIZE=500000
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
@@ -758,8 +775,8 @@ unset __mamba_setup
 # <<< mamba initialize <<<
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 
 #;; Local Variables:
 #;; mode: sh
@@ -779,10 +796,10 @@ if [ -f '/Users/ox/.local/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/ox/.lmstudio/bin"
 # End of LM Studio CLI section
+# eval "$(atuin init zsh)"
+
+# Added by Antigravity
+export PATH="/Users/ox/.antigravity/antigravity/bin:$PATH"
