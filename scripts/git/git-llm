@@ -1,0 +1,5 @@
+#!/bin/sh
+
+PROMPT=$(cat ~/.local/bin/llm-prompt.txt)
+
+git diff --staged | llm -m 4.1 -s "$PROMPT"

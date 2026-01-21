@@ -1,0 +1,15 @@
+#!/bin/bash
+# ---- gstart: create a feature branch from main ----
+  set -e
+  local title="$*"
+  local slug
+  slug=$(printf "%s" "$title" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/[^a-z0-9]/-/g;s/--*/-/g;s/^-//;s/-$//')
+  local branch="feat/${slug}"
+
+  git fetch origin
+  git switch main
+  git pull --ff-only
+  git switch -c "$branch"
+  echo "✅ Switched to $branch"

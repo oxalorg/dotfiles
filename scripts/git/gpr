@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# ---- gpr: stage+commit+push, open PR, auto-merge, clean up ----
+  set -e
+  local msg="${1:-Update}"
+
+  # commit whatever you've changed
+  git add -A
+  git commit -m "$msg"
+
+  # push and open PR against main
+  current_branch=$(git rev-parse --abbrev-ref HEAD)
+  git push -u origin "$current_branch"
+
+  # create PR, set title from commit, and enable auto-merge (squash)
+  # add reviewers comma-separated in REVIEWERS env var if you want
+  gh pr create \
+    --base main \
+    --head "$current_branch" \
+    --title "$msg" \
+    --body "" \
+    ${REVIEWERS:+--reviewer "$REVIEWERS"}
+
+  gh pr merge --auto --squash --delete-branch
+  echo "🚀 PR opened and set to auto-merge when checks pass."
+
+  # keep local main fresh in the background-y way (still synchronous here)
+  git fetch origin
+  git switch main
+  git pull --ff-only
+  echo "🧹 Local main updated."
