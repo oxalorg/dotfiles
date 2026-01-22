@@ -58,24 +58,27 @@ export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/llvm/include"
 export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/zstd/lib"
 export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/zstd/include"
 
-ZSH_THEME="simple" # set by `omz`
-HYPHEN_INSENSITIVE="true"
-DISABLE_UPDATE_PROMPT="true"
+# Oh-my-zsh configuration (only if installed)
+if [ -d "$ZSH" ]; then
+    ZSH_THEME="simple" # set by `omz`
+    HYPHEN_INSENSITIVE="true"
+    DISABLE_UPDATE_PROMPT="true"
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-# DISABLE_AUTO_TITLE="true"
-# ENABLE_CORRECTION="true"
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-HIST_STAMPS="yyyy-mm-dd"
+    # Uncomment the following line if pasting URLs and other text is messed up.
+    # DISABLE_MAGIC_FUNCTIONS="true"
+    # DISABLE_AUTO_TITLE="true"
+    # ENABLE_CORRECTION="true"
+    # DISABLE_UNTRACKED_FILES_DIRTY="true"
+    HIST_STAMPS="yyyy-mm-dd"
 
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git fzf fzf-tab docker docker-compose zummoner
-)
+    # Standard plugins can be found in $ZSH/plugins/
+    # Custom plugins may be added to $ZSH_CUSTOM/plugins/
+    # Example format: plugins=(rails git textmate ruby lighthouse)
+    # Add wisely, as too many plugins slow down shell startup.
+    plugins=(
+        git fzf fzf-tab docker docker-compose zummoner
+    )
+fi
 
 # User configuration
 
@@ -475,7 +478,10 @@ autoload -Uz compinit; compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
 
-[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
+# Load oh-my-zsh if installed
+if [ -d "$ZSH" ] && [ -f "$ZSH/oh-my-zsh.sh" ]; then
+    source $ZSH/oh-my-zsh.sh
+fi
 
 export HISTSIZE=500000
 export SAVEHIST=$HISTSIZE
