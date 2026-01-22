@@ -3,7 +3,7 @@
 
 zmodload zsh/zprof
 
-source ~/.hax.sh
+[ -f ~/.hax.sh ] && source ~/.hax.sh
 
 if [ "$(uname -s)" = "Darwin" ]; then
   export ZSH="/Users/ox/.oh-my-zsh"
@@ -16,8 +16,22 @@ elif grep -iq microsoft /proc/version; then
 else
   export ZSH="/home/ox/.oh-my-zsh"
   export DOTFILES=~/Dropbox/projects/dotfiles
+  export DOTFILES=~/projects/dotfiles
   export myos=linux
 fi
+
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+source /usr/share/cachyos-zsh-config/cachyos-config.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -410,7 +424,7 @@ curlj() {
     curl -H "Content-Type: application/json" "$@"
 }
 
-x(){
+extract(){
     if [ -f $1 ] ; then
         case $1 in
         *.tar.bz2)   tar xvjf $1    ;;
@@ -461,7 +475,7 @@ autoload -Uz compinit; compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
 
-source $ZSH/oh-my-zsh.sh
+[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 
 export HISTSIZE=500000
 export SAVEHIST=$HISTSIZE

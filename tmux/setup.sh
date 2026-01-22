@@ -1,5 +1,4 @@
 #!/bin/sh
-DOTFILESDIR=~/Dropbox/Projects/dotfiles
 
 if [ -d ~/.tmux/plugins/tpm ]; then
 	echo "Tmux plugin manager already exists"
