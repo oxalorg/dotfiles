@@ -348,6 +348,10 @@ topdf() {
         -o "$2"
 }
 
+pdftopng() {
+    gs -dNOPAUSE -sDEVICE=pngalpha -r300 -o "${1%.*}.png" "$1"
+}
+
 mkvtomp4() {
     ffmpeg -i "$1" -codec copy "${1%.*}.mp4"
 }
