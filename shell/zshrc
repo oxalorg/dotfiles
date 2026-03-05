@@ -21,7 +21,6 @@ else
   export myos=linux
 fi
 
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -36,9 +35,26 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# --- Zsh settings ---
+export HISTSIZE=500000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
@@ -56,10 +72,53 @@ export PATH="/opt/gradle/bin:$PATH"
 [ -f ~/.rbenv/bin/rbenv ] && eval "$(rbenv init -)"
 export PATH="$PATH:$HOME/.babashka/bbin/bin"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
+
+# Load custom completions from dotfiles
+fpath=($DOTFILES/shell/completions $fpath)
+
+## --- User configuration ---
+set -o vi # enter the matrix
+bindkey -M viins 'qp' vi-cmd-mode
+bindkey "^?" backward-delete-char
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M vicmd '/' fzf-history-widget
+fzf-history-widget-accept() {
+    fzf-history-widget
+    zle accept-line
+}
+#zle -N fzf-history-widget-accept
+bindkey -M vicmd '?' fzf-history-widget-accept
+bindkey -M vicmd 'gf' fzf-cd-widget
+TERM=xterm-256color
+EDITOR=emacsclient
+autoload -z edit-command-line   # Allows C-x-e to edit command in editor
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export DISABLE_AUTO_TITLE='true'
+
+# export MANPATH="/usr/local/man:$MANPATH"
+# export LANG=en_US.UTF-8
+# export ARCHFLAGS="-arch x86_64"
 export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/llvm/include"
 export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/zstd/lib"
 export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/zstd/include"
+
+# Imports
+[ -f $DOTFILES/shell/aliases ] && source $DOTFILES/shell/aliases  # Import common aliases
+[ -f ~/.ox/ox ] && source ~/.ox/ox
+[ -f "$HOME/.local/bin/ox" ] && source $HOME/.local/bin/ox
+[ -f ~/.dircolors ] && eval `dircolors ~/.dircolors`
 
 # Oh-my-zsh configuration (only if installed)
 if [ -d "$ZSH" ]; then
@@ -83,15 +142,6 @@ if [ -d "$ZSH" ]; then
     )
 fi
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-# export LANG=en_US.UTF-8
-
-# export ARCHFLAGS="-arch x86_64"
-
-EDITOR=emacsclient
-
 # if tmux has a session, attach to the first session, if not just launch tmux
 if [ "$TMUX" = "" ]; then
     if [ "$(tmux list-sessions 2>/dev/null | wc -l)" -gt 0 ]; then
@@ -101,29 +151,10 @@ if [ "$TMUX" = "" ]; then
     fi
 fi
 
-set -o vi # enter the matrix
-bindkey -M viins 'qp' vi-cmd-mode
-bindkey "^?" backward-delete-char
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-bindkey -M vicmd '/' fzf-history-widget
-fzf-history-widget-accept() {
-    fzf-history-widget
-    zle accept-line
-}
-#zle -N fzf-history-widget-accept
-bindkey -M vicmd '?' fzf-history-widget-accept
-bindkey -M vicmd 'gf' fzf-cd-widget
-TERM=xterm-256color
-
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	command yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
-}
-
+# Change cursor shape based on vi mode:
+#   Normal mode (vicmd) -> block cursor (\e[1 q)
+#   Insert mode (viins) -> beam cursor (\e[5 q)
+# zle-line-init ensures each new prompt starts in insert mode with beam cursor
 function zle-keymap-select {
 	if [[ ${KEYMAP} == vicmd ]] ||
 		[[ $1 = 'block' ]]; then
@@ -137,28 +168,12 @@ function zle-keymap-select {
 	fi
 }
 zle -N zle-keymap-select
-
 zle-line-init() {
 zle -K viins
     echo -ne "\e[5 q"
 }
 
-autoload -z edit-command-line   # Allows C-x-e to edit command in editor
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
-
-# Imports
-[ -f $DOTFILES/shell/aliases ] && source $DOTFILES/shell/aliases  # Import common aliases
-[ -f ~/.ox/ox ] && source ~/.ox/ox
-[ -f ~/.dircolors ] && eval `dircolors ~/.dircolors`
-# [ -f ~/.z.sh ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o ~/.z.sh
-# [ -f ~/.z.sh ] && source ~/.z.sh
-
 export GPG_TTY=$(tty)
-
-gcloud-source() {
-    source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-}
 
 if [[ "$myos" == "wsl" ]]; then
     #export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0"
@@ -166,39 +181,12 @@ if [[ "$myos" == "wsl" ]]; then
     export LIBGL_ALWAYS_INDIRECT=1
 elif [[ "$myos" == "mac" ]]; then
     export PATH="/Users/ox/Library/Python/3.9/bin:$PATH"
-fi
-
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export DISABLE_AUTO_TITLE='true'
-
-export NVM_DIR="$HOME/.nvm"
-if [[ "$myos" == "mac" ]]; then
-    export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
-    export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/node@16/lib"
-    export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/node@16/include"
-    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_complet
+    alias xdg-open="open"
 else
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-[ -f "$HOME/.local/bin/ox" ] && source $HOME/.local/bin/ox
-
-if command -v brew &> /dev/null; then
-    [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
-        source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    alias open="xdg-open"
 fi
 
-if command -v mise &> /dev/null; then
-    eval "$(mise activate zsh --shims)"
-fi
-
-if command -v zoxide >/dev/null 2>&1; then
-   eval "$(zoxide init zsh)"
-fi
-
-# Functions
+# --- Functions ---
 
 # press ctrl-z again to unsuspend
 fancy-ctrl-z () {
@@ -212,22 +200,6 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
-
-if [[ "$myos" == "mac" ]]; then
-    alias xdg-open="open"
-else
-    alias open="xdg-open"
-fi
-
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-export FZF_BASE=$HOME/.fzf
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --bind=tab:down,shift-tab:up"
-export FZF_CTRL_T_COMMAND='fd'
 
 export REVIEW_BASE='master'
 
@@ -469,49 +441,13 @@ ssh-key-create() {
     ssh-keygen -t ed25519 -C "mitesh@miteshshah.com" -N "" -f "$(date +%s)"
 }
 
-export PATH="/home/ox/.pyenv/bin:$PATH"
-if command -v pyenv &> /dev/null; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
-eval "$(direnv hook zsh)"
-
-# xsetwacom set "Wacom Bamboo One S Pen eraser" MapToOutput HEAD-0
-# xsetwacom set "Wacom Bamboo One S Pen stylus" MapToOutput HEAD-0
-
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
-
-# Load custom completions from dotfiles
-fpath=($DOTFILES/shell/completions $fpath)
 autoload -Uz compinit; compinit
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
 
 # Load oh-my-zsh if installed
 #if [ -d "$ZSH" ] && [ -f "$ZSH/oh-my-zsh.sh" ]; then
 #    source $ZSH/oh-my-zsh.sh
 #fi
-
-export HISTSIZE=500000
-export SAVEHIST=$HISTSIZE
-setopt EXTENDED_HISTORY
-setopt BANG_HIST                 # Treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
-setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY             # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
-setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
-setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
-setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
-setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
-setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
-setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
-setopt HIST_BEEP                 # Beep when accessing nonexistent history.
-
-export MCFLY_FUZZY=2
-eval "$(mcfly init zsh)"
 
 alias funnelclj="clojure -Sdeps '{:deps {lambdaisland/funnel {:mvn/version \"1.4.71\"}}}' -m lambdaisland.funnel -vv"
 function tsc-error-files() {
@@ -575,7 +511,6 @@ daily_git_check() {
 
 daily_git_check
 
-
 function gcp-switch() {
   local project="$1"
   case "$project" in
@@ -597,13 +532,62 @@ function gcp-switch() {
       ;;
   esac
 }
-
 # Enable auto-completion for project names
 function _gcp-switch-completion() {
   _arguments '*: :(_values "gaiwan" "default" "itrev" "humble")'
 }
 compdef _gcp-switch-completion gcp-switch
 
+
+## --- 3rd party Initialisation ---
+
+export FZF_BASE=$HOME/.fzf
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --bind=tab:down,shift-tab:up"
+export FZF_CTRL_T_COMMAND='fd'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
+
+if command -v brew &> /dev/null; then
+    [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
+        source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if command -v mise &> /dev/null; then
+    eval "$(mise activate zsh --shims)"
+fi
+
+# [ -f ~/.z.sh ] || curl https://raw.githubusercontent.com/rupa/z/master/z.sh -o ~/.z.sh
+# [ -f ~/.z.sh ] && source ~/.z.sh
+
+if command -v zoxide >/dev/null 2>&1; then
+   eval "$(zoxide init zsh)"
+fi
+
+export NVM_DIR="$HOME/.nvm"
+if [[ "$myos" == "mac" ]]; then
+    export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
+    export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/node@16/lib"
+    export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/node@16/include"
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_complet
+else
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+
+export MCFLY_FUZZY=2
+eval "$(mcfly init zsh)"
+
+eval "$(direnv hook zsh)"
 
 # pnpm
 export PNPM_HOME="/Users/ox/Library/pnpm"
@@ -633,9 +617,9 @@ if command -v brew &> /dev/null; then
     [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 fi
 
-#;; Local Variables:
-#;; mode: sh
-#;; End:
+gcloud-source() {
+    source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+}
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/ox/.local/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ox/.local/google-cloud-sdk/path.zsh.inc'; fi
