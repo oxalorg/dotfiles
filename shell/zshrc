@@ -14,8 +14,9 @@ elif grep -iq microsoft /proc/version; then
   export DOTFILES=/c/Users/ox/Dropbox/projects/dotfiles
   export myos=wsl
 else
-  export ZSH="/home/ox/.oh-my-zsh"
-  export DOTFILES=~/Dropbox/projects/dotfiles
+  # Don't override ZSH on Linux - let system config (cachyos) set it
+  # export ZSH="/home/ox/.oh-my-zsh"
+  # export DOTFILES=~/Dropbox/projects/dotfiles
   export DOTFILES=~/projects/dotfiles
   export myos=linux
 fi
@@ -24,9 +25,9 @@ fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+# source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+#fi
 
 if [[ -f /usr/share/cachyos-zsh-config/cachyos-config.zsh ]]; then
     source /usr/share/cachyos-zsh-config/cachyos-config.zsh
@@ -78,7 +79,7 @@ if [ -d "$ZSH" ]; then
     # Example format: plugins=(rails git textmate ruby lighthouse)
     # Add wisely, as too many plugins slow down shell startup.
     plugins=(
-        git fzf fzf-tab docker docker-compose zummoner
+        git fzf docker docker-compose
     )
 fi
 
@@ -184,8 +185,9 @@ else
 fi
 [ -f "$HOME/.local/bin/ox" ] && source $HOME/.local/bin/ox
 
-if command -v zsh-autosuggestions &> /dev/null; then
-    source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if command -v brew &> /dev/null; then
+    [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
+        source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 if command -v mise &> /dev/null; then
@@ -485,9 +487,9 @@ autoload -Uz compinit; compinit
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Import FZF plugin
 
 # Load oh-my-zsh if installed
-if [ -d "$ZSH" ] && [ -f "$ZSH/oh-my-zsh.sh" ]; then
-    source $ZSH/oh-my-zsh.sh
-fi
+#if [ -d "$ZSH" ] && [ -f "$ZSH/oh-my-zsh.sh" ]; then
+#    source $ZSH/oh-my-zsh.sh
+#fi
 
 export HISTSIZE=500000
 export SAVEHIST=$HISTSIZE
@@ -801,8 +803,10 @@ unset __mamba_setup
 # <<< mamba initialize <<<
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
-[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+if command -v brew &> /dev/null; then
+    export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+    [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+fi
 
 #;; Local Variables:
 #;; mode: sh
