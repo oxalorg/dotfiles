@@ -4,6 +4,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
   pbcopy
 elif grep -iq microsoft /proc/version; then
   tee <&0 | clip.exe
+elif [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+  wl-copy
 else
   xclip -selection clipboard -in
 fi

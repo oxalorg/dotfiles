@@ -4,6 +4,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
   pbpaste
 elif grep -iq microsoft /proc/version; then
   powershell.exe Get-Clipboard | sed 's/\r$//' | sed -z '$ s/\n$//'
+elif [[ "$XDG_SESSION_TYPE" == "wayland" ]]; then
+  wl-paste --no-newline
 else
   xclip -selection clipboard -out
 fi
