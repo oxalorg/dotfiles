@@ -37,3 +37,4 @@ git/gitk
 /emacs.d/tree-sitter/
 /emacs.d/projects
 /emacs.d/.local/
+/__pycache__/
