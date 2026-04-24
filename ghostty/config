@@ -54,8 +54,9 @@
 
 # Quick terminal (drop-down from top)
 # quick-terminal-position = top
-#keybind = global:super+space=toggle_quick_terminal
+keybind = global:alt+space=toggle_quick_terminal
 quick-terminal-size = 80%
+# quick-terminal-autohide = true
 
 # Unbind alt+arrow keys
 keybind = alt+left=unbind
