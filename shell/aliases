@@ -73,7 +73,7 @@ alias agg='ag -g'
 alias agga='ag -g ""'
 alias agd='find . -type d | ag'
 alias -g AG='| ag'
-alias -g G='| grep'
+alias -g G='| rg'
 alias ftd='find . -type d'
 
 alias -g lenv='env $(cat .env | xargs)'
@@ -86,11 +86,6 @@ alias sai='sudo apt install -y'
 alias sai='sudo apt install -y'
 
 alias ghi='gh issue create -t'
-
-alias pir='pip3 install -r requirements.txt'
-alias pi='pip3 install'
-alias pf='pip3 freeze'
-# alias fd='fdfind'
 
 alias l2='ls -lt | head -n 25'
 
@@ -110,4 +105,7 @@ alias yolo="claude --dangerously-skip-permissions"
 
 alias rclone="rclone -P"
 alias k="kubectl"
-alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
+alias dl="aria2c -x 16 -s 16 -k 1M -j 10 --file-allocation=falloc"
+
+# Trash (safe rm)
+alias rm='trash-put'
