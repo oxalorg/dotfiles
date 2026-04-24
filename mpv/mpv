@@ -1,0 +1,7 @@
+  #!/bin/sh
+  export LIBVA_DRIVER_NAME=radeonsi
+  export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json
+  export DRI_PRIME=0
+  exec /usr/bin/mpv "$@"
+
+  Then chmod +x ~/.local/bin/mpv.
