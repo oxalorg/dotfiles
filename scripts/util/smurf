@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: smurf <markdown-file>" >&2
+    exit 1
+fi
+
+input="$1"
+
+if [[ ! -f "$input" ]]; then
+    echo "smurf: '$input' not found" >&2
+    exit 1
+fi
+
+base="$(basename "${input%.*}")"
+output="$(mktemp "/tmp/${base}.XXXXXX.html")"
+
+css="$(mktemp /tmp/smurf.XXXXXX.css)"
+trap 'rm -f "$css"' EXIT
+
+cat > "$css" <<'EOF'
+:root {
+    --fg: #1f2328;
+    --bg: #ffffff;
+    --muted: #656d76;
+    --accent: #0969da;
+    --border: #d0d7de;
+    --code-bg: #f6f8fa;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fg: #e6edf3;
+        --bg: #0d1117;
+        --muted: #8b949e;
+        --accent: #58a6ff;
+        --border: #30363d;
+        --code-bg: #161b22;
+    }
+}
+html { background: var(--bg); }
+body {
+    color: var(--fg);
+    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 780px;
+    margin: 2.5rem auto;
+    padding: 0 1.25rem;
+}
+h1, h2, h3, h4, h5, h6 { line-height: 1.25; margin-top: 1.8em; margin-bottom: 0.6em; }
+h1 { font-size: 2em; border-bottom: 1px solid var(--border); padding-bottom: .3em; }
+h2 { font-size: 1.5em; border-bottom: 1px solid var(--border); padding-bottom: .3em; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+p, ul, ol, blockquote, pre, table { margin: 0 0 1em; }
+blockquote {
+    color: var(--muted);
+    border-left: .25em solid var(--border);
+    padding: 0 1em;
+}
+code {
+    font-family: "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+    font-size: 85%;
+    background: var(--code-bg);
+    padding: .2em .4em;
+    border-radius: 6px;
+}
+pre {
+    background: var(--code-bg);
+    padding: 1em;
+    border-radius: 6px;
+    overflow: auto;
+}
+pre code { background: transparent; padding: 0; font-size: 90%; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid var(--border); padding: .5em .75em; }
+th { background: var(--code-bg); }
+img { max-width: 100%; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 2em 0; }
+EOF
+
+pandoc \
+    --standalone \
+    --from=gfm \
+    --to=html5 \
+    --metadata title="$base" \
+    --css="$css" \
+    --embed-resources \
+    --syntax-highlighting=pygments \
+    -o "$output" \
+    "$input"
+
+echo "smurf: $output"
+firefox "$output" >/dev/null 2>&1 &
+disown
