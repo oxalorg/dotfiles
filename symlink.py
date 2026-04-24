@@ -21,10 +21,23 @@ Platform-specific targets are supported:
 source = config
 target = ~/.config/app
 target_macos = ~/Library/Application Support/app
+
+Flatten mode: walk a source directory recursively and create one symlink
+per file, flattened by basename, under a target directory:
+
+[scripts-bin]
+mode = flatten
+source = scripts
+target = ~/.local/bin
+exclude = README.md, *archived*     ; fnmatch patterns, matched against basename and relative path
+executable = true                   ; chmod u+x each source file
+skip_macos = pbcopy, pbpaste        ; basenames to skip on macOS (also skip_linux)
+prune = true                        ; remove broken symlinks in the target dir
 """
 
 import argparse
 import configparser
+import fnmatch
 import os
 import platform
 import sys
@@ -91,6 +104,68 @@ def create_symlink(source: Path, target: Path, dry_run: bool = False, verbose: b
         return True
 
 
+def is_excluded(rel_path: Path, patterns: list[str]) -> bool:
+    """Return True if rel_path matches any fnmatch pattern (against basename or full relative path)."""
+    basename = rel_path.name
+    rel_str = str(rel_path)
+    for pattern in patterns:
+        if fnmatch.fnmatch(basename, pattern) or fnmatch.fnmatch(rel_str, pattern):
+            return True
+    return False
+
+
+def collect_flatten_files(
+    source_dir: Path, exclude: list[str], skip: list[str]
+) -> tuple[dict[str, Path], dict[str, list[Path]]]:
+    """
+    Walk source_dir and return ({basename: source_path}, {basename: [colliding_paths]}).
+
+    Files matching any exclude pattern or whose basename is in skip are omitted.
+    Basename collisions are reported separately and removed from the accepted map.
+    """
+    accepted: dict[str, Path] = {}
+    collisions: dict[str, list[Path]] = {}
+
+    for root, _dirs, files in os.walk(source_dir):
+        for name in files:
+            full = Path(root) / name
+            rel = full.relative_to(source_dir)
+            if is_excluded(rel, exclude):
+                continue
+            if name in skip:
+                continue
+            if name in accepted:
+                collisions.setdefault(name, [accepted[name]]).append(full)
+            else:
+                accepted[name] = full
+
+    for name in collisions:
+        accepted.pop(name, None)
+
+    return accepted, collisions
+
+
+def prune_broken_symlinks(target_dir: Path, dry_run: bool) -> int:
+    """Remove broken symlinks in target_dir. Returns number of links pruned."""
+    if not target_dir.is_dir():
+        return 0
+    pruned = 0
+    for entry in target_dir.iterdir():
+        if entry.is_symlink() and not entry.exists():
+            if dry_run:
+                print(f"WOULD PRUNE: {entry} (broken symlink)")
+            else:
+                entry.unlink()
+                print(f"PRUNED: {entry} (broken symlink)")
+            pruned += 1
+    return pruned
+
+
+def parse_list(value: str) -> list[str]:
+    """Parse a comma-separated INI value into a stripped list."""
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
 def load_config(config_path: Path) -> configparser.ConfigParser:
     """Load and parse the symlink.ini configuration file."""
     if not config_path.exists():
@@ -100,6 +175,52 @@ def load_config(config_path: Path) -> configparser.ConfigParser:
     config = configparser.ConfigParser()
     config.read(config_path)
     return config
+
+
+def process_flatten(
+    section_name: str,
+    section,
+    source_dir: Path,
+    target_dir: Path,
+    current_platform: str,
+    dry_run: bool,
+    verbose: bool,
+) -> tuple[int, int]:
+    """Handle a mode=flatten section. Returns (changes, errors)."""
+    if not source_dir.is_dir():
+        print(f"ERROR: [{section_name}] source is not a directory: {source_dir}", file=sys.stderr)
+        return 0, 1
+
+    exclude = parse_list(section.get("exclude", ""))
+    skip = parse_list(section.get(f"skip_{current_platform}", ""))
+    executable = section.getboolean("executable", fallback=False)
+    prune = section.getboolean("prune", fallback=False)
+
+    accepted, collisions = collect_flatten_files(source_dir, exclude, skip)
+
+    errors = 0
+    for name, paths in collisions.items():
+        paths_str = ", ".join(str(p.relative_to(source_dir)) for p in paths)
+        print(f"ERROR: [{section_name}] basename collision '{name}' from: {paths_str} — skipping", file=sys.stderr)
+        errors += 1
+
+    changes = 0
+    if prune:
+        changes += prune_broken_symlinks(target_dir, dry_run=dry_run)
+
+    for name in sorted(accepted):
+        src = accepted[name]
+        tgt = target_dir / name
+
+        if executable and not dry_run:
+            mode_bits = src.stat().st_mode
+            if not (mode_bits & 0o100):
+                src.chmod(mode_bits | 0o100)
+
+        if create_symlink(src, tgt, dry_run=dry_run, verbose=verbose):
+            changes += 1
+
+    return changes, errors
 
 
 def main():
@@ -143,31 +264,39 @@ def main():
     errors = 0
 
     for section in config.sections():
-        if "source" not in config[section]:
+        sec = config[section]
+        if "source" not in sec:
             print(f"WARNING: Section [{section}] missing source, skipping", file=sys.stderr)
             errors += 1
             continue
 
-        # Look for platform-specific target first, then fall back to default
         target_key_platform = f"target_{current_platform}"
-        if target_key_platform in config[section]:
-            target_str = config[section][target_key_platform]
-        elif "target" in config[section]:
-            target_str = config[section]["target"]
+        if target_key_platform in sec:
+            target_str = sec[target_key_platform]
+        elif "target" in sec:
+            target_str = sec["target"]
         else:
             print(f"WARNING: Section [{section}] has no target for {current_platform}, skipping", file=sys.stderr)
             errors += 1
             continue
 
-        source_rel = config[section]["source"]
-
-        # Source is relative to dotfiles root
-        source = (dotfiles_root / source_rel).resolve()
-        # Target can use ~ and env vars
+        source = (dotfiles_root / sec["source"]).resolve()
         target = expand_path(target_str)
+        mode = sec.get("mode", "link").strip().lower()
 
-        if create_symlink(source, target, dry_run=args.dry_run, verbose=args.verbose):
-            changes += 1
+        if mode == "link":
+            if create_symlink(source, target, dry_run=args.dry_run, verbose=args.verbose):
+                changes += 1
+        elif mode == "flatten":
+            sec_changes, sec_errors = process_flatten(
+                section, sec, source, target, current_platform,
+                dry_run=args.dry_run, verbose=args.verbose,
+            )
+            changes += sec_changes
+            errors += sec_errors
+        else:
+            print(f"WARNING: Section [{section}] has unknown mode '{mode}', skipping", file=sys.stderr)
+            errors += 1
 
     print(f"\n{'Would make' if args.dry_run else 'Made'} {changes} change(s)")
     if errors:
