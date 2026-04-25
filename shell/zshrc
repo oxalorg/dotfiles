@@ -14,26 +14,34 @@ elif grep -iq microsoft /proc/version; then
   export DOTFILES=/c/Users/ox/Dropbox/projects/dotfiles
   export myos=wsl
 else
-  # Don't override ZSH on Linux - let system config (cachyos) set it
-  # export ZSH="/home/ox/.oh-my-zsh"
-  # export DOTFILES=~/Dropbox/projects/dotfiles
+  export ZSH="$HOME/.oh-my-zsh"
   export DOTFILES=~/projects/dotfiles
   export myos=linux
 fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-# source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-#fi
+# Auto-install oh-my-zsh if not present (without modifying .zshrc)
+if [ ! -d "$ZSH" ]; then
+  echo "oh-my-zsh not found, installing..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+ fi
 
-if [[ -f /usr/share/cachyos-zsh-config/cachyos-config.zsh ]]; then
-    source /usr/share/cachyos-zsh-config/cachyos-config.zsh
+# if [[ -f /usr/share/cachyos-zsh-config/cachyos-config.zsh ]]; then
+#     source /usr/share/cachyos-zsh-config/cachyos-config.zsh
+# fi
+
+export TERM=xterm-kitty
+export EDITOR=emacsclient
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Auto-attach tmux in kitty quick access terminal
+if [[ -n "$KITTY_QUICK_ACCESS" && -z "$TMUX" ]]; then
+    if tmux list-sessions 2>/dev/null | grep -q .; then
+        exec tmux attach-session
+    else 
+ 	exec tmux
+    fi
 fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # --- Zsh settings ---
 export HISTSIZE=500000
@@ -78,6 +86,7 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
+export PATH=$PATH:/opt/cuda/bin
 
 # Load custom completions from dotfiles
 fpath=($DOTFILES/shell/completions $fpath)
@@ -96,14 +105,10 @@ fzf-history-widget-accept() {
 #zle -N fzf-history-widget-accept
 bindkey -M vicmd '?' fzf-history-widget-accept
 bindkey -M vicmd 'gf' fzf-cd-widget
-TERM=xterm-256color
-EDITOR=emacsclient
 autoload -z edit-command-line   # Allows C-x-e to edit command in editor
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
 export DISABLE_AUTO_TITLE='true'
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -140,15 +145,6 @@ if [ -d "$ZSH" ]; then
     plugins=(
         git fzf docker docker-compose
     )
-fi
-
-# if tmux has a session, attach to the first session, if not just launch tmux
-if [ "$TMUX" = "" ]; then
-    if [ "$(tmux list-sessions 2>/dev/null | wc -l)" -gt 0 ]; then
-        tmux attach-session -t 0
-    else
-        tmux
-    fi
 fi
 
 # Change cursor shape based on vi mode:
@@ -200,6 +196,50 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
+
+# Ctrl-X x: replace the current line with the bash command produced by `ai`
+ai-replace-buffer() {
+    [[ -z $BUFFER ]] && return
+    setopt local_options no_monitor no_notify
+
+    local tmp_out tmp_err
+    tmp_out=$(mktemp) || return
+    tmp_err=$(mktemp) || { command rm -f $tmp_out; return; }
+
+    ai "$BUFFER" >$tmp_out 2>$tmp_err &
+    local pid=$!
+
+    local frames=(⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏)
+    local i=0
+    zmodload -F zsh/zselect b:zselect 2>/dev/null
+    while kill -0 $pid 2>/dev/null; do
+        zle -R "${frames[$((i % 10 + 1))]} ai thinking..."
+        if (( $+functions[zselect] )) || zmodload zsh/zselect 2>/dev/null; then
+            zselect -t 10   # 0.1s, no fork
+        else
+            sleep 0.1
+        fi
+        (( i++ ))
+    done
+    wait $pid 2>/dev/null
+    local rc=$?
+    zle -R ''
+
+    local out err
+    out=$(<$tmp_out)
+    err=$(<$tmp_err)
+    command rm -f $tmp_out $tmp_err
+
+    if (( rc != 0 )) || [[ -z $out ]]; then
+        zle -M "ai: ${err:-failed (rc=$rc)}"
+        return
+    fi
+
+    BUFFER=$out
+    CURSOR=$#BUFFER
+}
+zle -N ai-replace-buffer
+bindkey '^Xx' ai-replace-buffer
 
 export REVIEW_BASE='master'
 
@@ -445,9 +485,9 @@ autoload -Uz compinit; compinit
 
 
 # Load oh-my-zsh if installed
-#if [ -d "$ZSH" ] && [ -f "$ZSH/oh-my-zsh.sh" ]; then
-#    source $ZSH/oh-my-zsh.sh
-#fi
+if [ -d "$ZSH" ] && [ -f "$ZSH/oh-my-zsh.sh" ]; then
+    source $ZSH/oh-my-zsh.sh
+fi
 
 alias funnelclj="clojure -Sdeps '{:deps {lambdaisland/funnel {:mvn/version \"1.4.71\"}}}' -m lambdaisland.funnel -vv"
 function tsc-error-files() {
@@ -642,3 +682,6 @@ export PATH="$PATH:/Users/ox/.lmstudio/bin"
 
 # Added by Antigravity
 export PATH="/Users/ox/.antigravity/antigravity/bin:$PATH"
+
+# llama.cpp
+export PATH="$HOME/playground/llama.cpp/build/bin:$PATH"
