@@ -1,0 +1,121 @@
+#!/usr/bin/env -S uv run --quiet --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "httpx>=0.27",
+# ]
+# ///
+"""
+ai: turn a natural-language description into a single bash command.
+
+Reads text from argv (joined) or stdin, sends it to OpenRouter with a prompt
+template, and prints only the bash command on stdout. Designed to be wired to
+a zsh widget that replaces $BUFFER with the output.
+"""
+
+import os
+import platform
+import sys
+
+import httpx
+
+MODEL = os.environ.get("AI_MODEL", "anthropic/claude-sonnet-4.5")
+API_URL = "https://openrouter.ai/api/v1/chat/completions"
+TIMEOUT = 30.0
+
+SYSTEM_PROMPT = """You translate natural-language requests into a single bash command for the user's shell.
+
+Rules:
+- Output ONLY the command itself. No prose, no explanation, no markdown fences, no leading `$`.
+- One command per response. You may chain with pipes, &&, ||, or ;.
+- Prefer POSIX/standard tools available on a typical Linux system.
+- If the request is already a valid bash command, return it unchanged (possibly cleaned up).
+- If the request is ambiguous, pick the most common interpretation.
+- Never add `sudo` unless the user clearly asked for it.
+- Do not wrap the output in quotes or code fences."""
+
+
+def build_user_prompt(text: str) -> str:
+    return (
+        f"OS: {platform.system()} {platform.release()}\n"
+        f"Shell: {os.environ.get('SHELL', '/bin/bash')}\n"
+        f"CWD: {os.getcwd()}\n\n"
+        f"Request: {text}"
+    )
+
+
+def strip_fences(s: str) -> str:
+    s = s.strip()
+    if s.startswith("```"):
+        lines = s.splitlines()
+        if lines[0].startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].strip() == "```":
+            lines = lines[:-1]
+        s = "\n".join(lines).strip()
+    if s.startswith("$ "):
+        s = s[2:]
+    return s.strip()
+
+
+def main() -> int:
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    if not api_key:
+        print("ai: OPENROUTER_API_KEY is not set", file=sys.stderr)
+        return 1
+
+    if len(sys.argv) > 1:
+        text = " ".join(sys.argv[1:])
+    elif not sys.stdin.isatty():
+        text = sys.stdin.read()
+    else:
+        print("usage: ai <description of desired command>", file=sys.stderr)
+        return 2
+
+    text = text.strip()
+    if not text:
+        print("ai: empty input", file=sys.stderr)
+        return 2
+
+    payload = {
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": build_user_prompt(text)},
+        ],
+        "temperature": 0.2,
+    }
+
+    try:
+        resp = httpx.post(
+            API_URL,
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=TIMEOUT,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+    except httpx.HTTPError as e:
+        print(f"ai: request failed: {e}", file=sys.stderr)
+        return 1
+
+    try:
+        content = data["choices"][0]["message"]["content"]
+    except (KeyError, IndexError):
+        print(f"ai: unexpected response: {data}", file=sys.stderr)
+        return 1
+
+    command = strip_fences(content)
+    if not command:
+        print("ai: model returned empty command", file=sys.stderr)
+        return 1
+
+    print(command)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
