@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit"
+  short_description: "Commit related changes with concise messages"
+  default_prompt: "Use $git-commit to commit the related changes in this worktree with a single-line message."

@@ -38,3 +38,6 @@ git/gitk
 /emacs.d/projects
 /emacs.d/.local/
 /__pycache__/
+
+# Claude Code writes claude.ai-synced skills into ~/.claude/skills
+/agents/skills/synced/

@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/ox/.tmux/plugins/codex-resurrect/codex_tmux.py hook",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

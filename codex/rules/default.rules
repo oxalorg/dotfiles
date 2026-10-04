@@ -1,0 +1,7 @@
+prefix_rule(pattern=["uv", "run", "python"], decision="allow")
+prefix_rule(pattern=["uv", "add"], decision="allow")
+prefix_rule(pattern=["uv", "run", "pytest"], decision="allow")
+prefix_rule(pattern=["git", "diff", "--check"], decision="allow")
+prefix_rule(pattern=["openrgb"], decision="allow")
+prefix_rule(pattern=["git", "add", "-p"], decision="allow")
+prefix_rule(pattern=["curl", "-L", "--fail", "--silent", "--show-error"], decision="allow")
