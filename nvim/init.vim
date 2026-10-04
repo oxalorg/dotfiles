@@ -56,7 +56,6 @@ nnoremap <C-H> <C-W><C-H>
 set hidden
 set encoding=utf-8 ignorecase smartcase ruler number relativenumber
 filetype plugin indent on
-set pastetoggle=<F3>
 set updatetime=200
 set nofixendofline
 set expandtab smarttab tabstop=4 softtabstop=4 shiftwidth=4
