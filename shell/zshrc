@@ -29,7 +29,7 @@ if [ ! -d "$ZSH" ]; then
 #     source /usr/share/cachyos-zsh-config/cachyos-config.zsh
 # fi
 
-export TERM=xterm-kitty
+# export TERM=xterm-kitty
 export EDITOR=emacsclient
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -50,6 +50,7 @@ setopt EXTENDED_HISTORY
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt inc_append_history_time   # Write the time taken to execute the cmd
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
 setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
@@ -79,7 +80,6 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="/opt/gradle/bin:$PATH"
 [ -f ~/.rbenv/bin/rbenv ] && eval "$(rbenv init -)"
 export PATH="$PATH:$HOME/.babashka/bbin/bin"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
@@ -114,8 +114,6 @@ export DISABLE_AUTO_TITLE='true'
 # export MANPATH="/usr/local/man:$MANPATH"
 # export LANG=en_US.UTF-8
 # export ARCHFLAGS="-arch x86_64"
-export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/llvm/include"
 export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/zstd/lib"
 export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/zstd/include"
 
@@ -177,6 +175,9 @@ if [[ "$myos" == "wsl" ]]; then
     export LIBGL_ALWAYS_INDIRECT=1
 elif [[ "$myos" == "mac" ]]; then
     export PATH="/Users/ox/Library/Python/3.9/bin:$PATH"
+    export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+    export LDFLAGS="${LDFLAGS} -L/opt/homebrew/opt/llvm/lib"
+    export CPPFLAGS="${CPPFLAGS} -I/opt/homebrew/opt/llvm/include"
     alias xdg-open="open"
 else
     alias open="xdg-open"
@@ -276,6 +277,14 @@ function ligit() {
  DIR=~/projects/"$1"
  git clone git@github.com:lambdaisland/"$1".git "$DIR" || cd "$DIR" && git pull
  cd "$DIR"
+}
+
+expectupdates() {
+expect << EOF
+  spawn yay -Syu
+  expect_background -ex "Proceed with installation" {send "y\n"}
+  interact
+EOF
 }
 
 function og() {
@@ -627,6 +636,49 @@ function y() {
 export MCFLY_FUZZY=2
 eval "$(mcfly init zsh)"
 
+# --- Tmux smart window naming ---
+# Rename tmux windows based on the typed command, not the underlying process
+# (e.g. show "codex" instead of "node" for Node-based CLIs).
+if [[ -n "$TMUX" ]]; then
+  function _tmux_preexec_rename() {
+    local cmd="$1"
+    local words=(${(z)cmd})
+    local name=""
+
+    # Skip leading environment variable assignments to find the actual command
+    for w in "${words[@]}"; do
+      if [[ "$w" != *=* ]]; then
+        name="$w"
+        break
+      fi
+    done
+
+    # If the command is run through sudo/su/env, jump to the real command
+    case "$name" in
+      sudo|doas|su|env|nohup|time|ssh)
+        for w in "${words[@]:1}"; do
+          if [[ "$w" != -* && "$w" != *=* ]]; then
+            name="$w"
+            break
+          fi
+        done
+        ;;
+    esac
+
+    name="${name##*/}"  # strip path, keep basename
+    [[ -n "$name" ]] && tmux rename-window "$name" 2>/dev/null
+  }
+
+  function _tmux_precmd_rename() {
+    # When idle (at the prompt), show the current directory name
+    tmux rename-window "$(basename "$PWD")" 2>/dev/null
+  }
+
+  autoload -Uz add-zsh-hook
+  add-zsh-hook preexec _tmux_preexec_rename
+  add-zsh-hook precmd _tmux_precmd_rename
+fi
+
 eval "$(direnv hook zsh)"
 
 # pnpm
@@ -685,3 +737,9 @@ export PATH="/Users/ox/.antigravity/antigravity/bin:$PATH"
 
 # llama.cpp
 export PATH="$HOME/playground/llama.cpp/build/bin:$PATH"
+
+# kimi-code
+export PATH="/home/ox/.kimi-code/bin:$PATH"
+
+# optmem
+export PATH="$HOME/.optmem:$PATH"

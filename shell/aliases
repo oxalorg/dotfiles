@@ -4,7 +4,35 @@ alias drop='cd /c/Users/ox/Dropbox'
 # Needs to be DONE
 export EDITOR=nvim
 export VISUAL=nvim
-alias e="emacsclient -n"
+# Open files with the running Emacs daemon and focus the Emacs window.
+e() {
+  emacsclient -n "$@" 2>/dev/null || return $?
+
+  case "$OSTYPE" in
+    linux*)
+      if [[ -n "$DISPLAY" ]]; then
+        if command -v xdotool >/dev/null 2>&1; then
+          local wid
+          wid=$(xdotool search --class Emacs 2>/dev/null | tail -n 1)
+          if [[ -n "$wid" ]]; then
+            xdotool windowactivate --sync "$wid" 2>/dev/null || \
+              xdotool windowraise "$wid" 2>/dev/null || true
+          fi
+        elif command -v wmctrl >/dev/null 2>&1; then
+          wmctrl -x -a Emacs 2>/dev/null || \
+            wmctrl -a "GNU Emacs" 2>/dev/null || true
+        fi
+
+        # Ask Emacs itself to take focus (works on X11 and some Wayland setups).
+        emacsclient -n -e "(progn (select-frame-set-input-focus (selected-frame)) (raise-frame))" >/dev/null 2>&1 || true
+      fi
+      ;;
+    darwin*)
+      emacsclient -n -e "(progn (select-frame-set-input-focus (selected-frame)) (raise-frame))" >/dev/null 2>&1 || true
+      ;;
+  esac
+}
+
 alias v="$EDITOR"
 alias et="$EDITOR /projects/todo/todo.txt"
 alias ett="$EDITOR /projects/todo/completed.txt"
@@ -109,3 +137,6 @@ alias dl="aria2c -x 16 -s 16 -k 1M -j 10 --file-allocation=falloc"
 
 # Trash (safe rm)
 alias rm='trash-put'
+alias pacman-browse="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
+
+alias ssh='TERM=screen-256color ssh'
